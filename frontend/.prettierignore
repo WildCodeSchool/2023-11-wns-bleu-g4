@@ -1,0 +1,8 @@
+# Commonly ignored Node.js files
+node_modules
+npm-debug.log
+.npm
+
+# Next.js Build Output
+.next
+build

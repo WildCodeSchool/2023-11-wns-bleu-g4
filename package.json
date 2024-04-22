@@ -1,0 +1,11 @@
+{
+  "name": "next-template",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "docker compose up --build"
+  },
+  "author": "Jeremy Dohin",
+  "license": "MIT"
+}
