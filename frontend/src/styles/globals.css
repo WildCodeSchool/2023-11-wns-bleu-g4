@@ -2,26 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	--foreground-rgb: 0, 0, 0;
-	--background-start-rgb: 214, 219, 220;
-	--background-end-rgb: 255, 255, 255;
+*,
+::before,
+::after {
+	border-style: none;
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--foreground-rgb: 255, 255, 255;
-		--background-start-rgb: 0, 0, 0;
-		--background-end-rgb: 0, 0, 0;
-	}
+/* Firefox */
+* {
+	scrollbar-width: thumb;
+	scrollbar-color: transparent;
 }
 
-body {
-	color: rgb(var(--foreground-rgb));
-	background: linear-gradient(
-			to bottom,
-			transparent,
-			rgb(var(--background-end-rgb))
-		)
-		rgb(var(--background-start-rgb));
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+	background: theme("colors.cactus.950");
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: theme("colors.accent");
+	border-radius: 1rem;
+	border: 1px solid theme("colors.cactus.950");
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-weight: 400;
+	src: url("/../fonts/poppins-400.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Poppins";
+	font-weight: 500;
+	src: url("/../fonts/poppins-500.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Poppins";
+	font-weight: 600;
+	src: url("/../fonts/poppins-600.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Poppins";
+	font-weight: 700;
+	src: url("/../fonts/poppins-700.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Nunito";
+	font-weight: 300;
+	src: url("/../fonts/nunito-300.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Nunito";
+	font-weight: 400;
+	src: url("/../fonts/nunito-400.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Nunito";
+	font-weight: 500;
+	src: url("/../fonts/nunito-500.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Nunito";
+	font-weight: 600;
+	src: url("/../fonts/nunito-600.ttf") format("truetype");
+}
+@font-face {
+	font-family: "Nunito";
+	font-weight: 700;
+	src: url("/../fonts/nunito-700.ttf") format("truetype");
+}
+
+h1 {
+	font-family: theme(fontFamily.header);
+	font-size: theme(fontSize.4xl);
+	font-weight: 700;
+}
+
+h2 {
+	font-family: theme(fontFamily.header);
+	font-size: theme(fontSize.3xl);
+	font-weight: 600;
+}
+
+h3 {
+	font-family: theme(fontFamily.header);
+	font-size: theme(fontSize.2xl);
+	font-weight: 500;
+}
+
+h4 {
+	font-family: theme(fontFamily.header);
+	font-size: theme(fontSize.xl);
+	font-weight: 400;
 }
