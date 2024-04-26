@@ -3,8 +3,8 @@ services:
     stop_grace_period: 0s
     image: postgres:15-alpine
     environment:
-      POSTGRES_PASSWORD: postgres
-      PGUSER: postgres
+      POSTGRES_PASSWORD: ${DB_PASS-postgres}
+      PGUSER: ${DB_USER-postgres}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 10s
@@ -17,7 +17,10 @@ services:
     stop_grace_period: 0s
     env_file: backend/.env
     environment:
-      - DB_HOST=db
+      DB_HOST: db
+      DB_PASS: ${DB_PASS-postgres}
+      DB_USER: ${DB_USER-postgres}
+      NODE_ENV: ${NODE_ENV:-production}
     depends_on:
       db:
         condition: service_healthy
