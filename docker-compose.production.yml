@@ -1,0 +1,52 @@
+services:
+  db:
+    stop_grace_period: 0s
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      PGUSER: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5432:5432
+
+  backend:
+    stop_grace_period: 0s
+    env_file: backend/.env
+    environment:
+      - DB_HOST=db
+    depends_on:
+      db:
+        condition: service_healthy
+    build:
+      context: backend
+      dockerfile: Dockerfile.production
+    volumes:
+      - ./backend/src:/app/src/
+
+  frontend:
+    stop_grace_period: 0s
+    env_file: frontend/.env
+    build:
+      context: frontend
+      dockerfile: Dockerfile.production
+    volumes:
+      - ./frontend/src:/app/src/
+
+  upload:
+    stop_grace_period: 0s
+    build: upload
+    volumes:
+      - ./upload/files:/app/files/
+
+  gateway:
+    stop_grace_period: 0s
+    restart: always
+    build:
+      context: gateway
+      dockerfile: Dockerfile.production
+    ports:
+      - ${GATEWAY_PORT:-80}:80
