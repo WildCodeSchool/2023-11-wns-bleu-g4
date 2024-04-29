@@ -8,6 +8,7 @@ COPY public ./public
 COPY .env ./.env
 COPY tsconfig.json ./tsconfig.json
 COPY next-env.d.ts ./next-env.d.ts
-COPY *.config.{js,ts} ./
+COPY postcss.config.js ./postcss.config.js
+COPY tailwind.config.ts ./tailwind.config.ts
 
 CMD npm run dev
