@@ -21,6 +21,8 @@
 *.pem
 .eslintcache
 .prettiercache
+.idea
+.vscode
 
 # debug
 npm-debug.log*
