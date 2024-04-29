@@ -11,7 +11,7 @@ interface LayoutProps {
 
 export default function Layout({ children, pageTitle }: LayoutProps) {
 	return (
-		<Layout>
+		<>
 			<Head>
 				<title>Next Template - {pageTitle}</title>
 				<meta name="description" content="ads website" />
@@ -26,6 +26,7 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
 				{children}
 			</main>
 			<Footer />
-		</Layout>
+
+		</>
 	);
 }
