@@ -38,6 +38,7 @@ services:
       dockerfile: Dockerfile.production
     volumes:
       - ./frontend/src:/app/src/
+      - ./frontend/public:/app/public/
 
   upload:
     stop_grace_period: 0s
