@@ -6,13 +6,13 @@ export default function ThemeToggle() {
 
 	return (
 		<>
-			<SunIcon width={32} />
+			<SunIcon width={22} />
 			<Switch
-				size="md"
+				size="sm"
 				isChecked={colorMode === "dark"}
 				onChange={toggleColorMode}
 			/>
-			<MoonIcon width={26} />
+			<MoonIcon width={18} />
 		</>
 	);
 }

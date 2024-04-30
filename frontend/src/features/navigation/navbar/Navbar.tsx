@@ -6,9 +6,9 @@ import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 export default function Navbar() {
 	return (
-		<nav className="inline-flex h-32 w-full justify-between border-b border-zinc-300 px-5 pb-5 pt-8">
+		<nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
 			<ul className="flex w-full items-center justify-start gap-8">
-				<div className="flex h-full grow">
+				<div className="flex grow">
 					<ThemedLogo />
 				</div>
 
@@ -17,7 +17,7 @@ export default function Navbar() {
 					<Menu>
 						<MenuButton
 							as={Button}
-							size="lg"
+							size="sm"
 							leftIcon={<UserCircleIcon width={24} />}
 							variant="profilButton"
 						>

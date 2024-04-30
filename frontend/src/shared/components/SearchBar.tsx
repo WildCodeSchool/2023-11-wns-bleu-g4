@@ -35,7 +35,7 @@ export default function SearchBar({ onSearch, placeholder }: SearchBarProps) {
 			<input
 				type="search"
 				placeholder={placeholder}
-				className=" flex h-12 w-3/4 items-center rounded-full border-b-2 border-accent bg-neutral-100 px-4 py-1 pr-20 text-base text-black focus:border-2 focus:border-accent focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+				className=" flex h-8 w-1/2 items-center rounded-full border-b-2 border-accent bg-neutral-100/20 px-4 py-1 pr-20 text-base focus:border-2 focus:border-accent focus:outline-none [&::-webkit-search-cancel-button]:hidden"
 				value={query}
 				onChange={handleInputChange}
 				onKeyDown={(e) => {
@@ -49,14 +49,14 @@ export default function SearchBar({ onSearch, placeholder }: SearchBarProps) {
 					className="absolute right-11 top-1/2 -translate-y-1/2 transform cursor-pointer"
 					onClick={handleClearInput}
 				>
-					<XMarkIcon className="dark h-6 w-6" />
+					<XMarkIcon className="dark h-4 w-4" />
 				</div>
 			)}
 			<div
 				className="absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer"
 				onClick={handleIconClick}
 			>
-				<MagnifyingGlassIcon className="dark h-6 w-6" />
+				<MagnifyingGlassIcon className="dark h-4 w-4" />
 			</div>
 		</div>
 	);
