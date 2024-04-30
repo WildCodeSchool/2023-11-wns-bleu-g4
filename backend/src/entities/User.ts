@@ -12,7 +12,7 @@ import { hash } from "argon2"
 
 export enum UserRole {
 	ADMIN = "admin",
-	USER = "user",
+	CUSTOMER = "customer",
 	VISITOR = "visitor",
 }
 
@@ -36,7 +36,31 @@ export class User extends BaseEntity {
 
 	@Field()
 	@Column()
-	nickname: string
+	name: string
+
+	@Field()
+	@Column()
+	firstname: string
+
+	@Field()
+	@Column()
+	address: string
+
+	@Field()
+	@Column()
+	postcode: string
+
+	@Field()
+	@Column()
+	city: string
+
+	@Field()
+	@Column()
+	country: string
+
+	@Field()
+	@Column()
+	phone: string
 
 	@Column()
 	hashedPassword: string
@@ -48,10 +72,10 @@ export class User extends BaseEntity {
 	@Field()
 	avatar: string
 
-	//   Missing rent field - need to update
-	//   @Field(() => Rent[])
-	//   @OneToMany(() => Rent, (rent) => rent.user)
-	//   rents: Rent[];
+	//   Missing Booking field - need to update
+	//   @Field(() => Booking[])
+	//   @OneToMany(() => Booking, (booking) => booking.user)
+	//   bookings: Booking[];
 
 	@Field()
 	@Column({ enum: UserRole, default: UserRole.VISITOR })
@@ -70,14 +94,6 @@ export class NewUserInput {
 	@Field()
 	email: string
 
-	@Length(2, 30)
-	@Field()
-	nickname: string
-
-	@Length(2, 30)
-	@Field({ nullable: true })
-	avatar?: string
-
 	@Field()
 	@IsStrongPassword()
 	password: string
@@ -85,9 +101,33 @@ export class NewUserInput {
 
 @InputType()
 export class UpdateUserInput {
+	@Length(2, 50)
+	@Field({ nullable: true })
+	name?: string
+
+	@Length(2, 50)
+	@Field({ nullable: true })
+	firstname?: string
+
+	@Length(2, 255)
+	@Field({ nullable: true })
+	address: string
+
 	@Length(2, 30)
 	@Field({ nullable: true })
-	nickname?: string
+	postcode: string
+
+	@Length(2, 255)
+	@Field({ nullable: true })
+	city: string
+
+	@Length(2, 50)
+	@Field({ nullable: true })
+	country: string
+
+	@Length(2, 20)
+	@Field({ nullable: true })
+	phone: string
 
 	@Length(2, 255)
 	@Field({ nullable: true })
