@@ -1,9 +1,9 @@
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 
-export default function Admin() {
+export default function Customers() {
     return (
         <LayoutAdmin>
-            <h1>This is Admin</h1>
+            <h1>Customer list</h1>
         </LayoutAdmin>
     )
 };
