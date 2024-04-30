@@ -22,11 +22,8 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
 				<Navbar />
 				<SubNavbar />
 			</header>
-			<main>
-				{children}
-			</main>
+			<main className="md:px-[6.25rem] md:py-[3.125rem]">{children}</main>
 			<Footer />
-
 		</>
 	);
 }
