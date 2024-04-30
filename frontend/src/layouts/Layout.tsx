@@ -1,5 +1,5 @@
 import Footer from "@/features/navigation/Footer";
-import Navbar from "@/features/navigation/Navbar";
+import Navbar from "@/features/navigation/navbar/Navbar";
 import SubNavbar from "@/features/navigation/SubNavbar";
 import Head from "next/head";
 import { ReactNode } from "react";
