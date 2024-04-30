@@ -4,11 +4,6 @@ const config: Config = {
 	content: ["./src/**/**/*.{css,js,ts,tsx,mdx}"],
 	theme: {
 		extend: {
-			backgroundImage: {
-				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-				"gradient-conic":
-					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-			},
 			colors: {
 				cactus: {
 					"50": "#E1E7E1",
@@ -28,10 +23,10 @@ const config: Config = {
 				accent: "#E66300",
 				babyGreen: "#B2E6C7",
 			},
-		},
-		fontFamily: {
-			header: ['"Poppins"', "sans-serif"],
-			sans: ['"Nunito"', "sans-serif"],
+			fontFamily: {
+				header: ['"Poppins"', "sans-serif"],
+				sans: ['"Nunito"', "sans-serif"],
+			},
 		},
 	},
 	plugins: [],
