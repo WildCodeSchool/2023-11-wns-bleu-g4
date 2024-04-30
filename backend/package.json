@@ -5,7 +5,7 @@
 	"main": "index.ts",
 	"scripts": {
 		"start": "ts-node-dev ./src/index.ts",
-		"resetDB": "ts-node-dev",
+		"resetDB": "ts-node-dev src/resetDb.ts",
 		"dev": "nodemon --legacy-watch src/index.ts",
 		"build": "tsc",
 		"prod": "node build/index.js"
