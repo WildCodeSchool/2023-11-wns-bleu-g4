@@ -1,3 +1,4 @@
+import SideNavbar from "@/features/navigation/components/SideNavbar";
 import Head from "next/head";
 import { ReactNode } from "react";
 
@@ -15,6 +16,7 @@ export default function LayoutAdmin({ children, pageTitle }: LayoutProps) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className="flex h-[100vh]">
+				<SideNavbar />
 				<main className="overflow-y-auto p-6">{children}</main>
 			</div>
 		</>

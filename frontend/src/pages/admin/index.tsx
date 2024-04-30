@@ -1,7 +1,9 @@
+import LayoutAdmin from "@/layouts/LayoutAdmin";
+
 export default function Admin() {
     return (
-        <div>
+        <LayoutAdmin>
             <h1>This is Admin</h1>
-        </div>
+        </LayoutAdmin>
     )
 };
