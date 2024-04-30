@@ -3,8 +3,8 @@ import { Card, useColorModeValue } from "@chakra-ui/react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import Facebook from "../../../public/svg/facebook.svg";
-import Instagram from "../../../public/svg/instagram.svg";
+import Facebook from "@public/svg/facebook.svg";
+import Instagram from "@public/svg/instagram.svg";
 
 export default function Footer() {
 	type Footer = {
