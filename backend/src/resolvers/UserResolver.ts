@@ -60,11 +60,16 @@ class UserResolver {
 		@Ctx() ctx: Context,
 		@Arg("data", { validate: true }) data: UpdateUserInput
 	) {
-		if (!ctx.currentUser)
-			throw new GraphQLError("you need to be logged in to updateyour profile")
+		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
 
+		if (data.name) ctx.currentUser.name = data.name
+		if (data.firstname) ctx.currentUser.firstname = data.firstname
+		if (data.address) ctx.currentUser.address = data.address
+		if (data.postcode) ctx.currentUser.postcode = data.postcode
+		if (data.city) ctx.currentUser.city = data.city
+		if (data.country) ctx.currentUser.country = data.country
+		if (data.phone) ctx.currentUser.phone = data.phone
 		if (data.avatar) ctx.currentUser.avatar = data.avatar
-		if (data.nickname) ctx.currentUser.nickname = data.nickname
 
 		return ctx.currentUser.save()
 	}
