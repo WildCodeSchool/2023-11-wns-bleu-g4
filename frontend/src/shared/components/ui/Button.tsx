@@ -20,6 +20,43 @@ const profilButton = defineStyle({
 	}, // change the background color darkMode
 });
 
+const cartButton = defineStyle({
+	color: "light", // change the text color,
+	bg: "accent",
+	_dark: {
+		background: "accent",
+		color: "white",
+	},
+	_hover: {
+		bg: "accent",
+		_dark: {
+			bg: "accent",
+		},
+	},
+});
+
+const subNavButton = defineStyle({
+	color: "black", // change the text color,
+	bg: "white",
+	_dark: {
+		background: "black",
+		color: "white",
+	},
+	_hover: {
+		bg: "cactus.500",
+		color: "white",
+		_dark: {
+			bg: "cactus.500",
+			color: "white",
+		},
+	},
+});
+
 export const buttonTheme = defineStyleConfig({
-	variants: { outline, profilButton },
+	variants: {
+		outline,
+		profilButton,
+		cartButton,
+		subNavButton,
+	},
 });
