@@ -15,6 +15,9 @@ const baseStyle = definePartsStyle({
 		border: "2px solid #E66300",
 		_checked: {
 			bg: "gray.100",
+			_dark: {
+				bg: { base: "gray.100", md: "gray.800" },
+			},
 		},
 	},
 });

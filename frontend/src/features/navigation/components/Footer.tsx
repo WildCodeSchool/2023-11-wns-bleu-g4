@@ -1,10 +1,7 @@
 import ThemedLogo from "@/shared/components/ThemedLogo";
 import { Card, useColorModeValue } from "@chakra-ui/react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
 import Link from "next/link";
-import Facebook from "@public/svg/facebook.svg";
-import Instagram from "@public/svg/instagram.svg";
 
 export default function Footer() {
 	type Footer = {
@@ -43,7 +40,7 @@ export default function Footer() {
 
 	return (
 		<footer className=" w-screen md:px-[6.25rem] md:py-[3.125rem]">
-			<Card direction={{ base: "column", md: "row" }} className="py-2">
+			<Card variant="footerCard" direction={{ base: "column", md: "row" }}>
 				{/**About Us */}
 				<ul className="w-full space-y-2 p-3 md:w-1/3">
 					<li className="font-normal text-slate-500">About us</li>
@@ -76,13 +73,7 @@ export default function Footer() {
 							className="flex items-center gap-2"
 						>
 							Facebook
-							<Image
-								src={Facebook}
-								alt="facebook icon"
-								width={18}
-								height={18}
-								className="dark:bg-white"
-							/>
+							<ThemedLogo type="facebook" alt="Facebook Logo" />
 							<ArrowTopRightOnSquareIcon width={18} height={18} />
 						</Link>
 						<div
@@ -96,13 +87,7 @@ export default function Footer() {
 							className="flex items-center gap-2"
 						>
 							Instagram
-							<Image
-								src={Instagram}
-								alt="facebook icon"
-								width={18}
-								height={18}
-								className="dark:bg-white"
-							/>
+							<ThemedLogo type="instagram" alt="Instagram Logo" />
 							<ArrowTopRightOnSquareIcon width={18} height={18} />
 						</Link>
 						<div
