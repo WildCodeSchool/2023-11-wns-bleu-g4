@@ -7,6 +7,7 @@ const { definePartsStyle, defineMultiStyleConfig } =
 const footerCard = definePartsStyle({
 	// define the part you're going to style
 	container: {
+		height:'fit-content',
 		backgroundColor: "footerBgLight",
 		borderRadius: "10px",
 		px: { base: "0", md: "7" },
@@ -27,7 +28,6 @@ const footerCard = definePartsStyle({
 });
 
 const loginCard = definePartsStyle({
-	// define the part you're going to style
 	container: {
 	  borderRadius: "1rem",
 	  backgroundColor: 'cardBgLight',

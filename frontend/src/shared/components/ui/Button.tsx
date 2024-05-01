@@ -55,6 +55,7 @@ const subNavButton = defineStyle({
 const loginButton = defineStyle({
 	color: "light",
 	bg: "accent",
+	borderRadius:'lg',
 	_hover: {
 		bg: "orange.400"
 	}, 
