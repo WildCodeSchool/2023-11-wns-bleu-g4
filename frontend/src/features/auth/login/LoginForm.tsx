@@ -25,7 +25,7 @@ export default function LoginForm() {
         <Card 
         variant='loginCard' 
         boxShadow='md' 
-        gap="40px" 
+        gap="10px" 
         size="lg" 
         w="396px"
         className="z-50" >

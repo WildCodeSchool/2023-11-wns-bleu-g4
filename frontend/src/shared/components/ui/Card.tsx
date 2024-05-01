@@ -26,6 +26,35 @@ const footerCard = definePartsStyle({
 	},
 });
 
+const loginCard = definePartsStyle({
+	// define the part you're going to style
+	container: {
+	  borderRadius: "1rem",
+	  backgroundColor: 'cardBgLight',
+	  _dark: {
+		backgroundColor: 'bgDark',
+		borderWidth:'1px',
+		borderColor:'cardBgLight'
+	  }
+	},
+	header: {
+	  fontWeight: '500',
+	  fontSize: '24px',
+	},
+	body: {
+	  color: 'dark',
+	  _dark: {
+		color: 'light'
+	  }
+	},
+	footer: {
+	  color: 'light',
+	  _dark: {
+		color: 'light'
+	  }
+	},
+  })
+
 const sizes = {
 	md: definePartsStyle({
 		container: {
@@ -38,5 +67,6 @@ export const cardTheme = defineMultiStyleConfig({
 	sizes,
 	variants: {
 		footerCard,
+		loginCard
 	},
 });
