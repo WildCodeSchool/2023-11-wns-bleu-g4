@@ -5,6 +5,8 @@ import { ApolloProvider } from "@apollo/client";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 function App({ Component, pageProps }: AppProps) {
 	return (
@@ -12,6 +14,7 @@ function App({ Component, pageProps }: AppProps) {
 			<ChakraProvider theme={theme}>
 				<ColorModeScript initialColorMode={theme.config.initialColorMode} />
 				<Component {...pageProps} />
+				<ToastContainer/>
 			</ChakraProvider>
 		</ApolloProvider>
 	);
