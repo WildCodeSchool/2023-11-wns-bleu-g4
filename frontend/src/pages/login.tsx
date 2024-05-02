@@ -8,14 +8,14 @@ export default function Login() {
     return (
         <Layout>
             <Container
-                bgImage={{md : urlBg}}
+                bgImage={{lg : urlBg}}
                 centerContent
                 backgroundPosition="center"
                 objectFit='contain'
                 backgroundRepeat="no-repeat"
-                w='w-screen'
+                // w='w-screen'
                 position="relative"
-                py="100px"
+                py={{md:"100px"}}
                 maxW='1440'
                 maxH='720'
                 borderRadius='1.5rem'

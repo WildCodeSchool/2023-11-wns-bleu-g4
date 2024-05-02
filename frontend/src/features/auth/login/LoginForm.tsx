@@ -14,8 +14,10 @@ import {
     InputRightElement,
     InputGroup,
     LightMode,
+    Divider,
 } from '@chakra-ui/react'
 import { useLoginMutation } from '../../../graphql/generated/schema';
+import Link from 'next/link';
 
 export default function LoginForm() {
 
@@ -51,12 +53,13 @@ export default function LoginForm() {
 
     return (
         <>
-            <Card variant='loginCard' boxShadow='md' w={{md:"396px"}} zIndex='5' h='fit-content'>
+            <Card variant='loginCard' boxShadow='md' w={{base:"300px", sm:'396px'}} zIndex='5' h='fit-content'>
                 {/* TITLE */}
                 <CardHeader>
-                    <Text className='text-center tracking-widest font-light'>LOGIN</Text>
+                    <Text className='text-center tracking-widest'>LOGIN</Text>
                 </CardHeader>
 
+                <Divider/>
                 <form onSubmit={handleSubmit}>
 
                     <CardBody>
@@ -95,9 +98,9 @@ export default function LoginForm() {
                                 </FormControl>
 
                                 {/* FORGOT PASSWORD */}
-                                <Text className='text-sm text-center py-2'>
+                                <Text className=' text-center py-2'>
                                     Forgot your password ?&nbsp;
-                                    <a href="#" className="underline text-orange-500">click here</a>
+                                    <Link href="#" className="underline text-orange-500">click here</Link>
                                 </Text>
                             </Box>
 

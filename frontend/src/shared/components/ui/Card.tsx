@@ -33,7 +33,7 @@ const loginCard = definePartsStyle({
 	  backgroundColor: 'cardBgLight',
 	  _dark: {
 		backgroundColor: 'bgDark',
-		borderWidth:'1px',
+		border:'1px',
 		borderColor:'cardBgLight'
 	  }
 	},
