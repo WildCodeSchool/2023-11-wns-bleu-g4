@@ -3,7 +3,7 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
-	OneToMany,
+	ManyToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import Product from "./Product"
@@ -19,7 +19,7 @@ export class Category extends BaseEntity {
 	@Field()
 	name: string
 
-	@OneToMany(() => Product, (product) => product.category)
+	@ManyToMany(() => Product, (product) => product.category)
 	products: Product[]
 }
 

@@ -4,7 +4,8 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
-	ManyToOne,
+	JoinTable,
+	ManyToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { ObjectId } from "../utils"
@@ -40,12 +41,13 @@ export class Product extends BaseEntity {
 	})
 	thumbnail: string
 
-	@ManyToOne(() => Category, (c) => c.products, {
+	@JoinTable()
+	@ManyToMany(() => Category, (c) => c.products, {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-	@Field()
-	category: Category
+	@Field(() => [Category])
+	category: Category[]
 
 	// @ManyToOne(() => Rating, (r) => r.products, {
 	//     cascade: true,
