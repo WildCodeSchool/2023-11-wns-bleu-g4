@@ -1,4 +1,4 @@
-import { db } from "./db"
+import db from "./db"
 import User, { UserRole } from "./entities/User"
 
 export async function clearDB() {
