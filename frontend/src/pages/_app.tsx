@@ -7,14 +7,14 @@ import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 
 function App({ Component, pageProps }: AppProps) {
-	return (
-		<ApolloProvider client={client}>
-			<ChakraProvider theme={theme}>
-				<ColorModeScript initialColorMode={theme.config.initialColorMode} />
-				<Component {...pageProps} />
-			</ChakraProvider>
-		</ApolloProvider>
-	);
+  return (
+    <ApolloProvider client={client}>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </ApolloProvider>
+  );
 }
 
 // Disabling SSR
