@@ -1,55 +1,55 @@
-import { cardAnatomy } from '@chakra-ui/anatomy';
-import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
+import { cardAnatomy } from "@chakra-ui/anatomy";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(cardAnatomy.keys);
 
 const footerCard = definePartsStyle({
   // define the part you're going to style
   container: {
-    height: 'fit-content',
-    backgroundColor: 'footerBgLight',
-    borderRadius: '10px',
-    px: { base: '0', md: '7' },
-    py: '2',
+    height: "fit-content",
+    backgroundColor: "footerBgLight",
+    borderRadius: "10px",
+    px: { base: "0", md: "7" },
+    py: "2",
     _dark: {
-      backgroundColor: 'footerBgDark',
+      backgroundColor: "footerBgDark",
     },
   },
   header: {
-    paddingBottom: '2px',
+    paddingBottom: "2px",
   },
   body: {
-    paddingTop: '2px',
+    paddingTop: "2px",
   },
   footer: {
-    paddingTop: '2px',
+    paddingTop: "2px",
   },
 });
 
 const loginCard = definePartsStyle({
   container: {
-    borderRadius: '1rem',
-    backgroundColor: 'cardBgLight',
+    borderRadius: "1rem",
+    backgroundColor: "cardBgLight",
     _dark: {
-      backgroundColor: 'bgDark',
-      border: '1px',
-      borderColor: 'cardBgLight',
+      backgroundColor: "bgDark",
+      border: "1px",
+      borderColor: "cardBgLight",
     },
   },
   header: {
-    fontWeight: '500',
-    fontSize: '24px',
+    fontWeight: "500",
+    fontSize: "24px",
   },
   body: {
-    color: 'dark',
+    color: "dark",
     _dark: {
-      color: 'light',
+      color: "light",
     },
   },
   footer: {
-    color: 'light',
+    color: "light",
     _dark: {
-      color: 'light',
+      color: "light",
     },
   },
 });
@@ -57,7 +57,7 @@ const loginCard = definePartsStyle({
 const sizes = {
   md: definePartsStyle({
     container: {
-      borderRadius: '0px',
+      borderRadius: "0px",
     },
   }),
 };

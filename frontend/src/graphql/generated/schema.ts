@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -22,21 +22,21 @@ export type Scalars = {
 };
 
 export type LoginInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+  email: Scalars["String"];
+  password: Scalars["String"];
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  confirmEmail: Scalars['String'];
+  __typename?: "Mutation";
+  confirmEmail: Scalars["String"];
   createUser: User;
-  login: Scalars['String'];
-  logout: Scalars['String'];
+  login: Scalars["String"];
+  logout: Scalars["String"];
   updateProfile: User;
 };
 
 export type MutationConfirmEmailArgs = {
-  token: Scalars['String'];
+  token: Scalars["String"];
 };
 
 export type MutationCreateUserArgs = {
@@ -52,46 +52,46 @@ export type MutationUpdateProfileArgs = {
 };
 
 export type NewUserInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+  email: Scalars["String"];
+  password: Scalars["String"];
 };
 
 export type Query = {
-  __typename?: 'Query';
+  __typename?: "Query";
   profile: User;
 };
 
 export type UpdateUserInput = {
-  address?: InputMaybe<Scalars['String']>;
-  avatar?: InputMaybe<Scalars['String']>;
-  city?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<Scalars['String']>;
-  firstname?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  postcode?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars["String"]>;
+  avatar?: InputMaybe<Scalars["String"]>;
+  city?: InputMaybe<Scalars["String"]>;
+  country?: InputMaybe<Scalars["String"]>;
+  firstname?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  phone?: InputMaybe<Scalars["String"]>;
+  postcode?: InputMaybe<Scalars["String"]>;
 };
 
 export type User = {
-  __typename?: 'User';
-  address: Scalars['String'];
-  avatar: Scalars['String'];
-  city: Scalars['String'];
-  country: Scalars['String'];
-  email: Scalars['String'];
-  firstname: Scalars['String'];
-  id: Scalars['Float'];
-  name: Scalars['String'];
-  phone: Scalars['String'];
-  postcode: Scalars['String'];
-  role: Scalars['String'];
+  __typename?: "User";
+  address: Scalars["String"];
+  avatar: Scalars["String"];
+  city: Scalars["String"];
+  country: Scalars["String"];
+  email: Scalars["String"];
+  firstname: Scalars["String"];
+  id: Scalars["Float"];
+  name: Scalars["String"];
+  phone: Scalars["String"];
+  postcode: Scalars["String"];
+  role: Scalars["String"];
 };
 
 export type LoginMutationVariables = Exact<{
   data: LoginInput;
 }>;
 
-export type LoginMutation = { __typename?: 'Mutation'; login: string };
+export type LoginMutation = { __typename?: "Mutation"; login: string };
 
 export const LoginDocument = gql`
   mutation Login($data: LoginInput!) {

@@ -7,18 +7,18 @@ import {
   Flex,
   IconButton,
   useDisclosure,
-} from '@chakra-ui/react';
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useEffect, useRef, useState } from 'react';
+} from "@chakra-ui/react";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useEffect, useRef, useState } from "react";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
-  variant?: 'desktop' | 'mobile';
+  variant?: "desktop" | "mobile";
   placeholder: string;
 }
 
-export default function SearchBar({ onSearch, placeholder, variant = 'desktop' }: SearchBarProps) {
-  const [query, setQuery] = useState('');
+export default function SearchBar({ onSearch, placeholder, variant = "desktop" }: SearchBarProps) {
+  const [query, setQuery] = useState("");
   const [isInputEmpty, setIsInputEmpty] = useState(true);
 
   const handleSearch = () => {
@@ -26,17 +26,17 @@ export default function SearchBar({ onSearch, placeholder, variant = 'desktop' }
   };
 
   const handleClearInput = () => {
-    setQuery('');
+    setQuery("");
     setIsInputEmpty(true);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    setIsInputEmpty(e.target.value === '');
+    setIsInputEmpty(e.target.value === "");
   };
 
   const handleIconClick = () => {
-    if (query.trim() !== '') {
+    if (query.trim() !== "") {
       handleSearch();
     }
   };
@@ -51,13 +51,13 @@ export default function SearchBar({ onSearch, placeholder, variant = 'desktop' }
     }
   }, [isOpen]);
 
-  if (variant === 'desktop') {
+  if (variant === "desktop") {
     return (
       <Flex
         position="relative"
         align="center"
-        justify={{ base: 'center', md: 'end' }}
-        width={{ base: 'full', md: '50%' }}
+        justify={{ base: "center", md: "end" }}
+        width={{ base: "full", md: "50%" }}
       >
         <div className="relative flex items-center justify-center">
           <input
@@ -69,7 +69,7 @@ export default function SearchBar({ onSearch, placeholder, variant = 'desktop' }
             value={query}
             onChange={handleInputChange}
             onKeyDown={e => {
-              if (e.key === 'Enter') {
+              if (e.key === "Enter") {
                 handleSearch();
               }
             }}
@@ -88,13 +88,13 @@ export default function SearchBar({ onSearch, placeholder, variant = 'desktop' }
         </div>
       </Flex>
     );
-  } else if (variant === 'mobile') {
+  } else if (variant === "mobile") {
     return (
       <Flex
         position="relative"
         align="center"
-        justify={{ base: 'center', md: 'end' }}
-        width={{ base: 'full', md: '50%' }}
+        justify={{ base: "center", md: "end" }}
+        width={{ base: "full", md: "50%" }}
       >
         <div className="relative flex items-center justify-center">
           <input
@@ -106,7 +106,7 @@ export default function SearchBar({ onSearch, placeholder, variant = 'desktop' }
             value={query}
             onChange={handleInputChange}
             onKeyDown={e => {
-              if (e.key === 'Enter') {
+              if (e.key === "Enter") {
                 handleSearch();
               }
             }}
@@ -139,7 +139,7 @@ export default function SearchBar({ onSearch, placeholder, variant = 'desktop' }
               <IconButton
                 aria-label="Close drawer"
                 icon={<XMarkIcon />}
-                size={'sm'}
+                size={"sm"}
                 onClick={onClose}
                 position="absolute"
                 right="8px"
@@ -155,7 +155,7 @@ export default function SearchBar({ onSearch, placeholder, variant = 'desktop' }
                   value={query}
                   onChange={handleInputChange}
                   onKeyDown={e => {
-                    if (e.key === 'Enter') {
+                    if (e.key === "Enter") {
                       handleSearch();
                     }
                   }}

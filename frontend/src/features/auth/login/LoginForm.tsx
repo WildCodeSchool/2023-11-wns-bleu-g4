@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -15,12 +15,12 @@ import {
   InputGroup,
   LightMode,
   Divider,
-} from '@chakra-ui/react';
-import { useLoginMutation } from '../../../graphql/generated/schema';
-import Link from 'next/link';
+} from "@chakra-ui/react";
+import { useLoginMutation } from "../../../graphql/generated/schema";
+import Link from "next/link";
 
 export default function LoginForm() {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [login] = useLoginMutation();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -33,24 +33,24 @@ export default function LoginForm() {
 
     try {
       await login({ variables: { data: formJSON } });
-      window.location.replace('/account');
+      window.location.replace("/account");
     } catch (e: any) {
-      setError('Invalid email or password');
+      setError("Invalid email or password");
     }
   };
 
   // Error message disappears after 2 seconds
   useEffect(() => {
-    if (error !== '') {
+    if (error !== "") {
       setTimeout(() => {
-        setError('');
+        setError("");
       }, 2000);
     }
   }, [error]);
 
   return (
     <>
-      <Card variant="loginCard" boxShadow="md" w={{ base: '300px', sm: '396px' }} zIndex="5" h="fit-content">
+      <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} zIndex="5" h="fit-content">
         {/* TITLE */}
         <CardHeader>
           <Text className="text-center tracking-widest">LOGIN</Text>
@@ -84,17 +84,17 @@ export default function LoginForm() {
                     <InputGroup>
                       <Input
                         color="black"
-                        type={show ? 'text' : 'password'}
+                        type={show ? "text" : "password"}
                         placeholder="Password"
                         name="password"
                         size="md"
                         bg="bgLight"
                         borderRadius="lg"
-                        onFocus={() => setError('')}
+                        onFocus={() => setError("")}
                       />
                       <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>
-                          {show ? 'Hide' : 'Show'}
+                          {show ? "Hide" : "Show"}
                         </Button>
                       </InputRightElement>
                     </InputGroup>
@@ -115,7 +115,7 @@ export default function LoginForm() {
           <CardFooter>
             <Flex direction="column" className="w-full">
               <Box h="50px" textAlign="center" m="0">
-                {error !== '' && (
+                {error !== "" && (
                   <Text bg="red.500" color="light" className="w-full rounded-lg p-1">
                     {error.toUpperCase()}
                   </Text>

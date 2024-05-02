@@ -1,6 +1,6 @@
-import SideNavbar from '@/features/navigation/components/SideNavbar';
-import Head from 'next/head';
-import { ReactNode } from 'react';
+import SideNavbar from "@/features/navigation/components/SideNavbar";
+import Head from "next/head";
+import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;

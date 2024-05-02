@@ -8,15 +8,15 @@ import {
   Stack,
   useDisclosure,
   useOutsideClick,
-} from '@chakra-ui/react';
-import { ChevronDownIcon, ShoppingCartIcon } from '@heroicons/react/16/solid';
-import { useRef, useState } from 'react';
+} from "@chakra-ui/react";
+import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
+import { useRef, useState } from "react";
 
 // data for the subnavbar
 const categories = {
-  Sea: ['Option 1', 'Option 2', 'Option 3'],
-  Mountain: ['Option 1', 'Option 2', 'Option 3'],
-  Outdoor: ['Option A', 'Option B', 'Option C'],
+  Sea: ["Option 1", "Option 2", "Option 3"],
+  Mountain: ["Option 1", "Option 2", "Option 3"],
+  Outdoor: ["Option A", "Option B", "Option C"],
 };
 
 export default function SubNavbar() {
@@ -43,7 +43,7 @@ export default function SubNavbar() {
     <Flex
       className="mb-5 h-8 w-full justify-between px-5 pb-12 shadow-md"
       ref={ref}
-      display={{ base: 'none', md: 'flex' }}
+      display={{ base: "none", md: "flex" }}
       mt={4}
     >
       <Stack direction="row" spacing={4}>
@@ -58,9 +58,9 @@ export default function SubNavbar() {
               onClick={() => handleButtonClick(index)}
               rightIcon={
                 <div
-                  className={`transform transition-transform duration-300 ${isOpen && activeIndex === index ? 'rotate-custom' : ''}`}
+                  className={`transform transition-transform duration-300 ${isOpen && activeIndex === index ? "rotate-custom" : ""}`}
                   style={{
-                    transform: isOpen && activeIndex === index ? 'rotate(-180deg)' : 'rotate(0)',
+                    transform: isOpen && activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
                   }}
                 >
                   <ChevronDownIcon width={24} />

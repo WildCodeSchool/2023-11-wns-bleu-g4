@@ -1,6 +1,6 @@
-import SearchBar from '@/shared/components/SearchBar';
-import ThemeToggle from '@/shared/components/ThemeToggle';
-import ThemedLogo from '@/shared/components/ThemedLogo';
+import SearchBar from "@/shared/components/SearchBar";
+import ThemeToggle from "@/shared/components/ThemeToggle";
+import ThemedLogo from "@/shared/components/ThemedLogo";
 import {
   Box,
   Button,
@@ -14,15 +14,15 @@ import {
   Spacer,
   useColorModeValue,
   useDisclosure,
-} from '@chakra-ui/react';
-import { Bars3BottomRightIcon, UserCircleIcon } from '@heroicons/react/24/outline';
-import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/solid';
+} from "@chakra-ui/react";
+import { Bars3BottomRightIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
-import TopNavItems from './TopNavItems';
+import TopNavItems from "./TopNavItems";
 
 function DesktopNavbar() {
   return (
-    <Flex display={{ base: 'none', md: 'flex' }}>
+    <Flex display={{ base: "none", md: "flex" }}>
       <nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
         <ul className="flex w-full items-center justify-start gap-8">
           <div className="flex grow">
@@ -37,7 +37,7 @@ function DesktopNavbar() {
                 size="sm"
                 leftIcon={<UserCircleIcon width={20} />}
                 variant="profilButton"
-                alignItems={'center'}
+                alignItems={"center"}
               >
                 Profil
               </MenuButton>
@@ -56,34 +56,34 @@ function DesktopNavbar() {
 
 function MobileNavbar() {
   const { isOpen, onToggle } = useDisclosure();
-  const bg = useColorModeValue('white', '#3B3B3B');
-  const textColor = useColorModeValue('black', 'white');
+  const bg = useColorModeValue("white", "#3B3B3B");
+  const textColor = useColorModeValue("black", "white");
 
   return (
     <Box>
-      <Flex display={{ base: 'flex', md: 'none' }} direction="column" px={4} position="relative">
-        <Flex dir={'row'} align={'center'}>
+      <Flex display={{ base: "flex", md: "none" }} direction="column" px={4} position="relative">
+        <Flex dir={"row"} align={"center"}>
           <ThemedLogo />
           <Spacer />
-          <Flex gap={2} align={'center'}>
+          <Flex gap={2} align={"center"}>
             <IconButton
-              bg={'transparent'}
+              bg={"transparent"}
               aria-label="Profil button"
               icon={<UserCircleIcon width={24} />}
-              size={'sm'}
+              size={"sm"}
             />
             <IconButton
-              bg={'transparent'}
+              bg={"transparent"}
               aria-label="Cart button"
               icon={<ShoppingCartIcon width={24} />}
-              size={'sm'}
+              size={"sm"}
             />
 
             <IconButton
               aria-label="Open Menu"
               icon={isOpen ? <XMarkIcon width={24} /> : <Bars3BottomRightIcon width={24} />}
               onClick={onToggle}
-              size={'sm'}
+              size={"sm"}
             />
           </Flex>
         </Flex>
@@ -93,7 +93,7 @@ function MobileNavbar() {
       </Flex>
 
       <Collapse in={isOpen} className="absolute left-0 top-20 z-10 w-full">
-        <Box width="100%" bg={bg} color={textColor} mt="14px" pt={0} display={{ md: 'none' }}>
+        <Box width="100%" bg={bg} color={textColor} mt="14px" pt={0} display={{ md: "none" }}>
           <TopNavItems />
           <Flex justifyContent="center" alignItems="center" py={4}>
             <ThemeToggle />

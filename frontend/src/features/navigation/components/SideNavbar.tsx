@@ -1,10 +1,10 @@
-import LightLogo from '/public/svg/lightLogo.svg';
-import Image from 'next/image';
-import { adminNavigation } from '../helpers/adminNavigation';
-import { useRouter } from 'next/router';
-import { BackspaceIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
-import ThemeToggle from '@/shared/components/ThemeToggle';
+import LightLogo from "/public/svg/lightLogo.svg";
+import Image from "next/image";
+import { adminNavigation } from "../helpers/adminNavigation";
+import { useRouter } from "next/router";
+import { BackspaceIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import ThemeToggle from "@/shared/components/ThemeToggle";
 
 export default function SideNavbar() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function SideNavbar() {
             <Link
               key={index}
               href={navItem.path}
-              className={`flex cursor-pointer items-center gap-3 rounded px-3 py-2 text-light hover:bg-cactus-300 hover:text-dark ${isActive(navItem.path) ? 'bg-cactus-300 text-dark' : ''}`}
+              className={`flex cursor-pointer items-center gap-3 rounded px-3 py-2 text-light hover:bg-cactus-300 hover:text-dark ${isActive(navItem.path) ? "bg-cactus-300 text-dark" : ""}`}
             >
               {navItem.icon}
               {navItem.title}

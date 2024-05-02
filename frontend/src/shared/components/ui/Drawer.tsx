@@ -1,12 +1,12 @@
-import { drawerAnatomy as parts } from '@chakra-ui/anatomy';
-import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system';
+import { drawerAnatomy as parts } from "@chakra-ui/anatomy";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system";
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(parts.keys);
 
 const searchBarDrawer = definePartsStyle({
   // define the part you're going to style
   overlay: {
-    bg: 'blackAlpha.200',
+    bg: "blackAlpha.200",
   },
   dialog: {
     bg: `white`,

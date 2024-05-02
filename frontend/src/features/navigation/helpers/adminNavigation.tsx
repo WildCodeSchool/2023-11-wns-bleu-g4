@@ -1,5 +1,5 @@
-import { ChartBarSquareIcon, CubeIcon, ShoppingBagIcon, UserGroupIcon } from '@heroicons/react/24/outline';
-import { ReactNode } from 'react';
+import { ChartBarSquareIcon, CubeIcon, ShoppingBagIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import { ReactNode } from "react";
 
 interface Navigation {
   title: string;
@@ -9,23 +9,23 @@ interface Navigation {
 
 export const adminNavigation: Navigation[] = [
   {
-    title: 'Dashboard',
+    title: "Dashboard",
     icon: <ChartBarSquareIcon className="h-6 w-6" />,
-    path: '/admin',
+    path: "/admin",
   },
   {
-    title: 'Orders',
+    title: "Orders",
     icon: <CubeIcon className="h-6 w-6" />,
-    path: '/admin/orders',
+    path: "/admin/orders",
   },
   {
-    title: 'Products',
+    title: "Products",
     icon: <ShoppingBagIcon className="h-6 w-6" />,
-    path: '/admin/products',
+    path: "/admin/products",
   },
   {
-    title: 'Customers',
+    title: "Customers",
     icon: <UserGroupIcon className="h-6 w-6" />,
-    path: '/admin/customers',
+    path: "/admin/customers",
   },
 ];

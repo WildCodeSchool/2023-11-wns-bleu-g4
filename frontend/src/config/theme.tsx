@@ -1,10 +1,10 @@
 /* theme.ts */
-import { buttonTheme } from '@/shared/components/ui/Button';
-import { cardTheme } from '@/shared/components/ui/Card';
-import { drawerTheme } from '@/shared/components/ui/Drawer';
+import { buttonTheme } from "@/shared/components/ui/Button";
+import { cardTheme } from "@/shared/components/ui/Card";
+import { drawerTheme } from "@/shared/components/ui/Drawer";
 
-import { switchTheme } from '@/shared/components/ui/Switch';
-import { extendTheme } from '@chakra-ui/react';
+import { switchTheme } from "@/shared/components/ui/Switch";
+import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
   components: {
@@ -14,42 +14,42 @@ export const theme = extendTheme({
     Drawer: drawerTheme,
   },
   fonts: {
-    heading: 'var(--font-rubik)',
-    body: 'var(--font-rubik)',
+    heading: "var(--font-rubik)",
+    body: "var(--font-rubik)",
   },
   globalTheme: {
-    initialColorMode: 'light',
+    initialColorMode: "light",
     useSystemColorMode: false,
   },
   colors: {
     cactus: {
-      50: '#E1E7E1',
-      100: '#CAD6CC',
-      200: '#D0DAD4',
-      300: '#91B195',
-      400: '#4F6F52',
-      500: '#194D2E',
-      600: '#324335',
-      700: '#2C3B32',
-      800: '#2a3b2c',
-      900: '#233125',
-      950: '#0B0F0B',
+      50: "#E1E7E1",
+      100: "#CAD6CC",
+      200: "#D0DAD4",
+      300: "#91B195",
+      400: "#4F6F52",
+      500: "#194D2E",
+      600: "#324335",
+      700: "#2C3B32",
+      800: "#2a3b2c",
+      900: "#233125",
+      950: "#0B0F0B",
     },
-    light: '#F5EEE5',
-    dark: '#140111',
-    bgDark: '#0B0F0B',
-    bgLight: '#FFFFFF',
-    accent: '#E66300',
-    babyGreen: '#B2E6C7',
-    footerBgLight: '#F2F2F2',
-    footerBgDark: '#0C0C0B',
-    cardBgLight: '#f5eee5e6',
+    light: "#F5EEE5",
+    dark: "#140111",
+    bgDark: "#0B0F0B",
+    bgLight: "#FFFFFF",
+    accent: "#E66300",
+    babyGreen: "#B2E6C7",
+    footerBgLight: "#F2F2F2",
+    footerBgDark: "#0C0C0B",
+    cardBgLight: "#f5eee5e6",
   },
   styles: {
     global: (props: any) => ({
-      'html, body': {
-        color: props.colorMode === 'dark' ? 'light' : 'dark',
-        bg: props.colorMode === 'dark' ? 'bgDark' : 'BgLight',
+      "html, body": {
+        color: props.colorMode === "dark" ? "light" : "dark",
+        bg: props.colorMode === "dark" ? "bgDark" : "BgLight",
       },
     }),
   },

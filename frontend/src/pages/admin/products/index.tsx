@@ -1,4 +1,4 @@
-import LayoutAdmin from '@/layouts/LayoutAdmin';
+import LayoutAdmin from "@/layouts/LayoutAdmin";
 
 export default function Products() {
   return (

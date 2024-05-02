@@ -20,59 +20,59 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: theme('colors.cactus.950');
+  background: theme("colors.cactus.950");
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: theme('colors.accent');
+  background-color: theme("colors.accent");
   border-radius: 1rem;
-  border: 1px solid theme('colors.cactus.950');
+  border: 1px solid theme("colors.cactus.950");
 }
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 400;
-  src: url('/../fonts/poppins-400.ttf') format('truetype');
+  src: url("/../fonts/poppins-400.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 500;
-  src: url('/../fonts/poppins-500.ttf') format('truetype');
+  src: url("/../fonts/poppins-500.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 600;
-  src: url('/../fonts/poppins-600.ttf') format('truetype');
+  src: url("/../fonts/poppins-600.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: 700;
-  src: url('/../fonts/poppins-700.ttf') format('truetype');
+  src: url("/../fonts/poppins-700.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-weight: 300;
-  src: url('/../fonts/nunito-300.ttf') format('truetype');
+  src: url("/../fonts/nunito-300.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-weight: 400;
-  src: url('/../fonts/nunito-400.ttf') format('truetype');
+  src: url("/../fonts/nunito-400.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-weight: 500;
-  src: url('/../fonts/nunito-500.ttf') format('truetype');
+  src: url("/../fonts/nunito-500.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-weight: 600;
-  src: url('/../fonts/nunito-600.ttf') format('truetype');
+  src: url("/../fonts/nunito-600.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-weight: 700;
-  src: url('/../fonts/nunito-700.ttf') format('truetype');
+  src: url("/../fonts/nunito-700.ttf") format("truetype");
 }
 
 h1 {

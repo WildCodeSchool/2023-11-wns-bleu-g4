@@ -8,33 +8,33 @@ import {
   Divider,
   Flex,
   Spacer,
-} from '@chakra-ui/react';
-import { ChevronRightIcon } from '@heroicons/react/24/solid';
-import Link from 'next/link';
+} from "@chakra-ui/react";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 const navItems = [
   {
-    title: 'Sea',
+    title: "Sea",
     links: [
-      { text: 'Option 1', href: '#' },
-      { text: 'Option 2', href: '#' },
-      { text: 'Option 3', href: '#' },
+      { text: "Option 1", href: "#" },
+      { text: "Option 2", href: "#" },
+      { text: "Option 3", href: "#" },
     ],
   },
   {
-    title: 'Mountain',
+    title: "Mountain",
     links: [
-      { text: 'Option 1', href: '#' },
-      { text: 'Option 2', href: '#' },
-      { text: 'Option 3', href: '#' },
+      { text: "Option 1", href: "#" },
+      { text: "Option 2", href: "#" },
+      { text: "Option 3", href: "#" },
     ],
   },
   {
-    title: 'Outdoor',
+    title: "Outdoor",
     links: [
-      { text: 'Option 1', href: '#' },
-      { text: 'Option 2', href: '#' },
-      { text: 'Option 3', href: '#' },
+      { text: "Option 1", href: "#" },
+      { text: "Option 2", href: "#" },
+      { text: "Option 3", href: "#" },
     ],
   },
 ];
