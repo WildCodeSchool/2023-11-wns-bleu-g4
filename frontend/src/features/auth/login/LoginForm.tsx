@@ -99,7 +99,7 @@ export default function LoginForm() {
                                 {/* FORGOT PASSWORD */}
                                 <Text className=' text-center py-2'>
                                     Forgot your password ?&nbsp;
-                                    <Link href="/signup" className="underline text-orange-500">click here</Link>
+                                    <Link href="#" className="underline text-orange-500">click here</Link>
                                 </Text>
                             </Box>
                         </Flex>
