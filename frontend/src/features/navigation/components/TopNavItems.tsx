@@ -45,7 +45,7 @@ export default function TopNavItems() {
       {navItems.map((item, index) => (
         <AccordionItem key={index}>
           <h2>
-            <AccordionButton borderBottom="1px solid" pt="2">
+            <AccordionButton borderBottom="1px solid" pt="2" borderTop={"none"}>
               <Box as="span" flex="1" textAlign="left">
                 {item.title}
               </Box>

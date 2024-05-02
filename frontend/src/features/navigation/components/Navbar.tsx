@@ -61,11 +61,22 @@ function MobileNavbar() {
 
   return (
     <Box>
-      <Flex display={{ base: "flex", md: "none" }} direction="column" px={4} position="relative">
+      <Flex
+        display={{ base: "flex", md: "none" }}
+        direction="column"
+        px={4}
+        position="relative"
+        borderBottom={"1px solid #E2E8F0"}
+      >
         <Flex dir={"row"} align={"center"}>
           <ThemedLogo />
           <Spacer />
           <Flex gap={2} align={"center"}>
+            <SearchBar
+              variant="mobile"
+              onSearch={(query) => console.log(query)}
+              placeholder="Search"
+            />
             <IconButton
               bg={"transparent"}
               aria-label="Profil button"
@@ -81,19 +92,25 @@ function MobileNavbar() {
 
             <IconButton
               aria-label="Open Menu"
-              icon={isOpen ? <XMarkIcon width={24} /> : <Bars3BottomRightIcon width={24} />}
+              icon={
+                isOpen ? <XMarkIcon width={24} /> : <Bars3BottomRightIcon width={24} />
+              }
               onClick={onToggle}
               size={"sm"}
             />
           </Flex>
         </Flex>
-        <Flex align="center" width="full" className="absolute left-0 top-[4rem] z-20">
-          <SearchBar variant="mobile" onSearch={query => console.log(query)} placeholder="Search" />
-        </Flex>
       </Flex>
 
-      <Collapse in={isOpen} className="absolute left-0 top-20 z-10 w-full">
-        <Box width="100%" bg={bg} color={textColor} mt="14px" pt={0} display={{ md: "none" }}>
+      <Collapse in={isOpen} className="absolute left-0 top-[3.8rem] z-10 w-full">
+        <Box
+          width="100%"
+          bg={bg}
+          color={textColor}
+          mt="14px"
+          pt={0}
+          display={{ md: "none" }}
+        >
           <TopNavItems />
           <Flex justifyContent="center" alignItems="center" py={4}>
             <ThemeToggle />
