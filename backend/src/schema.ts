@@ -4,13 +4,15 @@ import UserResolver from "./resolvers/UserResolver"
 import ProductResolver from "./resolvers/ProductResolver"
 import { ReviewResolver } from "./resolvers/ReviewResolver"
 import SubCategoryResolver from "./resolvers/SubCategoryResolver"
+import CategoryResolver from "./resolvers/CategoryResolver"
 
 export default buildSchema({
 	resolvers: [
-		UserResolver,
-		ReviewResolver,
+		CategoryResolver,
 		ProductResolver,
+		ReviewResolver,
 		SubCategoryResolver,
+		UserResolver,
 	],
 	authChecker,
 })
