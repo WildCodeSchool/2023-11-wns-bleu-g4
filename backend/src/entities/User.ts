@@ -9,6 +9,7 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { hash } from "argon2"
+import Review from "./Review"
 
 export enum UserRole {
 	ADMIN = "admin",
@@ -26,40 +27,40 @@ export class User extends BaseEntity {
 		this.hashedPassword = await hash(this.password)
 	}
 
-	@Field()
 	@PrimaryGeneratedColumn()
+	@Field()
 	id: number
 
-	@Field()
 	@Column({ unique: true })
+	@Field()
 	email: string
 
-	@Field()
 	@Column()
+	@Field()
 	name: string
 
-	@Field()
 	@Column()
+	@Field()
 	firstname: string
 
-	@Field()
 	@Column()
+	@Field()
 	address: string
 
-	@Field()
 	@Column()
+	@Field()
 	postcode: string
 
-	@Field()
 	@Column()
+	@Field()
 	city: string
 
-	@Field()
 	@Column()
+	@Field()
 	country: string
 
-	@Field()
 	@Column()
+	@Field()
 	phone: string
 
 	@Column()
@@ -73,12 +74,16 @@ export class User extends BaseEntity {
 	avatar: string
 
 	//   Missing Booking field - need to update
+	//   @OneToMany(() => Booking, (bookings) => bookings.user)
 	//   @Field(() => Booking[])
-	//   @OneToMany(() => Booking, (booking) => booking.user)
 	//   bookings: Booking[];
 
-	@Field()
+	@OneToMany(() => Review, (reviews) => reviews.user)
+	@Field(() => [Review])
+	reviews: Review[]
+
 	@Column({ enum: UserRole, default: UserRole.VISITOR })
+	@Field()
 	role: UserRole
 
 	@Column({ nullable: true, type: "varchar", unique: true })
@@ -111,23 +116,23 @@ export class UpdateUserInput {
 
 	@Length(2, 255)
 	@Field({ nullable: true })
-	address: string
+	address?: string
 
 	@Length(2, 30)
 	@Field({ nullable: true })
-	postcode: string
+	postcode?: string
 
 	@Length(2, 255)
 	@Field({ nullable: true })
-	city: string
+	city?: string
 
 	@Length(2, 50)
 	@Field({ nullable: true })
-	country: string
+	country?: string
 
 	@Length(2, 20)
 	@Field({ nullable: true })
-	phone: string
+	phone?: string
 
 	@Length(2, 255)
 	@Field({ nullable: true })
