@@ -4,6 +4,14 @@
 echo '🏗️👷 Project currently being analyzed👷‍♂️🏗️'
 echo 'please be patient, this may take a while...'
 
-npm run lint && npm run fix
+# Navigate to frontend directory and run lint
+cd frontend && npm run lint
+# Navigate back to the root directory
+cd ..
+
+# Navigate to backend directory and run lint
+cd backend && npm run lint
+# Navigate back to the root directory
+cd ..
 
 echo 'Success! 🎉🎉🎉'

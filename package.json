@@ -6,14 +6,17 @@
   "scripts": {
     "dev": "docker compose up --build",
     "prod": "docker compose -f docker-compose.production.yml up --build",
-    "prepare": "husky install",
-    "lint": "cross-env-shell \"cd ./frontend && $npm_package_config_cli run lint && cd ../backend && $npm_package_config_cli run lint\"",
-    "fix": "cross-env-shell \"cd ./frontend && $npm_package_config_cli run fix && cd ../backend && $npm_package_config_cli run fix\""
+
   },
   "author": "Jeremy Dohin",
   "license": "MIT",
   "devDependencies": {
     "husky": "^8.0.0",
     "lint-staged": "^15.2.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
