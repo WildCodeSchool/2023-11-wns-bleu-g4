@@ -58,7 +58,7 @@ function DesktopNavbar() {
 }
 
 function MobileNavbar() {
-	const { isOpen, onToggle, onClose } = useDisclosure();
+	const { isOpen, onToggle } = useDisclosure();
 	const bg = useColorModeValue("white", "#3B3B3B");
 	const textColor = useColorModeValue("black", "white");
 
@@ -69,11 +69,17 @@ function MobileNavbar() {
 				direction="column"
 				px={4}
 				position="relative"
+				borderBottom={"1px solid #E2E8F0"}
 			>
 				<Flex dir={"row"} align={"center"}>
 					<ThemedLogo />
 					<Spacer />
 					<Flex gap={2} align={"center"}>
+						<SearchBar
+							variant="mobile"
+							onSearch={(query) => console.log(query)}
+							placeholder="Search"
+						/>
 						<IconButton
 							bg={"transparent"}
 							aria-label="Profil button"
@@ -97,20 +103,9 @@ function MobileNavbar() {
 						/>
 					</Flex>
 				</Flex>
-				<Flex
-					align="center"
-					width="full"
-					className="absolute left-0 top-[4rem] z-20"
-				>
-					<SearchBar
-						variant="mobile"
-						onSearch={(query) => console.log(query)}
-						placeholder="Search"
-					/>
-				</Flex>
 			</Flex>
 
-			<Collapse in={isOpen} className="absolute left-0 top-20 z-10 w-full">
+			<Collapse in={isOpen} className="absolute left-0 top-[3.8rem] z-10 w-full">
 				<Box
 					width="100%"
 					bg={bg}

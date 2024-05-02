@@ -12,7 +12,7 @@ const searchBarDrawer = definePartsStyle({
 	dialog: {
 		bg: `white`,
 		_dark: {
-			bg: `#595959`,
+			bg: `bgDark`,
 		},
 	},
 });
