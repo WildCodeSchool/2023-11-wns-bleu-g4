@@ -13,4 +13,9 @@ export default load({
 	CORS_ALLOWED_ORIGINS: String,
 	NODE_ENV: String,
 	FRONTEND_URL: String,
+	SMTP_HOST: String,
+	SMTP_PORT: Number,
+	SMTP_USER: String,
+	SMTP_PASS: String,
+	EMAIL_FROM: String,
 })
