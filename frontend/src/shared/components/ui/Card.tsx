@@ -29,7 +29,7 @@ const footerCard = definePartsStyle({
 
 const loginCard = definePartsStyle({
 	container: {
-	  borderRadius: "1rem",
+	  borderRadius: "10px",
 	  backgroundColor: 'cardBgLight',
 	//   _dark: {
 	// 	backgroundColor: 'bgDark',
