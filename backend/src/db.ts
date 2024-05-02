@@ -5,6 +5,7 @@ import Review from "./entities/Review"
 import Product from "./entities/Product"
 import Category from "./entities/Category"
 import SubCategory from "./entities/SubCategory"
+
 const { DB_USER, DB_PASS, DB_NAME, DB_PORT, DB_HOST } = env
 
 const db = new DataSource({
@@ -16,6 +17,7 @@ const db = new DataSource({
 	database: DB_NAME,
 	entities: [User, Review, Product, Category, SubCategory],
 	synchronize: true,
+	logging: env.NODE_ENV !== "test",
 })
 
 export async function clearDB() {
