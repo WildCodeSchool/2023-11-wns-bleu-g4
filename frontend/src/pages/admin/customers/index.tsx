@@ -1,9 +1,9 @@
-import LayoutAdmin from "@/layouts/LayoutAdmin";
+import LayoutAdmin from '@/layouts/LayoutAdmin';
 
 export default function Customers() {
-	return (
-		<LayoutAdmin>
-			<h1>Customer list</h1>
-		</LayoutAdmin>
-	);
+  return (
+    <LayoutAdmin>
+      <h1>Customer list</h1>
+    </LayoutAdmin>
+  );
 }
