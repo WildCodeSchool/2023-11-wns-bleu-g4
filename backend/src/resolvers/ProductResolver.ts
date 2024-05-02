@@ -20,7 +20,7 @@ import {
 @Resolver(Product)
 class ProductResolver {
 	@Query(() => [Product])
-	async products(
+	async getAllProducts(
 		@Arg("categoryId", () => Int, { nullable: true }) categoryId?: number,
 		@Arg("name", { nullable: true }) name?: string
 	) {
@@ -45,7 +45,7 @@ class ProductResolver {
 		return product
 	}
 
-	@Authorized()
+	@Authorized([UserRole.ADMIN])
 	@Mutation(() => Product)
 	async createProduct(
 		@Arg("data", { validate: true }) data: NewProductInput,
@@ -53,7 +53,11 @@ class ProductResolver {
 	) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const newProduct = new Product()
+
+		if (ctx.currentUser.role !== UserRole.ADMIN)
+			throw new GraphQLError("Not authorized")
 		Object.assign(newProduct, data)
+
 		const { id } = await newProduct.save()
 		return Product.findOne({
 			where: { id },
@@ -61,7 +65,7 @@ class ProductResolver {
 		})
 	}
 
-	@Authorized()
+	@Authorized([UserRole.ADMIN])
 	@Mutation(() => Product)
 	async updateProduct(
 		@Arg("productId") id: number,
@@ -83,7 +87,7 @@ class ProductResolver {
 		})
 	}
 
-	@Authorized()
+	@Authorized([UserRole.ADMIN])
 	@Mutation(() => String)
 	async deleteProduct(@Arg("productId") id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
