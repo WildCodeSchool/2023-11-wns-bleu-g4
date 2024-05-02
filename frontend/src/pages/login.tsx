@@ -1,5 +1,5 @@
 import LoginForm from '@/features/auth/login/LoginForm';
-import { Container, Image } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 import Layout from '@/layouts/Layout';
 export default function Login() {
   const urlBg: string =

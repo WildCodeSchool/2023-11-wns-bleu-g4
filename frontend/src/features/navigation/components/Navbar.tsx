@@ -55,7 +55,7 @@ function DesktopNavbar() {
 }
 
 function MobileNavbar() {
-  const { isOpen, onToggle, onClose } = useDisclosure();
+  const { isOpen, onToggle } = useDisclosure();
   const bg = useColorModeValue('white', '#3B3B3B');
   const textColor = useColorModeValue('black', 'white');
 

@@ -32,9 +32,8 @@ export default function LoginForm() {
     const formJSON: any = Object.fromEntries(formData.entries());
 
     try {
-      const res = await login({ variables: { data: formJSON } });
+      await login({ variables: { data: formJSON } });
       window.location.replace('/account');
-      // console.log({ res });
     } catch (e: any) {
       setError('Invalid email or password');
     }

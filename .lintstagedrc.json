@@ -1,5 +1,6 @@
 {
-  "*.ts": ["prettier --write", "eslint"],
-  "*.html": ["eslint", "prettier --write"],
-  "*.scss": "prettier --write"
+  "*.ts": ["prettier --write", "eslint --fix"],
+  "*.html": ["prettier --write", "eslint --fix"],
+  "*.scss": ["prettier --write"],
+  "*.js": ["prettier --write", "eslint --fix"]
 }
