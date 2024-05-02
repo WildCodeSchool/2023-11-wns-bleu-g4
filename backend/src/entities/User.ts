@@ -111,23 +111,23 @@ export class UpdateUserInput {
 
 	@Length(2, 255)
 	@Field({ nullable: true })
-	address: string
+	address?: string
 
 	@Length(2, 30)
 	@Field({ nullable: true })
-	postcode: string
+	postcode?: string
 
 	@Length(2, 255)
 	@Field({ nullable: true })
-	city: string
+	city?: string
 
 	@Length(2, 50)
 	@Field({ nullable: true })
-	country: string
+	country?: string
 
 	@Length(2, 20)
 	@Field({ nullable: true })
-	phone: string
+	phone?: string
 
 	@Length(2, 255)
 	@Field({ nullable: true })
