@@ -19,7 +19,7 @@ export class Category extends BaseEntity {
 	@Field()
 	name: string
 
-	@ManyToMany(() => Product, (product) => product.category)
+	@ManyToMany(() => Product, (product) => product.categories)
 	products: Product[]
 }
 
