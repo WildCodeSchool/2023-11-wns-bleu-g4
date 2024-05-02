@@ -16,19 +16,21 @@ jobs:
         run: |
           cd backend
           npm ci
+          cd ..
       - name: Run ESLint on backend
         uses: wearerequired/lint-action@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           eslint: true
-          path: backend
+          eslint_dir: backend
       - name: Install frontend dependencies
         run: |
           cd frontend
           npm ci
+          cd ..
       - name: Run ESLint on frontend
         uses: wearerequired/lint-action@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           eslint: true
-          path: frontend
+          eslint_dir: frontend
