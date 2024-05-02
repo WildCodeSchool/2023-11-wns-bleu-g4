@@ -4,6 +4,6 @@
 echo '🏗️👷 Project currently being analyzed👷‍♂️🏗️'
 echo 'please be patient, this may take a while...'
 
-npx lint-staged
+npm run lint && npm run fix
 
 echo 'Success! 🎉🎉🎉'
