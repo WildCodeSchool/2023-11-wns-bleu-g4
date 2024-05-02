@@ -6,7 +6,6 @@ import { drawerTheme } from '@/shared/components/ui/Drawer';
 import { switchTheme } from '@/shared/components/ui/Switch';
 import { extendTheme } from '@chakra-ui/react';
 
-
 export const theme = extendTheme({
   components: {
     Switch: switchTheme,
