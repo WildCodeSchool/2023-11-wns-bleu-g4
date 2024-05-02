@@ -8,5 +8,10 @@
     "prod": "docker compose -f docker-compose.production.yml up --build"
   },
   "author": "Jeremy Dohin",
-  "license": "MIT"
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  }
 }
