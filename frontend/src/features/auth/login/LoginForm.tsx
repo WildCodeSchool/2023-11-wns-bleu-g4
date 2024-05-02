@@ -15,6 +15,7 @@ import {
     InputGroup,
     LightMode,
     Divider,
+    Heading,
 } from '@chakra-ui/react'
 import { useLoginMutation } from '../../../graphql/generated/schema';
 import Link from 'next/link';
@@ -42,21 +43,12 @@ export default function LoginForm() {
 
     }
 
-    // Error message disappears after 2 seconds
-    useEffect(() => {
-        if (error !== "") {
-            setTimeout(() => {
-                setError("")
-            }, 2000);
-        }
-    }, [error])
-
     return (
         <>
             <Card variant='loginCard' boxShadow='md' w={{base:"300px", sm:'396px'}} zIndex='5' h='fit-content'>
                 {/* TITLE */}
-                <CardHeader>
-                    <Text className='text-center tracking-widest'>LOGIN</Text>
+                <CardHeader textAlign='center'>
+                    <Heading as='h1'>LOGIN</Heading>
                 </CardHeader>
 
                 <Divider/>
