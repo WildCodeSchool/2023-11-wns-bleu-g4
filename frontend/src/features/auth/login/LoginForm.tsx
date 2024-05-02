@@ -45,35 +45,42 @@ export default function LoginForm() {
 
     return (
         <>
-            <Card variant='loginCard' boxShadow='md' w={{base:"300px", sm:'396px'}} zIndex='5' h='fit-content'>
+            <Card variant='loginCard' boxShadow='md' w={{ base: "300px", sm: '396px' }} zIndex='5' h='fit-content'>
                 {/* TITLE */}
                 <CardHeader textAlign='center'>
-                    <Heading as='h1'>LOGIN</Heading>
+                    <Heading as='h1' color='black'>LOGIN</Heading>
                 </CardHeader>
-
-                <Divider/>
+                <Divider color='black' />
                 <form onSubmit={handleSubmit}>
-
                     <CardBody>
                         <Flex direction='column' gap='15px'>
-
                             {/* EMAIL */}
-                            <FormControl>
+                            <FormControl size='md'>
                                 <FormLabel>Email</FormLabel>
                                 <LightMode>
-                                    <Input type='email' color='black' placeholder='Email' name='email' size='md' bg='bgLight' borderRadius='lg' />
+                                    <InputGroup>
+                                        <Input
+                                            type='email'
+                                            color='black'
+                                            placeholder='Email'
+                                            name='email'
+                                            size='md'
+                                            bg='bgLight'
+                                            borderRadius='lg'
+                                            onFocus={() => setError("")} />
+                                    </InputGroup>
                                 </LightMode>
                             </FormControl>
 
+                            {/* PASSWORD */}
                             <Box>
-                                {/* PASSWORD */}
                                 <FormControl size='md'>
                                     <FormLabel>Password</FormLabel>
                                     <LightMode>
                                         <InputGroup>
                                             <Input
-                                                color='black'
                                                 type={show ? 'text' : 'password'}
+                                                color='black'
                                                 placeholder='Password'
                                                 name='password'
                                                 size='md'
@@ -92,13 +99,11 @@ export default function LoginForm() {
                                 {/* FORGOT PASSWORD */}
                                 <Text className=' text-center py-2'>
                                     Forgot your password ?&nbsp;
-                                    <Link href="#" className="underline text-orange-500">click here</Link>
+                                    <Link href="/signup" className="underline text-orange-500">click here</Link>
                                 </Text>
                             </Box>
-
                         </Flex>
                     </CardBody>
-
                     <CardFooter>
                         <Flex direction='column' className='w-full'>
                             <Box h='50px' textAlign='center' m='0'>
