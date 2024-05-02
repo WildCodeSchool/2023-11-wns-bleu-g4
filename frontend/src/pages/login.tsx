@@ -16,8 +16,8 @@ export default function Login() {
                 w='w-screen'
                 position="relative"
                 py="100px"
-                maxW=''
-                maxH=''
+                maxW='1440'
+                maxH='720'
                 borderRadius='1.5rem'
             >
                 <LoginForm />

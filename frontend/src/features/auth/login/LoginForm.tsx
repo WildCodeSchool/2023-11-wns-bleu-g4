@@ -51,7 +51,7 @@ export default function LoginForm() {
 
     return (
         <>
-            <Card variant='loginCard' boxShadow='md' w="396px" zIndex='50' h='fit-content'>
+            <Card variant='loginCard' boxShadow='md' w={{md:"396px"}} zIndex='5' h='fit-content'>
                 {/* TITLE */}
                 <CardHeader>
                     <Text className='text-center tracking-widest font-light'>LOGIN</Text>
