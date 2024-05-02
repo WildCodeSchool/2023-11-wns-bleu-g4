@@ -6,60 +6,59 @@ import {
 	Entity,
 	JoinTable,
 	ManyToMany,
+	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { ObjectId } from "../utils"
 import Category from "./Category"
+import Review from "./Review"
 
 @Entity()
 @ObjectType()
 export class Product extends BaseEntity {
-	@Field(() => Int)
 	@PrimaryGeneratedColumn()
+	@Field(() => Int)
 	id: number
 
-	@Field()
 	@Column()
+	@Field()
 	name: string
 
-	@Field()
 	@Column({ type: "float" })
+	@Field()
 	price: number
 
-	@Field()
 	@Column({ type: "text" })
+	@Field()
 	description: string
 
-	@Field()
 	@Column()
+	@Field()
 	brand: string
 
-	@Field()
 	@Column({
 		default:
 			"https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
 	})
+	@Field()
 	thumbnail: string
 
 	@JoinTable()
-	@ManyToMany(() => Category, (c) => c.products, {
+	@ManyToMany(() => Category, (categories) => categories.products, {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
 	@Field(() => [Category])
-	category: Category[]
+	categories: Category[]
 
-	// @ManyToOne(() => Rating, (r) => r.products, {
-	//     cascade: true,
-	//     onDelete: "CASCADE",
-	//   })
-	//   @Field()
-	//   rating: Rating;
+	@OneToMany(() => Review, (reviews) => reviews.product)
+	@Field(() => [Review])
+	reviews: Review[]
 }
 
 @InputType()
 export class NewProductInput {
-	@Length(5, 50, { message: "Le titre doit contenir entre 5 et 50 caractères" })
+	@Length(3, 50, { message: "Le titre doit contenir entre 3 et 50 caractères" })
 	@Field()
 	name: string
 
@@ -76,15 +75,20 @@ export class NewProductInput {
 	@Field()
 	thumbnail: string
 
-	@Field(() => ObjectId)
-	category: ObjectId
+	@Field(() => [ObjectId])
+	categories: ObjectId[]
+
+	@Field(() => [ObjectId], { nullable: true })
+	reviews: ObjectId[]
 }
 
 @InputType()
 export class UpdateProductInput {
+	@Length(3, 50, { message: "Le titre doit contenir entre 3 et 50 caractères" })
 	@Field({ nullable: true })
 	name?: string
 
+	@Min(0, { message: "Le prix doit etre positif" })
 	@Field({ nullable: true })
 	price?: number
 
@@ -100,8 +104,11 @@ export class UpdateProductInput {
 	@Field({ nullable: true })
 	thumbnail?: string
 
-	@Field(() => ObjectId, { nullable: true })
-	category?: ObjectId
+	@Field(() => [ObjectId])
+	categories?: ObjectId[]
+
+	@Field(() => [ObjectId], { nullable: true })
+	reviews?: ObjectId[]
 }
 
 export default Product
