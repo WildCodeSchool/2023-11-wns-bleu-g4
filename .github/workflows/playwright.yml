@@ -15,6 +15,10 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
+      - name: Install Playwright
+        run: npm install playwright
+      - name: Install Playwright Test
+        run: npm install @playwright/test
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
