@@ -25,10 +25,10 @@ class ProductResolver {
 		@Arg("name", { nullable: true }) name?: string
 	) {
 		return Product.find({
-			relations: { category: true },
+			relations: { categories: true },
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
-				category: {
+				categories: {
 					id: categoryId,
 				},
 			},
@@ -39,7 +39,7 @@ class ProductResolver {
 	async getProductById(@Arg("productId", () => Int) id: number) {
 		const product = await Product.findOne({
 			where: { id },
-			relations: { category: true },
+			relations: { categories: true, reviews: true },
 		})
 		if (!product) throw new GraphQLError("Not found")
 		return product
@@ -57,7 +57,7 @@ class ProductResolver {
 		const { id } = await newProduct.save()
 		return Product.findOne({
 			where: { id },
-			relations: { category: true },
+			relations: { categories: true, reviews: true },
 		})
 	}
 
@@ -69,10 +69,8 @@ class ProductResolver {
 		@Ctx() ctx: Context
 	) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
-		const productToUpdate = await Product.findOne({
-			where: { id },
-		})
-		if (!productToUpdate) throw new GraphQLError("not found")
+		const productToUpdate = await Product.findOne({ where: { id } })
+		if (!productToUpdate) throw new GraphQLError("Product not found")
 
 		if (ctx.currentUser.role !== UserRole.ADMIN)
 			throw new GraphQLError("Not authorized")
@@ -81,7 +79,7 @@ class ProductResolver {
 		await productToUpdate.save()
 		return Product.findOne({
 			where: { id },
-			relations: { category: true },
+			relations: { categories: true, reviews: true },
 		})
 	}
 
@@ -89,14 +87,14 @@ class ProductResolver {
 	@Mutation(() => String)
 	async deleteProduct(@Arg("productId") id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
-		const product = await Product.findOne({
-			where: { id },
-		})
-		if (!product) throw new GraphQLError("Not found")
+		const productToDelete = await Product.findOne({ where: { id } })
+		if (!productToDelete) throw new GraphQLError("Product not found")
+
 		if (ctx.currentUser.role !== UserRole.ADMIN)
 			throw new GraphQLError("Not authorized")
-		await product.remove()
-		return "deleted"
+
+		await productToDelete.remove()
+		return "Product deleted"
 	}
 }
 
