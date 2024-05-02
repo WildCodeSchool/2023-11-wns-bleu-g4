@@ -5,7 +5,8 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
-	Stack,
+	Spacer,
+	useColorMode,
 	useDisclosure,
 	useOutsideClick,
 } from "@chakra-ui/react";
@@ -39,14 +40,21 @@ export default function SubNavbar() {
 		}
 	};
 
+	const { colorMode } = useColorMode();
+	const shadowColor =
+		colorMode === "dark"
+			? "0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1)"
+			: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)";
+
 	return (
 		<Flex
-			className="mb-5 h-8 w-full justify-between px-5 pb-12 shadow-md"
+			className=" h-8 w-full justify-between px-5 py-8"
 			ref={ref}
 			display={{ base: "none", md: "flex" }}
-			mt={4}
+			align={"center"}
+			style={{ boxShadow: shadowColor }}
 		>
-			<Stack direction="row" spacing={4}>
+			<Flex gap={2}>
 				{Object.entries(categories).map(([category, items], index) => (
 					<Menu key={index} isOpen={isOpen && activeIndex === index}>
 						<MenuButton
@@ -78,7 +86,8 @@ export default function SubNavbar() {
 						</MenuList>
 					</Menu>
 				))}
-			</Stack>
+			</Flex>
+			<Spacer />
 			<Button
 				size="sm"
 				as={Button}
