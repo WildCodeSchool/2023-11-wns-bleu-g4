@@ -43,8 +43,7 @@ export const theme = extendTheme({
 		babyGreen: "#B2E6C7",
 		footerBgLight: "#F2F2F2",
 		footerBgDark: "#0C0C0B",
-		cardBgLight : "#f5eee5e6",
-		
+		cardBgLight: "#f5eee5e6",
 	},
 	styles: {
 		global: (props: any) => ({
