@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "docker compose up --build",
-    "prod": "docker compose -f docker-compose.production.yml up --build"
+    "prod": "docker compose -f docker-compose.production.yml up --build",
+    "prepare": "husky"
   },
   "author": "Jeremy Dohin",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^9.0.11"
+  }
 }
