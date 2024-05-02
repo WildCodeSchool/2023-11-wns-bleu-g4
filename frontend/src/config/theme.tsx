@@ -1,6 +1,7 @@
 /* theme.ts */
 import { buttonTheme } from "@/shared/components/ui/Button";
 import { cardTheme } from "@/shared/components/ui/Card";
+import { drawerTheme } from "@/shared/components/ui/Drawer";
 
 import { switchTheme } from "@/shared/components/ui/Switch";
 import { extendTheme } from "@chakra-ui/react";
@@ -10,6 +11,7 @@ export const theme = extendTheme({
 		Switch: switchTheme,
 		Button: buttonTheme,
 		Card: cardTheme,
+		Drawer: drawerTheme,
 	},
 	fonts: {
 		heading: "var(--font-rubik)",
@@ -41,6 +43,8 @@ export const theme = extendTheme({
 		babyGreen: "#B2E6C7",
 		footerBgLight: "#F2F2F2",
 		footerBgDark: "#0C0C0B",
+		cardBgLight : "#f5eee5e6",
+		
 	},
 	styles: {
 		global: (props: any) => ({

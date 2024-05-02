@@ -52,11 +52,21 @@ const subNavButton = defineStyle({
 	},
 });
 
+const loginButton = defineStyle({
+	color: "light",
+	bg: "accent",
+	borderRadius:'lg',
+	_hover: {
+		bg: "orange.400"
+	}, 
+});
+
 export const buttonTheme = defineStyleConfig({
 	variants: {
 		outline,
 		profilButton,
 		cartButton,
 		subNavButton,
+		loginButton
 	},
 });
