@@ -14,8 +14,10 @@ export const theme = extendTheme({
 		Drawer: drawerTheme,
 	},
 	fonts: {
-		heading: "var(--font-rubik)",
-		body: "var(--font-rubik)",
+		// heading: "var(--font-rubik)",
+		// body: "var(--font-rubik)",
+		heading: `'Poppins', sans-serif`,
+		body: `'Nunito',sans-serif`,
 	},
 	globalTheme: {
 		initialColorMode: "light",
@@ -43,7 +45,7 @@ export const theme = extendTheme({
 		babyGreen: "#B2E6C7",
 		footerBgLight: "#F2F2F2",
 		footerBgDark: "#0C0C0B",
-		cardBgLight : "#f5eee5e6",
+		cardBgLight : "#F2F2F2F2",
 		
 	},
 	styles: {
