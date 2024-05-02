@@ -50,9 +50,7 @@ export type MutationUpdateProfileArgs = {
 };
 
 export type NewUserInput = {
-  avatar?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
-  nickname: Scalars['String'];
   password: Scalars['String'];
 };
 
@@ -62,60 +60,67 @@ export type Query = {
 };
 
 export type UpdateUserInput = {
+  address?: InputMaybe<Scalars['String']>;
   avatar?: InputMaybe<Scalars['String']>;
-  nickname?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<Scalars['String']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  postcode?: InputMaybe<Scalars['String']>;
 };
 
 export type User = {
   __typename?: 'User';
+  address: Scalars['String'];
   avatar: Scalars['String'];
+  city: Scalars['String'];
+  country: Scalars['String'];
   email: Scalars['String'];
+  firstname: Scalars['String'];
   id: Scalars['Float'];
-  nickname: Scalars['String'];
+  name: Scalars['String'];
+  phone: Scalars['String'];
+  postcode: Scalars['String'];
   role: Scalars['String'];
 };
 
-export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
+export type LoginMutationVariables = Exact<{
+  data: LoginInput;
+}>;
 
 
-export type ProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, email: string, avatar: string, nickname: string, role: string } };
+export type LoginMutation = { __typename?: 'Mutation', login: string };
 
 
-export const ProfileDocument = gql`
-    query Profile {
-  profile {
-    id
-    email
-    avatar
-    nickname
-    role
-  }
+export const LoginDocument = gql`
+    mutation Login($data: LoginInput!) {
+  login(data: $data)
 }
     `;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
- * __useProfileQuery__
+ * __useLoginMutation__
  *
- * To run a query within a React component, call `useProfileQuery` and pass it any options that fit your needs.
- * When your component renders, `useProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useProfileQuery({
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
+ *      data: // value for 'data'
  *   },
  * });
  */
-export function useProfileQuery(baseOptions?: Apollo.QueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
       }
-export function useProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
-        }
-export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
-export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
-export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
