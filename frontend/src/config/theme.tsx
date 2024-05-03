@@ -14,8 +14,8 @@ export const theme = extendTheme({
     Drawer: drawerTheme,
   },
   fonts: {
-    heading: "var(--font-rubik)",
-    body: "var(--font-rubik)",
+    heading: "Poppins, sans-serif",
+    body: "Nunito, sans-serif",
   },
   globalTheme: {
     initialColorMode: "light",
