@@ -61,6 +61,14 @@ const loginButton = defineStyle({
   },
 });
 
+const adminFooterButton = defineStyle({
+  color: "#FFF", // change the text color,
+  bg: "cactus.500",
+  _hover: {
+    bg: "cactus.400",
+  }, // change the background color darkMode
+});
+
 export const buttonTheme = defineStyleConfig({
   variants: {
     outline,
@@ -68,5 +76,6 @@ export const buttonTheme = defineStyleConfig({
     cartButton,
     subNavButton,
     loginButton,
+    adminFooterButton
   },
 });
