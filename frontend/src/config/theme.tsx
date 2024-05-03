@@ -44,6 +44,10 @@ export const theme = extendTheme({
     footerBgLight: "#F2F2F2",
     footerBgDark: "#0C0C0B",
     cardBgLight: "#f5eee5e6",
+    primary: "#194D2E",
+    secondary: "#4F6F52",
+    primaryDark: "#B2E6C7",
+    secondaryDark: "#91B195",
   },
   styles: {
     global: (props: any) => ({
