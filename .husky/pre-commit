@@ -17,22 +17,3 @@ cd ..
 # cd ..
 
 echo 'Success! 🎉🎉🎉'
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-echo '🏗️👷 Project currently being analyzed👷‍♂️🏗️'
-echo 'please be patient, this may take a while...'
-
-echo '🧹🧼 Running linting checks for frontend 🧼🧹'
-# Navigate to frontend directory and run lint
-cd frontend && npm run prettier:fix && npm run lint:fix
-# Navigate back to the root directory
-cd ..
-
-# echo '🧹🧼 Running linting checks for backend 🧼🧹'
-# Navigate to backend directory and run lint
-# cd backend && npm run prettier && npm run lint:fix
-# Navigate back to the root directory
-# cd ..
-
-echo 'Success! 🎉🎉🎉'
