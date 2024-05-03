@@ -27,32 +27,21 @@ const footerCard = definePartsStyle({
 });
 
 const loginCard = definePartsStyle({
-  container: {
-    borderRadius: "1rem",
-    backgroundColor: "cardBgLight",
-    _dark: {
-      backgroundColor: "bgDark",
-      border: "1px",
-      borderColor: "cardBgLight",
-    },
-  },
-  header: {
-    fontWeight: "500",
-    fontSize: "24px",
-  },
-  body: {
-    color: "dark",
-    _dark: {
-      color: "light",
-    },
-  },
-  footer: {
-    color: "light",
-    _dark: {
-      color: "light",
-    },
-  },
-});
+	container: {
+	  borderRadius: "10px",
+	  backgroundColor: 'cardBgLight',
+	},
+	header: {
+	  fontWeight: '500',
+	  fontSize: '24px',
+	},
+	body: {
+	  color: 'dark',
+	},
+	footer: {
+	  color: 'light',
+	},
+  })
 
 const sizes = {
   md: definePartsStyle({

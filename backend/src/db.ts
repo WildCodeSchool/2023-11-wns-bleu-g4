@@ -15,9 +15,8 @@ const db = new DataSource({
 	username: DB_USER,
 	password: DB_PASS,
 	database: DB_NAME,
-	entities: [User, Review, Product, Category, SubCategory],
+	entities: [Category, Product, SubCategory, Review, User],
 	synchronize: true,
-	logging: env.NODE_ENV !== "test",
 })
 
 export async function clearDB() {
