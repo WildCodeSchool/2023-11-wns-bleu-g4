@@ -15,7 +15,6 @@ export default function Login() {
             bgRepeat='no-repeat'
             bgPosition='center'
             bgSize='cover'
-            mx={{md : "100px"}}
             borderRadius="10px"
             >
                 <LoginForm />

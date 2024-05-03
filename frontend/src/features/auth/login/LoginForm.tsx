@@ -28,11 +28,11 @@ export default function LoginForm() {
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-    const formData = new FormData(e.target as HTMLFormElement);
-    const formJSON: any = Object.fromEntries(formData.entries());
+        const formData = new FormData(e.target as HTMLFormElement);
+        const formJSON: any = Object.fromEntries(formData.entries());
 
         try {
             await login({ variables: { data: formJSON } });
@@ -99,8 +99,9 @@ export default function LoginForm() {
 
                             {/* FORGOT PASSWORD */}
                             <Text className=' text-center text-sm py-2'>
-                                Forgot your password ?&nbsp;
-                                <Link href="#" className="underline text-orange-500">click here</Link>
+                                <Link href="#" className="hover:underline hover:text-orange-500">
+                                    Forgot your password ?
+                                </Link>
                             </Text>
                         </Box>
                     </Flex>
