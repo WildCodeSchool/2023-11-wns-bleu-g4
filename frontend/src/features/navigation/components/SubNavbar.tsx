@@ -50,7 +50,7 @@ export default function SubNavbar() {
     <Flex
       className=" h-8 w-full justify-between px-5 py-8"
       ref={ref}
-      display={{ base: "none", md: "flex" }}
+      display={{ base: "none", md: "none", xl: "flex" }}
       align={"center"}
       style={{ boxShadow: shadowColor }}
     >
@@ -68,8 +68,7 @@ export default function SubNavbar() {
                 <div
                   className={`transform transition-transform duration-300 ${isOpen && activeIndex === index ? "rotate-custom" : ""}`}
                   style={{
-                    transform:
-                      isOpen && activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
+                    transform: isOpen && activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
                   }}
                 >
                   <ChevronDownIcon width={24} />

@@ -22,7 +22,7 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         <Navbar />
         <SubNavbar />
       </header>
-      <main className="py-8 max-md:mt-10 md:px-[6.25rem] md:py-[3.125rem]">{children}</main>
+      <main className="px-5 lg:px-24 md:py-10">{children}</main>
       <Footer />
     </>
   );

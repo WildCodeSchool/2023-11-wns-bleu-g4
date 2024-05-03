@@ -22,7 +22,7 @@ import TopNavItems from "./TopNavItems";
 
 function DesktopNavbar() {
   return (
-    <Flex display={{ base: "none", md: "flex" }}>
+    <Flex display={{ base: "none", md: "none", xl: "flex" }}>
       <nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
         <ul className="flex w-full items-center justify-start gap-8">
           <div className="flex grow">
@@ -62,7 +62,7 @@ function MobileNavbar() {
   return (
     <Box>
       <Flex
-        display={{ base: "flex", md: "none" }}
+        display={{ base: "flex", sm: "flex", md: "flex", lg: "flex", xl: "none" }}
         direction="column"
         px={4}
         position="relative"
@@ -72,11 +72,7 @@ function MobileNavbar() {
           <ThemedLogo />
           <Spacer />
           <Flex gap={2} align={"center"}>
-            <SearchBar
-              variant="mobile"
-              onSearch={(query) => console.log(query)}
-              placeholder="Search"
-            />
+            <SearchBar variant="mobile" onSearch={query => console.log(query)} placeholder="Search" />
             <IconButton
               bg={"transparent"}
               aria-label="Profil button"
@@ -92,9 +88,7 @@ function MobileNavbar() {
 
             <IconButton
               aria-label="Open Menu"
-              icon={
-                isOpen ? <XMarkIcon width={24} /> : <Bars3BottomRightIcon width={24} />
-              }
+              icon={isOpen ? <XMarkIcon width={24} /> : <Bars3BottomRightIcon width={24} />}
               onClick={onToggle}
               size={"sm"}
             />
@@ -103,14 +97,7 @@ function MobileNavbar() {
       </Flex>
 
       <Collapse in={isOpen} className="absolute left-0 top-[3.8rem] z-10 w-full">
-        <Box
-          width="100%"
-          bg={bg}
-          color={textColor}
-          mt="14px"
-          pt={0}
-          display={{ md: "none" }}
-        >
+        <Box width="100%" bg={bg} color={textColor} mt="14px" pt={0} display={{ xl: "none" }}>
           <TopNavItems />
           <Flex justifyContent="center" alignItems="center" py={4}>
             <ThemeToggle />
