@@ -1,134 +1,124 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent } from 'react'
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Flex,
-  Input,
-  FormControl,
-  FormLabel,
-  Button,
-  Box,
-  Text,
-  InputRightElement,
-  InputGroup,
-  LightMode,
-  Divider,
-} from "@chakra-ui/react";
-import { useLoginMutation } from "../../../graphql/generated/schema";
-import Link from "next/link";
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Flex,
+    Input,
+    FormControl,
+    FormLabel,
+    Button,
+    Box,
+    Text,
+    InputRightElement,
+    InputGroup,
+    LightMode,
+    Divider,
+    Heading,
+} from '@chakra-ui/react'
+import { useLoginMutation } from '../../../graphql/generated/schema';
+import Link from 'next/link';
+import { ToastConfigLogin } from '@/config/ToastConfig';
+import { toast } from 'react-toastify';
 
 export default function LoginForm() {
-  const [error, setError] = useState("");
-  const [login] = useLoginMutation();
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    const [login] = useLoginMutation();
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
 
-    const formData = new FormData(e.target as HTMLFormElement);
-    const formJSON: any = Object.fromEntries(formData.entries());
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-    try {
-      await login({ variables: { data: formJSON } });
-      window.location.replace("/account");
-    } catch (e: any) {
-      setError("Invalid email or password");
+        const formData = new FormData(e.target as HTMLFormElement);
+        const formJSON: any = Object.fromEntries(formData.entries());
+
+        try {
+            await login({ variables: { data: formJSON } });
+            toast.info("LOGIN SUCCESSFULL", ToastConfigLogin)
+            window.location.replace("/account");
+        } catch (e: any) {
+            const errArr = e.message.replace('_', ' ')
+            toast.error(errArr, ToastConfigLogin)
+            return
+        }
+
     }
-  };
 
-  // Error message disappears after 2 seconds
-  useEffect(() => {
-    if (error !== "") {
-      setTimeout(() => {
-        setError("");
-      }, 2000);
-    }
-  }, [error]);
+    return (
 
-  return (
-    <>
-      <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} zIndex="5" h="fit-content">
-        {/* TITLE */}
-        <CardHeader>
-          <Text className="text-center tracking-widest">LOGIN</Text>
-        </CardHeader>
+        <Card variant='loginCard' boxShadow='md' w={{ base: "300px", sm: '396px' }} h='fit-content' >
+            {/* TITLE */}
+            <CardHeader textAlign='center'>
+                <Heading as='h1' color='black' fontWeight='500'>LOGIN</Heading>
+            </CardHeader>
+            <Divider color='black' />
+            <form onSubmit={handleSubmit}>
+                <CardBody>
+                    <Flex direction='column' gap='15px'>
+                        {/* EMAIL */}
+                        <FormControl size='md'>
+                            <FormLabel>Email</FormLabel>
+                            <LightMode>
+                                <InputGroup>
+                                    <Input
+                                        type='email'
+                                        color='black'
+                                        placeholder='Email'
+                                        name='email'
+                                        size='md'
+                                        bg='bgLight'
+                                        borderRadius='lg' />
+                                </InputGroup>
+                            </LightMode>
+                        </FormControl>
 
-        <Divider />
-        <form onSubmit={handleSubmit}>
-          <CardBody>
-            <Flex direction="column" gap="15px">
-              {/* EMAIL */}
-              <FormControl>
-                <FormLabel>Email</FormLabel>
-                <LightMode>
-                  <Input
-                    type="email"
-                    color="black"
-                    placeholder="Email"
-                    name="email"
-                    size="md"
-                    bg="bgLight"
-                    borderRadius="lg"
-                  />
-                </LightMode>
-              </FormControl>
+                        {/* PASSWORD */}
+                        <Box>
+                            <FormControl size='md'>
+                                <FormLabel>Password</FormLabel>
+                                <LightMode>
+                                    <InputGroup>
+                                        <Input
+                                            type={show ? 'text' : 'password'}
+                                            color='black'
+                                            placeholder='Password'
+                                            name='password'
+                                            size='md'
+                                            bg='bgLight'
+                                            borderRadius='lg' />
+                                        <InputRightElement width='4.5rem'>
+                                            <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                                {show ? 'Hide' : 'Show'}
+                                            </Button>
+                                        </InputRightElement>
+                                    </InputGroup>
+                                </LightMode>
+                            </FormControl>
 
-              <Box>
-                {/* PASSWORD */}
-                <FormControl size="md">
-                  <FormLabel>Password</FormLabel>
-                  <LightMode>
-                    <InputGroup>
-                      <Input
-                        color="black"
-                        type={show ? "text" : "password"}
-                        placeholder="Password"
-                        name="password"
-                        size="md"
-                        bg="bgLight"
-                        borderRadius="lg"
-                        onFocus={() => setError("")}
-                      />
-                      <InputRightElement width="4.5rem">
-                        <Button h="1.75rem" size="sm" onClick={handleClick}>
-                          {show ? "Hide" : "Show"}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </LightMode>
-                </FormControl>
+                            {/* FORGOT PASSWORD */}
+                            <Text className=' text-center text-sm py-2'>
+                                <Link href="#" className="hover:underline hover:text-orange-500">
+                                    Forgot your password ?
+                                </Link>
+                            </Text>
+                        </Box>
+                    </Flex>
+                </CardBody>
+                <CardFooter>
+                    <Flex direction='column' className='w-full'>
+                        {/* BUTTON */}
+                        <Button type='submit' className='w-full' variant='loginButton' m='0'>Login</Button>
+                        {/* FORGOT PASSWORD */}
+                        <Text className=' text-center text-sm py-2' color='black'>
+                            Not yet registered ?&nbsp;
+                            <Link href="/signup" className="underline text-orange-500">sign up</Link>
+                        </Text>
+                    </Flex>
+                </CardFooter>
+            </form>
+        </Card>
 
-                {/* FORGOT PASSWORD */}
-                <Text className=" py-2 text-center">
-                  Forgot your password ?&nbsp;
-                  <Link href="#" className="text-orange-500 underline">
-                    click here
-                  </Link>
-                </Text>
-              </Box>
-            </Flex>
-          </CardBody>
-
-          <CardFooter>
-            <Flex direction="column" className="w-full">
-              <Box h="50px" textAlign="center" m="0">
-                {error !== "" && (
-                  <Text bg="red.500" color="light" className="w-full rounded-lg p-1">
-                    {error.toUpperCase()}
-                  </Text>
-                )}
-              </Box>
-              {/* BUTTON */}
-              <Button type="submit" className="w-full" variant="loginButton" m="0">
-                Login
-              </Button>
-            </Flex>
-          </CardFooter>
-        </form>
-      </Card>
-    </>
-  );
+    )
 }
