@@ -17,10 +17,11 @@ import {
     Divider,
     Heading,
 } from '@chakra-ui/react'
-import { useCreateUserMutation } from '../../../graphql/generated/schema';
+import { CreateUserMutation, useCreateUserMutation } from '../../../graphql/generated/schema';
 import Link from 'next/link';
 import { ToastConfigLogin } from '@/config/ToastConfig';
 import { toast } from 'react-toastify';
+import { FetchResult } from '@apollo/client';
 
 export default function SignupForm() {
 
@@ -66,16 +67,17 @@ export default function SignupForm() {
 
         if (validatePassword(formJSON.password, formJSON.repeatPassword)) {
             try {
-                delete formJSON.repeatPassword;
+                delete formJSON.repeatPassword; 
 
-                const res = await signup({ variables: { data: formJSON } });
-                const resEmail:string  = res.data?.createUser.email || "User"
-                const toastInfo: string = `${resEmail} has been registered`
-                toast.info(toastInfo, ToastConfigLogin)
-                window.location.replace("/account");
+                const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
+                const toastInfo: string = `Account created`
+                toast.success(toastInfo, {...ToastConfigLogin, autoClose:3000})
+                setTimeout(()=> {
+                    window.location.replace("/account/"+res.data?.createUser.id);
+                },3000)
             } catch (e: any) {
-                const errArr = e.message.replace('_', ' ')
-                console.log(e)
+                const errArr = e.message.replaceAll('_', ' ')
+                // console.log(e)
                 toast.error(errArr, ToastConfigLogin)
                 return
             }
