@@ -22,7 +22,7 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         <Navbar />
         <SubNavbar />
       </header>
-      <main className="px-5 lg:px-24 md:py-10">{children}</main>
+      <main className="lg:px-24 pb-5 flex flex-col gap-8">{children}</main>
       <Footer />
     </>
   );

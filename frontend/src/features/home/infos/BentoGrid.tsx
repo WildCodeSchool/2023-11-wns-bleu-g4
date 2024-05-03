@@ -19,6 +19,7 @@ export default function BentoGrid() {
       templateColumns={{ base: "1fr", lg: "repeat(5, 1fr)" }}
       templateRows={{ base: "repeat(4, 1fr)", lg: "repeat(2, 1fr)" }}
       gap={[2, 4]}
+      px={{ base: 5, lg: 0 }}
       templateAreas={{
         base: `
         "item1"
