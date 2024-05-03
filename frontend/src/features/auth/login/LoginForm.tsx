@@ -28,11 +28,11 @@ export default function LoginForm() {
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-        const formData = new FormData(e.target as HTMLFormElement)
-        const formJSON: any = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.target as HTMLFormElement);
+    const formJSON: any = Object.fromEntries(formData.entries());
 
         try {
             await login({ variables: { data: formJSON } });

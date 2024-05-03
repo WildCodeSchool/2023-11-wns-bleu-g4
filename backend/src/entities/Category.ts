@@ -4,9 +4,11 @@ import {
 	Column,
 	Entity,
 	ManyToMany,
+	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import Product from "./Product"
+import SubCategory from "./SubCategory"
 
 @Entity()
 @ObjectType()
@@ -21,6 +23,9 @@ export class Category extends BaseEntity {
 
 	@ManyToMany(() => Product, (product) => product.categories)
 	products: Product[]
+
+	@OneToMany(() => SubCategory, (subCategories) => subCategories.category)
+	subCategories: SubCategory[]
 }
 
 export default Category

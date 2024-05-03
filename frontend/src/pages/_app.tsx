@@ -9,15 +9,15 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 function App({ Component, pageProps }: AppProps) {
-	return (
-		<ApolloProvider client={client}>
-			<ChakraProvider theme={theme}>
-				<ColorModeScript initialColorMode={theme.config.initialColorMode} />
-				<Component {...pageProps} />
+  return (
+    <ApolloProvider client={client}>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <Component {...pageProps} />
 				<ToastContainer/>
-			</ChakraProvider>
-		</ApolloProvider>
-	);
+      </ChakraProvider>
+    </ApolloProvider>
+  );
 }
 
 // Disabling SSR

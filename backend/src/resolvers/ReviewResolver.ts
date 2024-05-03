@@ -7,6 +7,7 @@ import { UserRole } from "../entities/User"
 
 @Resolver()
 export class ReviewResolver {
+	@Authorized([UserRole.CUSTOMER])
 	@Mutation(() => Review)
 	async createReview(
 		@Arg("data", { validate: true }) data: NewReviewInput,
@@ -14,7 +15,11 @@ export class ReviewResolver {
 	) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const newReview = new Review()
+
+		if (ctx.currentUser.role !== UserRole.CUSTOMER)
+			throw new GraphQLError("Not authorized")
 		Object.assign(newReview, data)
+
 		const { id } = await newReview.save()
 		return Review.findOne({
 			where: { id },
@@ -22,6 +27,7 @@ export class ReviewResolver {
 		})
 	}
 
+	@Authorized([UserRole.CUSTOMER])
 	@Mutation(() => Review)
 	async updateReview(
 		@Arg("reviewId") id: number,
@@ -36,8 +42,8 @@ export class ReviewResolver {
 			throw new GraphQLError("Not authorized")
 		if (reviewToUpdate.user.id !== ctx.currentUser.id)
 			throw new GraphQLError("Only the creator can update the review")
-
 		Object.assign(reviewToUpdate, data)
+
 		await reviewToUpdate.save()
 		return Review.findOne({
 			where: { id },
@@ -45,7 +51,7 @@ export class ReviewResolver {
 		})
 	}
 
-	@Authorized()
+	@Authorized([UserRole.CUSTOMER])
 	@Mutation(() => String)
 	async deleteReview(@Arg("reviewId") id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
