@@ -43,7 +43,6 @@ export default function LoginForm() {
             toast.error(errArr, ToastConfigLogin)
             return
         }
-
     }
 
     return (
@@ -69,7 +68,8 @@ export default function LoginForm() {
                                         name='email'
                                         size='md'
                                         bg='bgLight'
-                                        borderRadius='lg' />
+                                        borderRadius='lg' 
+                                        required/>
                                 </InputGroup>
                             </LightMode>
                         </FormControl>
@@ -87,7 +87,8 @@ export default function LoginForm() {
                                             name='password'
                                             size='md'
                                             bg='bgLight'
-                                            borderRadius='lg' />
+                                            borderRadius='lg' 
+                                            required/>
                                         <InputRightElement width='4.5rem'>
                                             <Button h='1.75rem' size='sm' onClick={handleClick}>
                                                 {show ? 'Hide' : 'Show'}
