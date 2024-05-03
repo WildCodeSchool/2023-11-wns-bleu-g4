@@ -1,0 +1,20 @@
+import { Box, Flex, Text } from "@chakra-ui/react";
+import HeroImg from '/public/images/Hero.png';
+import Image from 'next/image';
+
+export default function Welcome() {
+    return (
+        <Flex direction={{ base: 'column', md: 'row' }} justify="space-between" align="center" p={8}>
+            <Box flex={1} mr={{ base: 0, md: 8 }}>
+                <Text fontSize="6xl" fontWeight="bold" lineHeight="normal"  mb={2} >Welcome on GearGo</Text>                <Text fontSize="xl">Explore our outdoor equipment rental service
+                    for the mountains and the sea.
+                    GearGo offers a wide selection of quality gear.
+                    Simply rent what you need and embark on your
+                    adventure with ease.</Text>
+            </Box>
+            <Box flex={2}>
+                <Image src={HeroImg} alt="Hero" objectFit="cover" />
+            </Box>
+        </Flex>
+    );
+}

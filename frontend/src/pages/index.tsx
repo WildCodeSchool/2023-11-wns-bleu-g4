@@ -1,9 +1,10 @@
 import Layout from "@/layouts/Layout";
+import Welcome from "@/features/home/welcome/Welcome";
 
 export default function Home() {
   return (
     <Layout pageTitle="Home">
-      <p>This is home</p>
+      <Welcome/>
     </Layout>
   );
 }
