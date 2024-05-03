@@ -11,13 +11,13 @@ export default function LayoutAdmin({ children, pageTitle }: LayoutProps) {
   return (
     <>
       <Head>
-        <title>Next Template - {pageTitle}</title>
+        <title>GearGo - {pageTitle}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex h-[100vh]">
         <SideNavbar />
-        <main className="overflow-y-auto p-6">{children}</main>
+        <main className="ml-56 p-6 w-full">{children}</main>
       </div>
     </>
   );
