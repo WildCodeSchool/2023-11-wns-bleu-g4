@@ -56,6 +56,11 @@ export default function SignupForm() {
             validate = false
         }
 
+        if (password.search(/\D+\S+\W/) < 0) {
+            toast.error("Password must contain at least 1 special character", ToastConfigLogin)
+            validate = false
+        }
+
         return validate
     }
 
