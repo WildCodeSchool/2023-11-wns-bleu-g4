@@ -1,14 +1,14 @@
-import CardItem from "@/features/home/categories/CardItem";
+import CardItemCarousel from "@/features/home/categories/CardItemCarousel";
 import BentoGrid from "@/features/home/infos/BentoGrid";
-import Layout from "@/layouts/Layout";
 import Welcome from "@/features/home/welcome/Welcome";
+import Layout from "@/layouts/Layout";
 
 export default function Home() {
   return (
     <Layout pageTitle="Home">
-      <Welcome/>
+      <Welcome />
       <BentoGrid />
-      <CardItem />
+      <CardItemCarousel />
     </Layout>
   );
 }
