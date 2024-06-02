@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 // data for the subnavbar
 const categories = {
@@ -21,6 +22,8 @@ const categories = {
 };
 
 export default function SubNavbar() {
+  const { t } = useTranslation("SubNav");
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -76,7 +79,7 @@ export default function SubNavbar() {
               }
               py={4}
             >
-              {category}
+              {t(category)}
             </MenuButton>
             <MenuList>
               {items.map((item, i) => (
@@ -95,7 +98,7 @@ export default function SubNavbar() {
         variant="cartButton"
         leftIcon={<ShoppingCartIcon width={18} />}
       >
-        My basket
+        {t("My basket")}
       </Button>
     </Flex>
   );
