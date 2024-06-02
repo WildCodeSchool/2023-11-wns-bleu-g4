@@ -29,13 +29,11 @@ jobs:
           cd frontend
           npm run translate
 
-      - name: Commit and push changes
+      - name: Check for changes
         run: |
           cd frontend
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add .
-          git commit -m 'Update translation files'
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          if git diff --exit-code; then
+            echo "No changes to commit"
+          else
+            echo "Changes detected"
+          fi
