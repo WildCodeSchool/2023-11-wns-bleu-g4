@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { ProductTableBodyProps } from "../types";
+import { TableBodyProps } from "../types";
 import { productTableHeaders } from "../helpers/tableHeaders";
 import { ChevronDownIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 
-export default function ProductTableBody({ data }: ProductTableBodyProps) {
+export default function ProductTableBody({ data }: TableBodyProps) {
   const [openProductId, setOpenProductId] = useState<string | null>(null);
 
   const handleProductDetails = (productId: string) => {
