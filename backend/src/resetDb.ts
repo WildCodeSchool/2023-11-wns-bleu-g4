@@ -1,4 +1,5 @@
 import db from "./db"
+import Agency from "./entities/Agency"
 import User, { UserRole } from "./entities/User"
 
 export async function clearDB() {
@@ -53,6 +54,18 @@ async function main() {
 		emailVerified: true,
 	})
 	await customer.save()
+
+	const agency = new Agency()
+	Object.assign(agency, {
+		name: "GearGo Capitol",
+		address: "31, rue de la Chocolatine",
+		postcode: "31330",
+		city: "Toulouse",
+		country: "France",
+		phone: "0504030201",
+		email: "geargo.wild@gmail.com",
+	})
+	await agency.save()
 
 	await db.destroy()
 	console.log("Done !")
