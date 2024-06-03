@@ -59,7 +59,7 @@ async function main() {
 	Object.assign(agency, {
 		name: "GearGo Capitol",
 		address: "31, rue de la Chocolatine",
-		zipcode: 31330,
+		postcode: "31330",
 		city: "Toulouse",
 		country: "France",
 		phone: "0504030201",

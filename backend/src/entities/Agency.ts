@@ -26,7 +26,7 @@ export class Agency extends BaseEntity {
 
 	@Column()
 	@Field()
-	zipcode: number
+	postcode: string
 
 	@Column()
 	@Field()
@@ -58,7 +58,7 @@ export class NewAgencyInput {
 	address: string
 
 	@Field()
-	zipcode: number
+	postcode: string
 
 	@Field()
 	city: string
@@ -82,7 +82,7 @@ export class UpdateAgencyInput {
 	address?: string
 
 	@Field({ nullable: true })
-	zipcode?: number
+	postcode?: string
 
 	@Field({ nullable: true })
 	city?: string
