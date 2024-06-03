@@ -55,19 +55,19 @@ class AgencyResolver {
     }
 
 
-    // @Authorized([UserRole.ADMIN])
+    @Authorized([UserRole.ADMIN])
     @Mutation(() => Agency)
     async updateAgency(
         @Arg("agencyId") id: number,
         @Arg("data", { validate: true }) data: UpdateAgencyInput,
-        // @Ctx() ctx: Context
+        @Ctx() ctx: Context
     ) {
-        // if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
         const agencyToUpdate = await Agency.findOne({ where: { id } })
         if (!agencyToUpdate) throw new GraphQLError("Agency not found")
 
-        // if (ctx.currentUser.role !== UserRole.ADMIN)
-        // throw new GraphQLError("Not authorized")
+        if (ctx.currentUser.role !== UserRole.ADMIN)
+        throw new GraphQLError("Not authorized")
         await Object.assign(agencyToUpdate, data)
 
         await agencyToUpdate.save()
@@ -76,18 +76,18 @@ class AgencyResolver {
         })
     }
 
-    // @Authorized([UserRole.ADMIN])
+    @Authorized([UserRole.ADMIN])
     @Mutation(() => String)
     async deleteAgency(
         @Arg("agencyId") id: number,
-        // @Ctx() ctx: Context
+        @Ctx() ctx: Context
     ) {
-        // if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
         const agencyToDelete = await Agency.findOne({ where: { id } })
         if (!agencyToDelete) throw new GraphQLError("Agency not found")
 
-        // if (ctx.currentUser.role !== UserRole.ADMIN)
-        // throw new GraphQLError("Not authorized")
+        if (ctx.currentUser.role !== UserRole.ADMIN)
+        throw new GraphQLError("Not authorized")
 
         await agencyToDelete.remove()
         return "Agency deleted"
