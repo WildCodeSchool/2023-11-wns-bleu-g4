@@ -82,7 +82,6 @@ export default function SignupForm() {
                 },3000)
             } catch (e: any) {
                 const errArr = e.message.replaceAll('_', ' ')
-                // console.log(e)
                 toast.error(errArr, ToastConfigLogin)
                 return
             }
