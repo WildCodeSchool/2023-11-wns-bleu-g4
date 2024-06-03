@@ -1,8 +1,8 @@
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
-import HeroImg from "/public/images/Hero.png";
-import Image from "next/image";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import HeroImg from "/public/images/Hero.png";
 
 export default function ImageCarousel() {
   const renderArrowPrev = (onClickHandler: () => void, hasPrev: boolean, label: string) =>
@@ -30,7 +30,13 @@ export default function ImageCarousel() {
     );
 
   return (
-    <Carousel autoPlay infiniteLoop renderArrowPrev={renderArrowPrev} renderArrowNext={renderArrowNext}>
+    <Carousel
+      autoPlay
+      infiniteLoop
+      renderArrowPrev={renderArrowPrev}
+      renderArrowNext={renderArrowNext}
+      showStatus={false}
+    >
       <div>
         <Image src={HeroImg} alt="Image 1" />
       </div>

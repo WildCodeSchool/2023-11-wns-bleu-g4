@@ -98,3 +98,20 @@ h4 {
   font-size: theme(fontSize.xl);
   font-weight: 400;
 }
+
+.carousel .thumbs-wrapper {
+  margin: 0 !important;
+}
+
+.carousel .control-dots .dot {
+  background-color: #f0f0f0 !important;
+  width: 14px !important;
+  height: 14px !important;
+  opacity: 0.8 !important;
+}
+
+.carousel .control-dots .dot.selected {
+  background-color: #e66300 !important;
+  border-color: #e66300 !important;
+  opacity: 1 !important;
+}

@@ -7,10 +7,10 @@ import HeroImageMobile from "/public/images/HeroMobile.png";
 export default function Welcome() {
   const { t } = useTranslation("Welcome");
   return (
-    <Flex position="relative" direction={{ base: "column", md: "row" }} justify="space-between" align="center">
+    <Flex position="relative" direction={{ base: "column", md: "row" }} justify="space-between" align="center" w="full">
       <Image src={HeroImageMobile} alt="Hero Mobile" className="absolute w-full h-full object-cover md:hidden z-1  " />
       <div className="absolute w-full h-full bg-gradient-to-r opacity-50 from-black to-30 md:hidden z-2 " />
-      <Box flex={1} m={5} className="relative  z-3">
+      <Box flex={1} m={5} className="relative w-full md:w-1/2 z-3 p-5 md:p-0">
         <Heading
           as="h1"
           fontSize={{ base: "4xl", md: "6xl" }}
