@@ -6,7 +6,7 @@ import Welcome from "@/features/home/welcome/Welcome";
 export default function Home() {
   return (
     <Layout pageTitle="Home">
-      <Welcome/>
+      <Welcome />
       <BentoGrid />
       <CardItem />
     </Layout>
