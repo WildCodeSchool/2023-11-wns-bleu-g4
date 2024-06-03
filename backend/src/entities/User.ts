@@ -35,31 +35,31 @@ export class User extends BaseEntity {
 	@Field()
 	email: string
 
-	@Column()
+	@Column({default:"name"})
 	@Field()
 	name: string
 
-	@Column()
+	@Column({default:"firstname"})
 	@Field()
 	firstname: string
-
-	@Column()
+	
+	@Column({default:"address"})
 	@Field()
 	address: string
-
-	@Column()
+	
+	@Column({default:"postcode"})
 	@Field()
 	postcode: string
-
-	@Column()
+	
+	@Column({default:"city"})
 	@Field()
 	city: string
-
-	@Column()
+	
+	@Column({default:"country"})
 	@Field()
 	country: string
-
-	@Column()
+	
+	@Column({default:"phone"})
 	@Field()
 	phone: string
 
