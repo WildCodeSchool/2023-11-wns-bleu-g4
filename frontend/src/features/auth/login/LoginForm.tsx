@@ -1,28 +1,31 @@
-import React, { FormEvent } from "react";
+import { ToastConfigLogin } from "@/config/ToastConfig";
 import {
+  Box,
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardHeader,
+  Divider,
   Flex,
-  Input,
   FormControl,
   FormLabel,
-  Button,
-  Box,
-  Text,
-  InputRightElement,
-  InputGroup,
-  LightMode,
-  Divider,
   Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
+  LightMode,
+  Text,
 } from "@chakra-ui/react";
-import { useLoginMutation } from "../../../graphql/generated/schema";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
-import { ToastConfigLogin } from "@/config/ToastConfig";
+import React, { FormEvent } from "react";
 import { toast } from "react-toastify";
+import { useLoginMutation } from "../../../graphql/generated/schema";
 
 export default function LoginForm() {
+  const { t } = useTranslation("LoginForm");
+
   const [login] = useLoginMutation();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -49,7 +52,7 @@ export default function LoginForm() {
       {/* TITLE */}
       <CardHeader textAlign="center">
         <Heading as="h1" color="black" fontWeight="500">
-          LOGIN
+          {t("LOGIN")}
         </Heading>
       </CardHeader>
       <Divider color="black" />
@@ -78,7 +81,7 @@ export default function LoginForm() {
             {/* PASSWORD */}
             <Box>
               <FormControl size="md">
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t("Password")}</FormLabel>
                 <LightMode>
                   <InputGroup>
                     <Input
@@ -93,7 +96,7 @@ export default function LoginForm() {
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleClick}>
-                        {show ? "Hide" : "Show"}
+                        {show ? t("Hide") : t("Show")}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
@@ -103,7 +106,7 @@ export default function LoginForm() {
               {/* FORGOT PASSWORD */}
               <Text className=" text-center text-sm py-2">
                 <Link href="#" className="hover:underline hover:text-orange-500">
-                  Forgot your password ?
+                  {t("Forgot your password ?")}
                 </Link>
               </Text>
             </Box>
@@ -113,13 +116,13 @@ export default function LoginForm() {
           <Flex direction="column" className="w-full">
             {/* BUTTON */}
             <Button type="submit" className="w-full" variant="loginButton" m="0">
-              Login
+              {t("Login")}
             </Button>
             {/* FORGOT PASSWORD */}
             <Text className=" text-center text-sm py-2" color="black">
-              Not yet registered ?&nbsp;
+              {t("Not yet registered ?")}&nbsp;
               <Link href="/signup" className="underline text-orange-500">
-                sign up
+                {t("sign up")}
               </Link>
             </Text>
           </Flex>

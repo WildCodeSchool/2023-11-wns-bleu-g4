@@ -1,0 +1,16 @@
+module.exports = {
+  contextSeparator: "_",
+  createOldCatalogs: true,
+  defaultNamespace: "common",
+  defaultValue: "",
+  indentation: 2,
+  keepRemoved: false,
+  keySeparator: false,
+  locales: ["en", "fr"],
+  namespaceSeparator: false,
+  output: "public/static/locales/$LOCALE/$NAMESPACE.json",
+  input: ["src/**/*.{js,jsx,tsx}", "public/**/*.html"],
+  sort: true,
+  useKeysAsDefaultValue: true,
+  verbose: false,
+};

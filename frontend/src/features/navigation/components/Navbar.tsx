@@ -18,9 +18,12 @@ import {
 import { Bars3BottomRightIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
+import LanguageSwitcher from "@/shared/components/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 import TopNavItems from "./TopNavItems";
 
 function DesktopNavbar() {
+  const [t] = useTranslation("Navbar");
   return (
     <Flex display={{ base: "none", md: "none", xl: "flex" }}>
       <nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
@@ -29,7 +32,7 @@ function DesktopNavbar() {
             <ThemedLogo />
           </div>
 
-          <SearchBar onSearch={query => console.log(query)} placeholder="Search" />
+          <SearchBar onSearch={query => console.log(query)} placeholder={t("Search")} />
           <li>
             <Menu>
               <MenuButton
@@ -42,12 +45,13 @@ function DesktopNavbar() {
                 Profil
               </MenuButton>
               <MenuList>
-                <MenuItem>My Account</MenuItem>
-                <MenuItem>Payments </MenuItem>
+                <MenuItem>{t("My Account")}</MenuItem>
+                <MenuItem>{t("Payments")} </MenuItem>
               </MenuList>
             </Menu>
           </li>
           <ThemeToggle />
+          <LanguageSwitcher />
         </ul>
       </nav>
     </Flex>
@@ -58,6 +62,7 @@ function MobileNavbar() {
   const { isOpen, onToggle } = useDisclosure();
   const bg = useColorModeValue("white", "#3B3B3B");
   const textColor = useColorModeValue("black", "white");
+  const [t] = useTranslation("Navbar");
 
   return (
     <Box>
@@ -72,7 +77,7 @@ function MobileNavbar() {
           <ThemedLogo />
           <Spacer />
           <Flex gap={2} align={"center"}>
-            <SearchBar variant="mobile" onSearch={query => console.log(query)} placeholder="Search" />
+            <SearchBar variant="mobile" onSearch={query => console.log(query)} placeholder={t("Search")} />
             <IconButton
               bg={"transparent"}
               aria-label="Profil button"

@@ -1,6 +1,9 @@
 import LoginForm from "@/features/auth/login/LoginForm";
-import { Box, Center, Container, Flex, Image } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
+import { Flex } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "../../i18nUtils";
 
 export default function Login() {
   const urlBg: string =
@@ -22,3 +25,9 @@ export default function Login() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
+  },
+});

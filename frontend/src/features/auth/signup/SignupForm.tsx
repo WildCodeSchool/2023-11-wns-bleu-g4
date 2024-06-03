@@ -1,4 +1,3 @@
-import React, { FormEvent } from "react";
 import {
   Card,
   CardHeader,
@@ -22,8 +21,12 @@ import Link from "next/link";
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { toast } from "react-toastify";
 import { FetchResult } from "@apollo/client";
+import React, { FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function SignupForm() {
+  const { t } = useTranslation("SignupForm");
+
   const [signup] = useCreateUserMutation();
 
   const [showPass, setShowPass] = React.useState(false);
@@ -33,31 +36,31 @@ export default function SignupForm() {
   const handleClickRepeatPass = () => setShowRepPass(!showRepPass);
 
   function validatePassword(password: string, repeatPassword: string): boolean {
-    let validate: boolean = true;
+    let validate: boolean = true
     if (password !== repeatPassword) {
-      toast.error("Passwords must be the same", ToastConfigLogin);
-      validate = false;
+      toast.error("Passwords must be the same", ToastConfigLogin)
+      validate = false
     }
     if (password.length < 8) {
-      toast.error("Password must be at least 8 chars long", ToastConfigLogin);
-      validate = false;
+      toast.error("Password must be at least 8 chars long", ToastConfigLogin)
+      validate = false
     }
     if (password.search(/[a-z]/) < 0) {
-      toast.error("Password must contain a lowercase", ToastConfigLogin);
-      validate = false;
+      toast.error("Password must contain a lowercase", ToastConfigLogin)
+      validate = false
     }
     if (password.search(/[A-Z]/) < 0) {
-      toast.error("Password must contain an uppercase letter", ToastConfigLogin);
-      validate = false;
+      toast.error("Password must contain an uppercase letter", ToastConfigLogin)
+      validate = false
     }
     if (password.search(/[0-9]/) < 0) {
-      toast.error("Password must contain a number", ToastConfigLogin);
-      validate = false;
+      toast.error("Password must contain a number", ToastConfigLogin)
+      validate = false
     }
 
     if (password.search(/\D+\S+\W/) < 0) {
-      toast.error("Password must contain at least 1 special character", ToastConfigLogin);
-      validate = false;
+      toast.error("Password must contain at least 1 special character", ToastConfigLogin)
+      validate = false
     }
 
     return validate;
@@ -74,25 +77,25 @@ export default function SignupForm() {
         delete formJSON.repeatPassword;
 
         const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
-        const toastInfo: string = `Account created`;
-        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 3000 });
+        const toastInfo: string = `Account created`
+        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 3000 })
         setTimeout(() => {
           window.location.replace("/account/" + res.data?.createUser.id);
-        }, 3000);
+        }, 3000)
       } catch (e: any) {
-        const errArr = e.message.replaceAll("_", " ");
-        toast.error(errArr, ToastConfigLogin);
-        return;
+        const errArr = e.message.replaceAll('_', ' ')
+        toast.error(errArr, ToastConfigLogin)
+        return
       }
     }
-  };
+  }
 
   return (
     <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
       {/* TITLE */}
       <CardHeader textAlign="center">
         <Heading as="h1" color="black" fontWeight="500">
-          REGISTER
+          {t("REGISTER")}
         </Heading>
       </CardHeader>
       <Divider color="black" />
@@ -121,7 +124,7 @@ export default function SignupForm() {
             {/* PASSWORD */}
             <Box>
               <FormControl size="md">
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t("Password")}</FormLabel>
                 <LightMode>
                   <InputGroup>
                     <Input
@@ -136,7 +139,7 @@ export default function SignupForm() {
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleClickPass}>
-                        {showPass ? "Hide" : "Show"}
+                        {showRepPass ? t("Hide") : t("Show")}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
@@ -147,13 +150,13 @@ export default function SignupForm() {
             {/* REPEAT PASSWORD */}
             <Box>
               <FormControl size="md">
-                <FormLabel>Repeat your password</FormLabel>
+                <FormLabel>{t("Repeat your password")}</FormLabel>
                 <LightMode>
                   <InputGroup>
                     <Input
                       type={showRepPass ? "text" : "password"}
                       color="black"
-                      placeholder="Repeat your password"
+                      placeholder={t("Repeat your password")}
                       name="repeatPassword"
                       size="md"
                       bg="bgLight"
@@ -162,7 +165,7 @@ export default function SignupForm() {
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleClickRepeatPass}>
-                        {showRepPass ? "Hide" : "Show"}
+                        {showRepPass ? t("Hide") : t("Show")}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
@@ -175,13 +178,13 @@ export default function SignupForm() {
           <Flex direction="column" className="w-full">
             {/* BUTTON */}
             <Button type="submit" className="w-full" variant="loginButton" m="0">
-              Signup
+              {t("Signup")}
             </Button>
             {/* FORGOT PASSWORD */}
             <Text className=" text-center text-sm py-2" color="black">
-              Already registered ?&nbsp;
+              {t("Already registered ?")}&nbsp;
               <Link href="/login" className="underline text-orange-500">
-                login
+                {t("login")}
               </Link>
             </Text>
           </Flex>

@@ -3,6 +3,7 @@ import client from "@/graphql/client";
 import "@/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import { appWithTranslation } from "next-i18next";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { ToastContainer } from "react-toastify";
@@ -21,4 +22,4 @@ function App({ Component, pageProps }: AppProps) {
 }
 
 // Disabling SSR
-export default dynamic(() => Promise.resolve(App), { ssr: false });
+export default dynamic(() => Promise.resolve(appWithTranslation(App)), { ssr: false });

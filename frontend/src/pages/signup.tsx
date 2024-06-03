@@ -1,6 +1,9 @@
 import SignupForm from "@/features/auth/signup/SignupForm";
-import { Flex } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
+import { Flex } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "../../i18nUtils";
 
 export default function Login() {
   const urlBg: string =
@@ -9,16 +12,16 @@ export default function Login() {
   return (
     <Layout pageTitle="Login">
       <Flex
-        justifyContent="center"
+        justifyContent='center'
         py={{ md: "100px" }}
         bgImage={{ md: urlBg }}
-        bgRepeat="no-repeat"
-        bgPosition="center"
-        bgSize="cover"
+        bgRepeat='no-repeat'
+        bgPosition='center'
+        bgSize='cover'
         borderRadius="10px"
       >
         <SignupForm />
       </Flex>
     </Layout>
-  );
-}
+  )
+};
