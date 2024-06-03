@@ -11,13 +11,13 @@ export default function Products() {
   const itemsPerPage = 16;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + Math.min(itemsPerPage, data?.length ?? 0);
-  const currentOrders = sortedData.slice(startIndex, endIndex);
+  const currentProducts = sortedData.slice(startIndex, endIndex);
 
   return (
     <LayoutAdmin pageTitle="Product list">
       <h1>Product list</h1>
       <div className="overflow-x-auto">
-        <ProductTableBody data={currentOrders} />
+        <ProductTableBody data={currentProducts} />
       </div>
       <TableFooter
         data={sortedData}
