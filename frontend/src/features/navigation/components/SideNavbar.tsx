@@ -19,7 +19,7 @@ export default function SideNavbar() {
     <nav className="fixed flex h-full w-56 flex-col justify-between bg-cactus-400 p-3">
       <div className="flex flex-col gap-3">
         <Link href="/">
-          <Image src={LightLogo} alt="Logo de l'entreprise" />
+          <Image src={LightLogo} alt="Logo de l'entreprise" priority />
         </Link>
         <hr className="bg-light" />
         <div className="flex flex-col gap-3">
