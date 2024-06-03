@@ -39,7 +39,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="px-0 lg:px-24">
+    <footer className="px-0 lg:px-24 lg:pb-5">
       <Card variant="footerCard" direction={{ base: "column", md: "row" }}>
         {/**About Us */}
         <ul className="w-full space-y-2 p-3 md:w-1/3">
