@@ -10,7 +10,7 @@ export interface OrderTableBodyProps {
   handleDateSort: (columnName: string) => void;
 }
 
-export interface ProductTableBodyProps {
+export interface TableBodyProps {
   data: any;
 }
 
