@@ -14,6 +14,7 @@ import Agency, {
     NewAgencyInput,
     UpdateAgencyInput,
 } from "../entities/Agency"
+import { UserRole } from "../entities/User";
 
 @Resolver()
 class AgencyResolver {
@@ -31,20 +32,20 @@ class AgencyResolver {
         return agency
     }
 
-    // @Authorized([UserRole.ADMIN])
+    @Authorized([UserRole.ADMIN])
     @Mutation(() => Agency)
     async createAgency(
         @Arg("data",
             { validate: true }
         )
         data: NewAgencyInput,
-        // @Ctx() ctx: Context
+        @Ctx() ctx: Context
     ) {
-        // if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
         const newAgency = new Agency()
 
-        // if (ctx.currentUser.role !== UserRole.ADMIN)
-        // 	throw new GraphQLError("Not authorized")
+        if (ctx.currentUser.role !== UserRole.ADMIN)
+        	throw new GraphQLError("Not authorized")
         Object.assign(newAgency, data)
 
         const { id } = await newAgency.save()
