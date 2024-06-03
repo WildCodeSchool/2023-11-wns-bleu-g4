@@ -17,3 +17,10 @@ export const productTableHeaders: menuItems[] = [
   { id: 4, name: "price" },
   { id: 7, name: "manage product" },
 ];
+
+export const customerTableHeaders: menuItems[] = [
+  { id: 1, name: "fullname" },
+  { id: 2, name: "address" },
+  { id: 3, name: "city" },
+  { id: 4, name: "email" },
+];
