@@ -6,6 +6,7 @@ import Product from "./entities/Product"
 import Category from "./entities/Category"
 import SubCategory from "./entities/SubCategory"
 import Agency from "./entities/Agency"
+import { Booking } from "./entities/Booking"
 
 const { DB_USER, DB_PASS, DB_NAME, DB_PORT, DB_HOST } = env
 
@@ -16,7 +17,7 @@ const db = new DataSource({
 	username: DB_USER,
 	password: DB_PASS,
 	database: DB_NAME,
-	entities: [Category, Product, SubCategory, Review, User, Agency],
+	entities: [Category, Product, SubCategory, Review, User, Agency, Booking],
 	synchronize: true,
 })
 
