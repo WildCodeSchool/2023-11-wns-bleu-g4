@@ -18,6 +18,10 @@ export class BookingItem extends BaseEntity {
 	id: number
 
     @Column()
+	@Field(() => String)
+	name: string
+
+    @Column()
 	@Field(() => Int)
 	quantity: number
     
@@ -34,34 +38,29 @@ export class BookingItem extends BaseEntity {
     @JoinColumn()
 	@Field(() => Product)
 	product: Product
+
 }
 
 @InputType()
 export class NewBookingItemInput {
+    @Field(() => String)
+	name: string
+
 	@Field(() => Int)
 	quantity: number
 
 	@Field(() => Int)
     unit_price : number
-
-	@Field(() => Int)
-    booking: number
-
-	@Field(() => Int, {nullable : true})
-    product :number
 }
 
 @InputType()
 export class UpdateBookingItemInput {
+    @Field(() => String)
+	name?: string
+
 	@Field(() => Int)
 	quantity?: number
     
 	@Field(() => Int)
     unit_price?: number
-
-	@Field(() => Int)
-    booking?: number
-
-	@Field()
-    product?:number
 }
