@@ -1,4 +1,5 @@
 import { Field, InputType, Int, ObjectType } from "type-graphql"
+import { IsEnum } from "class-validator"
 import {
     BaseEntity,
     Column,
@@ -8,6 +9,7 @@ import {
     PrimaryGeneratedColumn,
 } from "typeorm"
 import Product from "./Product"
+import { BookingItemStatus } from "../enum/BookingItemStatus"
 
 @Entity()
 @ObjectType()
@@ -20,6 +22,14 @@ export class BookingItem extends BaseEntity {
     @Column()
 	@Field(() => String)
 	name: string
+
+    @Column({
+		type: "enum",
+		enum: BookingItemStatus,
+	})
+	@Field(() => BookingItemStatus)
+	@IsEnum(BookingItemStatus)
+	status: BookingItemStatus
 
     @Column()
 	@Field(() => Int)
@@ -46,6 +56,10 @@ export class NewBookingItemInput {
     @Field(() => String)
 	name: string
 
+    @Field(() => BookingItemStatus)
+	@IsEnum(BookingItemStatus)
+	status: BookingItemStatus
+
 	@Field(() => Int)
 	quantity: number
 
@@ -57,6 +71,10 @@ export class NewBookingItemInput {
 export class UpdateBookingItemInput {
     @Field(() => String)
 	name?: string
+
+    @Field(() => BookingItemStatus)
+	@IsEnum(BookingItemStatus)
+	status?: BookingItemStatus
 
 	@Field(() => Int)
 	quantity?: number
