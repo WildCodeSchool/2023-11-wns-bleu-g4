@@ -1,7 +1,10 @@
 import { TableBodyProps } from "../types";
 import { customerTableHeaders } from "../helpers/tableHeaders";
+import { useTranslation } from "react-i18next";
 
 export default function CustomerTableBody({ data }: TableBodyProps) {
+  const { t } = useTranslation("CustomerTableBody");
+
   return (
     <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
       <thead>
@@ -20,12 +23,13 @@ export default function CustomerTableBody({ data }: TableBodyProps) {
         {data.length !== 0 ? (
           data.map((customer: any, index: number) => (
             <tr key={customer.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap`}>
-              <td className="flex gap-3 whitespace-nowrap p-3 pl-8 w-48 min-w-max items-center">
+              <td className="flex gap-3 whitespace-nowrap p-3 pl-8 w-60 min-w-max items-center">
                 <img src={customer.avatar} alt={customer.name} className="h-8 w-8 rounded-full" />
                 {customer.name} {customer.firstname}</td>
               <td className="whitespace-nowrap p-3 w-96 min-w-max">{customer.address}</td>
               <td className="whitespace-nowrap p-3 w-60 min-w-max">{customer.city}</td>
               <td className="whitespace-nowrap p-3 w-96 min-w-max">{customer.email}</td>
+              <td className="whitespace-nowrap p-3 w-60 min-w-max">{customer.phone}</td>
             </tr>
           ))
         ) : (
