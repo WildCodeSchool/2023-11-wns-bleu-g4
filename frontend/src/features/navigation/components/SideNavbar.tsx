@@ -6,6 +6,7 @@ import { BackspaceIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import ThemeToggle from "@/shared/components/ThemeToggle";
 import { useTranslation } from "next-i18next";
+import LanguageSwitcher from "@/shared/components/LanguageSwitcher";
 
 export default function SideNavbar() {
   const { t } = useTranslation("Navbar");
@@ -16,7 +17,7 @@ export default function SideNavbar() {
   };
 
   return (
-    <nav className="fixed flex h-full w-56 flex-col justify-between bg-cactus-400 p-3">
+    <nav className="fixed flex h-full w-60 flex-col justify-between bg-cactus-400 p-3">
       <div className="flex flex-col gap-3">
         <Link href="/">
           <Image src={LightLogo} alt="Logo de l'entreprise" priority />
