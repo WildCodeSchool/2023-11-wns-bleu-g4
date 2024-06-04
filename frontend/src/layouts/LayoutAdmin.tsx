@@ -15,7 +15,7 @@ export default function LayoutAdmin({ children, pageTitle }: LayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex h-[100vh]">
+      <div className="flex min-h-[100vh]">
         <SideNavbar />
         <main className="ml-56 p-6 w-full">{children}</main>
       </div>

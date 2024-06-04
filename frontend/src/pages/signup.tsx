@@ -12,22 +12,16 @@ export default function Login() {
   return (
     <Layout pageTitle="Login">
       <Flex
-        justifyContent="center"
+        justifyContent='center'
         py={{ md: "100px" }}
         bgImage={{ md: urlBg }}
-        bgRepeat="no-repeat"
-        bgPosition="center"
-        bgSize="cover"
+        bgRepeat='no-repeat'
+        bgPosition='center'
+        bgSize='cover'
         borderRadius="10px"
       >
         <SignupForm />
       </Flex>
     </Layout>
-  );
-}
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
-  },
-});
+  )
+};
