@@ -1,4 +1,3 @@
-import { Length, Min } from "class-validator"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
@@ -7,6 +6,7 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
+import {Booking}  from "./Booking"
 // import ProductCode from "./ProductCode"
 
 @Entity()
@@ -47,6 +47,10 @@ export class Agency extends BaseEntity {
     // @OneToMany(() => ProductCode, (products) => products.agency)
 	// @Field(() => [ProductCode])
 	// products: ProductCode[]
+
+	@OneToMany(() => Booking, (bookings) => bookings.agency)
+	@Field(() => [Booking])
+	bookings: Booking[]
 }
 
 @InputType()

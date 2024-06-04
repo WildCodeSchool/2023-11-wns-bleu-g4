@@ -10,6 +10,7 @@ import {
 } from "typeorm"
 import { hash } from "argon2"
 import Review from "./Review"
+import { Booking } from "./Booking"
 
 export enum UserRole {
 	ADMIN = "admin",
@@ -35,31 +36,31 @@ export class User extends BaseEntity {
 	@Field()
 	email: string
 
-	@Column({default:"name"})
+	@Column({ default: "name" })
 	@Field()
 	name: string
 
-	@Column({default:"firstname"})
+	@Column({ default: "firstname" })
 	@Field()
 	firstname: string
-	
-	@Column({default:"address"})
+
+	@Column({ default: "address" })
 	@Field()
 	address: string
-	
-	@Column({default:"postcode"})
+
+	@Column({ default: "postcode" })
 	@Field()
 	postcode: string
-	
-	@Column({default:"city"})
+
+	@Column({ default: "city" })
 	@Field()
 	city: string
-	
-	@Column({default:"country"})
+
+	@Column({ default: "country" })
 	@Field()
 	country: string
-	
-	@Column({default:"phone"})
+
+	@Column({ default: "phone" })
 	@Field()
 	phone: string
 
@@ -73,10 +74,9 @@ export class User extends BaseEntity {
 	@Field()
 	avatar: string
 
-	//   Missing Booking field - need to update
-	//   @OneToMany(() => Booking, (bookings) => bookings.user)
-	//   @Field(() => Booking[])
-	//   bookings: Booking[];
+	@OneToMany(() => Booking, (bookings) => bookings.user)
+	@Field(()=> [Booking])
+	bookings: Booking[];
 
 	@OneToMany(() => Review, (reviews) => reviews.user)
 	@Field(() => [Review])
