@@ -1,5 +1,6 @@
 import db from "./db"
 import Agency from "./entities/Agency"
+import { Booking } from "./entities/Booking"
 import User, { UserRole } from "./entities/User"
 
 export async function clearDB() {
@@ -66,6 +67,22 @@ async function main() {
 		email: "geargo.wild@gmail.com",
 	})
 	await agency.save()
+
+	const booking = new Booking()
+	Object.assign(booking, {
+		agency: {
+			id: 1
+		  },
+		  bookingDate: "2024-06-04T10:15:30.000Z",
+		  endDate: "2024-06-15T19:00:00.000Z",
+		  invoice: "INV-20240604-1",
+		  startDate: "2024-06-08T08:00:00.000Z",
+		  status: "CURRENT",
+		  user: {
+			id: 1
+		  }
+	})
+	await booking.save()
 
 	await db.destroy()
 	console.log("Done !")
