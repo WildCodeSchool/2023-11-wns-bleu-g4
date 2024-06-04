@@ -5,8 +5,10 @@ import { useRouter } from "next/router";
 import { BackspaceIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import ThemeToggle from "@/shared/components/ThemeToggle";
+import { useTranslation } from "next-i18next";
 
 export default function SideNavbar() {
+  const { t } = useTranslation("Navbar");
   const router = useRouter();
 
   const isActive = (path: string) => {
@@ -17,7 +19,7 @@ export default function SideNavbar() {
     <nav className="fixed flex h-full w-56 flex-col justify-between bg-cactus-400 p-3">
       <div className="flex flex-col gap-3">
         <Link href="/">
-          <Image src={LightLogo} alt="Logo de l'entreprise" />
+          <Image src={LightLogo} alt="Logo de l'entreprise" priority />
         </Link>
         <hr className="bg-light" />
         <div className="flex flex-col gap-3">
@@ -41,7 +43,7 @@ export default function SideNavbar() {
           className="flex cursor-pointer items-center gap-3 rounded px-3 py-2 text-light hover:bg-cactus-300 hover:text-dark w-full"
         >
           <BackspaceIcon className="h-6 w-6" />
-          <span>Back to website</span>
+          <span>{t("Back to website")}</span>
         </Link>
       </div>
     </nav>

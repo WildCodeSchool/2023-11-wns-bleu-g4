@@ -1,6 +1,6 @@
 import { menuItems } from "../types";
 
-const orderTableHeaders: menuItems[] = [
+export const orderTableHeaders: menuItems[] = [
   { id: 1, name: "order number" },
   { id: 2, name: "customer name" },
   { id: 3, name: "customer address" },
@@ -10,4 +10,17 @@ const orderTableHeaders: menuItems[] = [
   { id: 7, name: "order details" },
 ];
 
-export default orderTableHeaders;
+export const productTableHeaders: menuItems[] = [
+  { id: 1, name: "reference" },
+  { id: 2, name: "product name" },
+  { id: 3, name: "brand" },
+  { id: 4, name: "price" },
+  { id: 7, name: "manage product" },
+];
+
+export const customerTableHeaders: menuItems[] = [
+  { id: 1, name: "fullname" },
+  { id: 2, name: "address" },
+  { id: 3, name: "city" },
+  { id: 4, name: "email" },
+];

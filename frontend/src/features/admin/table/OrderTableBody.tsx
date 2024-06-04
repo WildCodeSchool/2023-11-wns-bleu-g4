@@ -1,9 +1,9 @@
-import { ArrowsUpDownIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
-import { AdminTableBodyProps } from "../types";
-import orderTableHeaders from "../helpers/tableHeaders";
+import { OrderTableBodyProps } from "../types";
+import { orderTableHeaders } from "../helpers/tableHeaders";
+import { ArrowsUpDownIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
-export default function AdminTableBody({ data, handleDateSort, sortColumnName, sortOrder }: AdminTableBodyProps) {
+export default function OrderTableBody({ data, handleDateSort, sortColumnName, sortOrder }: OrderTableBodyProps) {
   const [openOrderId, setOpenOrderId] = useState<string | null>(null);
 
   const handleOrderDetails = (orderId: string) => {
@@ -16,7 +16,7 @@ export default function AdminTableBody({ data, handleDateSort, sortColumnName, s
         <tr>
           {orderTableHeaders.map(menu => (
             <th
-              className="p-3 first:pl-8 last:pr-8 text-gray-600 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-gray-600 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
               key={menu.id}
             >
               <span className="flex gap-2 items-center">

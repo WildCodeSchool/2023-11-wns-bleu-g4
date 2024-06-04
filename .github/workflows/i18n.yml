@@ -1,0 +1,39 @@
+name: I18n Parser
+
+on:
+  push:
+    branches: [main, master, dev]
+  pull_request:
+    branches: [main, master, dev]
+
+jobs:
+  i18n-parser:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Run i18next-parser
+        run: |
+          cd frontend
+          npm run translate
+
+      - name: Check for changes
+        run: |
+          cd frontend
+          if git diff --exit-code; then
+            echo "No changes to commit"
+          else
+            echo "Changes detected"
+          fi

@@ -3,8 +3,11 @@ import { FaceSmileIcon, MagnifyingGlassCircleIcon, ShoppingCartIcon } from "@her
 import Image from "next/image";
 import Facebook from "../../../../public/svg/facebookLight.svg";
 import Instagram from "../../../../public/svg/instagramLight.svg";
+import { useTranslation } from "next-i18next";
 
 export default function BentoGrid() {
+  const { t } = useTranslation("Bento");
+
   const isDark = useColorModeValue(false, true);
 
   const item1 = useColorModeValue("primary", "primaryDark");
@@ -47,10 +50,10 @@ export default function BentoGrid() {
         gap={[2.5, 7]}
       >
         <Text fontSize={{ base: "24px", lg: "96px" }} color={text1} align="center">
-          Over <span className="lg:text-9xl sm:text-3xl font-bold">100+</span> gear
+          {t("Over")} <span className="lg:text-9xl sm:text-3xl font-bold">{t("100+")}</span> {t("gear")}
         </Text>
         <Text color={text1} align="center">
-          and more incoming...
+          {t("and more incoming...")}
         </Text>
       </GridItem>
       <GridItem
@@ -67,13 +70,13 @@ export default function BentoGrid() {
         gap={[2.5, 2.5, 2.5, 7]}
       >
         <Text fontSize={{ base: "16px", lg: "24px" }} color={text1} align="center">
-          More than
+          {t("More than")}
         </Text>
         <Text color={text1} fontSize={{ base: "32px", lg: "64px" }} fontWeight="700">
-          50
+          {t("50")}
         </Text>
         <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
-          agencies
+          {t("agencies")}
         </Text>
       </GridItem>
       <GridItem
@@ -89,7 +92,7 @@ export default function BentoGrid() {
         gap={[2.5, 2.5, 2.5, 7]}
       >
         <Text fontSize={{ base: "14px", md: "16px", lg: "32px" }} color={text1} align="center">
-          Renting equipment hase never been easier
+          {t("Renting equipment hase never been easier")}
         </Text>
         <Flex width={"full"} justifyContent={"space-around"}>
           <Flex direction={"column"} alignItems={"center"}>
@@ -97,7 +100,7 @@ export default function BentoGrid() {
               <MagnifyingGlassCircleIcon fill={isDark ? "dark" : "white"} />
             </Box>
             <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
-              Search
+              {t("Search")}
             </Text>
           </Flex>
           <Flex direction={"column"} alignItems={"center"}>
@@ -105,7 +108,7 @@ export default function BentoGrid() {
               <ShoppingCartIcon fill={isDark ? "dark" : "white"} />
             </Box>
             <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
-              Rent
+              {t("Rent")}
             </Text>
           </Flex>
           <Flex direction={"column"} alignItems={"center"}>
@@ -113,7 +116,7 @@ export default function BentoGrid() {
               <FaceSmileIcon fill={isDark ? "dark" : "white"} />
             </Box>
             <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
-              Enjoy
+              {t("Enjoy")}
             </Text>
           </Flex>
         </Flex>
@@ -132,7 +135,7 @@ export default function BentoGrid() {
         gap={[2.5, 2.5, 2.5, 7]}
       >
         <Text fontSize={{ base: "16px", lg: "32px" }} color={text2} align="center">
-          Find us on social media
+          {t("Find us on social media")}
         </Text>
         <Flex gap={8}>
           <Box width={["30px", "40px"]}>

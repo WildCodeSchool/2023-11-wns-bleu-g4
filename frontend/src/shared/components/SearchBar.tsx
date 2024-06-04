@@ -9,6 +9,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "next-i18next";
 import { useEffect, useRef, useState } from "react";
 
 interface SearchBarProps {
@@ -18,6 +19,7 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ onSearch, placeholder, variant = "desktop" }: SearchBarProps) {
+  const { t } = useTranslation("Navbar");
   const [query, setQuery] = useState("");
   const [isInputEmpty, setIsInputEmpty] = useState(true);
 
@@ -114,7 +116,7 @@ export default function SearchBar({ onSearch, placeholder, variant = "desktop" }
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader borderBottomWidth="1px">
-              Search a product
+              {t("Search a product")}
               <IconButton
                 aria-label="Close drawer"
                 icon={<XMarkIcon />}

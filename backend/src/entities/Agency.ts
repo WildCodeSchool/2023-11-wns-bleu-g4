@@ -6,8 +6,8 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
+import { Product_code } from "./Product_code"
 import {Booking}  from "./Booking"
-// import ProductCode from "./ProductCode"
 
 @Entity()
 @ObjectType()
@@ -40,10 +40,13 @@ export class Agency extends BaseEntity {
 	@Field()
 	phone: string
 
-    @Column()
+	@Column()
 	@Field()
 	email: string
 
+	@OneToMany(() => Product_code, (productCode) => productCode.agency)
+	@Field(() => [Product_code])
+	productCodes: Product_code[]
     // @OneToMany(() => ProductCode, (products) => products.agency)
 	// @Field(() => [ProductCode])
 	// products: ProductCode[]
@@ -79,7 +82,7 @@ export class NewAgencyInput {
 
 @InputType()
 export class UpdateAgencyInput {
-    @Field({ nullable: true })
+	@Field({ nullable: true })
 	name?: string
 
 	@Field({ nullable: true })
