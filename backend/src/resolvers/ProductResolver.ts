@@ -1,21 +1,21 @@
-import {
-	Resolver,
-	Query,
-	Arg,
-	Mutation,
-	Int,
-	Ctx,
-	Authorized,
-} from "type-graphql"
 import { GraphQLError } from "graphql"
+import {
+	Arg,
+	Authorized,
+	Ctx,
+	Int,
+	Mutation,
+	Query,
+	Resolver,
+} from "type-graphql"
 import { ILike } from "typeorm"
-import { Context } from "../utils"
-import { UserRole } from "../entities/User"
 import {
 	NewProductInput,
 	Product,
 	UpdateProductInput,
 } from "../entities/Product"
+import { UserRole } from "../entities/User"
+import { Context } from "../utils"
 
 @Resolver(Product)
 class ProductResolver {
@@ -25,7 +25,7 @@ class ProductResolver {
 		@Arg("name", { nullable: true }) name?: string
 	) {
 		return Product.find({
-			relations: { categories: true },
+			relations: { categories: true, pictures: true },
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
 				categories: {
@@ -39,7 +39,7 @@ class ProductResolver {
 	async getProductById(@Arg("productId", () => Int) id: number) {
 		const product = await Product.findOne({
 			where: { id },
-			relations: { categories: true, reviews: true },
+			relations: { categories: true, reviews: true, pictures: true },
 		})
 		if (!product) throw new GraphQLError("Not found")
 		return product
