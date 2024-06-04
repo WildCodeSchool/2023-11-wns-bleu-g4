@@ -11,6 +11,7 @@ import {
 } from "typeorm"
 import { ObjectId } from "../utils"
 import Category from "./Category"
+import { Product_code } from "./Product_code"
 import Review from "./Review"
 
 @Entity()
@@ -54,6 +55,10 @@ export class Product extends BaseEntity {
 	@OneToMany(() => Review, (reviews) => reviews.product)
 	@Field(() => [Review])
 	reviews: Review[]
+
+	@OneToMany(() => Product_code, (productCode) => productCode.product)
+	@Field(() => [Product_code],)
+	productCodes: Product_code[]
 }
 
 @InputType()

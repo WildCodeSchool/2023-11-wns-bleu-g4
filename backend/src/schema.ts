@@ -6,6 +6,7 @@ import { ReviewResolver } from "./resolvers/ReviewResolver"
 import SubCategoryResolver from "./resolvers/SubCategoryResolver"
 import CategoryResolver from "./resolvers/CategoryResolver"
 import AgencyResolver from "./resolvers/AgencyResolver"
+import Product_codeResolver from "./resolvers/Product_codeResolver"
 
 export default buildSchema({
 	resolvers: [
@@ -14,7 +15,8 @@ export default buildSchema({
 		ReviewResolver,
 		SubCategoryResolver,
 		UserResolver,
-		AgencyResolver
+		AgencyResolver,
+		Product_codeResolver
 	],
 	authChecker,
 })
