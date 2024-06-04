@@ -1,6 +1,11 @@
 import db from "./db"
 import Agency from "./entities/Agency"
+import Category from "./entities/Category"
+import Product from "./entities/Product"
+import Product_code from "./entities/Product_code"
+import Product_picture from "./entities/Product_picture"
 import User, { UserRole } from "./entities/User"
+import { Status } from "./enum/Status"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -66,6 +71,40 @@ async function main() {
 		email: "geargo.wild@gmail.com",
 	})
 	await agency.save()
+
+	const product = new Product()
+	Object.assign(product, {
+		name: "Bike",
+		price: 99.99,
+		description: "A super bike for your daily commute.",
+		brand: "Trekk",
+		thumbnail: "thumbnail.jpg",
+		categories: [],
+	})
+	await product.save()
+
+	const category = new Category()
+	Object.assign(category, {
+		name: "Mountain",
+		product: product,
+	})
+	await category.save()
+
+	const productCode = new Product_code()
+	Object.assign(productCode, {
+		status: Status.AVAILABLE,
+		product: product,
+		agency: agency,
+	})
+	await productCode.save()
+
+	const productPicture = new Product_picture()
+	Object.assign(productPicture, {
+		thumbnail: "thumbnail.jpg",
+		alt: "Bike thumbnail",
+		product: product,
+	})
+	await productPicture.save()
 
 	await db.destroy()
 	console.log("Done !")
