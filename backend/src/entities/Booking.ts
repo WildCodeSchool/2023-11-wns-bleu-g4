@@ -64,7 +64,6 @@ export class NewBookingInput {
 	@Field(() => StatusBooking)
 	status?: StatusBooking
 
-
 	@Field()
 	invoice: string
 

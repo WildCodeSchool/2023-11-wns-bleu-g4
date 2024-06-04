@@ -8,8 +8,7 @@ import {
 } from "type-graphql"
 import { GraphQLError } from "graphql"
 import { Context } from "../utils"
-import { Booking, NewBookingInput, UpdateBookingInput } from "../entities/Booking"
-
+import { Booking, CancelBookingInput, NewBookingInput, UpdateBookingInput } from "../entities/Booking"
 
 @Resolver()
 class BookingResolver {
@@ -44,11 +43,10 @@ class BookingResolver {
     @Mutation(() => Booking)
     async createBooking(
         @Arg("data", { validate: true }) data: NewBookingInput, @Ctx() ctx: Context) {
-        // if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+
         const newBooking = new Booking()
-
         Object.assign(newBooking, data)
-
         const { id } = await newBooking.save()
 
         return Booking.findOne({
@@ -58,19 +56,42 @@ class BookingResolver {
     }
 
     @Mutation(() => Booking)
-    async cancelBooking(
-        @Arg("bookingId", () => Int) id: number, @Ctx() ctx: Context) {
-        // if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+    async updateBooking(
+        @Arg("bookingId") id: number,
+        @Arg("data", { validate: true }) data: UpdateBookingInput,
+        @Ctx() ctx: Context
+    ) {
+        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-        const booking = await Booking.findOne({
+        const bookingToUpdate = await Booking.findOne({ where: { id } })
+        if (!bookingToUpdate) throw new GraphQLError("Booking not found")
+
+        Object.assign(bookingToUpdate, data)
+        await bookingToUpdate.save()
+
+        return Booking.findOne({
+            where: { id },
             relations: { user: true, agency: true },
-            where: { id }
         })
-
-        // const { id } = await newBooking.()
-
-        return "ok"
     }
+
+    @Mutation(() => Booking)
+    async cancelBooking(
+        @Arg("bookingId") id: number,
+        @Arg("data") data: CancelBookingInput,
+        @Ctx() ctx: Context
+    ) {
+        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+
+        const bookingToCancel = await Booking.findOne({ where: { id } })
+        if (!bookingToCancel) throw new GraphQLError("Booking not found")
+
+        Object.assign(bookingToCancel, data)
+        await bookingToCancel.save()
+
+        return "Booking cancelled"
+    }
+
 }
 
 export default BookingResolver;
