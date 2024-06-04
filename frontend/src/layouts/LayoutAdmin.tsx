@@ -17,7 +17,7 @@ export default function LayoutAdmin({ children, pageTitle }: LayoutProps) {
       </Head>
       <div className="flex min-h-[100vh]">
         <SideNavbar />
-        <main className="ml-56 p-6 w-full">{children}</main>
+        <main className="space-y-4 ml-60 p-6 w-full">{children}</main>
       </div>
     </>
   );
