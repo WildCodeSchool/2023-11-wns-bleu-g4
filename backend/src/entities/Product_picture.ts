@@ -17,12 +17,10 @@ export class Product_picture extends BaseEntity {
 	id: number
 
 	@Column()
-	@Length(1, 255)
 	@Field()
 	thumbnail: string
 
 	@Column()
-	@Length(1, 255)
 	@Field()
 	alt: string
 
