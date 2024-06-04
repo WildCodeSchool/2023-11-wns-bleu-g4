@@ -22,14 +22,14 @@ class BookingItemResolver {
 
     /** En attendant la validation de la PR de Booking */
     // @Query(() => [BookingItem])
-    // async getBookingItemsBy(
+    // async getBookingItemsByBookingId(
     //     @Arg ("bookingId") bookingId: number
     // ) {
     //     const items = await BookingItem.find({
     //         where : {booking : {
     //             id : bookingId
     //         }},
-    //         relation : {booking : true, product:true}
+    //         relation : {booking:true, product:true}
     //     })
     // }
 
