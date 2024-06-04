@@ -1,5 +1,5 @@
 import { Length } from "class-validator"
-import { Field, Int, ObjectType } from "type-graphql"
+import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
 	Column,
@@ -29,6 +29,40 @@ export class Product_picture extends BaseEntity {
 	@ManyToOne(() => Product, (product) => product.pictures)
 	@Field(() => Product)
 	product: Product
+}
+
+@InputType()
+export class NewProduct_pictureInput {
+	@Column()
+	@Length(1, 255)
+	@Field()
+	thumbnail: string
+
+	@Column()
+	@Length(1, 255)
+	@Field()
+	alt: string
+
+	@Column()
+	@Field(() => Int)
+	productId: number
+}
+
+@InputType()
+export class UpdateProduct_pictureInput {
+	@Column()
+	@Length(1, 255)
+	@Field()
+	thumbnail?: string
+
+	@Column()
+	@Length(1, 255)
+	@Field()
+	alt?: string
+
+	@Column()
+	@Field(() => Int)
+	productId?: number
 }
 
 export default Product_picture
