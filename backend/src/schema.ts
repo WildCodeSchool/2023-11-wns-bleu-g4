@@ -7,6 +7,7 @@ import SubCategoryResolver from "./resolvers/SubCategoryResolver"
 import CategoryResolver from "./resolvers/CategoryResolver"
 import AgencyResolver from "./resolvers/AgencyResolver"
 import Product_codeResolver from "./resolvers/Product_codeResolver"
+import BookingItemResolver from "./resolvers/BookingItemResolver"
 
 export default buildSchema({
 	resolvers: [
@@ -16,7 +17,8 @@ export default buildSchema({
 		SubCategoryResolver,
 		UserResolver,
 		AgencyResolver,
-		Product_codeResolver
+		Product_codeResolver,
+		BookingItemResolver
 	],
 	authChecker,
 })
