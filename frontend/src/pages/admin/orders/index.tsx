@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
-import AdminTableFooter from "@/features/admin/table/AdminTableFooter";
-import AdminTableBody from "@/features/admin/table/AdminTableBody";
+import TableFooter from "@/features/admin/table/TableFooter";
+import OrderTableBody from "@/features/admin/table/OrderTableBody";
 import data from "@/features/admin/helpers/dummyOrders";
 
 export default function Orders() {
@@ -49,15 +49,15 @@ export default function Orders() {
   return (
     <LayoutAdmin pageTitle="Order list">
       <h1>Order list</h1>
-      <div className="overflow-x-auto overflow-y-hidden">
-        <AdminTableBody
+      <div className="overflow-x-auto">
+        <OrderTableBody
           data={currentOrders}
           sortOrder={sortOrder}
           sortColumnName={sortColumn}
           handleDateSort={handleDateSort}
         />
       </div>
-      <AdminTableFooter
+      <TableFooter
         data={sortedData}
         startIndex={startIndex}
         endIndex={endIndex}

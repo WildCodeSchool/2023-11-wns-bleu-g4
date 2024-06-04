@@ -76,6 +76,6 @@ export const buttonTheme = defineStyleConfig({
     cartButton,
     subNavButton,
     loginButton,
-    adminFooterButton
+    adminFooterButton,
   },
 });

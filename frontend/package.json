@@ -22,7 +22,6 @@
     "@emotion/styled": "^11.11.5",
     "@heroicons/react": "^2.1.3",
     "@types/node": "20.11.28",
-    "@types/react-i18next": "^8.1.0",
     "autoprefixer": "^10.4.19",
     "framer-motion": "^11.1.7",
     "graphql": "^16.8.1",

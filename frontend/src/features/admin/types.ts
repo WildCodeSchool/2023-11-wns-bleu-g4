@@ -3,14 +3,18 @@ export interface menuItems {
   name: string;
 }
 
-export interface AdminTableBodyProps {
+export interface OrderTableBodyProps {
   data: any;
   sortColumnName: string | null;
   sortOrder: "asc" | "desc" | null;
   handleDateSort: (columnName: string) => void;
 }
 
-export interface AdminTableFooterProps {
+export interface TableBodyProps {
+  data: any;
+}
+
+export interface TableFooterProps {
   data: any;
   startIndex: number;
   endIndex: number;
