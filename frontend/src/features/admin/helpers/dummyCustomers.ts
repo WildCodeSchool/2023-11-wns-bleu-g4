@@ -7,6 +7,7 @@ const data = [
     city: "New York",
     email: "john.doe@example.com",
     avatar: "https://randomuser.me/api/portraits/men/26.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const data = [
     city: "Los Angeles",
     email: "jane.smith@example.com",
     avatar: "https://randomuser.me/api/portraits/women/60.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ const data = [
     city: "Chicago",
     email: "david.williams@example.com",
     avatar: "https://randomuser.me/api/portraits/men/18.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ const data = [
     city: "San Francisco",
     email: "emily.johnson@example.com",
     avatar: "https://randomuser.me/api/portraits/women/14.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ const data = [
     city: "Houston",
     email: "michael.brown@example.com",
     avatar: "https://randomuser.me/api/portraits/men/9.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 6,
@@ -52,6 +57,7 @@ const data = [
     city: "Miami",
     email: "olivia.jones@example.com",
     avatar: "https://randomuser.me/api/portraits/women/95.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 7,
@@ -61,6 +67,7 @@ const data = [
     city: "Seattle",
     email: "daniel.miller@example.com",
     avatar: "https://randomuser.me/api/portraits/men/97.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 8,
@@ -70,6 +77,7 @@ const data = [
     city: "Dallas",
     email: "sophia.davis@example.com",
     avatar: "https://randomuser.me/api/portraits/women/49.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 9,
@@ -79,6 +87,7 @@ const data = [
     city: "Atlanta",
     email: "james.taylor@example.com",
     avatar: "https://randomuser.me/api/portraits/men/36.jpg",
+    phone: "123-456-7890",
   },
   {
     id: 10,
@@ -88,6 +97,7 @@ const data = [
     city: "Denver",
     email: "bill.anderson@example.com",
     avatar: "https://randomuser.me/api/portraits/men/79.jpg",
+    phone: "123-456-7890",
   },
 ];
 
