@@ -40,6 +40,22 @@ class BookingResolver {
         return booking
     }
 
+    @Query(() => [Booking])
+    async getBookingsByUser(
+        @Arg("userId", () => Int) userId: number) {
+
+        const bookings = await Booking.find({
+            relations: { user: true, agency: true },
+            where: { user : {
+                id : userId
+            } }
+        })
+
+        if (!bookings) throw new GraphQLError("Booking Not found")
+
+        return bookings
+    }
+
     @Mutation(() => Booking)
     async createBooking(
         @Arg("data", { validate: true }) data: NewBookingInput, @Ctx() ctx: Context) {
