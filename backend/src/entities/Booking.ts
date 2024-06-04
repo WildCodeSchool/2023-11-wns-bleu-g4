@@ -1,4 +1,5 @@
-import { Length, Min } from "class-validator"
+import { IsEnum } from "class-validator"
+import { StatusBooking } from "../enum/StatusBooking"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
@@ -18,9 +19,13 @@ export class Booking extends BaseEntity {
 	@Field(() => Int)
 	id: number
 
-	@Column()
-	@Field()
-	status: string
+	@Column({
+		type: "enum",
+		enum: StatusBooking,
+	})
+	@Field(() => StatusBooking, {nullable : true})
+	@IsEnum(StatusBooking)
+	status: StatusBooking
 
 	@Column()
 	@Field()
@@ -42,22 +47,23 @@ export class Booking extends BaseEntity {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-	@Field(()=>User)
+	@Field(() => User)
 	user: User
-	
+
 	@ManyToOne(() => Agency, (agency) => agency.bookings, {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-	@Field(()=>Agency)
+	@Field(() => Agency)
 	agency: Agency
 
 }
 
 @InputType()
 export class NewBookingInput {
-	@Field()
-	status: string
+	@Field(() => StatusBooking)
+	status?: StatusBooking
+
 
 	@Field()
 	invoice: string
@@ -71,17 +77,17 @@ export class NewBookingInput {
 	@Field()
 	endDate: Date
 
-	@Field(()=> UserId)
+	@Field(() => UserId)
 	user: UserId;
 
-	@Field(()=> AgencyId)
+	@Field(() => AgencyId)
 	agency: AgencyId;
 }
 
 @InputType()
 export class UpdateBookingInput {
-	@Field({ nullable: true })
-	status?: string
+	@Field(() => StatusBooking)
+	status?: StatusBooking
 
 	@Field({ nullable: true })
 	invoice?: string
@@ -95,12 +101,12 @@ export class UpdateBookingInput {
 	@Field({ nullable: true })
 	endDate?: Date
 
-	@Field(()=> AgencyId)
+	@Field(() => AgencyId)
 	agency: AgencyId;
 }
 
 @InputType()
 export class CancelBookingInput {
-	@Field()
-	status?: string
+	@Field(() => StatusBooking)
+	status?: StatusBooking
 }
