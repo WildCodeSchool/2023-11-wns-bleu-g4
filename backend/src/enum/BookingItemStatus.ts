@@ -4,7 +4,7 @@ export enum BookingItemStatus {
 	LOST = "lost",
 	BROKEN = "broken",
 	RENT = "rent",
-	BACK = "back"
+	RETURNED = "returned"
 }
 
 registerEnumType(BookingItemStatus, {

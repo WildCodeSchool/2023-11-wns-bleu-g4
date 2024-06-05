@@ -1,12 +1,13 @@
 import { Field, InputType, Int, ObjectType } from "type-graphql"
 import { IsEnum } from "class-validator"
+import {ObjectId} from '../types'
 import {
-    BaseEntity,
-    Column,
-    Entity,
-    JoinColumn,
-    OneToOne,
-    PrimaryGeneratedColumn,
+	BaseEntity,
+	Column,
+	Entity,
+	JoinColumn,
+	OneToOne,
+	PrimaryGeneratedColumn,
 } from "typeorm"
 import Product from "./Product"
 import { BookingItemStatus } from "../enum/BookingItemStatus"
@@ -15,15 +16,15 @@ import { BookingItemStatus } from "../enum/BookingItemStatus"
 @ObjectType()
 export class BookingItem extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
 
-    @Column()
+	@Column()
 	@Field(() => String)
 	name: string
 
-    @Column({
+	@Column({
 		type: "enum",
 		enum: BookingItemStatus,
 	})
@@ -31,21 +32,21 @@ export class BookingItem extends BaseEntity {
 	@IsEnum(BookingItemStatus)
 	status: BookingItemStatus
 
-    @Column()
+	@Column()
 	@Field(() => Int)
 	quantity: number
-    
-    @Column()
-	@Field(() => Int)
-    unit_price : number
 
-    // @OneToOne(() => Booking)
-    // @JoinColumn()
+	@Column()
+	@Field(() => Int)
+	unit_price: number
+
+	// @OneToOne(() => Booking)
+	// @JoinColumn()
 	// @Field(() => Booking)
 	// booking: Booking
 
-    @OneToOne(() => Product)
-    @JoinColumn()
+	@OneToOne(() => Product)
+	@JoinColumn()
 	@Field(() => Product)
 	product: Product
 
@@ -53,10 +54,10 @@ export class BookingItem extends BaseEntity {
 
 @InputType()
 export class NewBookingItemInput {
-    @Field(() => String)
+	@Field(() => String)
 	name: string
 
-    @Field(() => BookingItemStatus)
+	@Field(() => BookingItemStatus)
 	@IsEnum(BookingItemStatus)
 	status: BookingItemStatus
 
@@ -64,21 +65,27 @@ export class NewBookingItemInput {
 	quantity: number
 
 	@Field(() => Int)
-    unit_price : number
+	unit_price: number
+
+	@Field(() => ObjectId)
+	product: ObjectId
+
+	@Field(() => ObjectId)
+	booking: ObjectId
 }
 
 @InputType()
 export class UpdateBookingItemInput {
-    @Field(() => String)
+	@Field(() => String)
 	name?: string
 
-    @Field(() => BookingItemStatus)
+	@Field(() => BookingItemStatus)
 	@IsEnum(BookingItemStatus)
 	status?: BookingItemStatus
 
 	@Field(() => Int)
 	quantity?: number
-    
+
 	@Field(() => Int)
-    unit_price?: number
+	unit_price?: number
 }
