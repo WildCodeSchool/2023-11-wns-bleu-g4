@@ -4,8 +4,10 @@ import Category from "./entities/Category"
 import Product from "./entities/Product"
 import Product_code from "./entities/Product_code"
 import Product_picture from "./entities/Product_picture"
+import { Booking } from "./entities/Booking"
 import User, { UserRole } from "./entities/User"
 import { Status } from "./enum/Status"
+import { StatusBooking } from "./enum/StatusBooking"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -105,6 +107,22 @@ async function main() {
 		product: product,
 	})
 	await productPicture.save()
+
+	const booking = new Booking()
+	Object.assign(booking, {
+		bookingDate: "2024-06-04T10:15:30.000Z",
+		endDate: "2024-06-15T19:00:00.000Z",
+		invoice: "INV-20240604-1",
+		startDate: "2024-06-08T08:00:00.000Z",
+		status: StatusBooking.RETRIEVED,
+		agency: {
+			id: 1
+		},
+		user: {
+			id: 1
+		}
+	})
+	await booking.save()
 
 	await db.destroy()
 	console.log("Done !")

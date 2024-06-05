@@ -10,7 +10,18 @@ export interface ContextType {
 
 @InputType()
 export class ObjectId {
-  @Field(() => Int)
-  id!: number;
+	@Field(() => Int)
+	id!: number;
 }
 
+@InputType()
+export class UserId {
+	@Field(() => Int)
+	id!: number;
+}
+
+@InputType()
+export class AgencyId {
+	@Field(() => Int)
+	id!: number;
+}
