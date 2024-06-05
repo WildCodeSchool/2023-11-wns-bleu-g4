@@ -19,7 +19,7 @@ export default buildSchema({
 		UserResolver,
 		AgencyResolver,
 		Product_codeResolver,
-		Product_pictureResolver,, 
+		Product_pictureResolver,
 		BookingResolver
 	],
 	authChecker,
