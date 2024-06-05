@@ -25,7 +25,7 @@ export class Booking extends BaseEntity {
 		type: "enum",
 		enum: StatusBooking,
 	})
-	@Field(() => StatusBooking, {defaultValue : StatusBooking.BOOKED})
+	@Field(() => StatusBooking, { defaultValue: StatusBooking.BOOKED })
 	@IsEnum(StatusBooking)
 	status: StatusBooking
 
@@ -58,10 +58,13 @@ export class Booking extends BaseEntity {
 	})
 	@Field(() => Agency)
 	agency: Agency
-	
-	@OneToMany(()=> BookingItem, items => items.booking)
+
+	@OneToMany(() => BookingItem, items => items.booking, {
+		cascade: true,
+		onDelete: "CASCADE"
+	})
 	@Field(() => [BookingItem])
-	bookingItem : BookingItem[]
+	bookingItem: BookingItem[]
 
 }
 
