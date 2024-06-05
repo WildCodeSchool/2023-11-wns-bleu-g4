@@ -6,11 +6,13 @@ import {
 	Column,
 	Entity,
 	ManyToOne,
+	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import User from "./User"
 import Agency from "./Agency"
 import { UserId, AgencyId } from "../types"
+import { BookingItem } from "./BookingItem"
 
 @Entity()
 @ObjectType()
@@ -56,6 +58,10 @@ export class Booking extends BaseEntity {
 	})
 	@Field(() => Agency)
 	agency: Agency
+	
+	@OneToMany(()=> BookingItem, items => items.booking)
+	@Field(() => [BookingItem])
+	bookingItem : BookingItem[]
 
 }
 
