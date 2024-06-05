@@ -8,6 +8,7 @@ import Product_pictureResolver from "./resolvers/Product_pictureResolver"
 import { ReviewResolver } from "./resolvers/ReviewResolver"
 import SubCategoryResolver from "./resolvers/SubCategoryResolver"
 import UserResolver from "./resolvers/UserResolver"
+import BookingResolver from "./resolvers/BookingResolver"
 
 export default buildSchema({
 	resolvers: [
@@ -19,6 +20,7 @@ export default buildSchema({
 		AgencyResolver,
 		Product_codeResolver,
 		Product_pictureResolver,
+		BookingResolver
 	],
 	authChecker,
 })

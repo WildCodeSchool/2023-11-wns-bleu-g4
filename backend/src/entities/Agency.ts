@@ -7,6 +7,7 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { Product_code } from "./Product_code"
+import {Booking}  from "./Booking"
 
 @Entity()
 @ObjectType()
@@ -46,6 +47,10 @@ export class Agency extends BaseEntity {
 	@OneToMany(() => Product_code, (productCode) => productCode.agency)
 	@Field(() => [Product_code])
 	productCodes: Product_code[]
+
+	@OneToMany(() => Booking, (bookings) => bookings.agency)
+	@Field(() => [Booking])
+	bookings: Booking[]
 }
 
 @InputType()
