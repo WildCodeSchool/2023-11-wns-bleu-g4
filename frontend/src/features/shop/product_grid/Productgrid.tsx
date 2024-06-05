@@ -9,25 +9,40 @@ export default function ProductGrid() {
             gap={6}
             padding="20px"
         >
-            <GridItem colSpan={1} rowSpan={1} bg="blue.200">
+            <GridItem colSpan={1} rowSpan={1} >
                 <ProductCard/>
             </GridItem>
-            <GridItem colSpan={1} rowSpan={1} bg="blue.200">
+            <GridItem colSpan={1} rowSpan={1} >
                 <ProductCard/>
             </GridItem>
-            <GridItem colSpan={1} rowSpan={1} bg="blue.200">
+            <GridItem colSpan={1} rowSpan={1} >
                 <ProductCard/>
             </GridItem>
-            <GridItem colSpan={1} rowSpan={1} bg="blue.200">
+            <GridItem colSpan={1} rowSpan={1} >
                 <ProductCard/>
             </GridItem>
-            <GridItem colSpan={1} rowSpan={1} bg="blue.200">
+            <GridItem colSpan={1} rowSpan={1} >
                 <ProductCard/>
             </GridItem>
-            <GridItem colSpan={1} rowSpan={1} bg="blue.200">
+            <GridItem colSpan={1} rowSpan={1} >
                 <ProductCard/>
             </GridItem>
-            <GridItem colSpan={1} rowSpan={1} bg="blue.200">
+            <GridItem colSpan={1} rowSpan={1} >
+                <ProductCard/>
+            </GridItem>
+            <GridItem colSpan={1} rowSpan={1} >
+                <ProductCard/>
+            </GridItem>
+            <GridItem colSpan={1} rowSpan={1} >
+                <ProductCard/>
+            </GridItem>
+            <GridItem colSpan={1} rowSpan={1} >
+                <ProductCard/>
+            </GridItem>
+            <GridItem colSpan={1} rowSpan={1} >
+                <ProductCard/>
+            </GridItem>
+            <GridItem colSpan={1} rowSpan={1} >
                 <ProductCard/>
             </GridItem>
         </Grid>

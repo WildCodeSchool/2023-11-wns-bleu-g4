@@ -12,7 +12,7 @@ export default function Shop() {
                   "Filter ProductGrid"
                   "Filter Pagination"`}
                 gridTemplateRows={'50px 1fr 30px'}
-                gridTemplateColumns={'150px 1fr'}
+                gridTemplateColumns={'1fr 4fr'}
                 gap='1'
                 color='blackAlpha.700'
                 fontWeight='bold'
