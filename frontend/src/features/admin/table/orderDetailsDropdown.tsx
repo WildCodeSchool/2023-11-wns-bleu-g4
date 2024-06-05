@@ -19,7 +19,7 @@ export default function OrderDetailsDropdown({ order }: { order: any }) {
               <tr>
                 {orderDetailsHeaders.map(menu => (
                   <th
-                    className="h-14 p-3 first:pl-8 last:pr-8 text-gray-600 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+                    className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
                     key={menu.id}
                   >
                     <span className="flex gap-2 items-center">{menu.name}</span>
