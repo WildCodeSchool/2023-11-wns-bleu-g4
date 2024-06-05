@@ -129,8 +129,7 @@ async function main() {
 	const bookingItem = new BookingItem()
 	Object.assign(bookingItem, {
 		quantity: 3,
-		status: BookingItemStatus.RENT,
-		unit_price: 15,
+		status: BookingItemStatus.RENTED,
 		total_price: 45,
 		booking: {
 			id: 1

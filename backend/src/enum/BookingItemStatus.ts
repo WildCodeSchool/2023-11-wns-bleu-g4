@@ -3,7 +3,7 @@ import { registerEnumType } from "type-graphql"
 export enum BookingItemStatus {
 	LOST = "lost",
 	BROKEN = "broken",
-	RENT = "rent",
+	RENTED = "rented",
 	RETURNED = "returned"
 }
 

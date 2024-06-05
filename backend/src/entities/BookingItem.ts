@@ -25,17 +25,13 @@ export class BookingItem extends BaseEntity {
 		type: "enum",
 		enum: BookingItemStatus,
 	})
-	@Field(() => BookingItemStatus)
+	@Field(() => BookingItemStatus, {defaultValue : BookingItemStatus.RENTED})
 	@IsEnum(BookingItemStatus)
 	status: BookingItemStatus
 
 	@Column()
 	@Field(() => Int)
 	quantity: number
-
-	@Column()
-	@Field(() => Int)
-	unit_price: number
 
 	@Column()
 	@Field(() => Int)
@@ -48,8 +44,6 @@ export class BookingItem extends BaseEntity {
 	@ManyToOne(() => Product, (product) => product.bookingItem)
 	@Field(() => Product)
 	product: Product
-
-
 }
 
 @InputType()
@@ -60,9 +54,6 @@ export class NewBookingItemInput {
 
 	@Field()
 	quantity: number
-
-	@Field()
-	unit_price: number
 
 	@Field()
 	total_price: number
