@@ -26,5 +26,5 @@ export interface TableFooterProps {
 export interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
-  product: any;
+  product?: any;
 }
