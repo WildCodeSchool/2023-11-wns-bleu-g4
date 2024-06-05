@@ -3,14 +3,23 @@ import { TableBodyProps } from "../types";
 import { productTableHeaders } from "../helpers/tableHeaders";
 import { ChevronDownIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
+import ProductDeleteModal from "../modal/productDeleteModal";
 
 export default function ProductTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("ProductTableBody");
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any | null>(null)
   const [openProductId, setOpenProductId] = useState<string | null>(null);
 
   const handleProductDetails = (productId: string) => {
     setOpenProductId(prevProductId => (prevProductId === productId ? null : productId));
   };
+
+  const toggleDeleteProductModal = (project: any) => {
+    setSelectedProduct(project)
+    setIsDeleteModalOpen(!isDeleteModalOpen)
+  }
 
   return (
     <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
@@ -50,9 +59,12 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                     <button type="button" className="inline-block bg-[#4F636F] rounded-md px-1.5 py-0.5 mr-2.5 align-middle" aria-label="Edit button">
                       <PencilSquareIcon className="h-5 w-5 text-white" />
                     </button>
-                    <button type="button" className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle" aria-label="Delete button">
+                    <button type="button" className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle" aria-label="Delete button" onClick={() => toggleDeleteProductModal(product)}>
                       <TrashIcon className="h-5 w-5 text-white" />
                     </button>
+                    {isDeleteModalOpen &&
+                      <ProductDeleteModal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)} product={selectedProduct} />
+                    }
                   </div>
                 </td>
               </tr>

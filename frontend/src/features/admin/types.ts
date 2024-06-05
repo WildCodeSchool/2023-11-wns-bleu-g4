@@ -22,3 +22,9 @@ export interface TableFooterProps {
   setCurrentPage: (currentPage: number) => void;
   itemsPerPage: number;
 }
+
+export interface ProductDeleteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  product: any;
+}

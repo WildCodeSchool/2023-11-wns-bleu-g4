@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { OrderTableBodyProps } from "../types";
 import { orderTableHeaders } from "../helpers/tableHeaders";
 import { ArrowsUpDownIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
-import OrderDetailsDropdown from "../orderDetailsDropdown";
 import { useTranslation } from "react-i18next";
+import OrderDetailsDropdown from "./orderDetailsDropdown";
 
 export default function OrderTableBody({ data, handleDateSort, sortColumnName, sortOrder }: OrderTableBodyProps) {
   const { t } = useTranslation("OrderTableBody");
