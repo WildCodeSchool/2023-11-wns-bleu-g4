@@ -1,0 +1,12 @@
+query GetAgencyById($agencyId: Int!) {
+  getAgencyById(agencyId: $agencyId) {
+    id
+    name
+    address
+    postcode
+    city
+    country
+    phone
+    email
+  }
+}
