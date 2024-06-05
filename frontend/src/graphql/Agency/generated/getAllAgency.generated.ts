@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type GetAllAgenciesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetAllAgenciesQuery = { __typename?: 'Query', getAllAgencies: Array<{ __typename?: 'Agency', postcode: string, phone: string, name: string, id: number, email: string, country: string, city: string, address: string }> };
+export type GetAllAgenciesQuery = { __typename?: 'Query', getAllAgencies: Array<{ __typename?: 'Agency', postcode: string, phone: string, name: string, id: number, email: string, country: string, city: string, address: string, productCodes: Array<{ __typename?: 'Product_code', size?: string | null, isSizeable: boolean, status: Types.Status, id: number }> }> };
 
 
 export const GetAllAgenciesDocument = gql`
@@ -20,6 +20,12 @@ export const GetAllAgenciesDocument = gql`
     country
     city
     address
+    productCodes {
+      size
+      isSizeable
+      status
+      id
+    }
   }
 }
     `;

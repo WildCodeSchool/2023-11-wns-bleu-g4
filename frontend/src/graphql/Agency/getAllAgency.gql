@@ -8,5 +8,11 @@ query GetAllAgencies {
     country
     city
     address
+    productCodes {
+      size
+      isSizeable
+      status
+      id
+    }
   }
 }

@@ -1,10 +1,10 @@
 import db from "./db"
 import Agency from "./entities/Agency"
+import { Booking } from "./entities/Booking"
 import Category from "./entities/Category"
 import Product from "./entities/Product"
 import Product_code from "./entities/Product_code"
 import Product_picture from "./entities/Product_picture"
-import { Booking } from "./entities/Booking"
 import User, { UserRole } from "./entities/User"
 import { Status } from "./enum/Status"
 import { StatusBooking } from "./enum/StatusBooking"
@@ -82,6 +82,7 @@ async function main() {
 		brand: "Trekk",
 		thumbnail: "thumbnail.jpg",
 		categories: [],
+		size: "M",
 	})
 	await product.save()
 
@@ -116,11 +117,11 @@ async function main() {
 		startDate: "2024-06-08T08:00:00.000Z",
 		status: StatusBooking.RETRIEVED,
 		agency: {
-			id: 1
+			id: 1,
 		},
 		user: {
-			id: 1
-		}
+			id: 1,
+		},
 	})
 	await booking.save()
 

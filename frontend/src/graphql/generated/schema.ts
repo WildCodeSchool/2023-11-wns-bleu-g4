@@ -298,7 +298,9 @@ export type Product_Code = {
   __typename?: 'Product_code';
   agency?: Maybe<Agency>;
   id: Scalars['Int'];
+  isSizeable: Scalars['Boolean'];
   product?: Maybe<Product>;
+  size?: Maybe<Scalars['String']>;
   status: Status;
 };
 

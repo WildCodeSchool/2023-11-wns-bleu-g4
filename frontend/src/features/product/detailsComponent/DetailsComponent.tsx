@@ -1,13 +1,16 @@
-import { useGetAllProductsQuery } from "@/graphql/Product/generated/getProductsDetails.generated";
 import DateRangePicker from "@/shared/components/DateRangePicker";
 import { Box, Button, ButtonGroup, Flex, HStack, Image, Select, Text, useNumberInput } from "@chakra-ui/react";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Agency, Product } from "../ProductPage";
 
-export default function DetailsComponent() {
-  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+export default function DetailsComponent({ agencies, product }: DetailsComponentProps) {
+  const [selectedSize, setSelectedSize] = useState<string | number | null>(null);
   const [quantity, setQuantity] = useState(0);
+  const [selectedAgency, setSelectedAgency] = useState<number | null>(null);
+  const [availableSizes, setAvailableSizes] = useState<(string | number)[]>([]);
+  const { t } = useTranslation("productDetails");
 
   const { getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
     value: quantity,
@@ -20,20 +23,55 @@ export default function DetailsComponent() {
   const inc = getIncrementButtonProps();
   const dec = getDecrementButtonProps();
 
+  const filterAvailableSizes = () => {
+    if (selectedAgency !== null) {
+      const selectedAgencyData = agencies?.find(agency => agency.id === selectedAgency);
+      const sizes = selectedAgencyData?.productCodes
+        ?.map(productCode => productCode.size)
+        .filter((size): size is string | number => size !== null && size !== undefined);
+      return sizes || [];
+    }
+    return [];
+  };
+
+  useEffect(() => {
+    const sizes = filterAvailableSizes();
+    setAvailableSizes(sizes);
+  }, [selectedAgency, agencies]);
+
   const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
     console.log("Date de début:", startDate);
     console.log("Date de fin:", endDate);
   };
 
-  const { data, loading, error } = useGetAllProductsQuery();
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :</p>;
+  if (!product || !agencies) {
+    return <p>Loading...</p>;
+  }
 
-  console.log("data", data);
+  const allStringSizes = ["S", "M", "L", "XL", "XXL"];
+  const allNumberSizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46];
 
-  const product = data?.getAllProducts[0];
+  const renderSizeButtons = (allSizes: (string | number)[]) => {
+    return allSizes.map(size => {
+      const isAvailable = availableSizes.includes(size);
+      return (
+        <Button
+          variant="sizeButton"
+          key={size}
+          onClick={() => setSelectedSize(size)}
+          isActive={selectedSize === size}
+          colorScheme="blue"
+          m={0}
+          disabled={!isAvailable}
+        >
+          {size}
+        </Button>
+      );
+    });
+  };
 
-  const { t } = useTranslation("productDetails");
+  const sizeButtons =
+    typeof availableSizes[0] === "string" ? renderSizeButtons(allStringSizes) : renderSizeButtons(allNumberSizes);
 
   return (
     <Flex w="50%" flexDirection="column" gap="10px">
@@ -43,46 +81,39 @@ export default function DetailsComponent() {
             Ref: 05221489
           </Text>
           <Text fontWeight="600">
-            {t("Brand")}: {product?.brand}
+            {t("Brand")}: {product.brand}
           </Text>
         </Flex>
         <Image width="20%" src="https://velos-cargo.com/wp-content/uploads/2023/05/logo-trek-.png" alt="product" />
       </Flex>
       <Flex flexDirection="column" gap="10px">
-        <Text fontSize="2xl" fontWeight="700" fontFamily="Poppins">
-          {product?.name}
-        </Text>
-        <Text fontWeight="600">{product?.description}</Text>
-        <Select placeholder="Select agency" width="fit-content">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
+        <Text fontSize="2xl" fontWeight="700" fontFamily="Poppins"></Text>
+        <Text fontWeight="600">{product.description}</Text>
+        <Select
+          placeholder="Sélectionner une agence"
+          width="fit-content"
+          onChange={e => setSelectedAgency(parseInt(e.target.value))}
+        >
+          {agencies.map((agency, index) => (
+            <option key={index} value={agency.id.toString()}>
+              {agency.name}
+            </option>
+          ))}
         </Select>
       </Flex>
-      <ButtonGroup gap="4" flexWrap="wrap" justifyContent="left" m={0}>
-        {[...Array(11)].map((_, i) => {
-          const size = 36 + i;
-          return (
-            <Button
-              variant="sizeButton"
-              key={i}
-              onClick={() => setSelectedSize(size)}
-              isActive={selectedSize === size}
-              colorScheme="blue"
-              m={0}
-            >
-              {size}
-            </Button>
-          );
-        })}
+      <ButtonGroup gap="4" flexWrap="wrap" justifyContent="left" m={0} marginTop="10px">
+        {sizeButtons}
       </ButtonGroup>
+
       {selectedSize && (
         <Text mt="4">
           {t("Selected size")}: {selectedSize}
         </Text>
       )}
       <Flex flexDirection="column">
-        {t("Price")} : {product?.price} € / {t("Day")}
+        <Text color="accent" fontFamily="Poppins" fontWeight="600" fontSize="2xl" m="10px">
+          {t("Price")} : {product.price} € / {t("Day")}
+        </Text>
       </Flex>
       <Flex flexDirection="column" gap="30px" p="19px 0">
         <Flex flexDirection="column" gap={2}>
@@ -108,4 +139,9 @@ export default function DetailsComponent() {
       </Flex>
     </Flex>
   );
+}
+
+interface DetailsComponentProps {
+  agencies?: Agency[];
+  product?: Product;
 }
