@@ -46,7 +46,9 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
             <React.Fragment key={order.id}>
               <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{order.orderNb}</td>
-                <td className="whitespace-nowrap p-3 w-96 min-w-max">{order.customer.firstname} {order.customer.name}</td>
+                <td className="whitespace-nowrap p-3 w-96 min-w-max">
+                  {order.customer.firstname} {order.customer.name}
+                </td>
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.agency}</td>
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.from}</td>
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.to}</td>
@@ -63,9 +65,7 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
                   </button>
                 </td>
               </tr>
-              {openOrderId === order.id && (
-                <OrderDetailsDropdown order={order} />
-              )}
+              {openOrderId === order.id && <OrderDetailsDropdown order={order} />}
             </React.Fragment>
           ))
         ) : (
