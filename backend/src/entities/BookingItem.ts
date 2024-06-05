@@ -1,16 +1,17 @@
 import { Field, InputType, Int, ObjectType } from "type-graphql"
 import { IsEnum } from "class-validator"
-import {ObjectId} from '../types'
+import {BookingId, ProductId} from '../types'
 import {
 	BaseEntity,
 	Column,
 	Entity,
-	JoinColumn,
+	ManyToOne,
 	OneToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import Product from "./Product"
 import { BookingItemStatus } from "../enum/BookingItemStatus"
+import { Booking } from "./Booking"
 
 @Entity()
 @ObjectType()
@@ -19,10 +20,6 @@ export class BookingItem extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
-
-	@Column()
-	@Field(() => String)
-	name: string
 
 	@Column({
 		type: "enum",
@@ -40,52 +37,58 @@ export class BookingItem extends BaseEntity {
 	@Field(() => Int)
 	unit_price: number
 
-	// @OneToOne(() => Booking)
-	// @JoinColumn()
-	// @Field(() => Booking)
-	// booking: Booking
+	@Column()
+	@Field(() => Int)
+	total_price: number
 
-	@OneToOne(() => Product)
-	@JoinColumn()
+	@ManyToOne(() => Booking, (booking) => booking.bookingItem, {
+		cascade: true,
+		onDelete: "CASCADE",
+	})
+	@Field(() => Booking)
+	booking: Booking
+
+	@ManyToOne(() => Product, (product) => product.bookingItem, {
+		cascade: true,
+		onDelete: "CASCADE",
+	})
 	@Field(() => Product)
 	product: Product
+
 
 }
 
 @InputType()
 export class NewBookingItemInput {
-	@Field(() => String)
-	name: string
-
 	@Field(() => BookingItemStatus)
 	@IsEnum(BookingItemStatus)
 	status: BookingItemStatus
 
-	@Field(() => Int)
+	@Field()
 	quantity: number
 
-	@Field(() => Int)
+	@Field()
 	unit_price: number
 
-	@Field(() => ObjectId)
-	product: ObjectId
+	@Field()
+	total_price: number
 
-	@Field(() => ObjectId)
-	booking: ObjectId
+	@Field(() => BookingId)
+	booking: BookingId
+
+	@Field(() => ProductId)
+	product: ProductId
 }
 
 @InputType()
 export class UpdateBookingItemInput {
-	@Field(() => String)
-	name?: string
-
 	@Field(() => BookingItemStatus)
 	@IsEnum(BookingItemStatus)
 	status?: BookingItemStatus
 
-	@Field(() => Int)
+	@Field()
 	quantity?: number
 
-	@Field(() => Int)
-	unit_price?: number
+	@Field()
+	total_price?: number
 }
