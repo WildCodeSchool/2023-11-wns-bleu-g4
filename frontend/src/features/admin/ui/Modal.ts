@@ -2,7 +2,7 @@ import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
 
 const baseStyle = defineStyle({
   overlay: {
-    bg: "blackAlpha.100",
+    bg: "blackAlpha.200",
   },
   dialog: {
     borderRadius: "md",
@@ -10,8 +10,15 @@ const baseStyle = defineStyle({
   },
 });
 
+const darkOverlayStyle = defineStyle({
+  overlay: {
+    bg: "blackAlpha.700",
+  },
+});
+
 export const modalTheme = defineStyleConfig({
   variants: {
     baseStyle,
+    darkOverlayStyle,
   },
 });
