@@ -1,37 +1,54 @@
 import { GraphQLError } from "graphql"
 import {
     Arg,
-    Authorized,
     Ctx,
-    Int,
     Mutation,
     Query,
     Resolver,
 } from "type-graphql"
-import Agency, { NewAgencyInput, UpdateAgencyInput } from "../entities/Agency"
-import { UserRole } from "../entities/User"
 import { Context } from "../utils"
-import { BookingItem, UpdateBookingItemInput } from "../entities/BookingItem"
+import { BookingItem, NewBookingItemInput, UpdateBookingItemInput } from "../entities/BookingItem"
+import Product from "../entities/Product"
+import { BookingId } from "../types"
 
 @Resolver()
 class BookingItemResolver {
     @Query(() => [BookingItem])
     async getBookingItems() {
-        return BookingItem.find()
+        return BookingItem.find({
+            relations: { booking: true, product: true }
+        })
     }
 
-    /** En attendant la validation de la PR de Booking */
-    // @Query(() => [BookingItem])
-    // async getBookingItemsByBookingId(
-    //     @Arg ("bookingId") bookingId: number
-    // ) {
-    //     const items = await BookingItem.find({
-    //         where : {booking : {
-    //             id : bookingId
-    //         }},
-    //         relation : {booking:true, product:true}
-    //     })
-    // }
+    @Query(() => [BookingItem])
+    async getBookingItemsByBookingId(
+        @Arg("bookingId") bookingId: number,
+    ) {
+        const items = await BookingItem.find({
+            where: {booking: { id: bookingId }},
+            relations: { booking: true, product: true }
+        })
+
+        return items;
+    }
+
+    @Mutation(() => BookingItem)
+    async createBookingItem(
+        @Arg("data") data: NewBookingItemInput,
+        @Ctx() ctx: Context
+    ) {
+        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+
+        const newBookingItem = new BookingItem()
+        Object.assign(newBookingItem, data)
+
+        const { id } = await newBookingItem.save()
+
+        return BookingItem.findOne({
+            where: { id },
+            relations: { booking: true }
+        })
+    }
 
     @Mutation(() => String)
     async updateBookingItem(
@@ -47,23 +64,19 @@ class BookingItemResolver {
         Object.assign(itemToUpdate, data)
 
         await itemToUpdate.save()
-
-        return `${itemToUpdate.name} updated`
-
+        return `${itemToUpdate.product.name} updated`
     }
 
     @Mutation(() => String)
     async deleteBookingItem(@Arg("bookingItemId") id: number, @Ctx() ctx: Context) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-        const itemToDelete = await BookingItem.findOne({ where: { id } })
+        const itemToDelete = await BookingItem.findOne({ where: { id }, relations :{product:true} })
         if (!itemToDelete) throw new GraphQLError("Item not found")
 
         await itemToDelete.remove()
-        return `${itemToDelete.name} deleted`
+        return `${itemToDelete.product.name} deleted`
     }
-
 }
-
 
 export default BookingItemResolver;
