@@ -47,9 +47,6 @@ export class Agency extends BaseEntity {
 	@OneToMany(() => Product_code, (productCode) => productCode.agency)
 	@Field(() => [Product_code])
 	productCodes: Product_code[]
-    // @OneToMany(() => ProductCode, (products) => products.agency)
-	// @Field(() => [ProductCode])
-	// products: ProductCode[]
 
 	@OneToMany(() => Booking, (bookings) => bookings.agency)
 	@Field(() => [Booking])
