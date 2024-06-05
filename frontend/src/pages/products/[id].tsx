@@ -17,7 +17,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
   return {
     props: {
-      id,
+      id: id as string,
       ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
     },
   };
