@@ -7,6 +7,7 @@ import Product_picture from "./entities/Product_picture"
 import { Booking } from "./entities/Booking"
 import User, { UserRole } from "./entities/User"
 import { Status } from "./enum/Status"
+import { StatusBooking } from "./enum/StatusBooking"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -113,7 +114,7 @@ async function main() {
 		endDate: "2024-06-15T19:00:00.000Z",
 		invoice: "INV-20240604-1",
 		startDate: "2024-06-08T08:00:00.000Z",
-		status: "RETRIEVED",
+		status: StatusBooking.RETRIEVED,
 		agency: {
 			id: 1
 		},

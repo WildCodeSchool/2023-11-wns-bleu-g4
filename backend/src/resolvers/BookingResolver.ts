@@ -9,6 +9,7 @@ import {
 import { GraphQLError } from "graphql"
 import { Context } from "../utils"
 import { Booking, CancelBookingInput, NewBookingInput, UpdateBookingInput } from "../entities/Booking"
+import { StatusBooking } from "../enum/StatusBooking"
 
 @Resolver()
 class BookingResolver {
@@ -46,9 +47,11 @@ class BookingResolver {
 
         const bookings = await Booking.find({
             relations: { user: true, agency: true },
-            where: { user : {
-                id : userId
-            } }
+            where: {
+                user: {
+                    id: userId
+                }
+            }
         })
 
         if (!bookings) throw new GraphQLError("Booking Not found")
@@ -98,14 +101,17 @@ class BookingResolver {
     ) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
+        const data: CancelBookingInput = { status: StatusBooking.CANCELED }
+
         const bookingToCancel = await Booking.findOne({ where: { id } })
         if (!bookingToCancel) throw new GraphQLError("Booking not found")
 
-        Object.assign(bookingToCancel, "CANCELED")
+        Object.assign(bookingToCancel, data)
         await bookingToCancel.save()
 
         return "Booking cancelled"
     }
+
 }
 
 export default BookingResolver;

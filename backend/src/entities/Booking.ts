@@ -23,7 +23,7 @@ export class Booking extends BaseEntity {
 		type: "enum",
 		enum: StatusBooking,
 	})
-	@Field(() => StatusBooking, {defaultValue : "BOOKED"})
+	@Field(() => StatusBooking, {defaultValue : StatusBooking.BOOKED})
 	@IsEnum(StatusBooking)
 	status: StatusBooking
 
