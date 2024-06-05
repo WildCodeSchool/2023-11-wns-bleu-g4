@@ -91,10 +91,9 @@ class BookingResolver {
         })
     }
 
-    @Mutation(() => Booking)
+    @Mutation(() => String)
     async cancelBooking(
         @Arg("bookingId") id: number,
-        @Arg("data") data: CancelBookingInput,
         @Ctx() ctx: Context
     ) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
@@ -102,12 +101,11 @@ class BookingResolver {
         const bookingToCancel = await Booking.findOne({ where: { id } })
         if (!bookingToCancel) throw new GraphQLError("Booking not found")
 
-        Object.assign(bookingToCancel, data)
+        Object.assign(bookingToCancel, "CANCELLED")
         await bookingToCancel.save()
 
         return "Booking cancelled"
     }
-
 }
 
 export default BookingResolver;
