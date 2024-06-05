@@ -101,7 +101,7 @@ class BookingResolver {
         const bookingToCancel = await Booking.findOne({ where: { id } })
         if (!bookingToCancel) throw new GraphQLError("Booking not found")
 
-        Object.assign(bookingToCancel, "CANCELLED")
+        Object.assign(bookingToCancel, "CANCELED")
         await bookingToCancel.save()
 
         return "Booking cancelled"
