@@ -20,9 +20,7 @@ export default function Customers() {
     <LayoutAdmin pageTitle="Customer list">
       <h1>Customer list</h1>
       <div className="overflow-x-auto">
-        <CustomerTableBody
-          data={currentCustomers}
-        />
+        <CustomerTableBody data={currentCustomers} />
       </div>
       <TableFooter
         data={sortedData}

@@ -19,7 +19,7 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
         <tr>
           {orderTableHeaders.map(menu => (
             <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-gray-600 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
               key={menu.id}
             >
               <span className="flex gap-2 items-center">
@@ -46,7 +46,9 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
             <React.Fragment key={order.id}>
               <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{order.orderNb}</td>
-                <td className="whitespace-nowrap p-3 w-96 min-w-max">{order.customer.firstname} {order.customer.name}</td>
+                <td className="whitespace-nowrap p-3 w-96 min-w-max">
+                  {order.customer.firstname} {order.customer.name}
+                </td>
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.agency}</td>
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.from}</td>
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.to}</td>
@@ -63,9 +65,7 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
                   </button>
                 </td>
               </tr>
-              {openOrderId === order.id && (
-                <OrderDetailsDropdown order={order} />
-              )}
+              {openOrderId === order.id && <OrderDetailsDropdown order={order} />}
             </React.Fragment>
           ))
         ) : (

@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -47,22 +47,22 @@ export type Booking = {
 };
 
 export type Category = {
-  __typename?: 'Category';
-  id: Scalars['Int'];
-  name: Scalars['String'];
+  __typename?: "Category";
+  id: Scalars["Int"];
+  name: Scalars["String"];
   products: Array<Product>;
   subCategories: Array<SubCategory>;
 };
 
 export type LoginInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+  email: Scalars["String"];
+  password: Scalars["String"];
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   cancelBooking: Scalars['String'];
-  confirmEmail: Scalars['String'];
+  confirmEmail: Scalars["String"];
   createAgency: Agency;
   createBooking: Booking;
   createCategory: Category;
@@ -72,13 +72,13 @@ export type Mutation = {
   createSubCategory: SubCategory;
   createUser: User;
   deleteAgency: Scalars['String'];
-  deleteCategory: Scalars['String'];
-  deleteProduct: Scalars['String'];
+  deleteCategory: Scalars["String"];
+  deleteProduct: Scalars["String"];
   deleteProduct_picture: Scalars['Boolean'];
-  deleteReview: Scalars['String'];
-  deleteSubCategory: Scalars['String'];
-  login: Scalars['String'];
-  logout: Scalars['String'];
+  deleteReview: Scalars["String"];
+  deleteSubCategory: Scalars["String"];
+  login: Scalars["String"];
+  logout: Scalars["String"];
   updateAgency: Agency;
   updateBooking: Booking;
   updateCategory: Category;
@@ -96,7 +96,7 @@ export type MutationCancelBookingArgs = {
 
 
 export type MutationConfirmEmailArgs = {
-  token: Scalars['String'];
+  token: Scalars["String"];
 };
 
 
@@ -114,7 +114,6 @@ export type MutationCreateCategoryArgs = {
   data: NewCategoryInput;
 };
 
-
 export type MutationCreateProductArgs = {
   data: NewProductInput;
 };
@@ -129,11 +128,9 @@ export type MutationCreateReviewArgs = {
   data: NewReviewInput;
 };
 
-
 export type MutationCreateSubCategoryArgs = {
   data: NewSubCategoryInput;
 };
-
 
 export type MutationCreateUserArgs = {
   data: NewUserInput;
@@ -146,12 +143,11 @@ export type MutationDeleteAgencyArgs = {
 
 
 export type MutationDeleteCategoryArgs = {
-  categoryId: Scalars['Float'];
+  categoryId: Scalars["Float"];
 };
 
-
 export type MutationDeleteProductArgs = {
-  productId: Scalars['Float'];
+  productId: Scalars["Float"];
 };
 
 
@@ -161,14 +157,12 @@ export type MutationDeleteProduct_PictureArgs = {
 
 
 export type MutationDeleteReviewArgs = {
-  reviewId: Scalars['Float'];
+  reviewId: Scalars["Float"];
 };
-
 
 export type MutationDeleteSubCategoryArgs = {
-  subCategoryId: Scalars['Float'];
+  subCategoryId: Scalars["Float"];
 };
-
 
 export type MutationLoginArgs = {
   data: LoginInput;
@@ -188,14 +182,13 @@ export type MutationUpdateBookingArgs = {
 
 
 export type MutationUpdateCategoryArgs = {
-  categoryId: Scalars['Float'];
+  categoryId: Scalars["Float"];
   data: UpdateCategoryInput;
 };
 
-
 export type MutationUpdateProductArgs = {
   data: UpdateProductInput;
-  productId: Scalars['Float'];
+  productId: Scalars["Float"];
 };
 
 
@@ -209,16 +202,34 @@ export type MutationUpdateProfileArgs = {
   data: UpdateUserInput;
 };
 
-
 export type MutationUpdateReviewArgs = {
   data: UpdateReviewInput;
-  reviewId: Scalars['Float'];
+  reviewId: Scalars["Float"];
 };
-
 
 export type MutationUpdateSubCategoryArgs = {
   data: UpdateSubCategoryInput;
-  subCategoryId: Scalars['Float'];
+  subCategoryId: Scalars["Float"];
+};
+
+export type NewAgencyInput = {
+  address: Scalars['String'];
+  city: Scalars['String'];
+  country: Scalars['String'];
+  email: Scalars['String'];
+  name: Scalars['String'];
+  phone: Scalars['String'];
+  postcode: Scalars['String'];
+};
+
+export type NewBookingInput = {
+  agency: AgencyId;
+  bookingDate: Scalars['DateTimeISO'];
+  endDate: Scalars['DateTimeISO'];
+  invoice: Scalars['String'];
+  startDate: Scalars['DateTimeISO'];
+  status: StatusBooking;
+  user: UserId;
 };
 
 export type NewAgencyInput = {
@@ -242,16 +253,22 @@ export type NewBookingInput = {
 };
 
 export type NewCategoryInput = {
-  name: Scalars['String'];
+  name: Scalars["String"];
 };
 
 export type NewProductInput = {
-  brand: Scalars['String'];
+  brand: Scalars["String"];
   categories: Array<ObjectId>;
-  description: Scalars['String'];
-  name: Scalars['String'];
-  price: Scalars['Float'];
+  description: Scalars["String"];
+  name: Scalars["String"];
+  price: Scalars["Float"];
   reviews?: InputMaybe<Array<ObjectId>>;
+  thumbnail: Scalars["String"];
+};
+
+export type NewProduct_PictureInput = {
+  alt: Scalars['String'];
+  productId: Scalars['Int'];
   thumbnail: Scalars['String'];
 };
 
@@ -262,39 +279,39 @@ export type NewProduct_PictureInput = {
 };
 
 export type NewReviewInput = {
-  comment: Scalars['String'];
-  productId: Scalars['Int'];
-  rate: Scalars['Int'];
-  userId: Scalars['Int'];
+  comment: Scalars["String"];
+  productId: Scalars["Int"];
+  rate: Scalars["Int"];
+  userId: Scalars["Int"];
 };
 
 export type NewSubCategoryInput = {
   category: ObjectId;
-  name: Scalars['String'];
-  thumbnail: Scalars['String'];
+  name: Scalars["String"];
+  thumbnail: Scalars["String"];
 };
 
 export type NewUserInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+  email: Scalars["String"];
+  password: Scalars["String"];
 };
 
 export type ObjectId = {
-  id: Scalars['Int'];
+  id: Scalars["Int"];
 };
 
 export type Product = {
-  __typename?: 'Product';
-  brand: Scalars['String'];
+  __typename?: "Product";
+  brand: Scalars["String"];
   categories: Array<Category>;
-  description: Scalars['String'];
-  id: Scalars['Int'];
-  name: Scalars['String'];
+  description: Scalars["String"];
+  id: Scalars["Int"];
+  name: Scalars["String"];
   pictures: Array<Product_Picture>;
-  price: Scalars['Float'];
+  price: Scalars["Float"];
   productCodes: Array<Product_Code>;
   reviews: Array<Review>;
-  thumbnail: Scalars['String'];
+  thumbnail: Scalars["String"];
 };
 
 export type Product_Code = {
@@ -314,7 +331,7 @@ export type Product_Picture = {
 };
 
 export type Query = {
-  __typename?: 'Query';
+  __typename?: "Query";
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
   getAllBooking: Array<Booking>;
@@ -343,23 +360,20 @@ export type QueryGetAllBookingArgs = {
   userId?: InputMaybe<Scalars['Float']>;
 };
 
-
 export type QueryGetAllCategoriesArgs = {
-  name?: InputMaybe<Scalars['String']>;
-  productId?: InputMaybe<Scalars['Int']>;
-  subCategoryId?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars["String"]>;
+  productId?: InputMaybe<Scalars["Int"]>;
+  subCategoryId?: InputMaybe<Scalars["Int"]>;
 };
-
 
 export type QueryGetAllProductsArgs = {
-  categoryId?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
+  categoryId?: InputMaybe<Scalars["Int"]>;
+  name?: InputMaybe<Scalars["String"]>;
 };
 
-
 export type QueryGetAllSubCategoriesArgs = {
-  categoryId?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
+  categoryId?: InputMaybe<Scalars["Int"]>;
+  name?: InputMaybe<Scalars["String"]>;
 };
 
 
@@ -372,14 +386,12 @@ export type QueryGetBookingsByUserArgs = {
   userId: Scalars['Int'];
 };
 
-
 export type QueryGetCategoryByIdArgs = {
-  categoryId: Scalars['Int'];
+  categoryId: Scalars["Int"];
 };
 
-
 export type QueryGetProductByIdArgs = {
-  productId: Scalars['Int'];
+  productId: Scalars["Int"];
 };
 
 
@@ -389,15 +401,15 @@ export type QueryGetProductCodesByStatusArgs = {
 
 
 export type QueryGetSubCategoryByIdArgs = {
-  subCategoryId: Scalars['Int'];
+  subCategoryId: Scalars["Int"];
 };
 
 export type Review = {
-  __typename?: 'Review';
-  comment: Scalars['String'];
-  id: Scalars['Int'];
+  __typename?: "Review";
+  comment: Scalars["String"];
+  id: Scalars["Int"];
   product?: Maybe<Product>;
-  rate: Scalars['Int'];
+  rate: Scalars["Int"];
   user?: Maybe<User>;
 };
 
@@ -416,10 +428,29 @@ export enum StatusBooking {
 }
 
 export type SubCategory = {
-  __typename?: 'SubCategory';
-  id: Scalars['Int'];
-  name: Scalars['String'];
-  thumbnail: Scalars['String'];
+  __typename?: "SubCategory";
+  id: Scalars["Int"];
+  name: Scalars["String"];
+  thumbnail: Scalars["String"];
+};
+
+export type UpdateAgencyInput = {
+  address?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  postcode?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateBookingInput = {
+  agency?: InputMaybe<AgencyId>;
+  bookingDate?: InputMaybe<Scalars['DateTimeISO']>;
+  endDate?: InputMaybe<Scalars['DateTimeISO']>;
+  invoice?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['DateTimeISO']>;
+  status: StatusBooking;
 };
 
 export type UpdateAgencyInput = {
@@ -442,17 +473,23 @@ export type UpdateBookingInput = {
 };
 
 export type UpdateCategoryInput = {
-  name?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars["String"]>;
 };
 
 export type UpdateProductInput = {
-  brand?: InputMaybe<Scalars['String']>;
+  brand?: InputMaybe<Scalars["String"]>;
   categories: Array<ObjectId>;
-  description?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  price?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  price?: InputMaybe<Scalars["Float"]>;
   reviews?: InputMaybe<Array<ObjectId>>;
-  thumbnail?: InputMaybe<Scalars['String']>;
+  thumbnail?: InputMaybe<Scalars["String"]>;
+};
+
+export type UpdateProduct_PictureInput = {
+  alt: Scalars['String'];
+  productId: Scalars['Int'];
+  thumbnail: Scalars['String'];
 };
 
 export type UpdateProduct_PictureInput = {
@@ -462,40 +499,40 @@ export type UpdateProduct_PictureInput = {
 };
 
 export type UpdateReviewInput = {
-  comment?: InputMaybe<Scalars['String']>;
-  rate?: InputMaybe<Scalars['Int']>;
+  comment?: InputMaybe<Scalars["String"]>;
+  rate?: InputMaybe<Scalars["Int"]>;
 };
 
 export type UpdateSubCategoryInput = {
   category: ObjectId;
-  name?: InputMaybe<Scalars['String']>;
-  thumbnail?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars["String"]>;
+  thumbnail?: InputMaybe<Scalars["String"]>;
 };
 
 export type UpdateUserInput = {
-  address?: InputMaybe<Scalars['String']>;
-  avatar?: InputMaybe<Scalars['String']>;
-  city?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<Scalars['String']>;
-  firstname?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  postcode?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars["String"]>;
+  avatar?: InputMaybe<Scalars["String"]>;
+  city?: InputMaybe<Scalars["String"]>;
+  country?: InputMaybe<Scalars["String"]>;
+  firstname?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  phone?: InputMaybe<Scalars["String"]>;
+  postcode?: InputMaybe<Scalars["String"]>;
 };
 
 export type User = {
-  __typename?: 'User';
-  address: Scalars['String'];
-  avatar: Scalars['String'];
+  __typename?: "User";
+  address: Scalars["String"];
+  avatar: Scalars["String"];
   bookings: Array<Booking>;
-  city: Scalars['String'];
-  country: Scalars['String'];
-  email: Scalars['String'];
-  firstname: Scalars['String'];
-  id: Scalars['Float'];
-  name: Scalars['String'];
-  phone: Scalars['String'];
-  postcode: Scalars['String'];
+  city: Scalars["String"];
+  country: Scalars["String"];
+  email: Scalars["String"];
+  firstname: Scalars["String"];
+  id: Scalars["Float"];
+  name: Scalars["String"];
+  phone: Scalars["String"];
+  postcode: Scalars["String"];
   reviews: Array<Review>;
   role: Scalars['String'];
 };
@@ -546,8 +583,22 @@ export type CreateUserMutationVariables = Exact<{
   data: NewUserInput;
 }>;
 
-
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number, email: string, name: string, firstname: string, address: string, postcode: string, city: string, country: string, phone: string, avatar: string } };
+export type CreateUserMutation = {
+  __typename?: "Mutation";
+  createUser: {
+    __typename?: "User";
+    id: number;
+    email: string;
+    name: string;
+    firstname: string;
+    address: string;
+    postcode: string;
+    city: string;
+    country: string;
+    phone: string;
+    avatar: string;
+  };
+};
 
 export type LoginMutationVariables = Exact<{
   data: LoginInput;
@@ -789,21 +840,21 @@ export type GetProductByIdQueryHookResult = ReturnType<typeof useGetProductByIdQ
 export type GetProductByIdLazyQueryHookResult = ReturnType<typeof useGetProductByIdLazyQuery>;
 export type GetProductByIdQueryResult = Apollo.QueryResult<GetProductByIdQuery, GetProductByIdQueryVariables>;
 export const CreateUserDocument = gql`
-    mutation CreateUser($data: NewUserInput!) {
-  createUser(data: $data) {
-    id
-    email
-    name
-    firstname
-    address
-    postcode
-    city
-    country
-    phone
-    avatar
+  mutation CreateUser($data: NewUserInput!) {
+    createUser(data: $data) {
+      id
+      email
+      name
+      firstname
+      address
+      postcode
+      city
+      country
+      phone
+      avatar
+    }
   }
-}
-    `;
+`;
 export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 
 /**
@@ -823,18 +874,20 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  *   },
  * });
  */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
-      }
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+}
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const LoginDocument = gql`
-    mutation Login($data: LoginInput!) {
-  login(data: $data)
-}
-    `;
+  mutation Login($data: LoginInput!) {
+    login(data: $data)
+  }
+`;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
@@ -855,9 +908,9 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  * });
  */
 export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+}
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;

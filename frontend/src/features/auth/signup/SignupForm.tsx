@@ -36,31 +36,31 @@ export default function SignupForm() {
   const handleClickRepeatPass = () => setShowRepPass(!showRepPass);
 
   function validatePassword(password: string, repeatPassword: string): boolean {
-    let validate: boolean = true
+    let validate: boolean = true;
     if (password !== repeatPassword) {
-      toast.error("Passwords must be the same", ToastConfigLogin)
-      validate = false
+      toast.error("Passwords must be the same", ToastConfigLogin);
+      validate = false;
     }
     if (password.length < 8) {
-      toast.error("Password must be at least 8 chars long", ToastConfigLogin)
-      validate = false
+      toast.error("Password must be at least 8 chars long", ToastConfigLogin);
+      validate = false;
     }
     if (password.search(/[a-z]/) < 0) {
-      toast.error("Password must contain a lowercase", ToastConfigLogin)
-      validate = false
+      toast.error("Password must contain a lowercase", ToastConfigLogin);
+      validate = false;
     }
     if (password.search(/[A-Z]/) < 0) {
-      toast.error("Password must contain an uppercase letter", ToastConfigLogin)
-      validate = false
+      toast.error("Password must contain an uppercase letter", ToastConfigLogin);
+      validate = false;
     }
     if (password.search(/[0-9]/) < 0) {
-      toast.error("Password must contain a number", ToastConfigLogin)
-      validate = false
+      toast.error("Password must contain a number", ToastConfigLogin);
+      validate = false;
     }
 
     if (password.search(/\D+\S+\W/) < 0) {
-      toast.error("Password must contain at least 1 special character", ToastConfigLogin)
-      validate = false
+      toast.error("Password must contain at least 1 special character", ToastConfigLogin);
+      validate = false;
     }
 
     return validate;
@@ -77,18 +77,18 @@ export default function SignupForm() {
         delete formJSON.repeatPassword;
 
         const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
-        const toastInfo: string = `Account created`
-        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 3000 })
+        const toastInfo: string = `Account created`;
+        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 3000 });
         setTimeout(() => {
           window.location.replace("/account/" + res.data?.createUser.id);
-        }, 3000)
+        }, 3000);
       } catch (e: any) {
-        const errArr = e.message.replaceAll('_', ' ')
-        toast.error(errArr, ToastConfigLogin)
-        return
+        const errArr = e.message.replaceAll("_", " ");
+        toast.error(errArr, ToastConfigLogin);
+        return;
       }
     }
-  }
+  };
 
   return (
     <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
