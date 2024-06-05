@@ -41,10 +41,7 @@ export class BookingItem extends BaseEntity {
 	@Field(() => Int)
 	total_price: number
 
-	@ManyToOne(() => Booking, (booking) => booking.bookingItem, {
-		cascade: true,
-		onDelete: "CASCADE",
-	})
+	@ManyToOne(() => Booking, (booking) => booking.bookingItem)
 	@Field(() => Booking)
 	booking: Booking
 
