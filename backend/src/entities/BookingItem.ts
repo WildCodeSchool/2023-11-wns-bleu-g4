@@ -48,10 +48,7 @@ export class BookingItem extends BaseEntity {
 	@Field(() => Booking)
 	booking: Booking
 
-	@ManyToOne(() => Product, (product) => product.bookingItem, {
-		cascade: true,
-		onDelete: "CASCADE",
-	})
+	@ManyToOne(() => Product, (product) => product.bookingItem)
 	@Field(() => Product)
 	product: Product
 
