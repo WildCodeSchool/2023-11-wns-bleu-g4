@@ -8,6 +8,8 @@ import { Booking } from "./entities/Booking"
 import User, { UserRole } from "./entities/User"
 import { Status } from "./enum/Status"
 import { StatusBooking } from "./enum/StatusBooking"
+import { BookingItem } from "./entities/BookingItem"
+import { BookingItemStatus } from "./enum/BookingItemStatus"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -123,6 +125,21 @@ async function main() {
 		}
 	})
 	await booking.save()
+
+	const bookingItem = new BookingItem()
+	Object.assign(bookingItem, {
+		quantity: 3,
+		status: BookingItemStatus.RENT,
+		unit_price: 15,
+		total_price: 45,
+		booking: {
+			id: 1
+		},
+		product: {
+			id: 1
+		}
+	})
+	await bookingItem.save()
 
 	await db.destroy()
 	console.log("Done !")
