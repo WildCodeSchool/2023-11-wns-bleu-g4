@@ -23,7 +23,7 @@ export interface TableFooterProps {
   itemsPerPage: number;
 }
 
-export interface ProductDeleteModalProps {
+export interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: any;
