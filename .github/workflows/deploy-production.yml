@@ -1,0 +1,36 @@
+name: Test, compile and push client and server to production
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  i18n-parser:
+    uses: WildCodeSchool/2023-22-wns-bleu-g4/.github/workflows/i18n.yml@main
+
+  test:
+    uses: WildCodeSchool/2023-22-wns-bleu-g4/.github/workflows/playwright.yml@main
+
+  build-and-push-server:
+    needs:
+      - i18n-parser
+      - test
+    uses: WildCodeSchool/2023-22-wns-bleu-g4/.github/workflows/build-backend.yml@main
+
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    with:
+      image_name: chambrin80/gear-go-server
+
+  build-and-push-client:
+    needs:
+      - i18n-parser
+      - test
+    uses: WildCodeSchool/2023-22-wns-bleu-g4/.github/workflows/build-frontend.yml@main
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    with:
+      image_name: chambrin80/gear-go-client
