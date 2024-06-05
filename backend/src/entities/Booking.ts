@@ -100,8 +100,8 @@ export class UpdateBookingInput {
 	@Field({ nullable: true })
 	endDate?: Date
 
-	@Field(() => AgencyId)
-	agency: AgencyId;
+	@Field(() => AgencyId, { nullable: true })
+	agency?: AgencyId;
 }
 
 @InputType()
