@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { orderDetailsHeaders } from "./helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
+import { orderDetailsHeaders } from "../helpers/tableHeaders";
 
 export default function OrderDetailsDropdown({ order }: { order: any }) {
     const { t } = useTranslation("OrderDetailsDropdown");
