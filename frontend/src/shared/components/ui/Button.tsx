@@ -69,6 +69,35 @@ const adminFooterButton = defineStyle({
   }, // change the background color darkMode
 });
 
+const sizeButton = defineStyle({
+  display: "flex",
+  height: "48px",
+  padding: "0 15px",
+  borderRadius: "10px",
+  color: "dark",
+  fontWeight: "600",
+  bg: "#F5EEE5",
+  _hover: {
+    bg: "#D23732",
+    color: "light",
+  },
+  _active: {
+    bg: "#D23732",
+    color: "light",
+  },
+});
+
+const selectorButton = defineStyle({
+  borderRadius: "50%",
+  fontSize: "20px",
+  fontWeight: "bold",
+  color: "light",
+  bg: "accent",
+  _hover: {
+    bg: "orange.400",
+  },
+});
+
 export const buttonTheme = defineStyleConfig({
   variants: {
     outline,
@@ -77,5 +106,7 @@ export const buttonTheme = defineStyleConfig({
     subNavButton,
     loginButton,
     adminFooterButton,
+    sizeButton,
+    selectorButton,
   },
 });
