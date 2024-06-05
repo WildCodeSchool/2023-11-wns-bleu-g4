@@ -2,9 +2,9 @@ import { registerEnumType } from "type-graphql"
 
 export enum StatusBooking {
 	BOOKED = "booked",
-	RETREIVED = "retreived",
+	RETRIEVED = "retrieved",
 	LATE = "late",
-	CANCELLED = "cancelled",
+	CANCELED = "canceled",
 }
 
 registerEnumType(StatusBooking, {
