@@ -1,18 +1,24 @@
-import React from 'react';
-import { Flex, Text, Button, CheckboxGroup, Checkbox, Stack } from "@chakra-ui/react";
+import React, { useState } from 'react';
+import { Flex, Text, CheckboxGroup, Checkbox, Stack } from "@chakra-ui/react";
 
 const ProductFilter: React.FC = () => {
     // Liste des catégories
-    const categories = ['Catégorie 1', 'Catégorie 2', 'Catégorie 3', 'Catégorie 4'];
+    const categories = ['Jackets', 'Fleece', 'Sweatshirts & Hoodies', 'Sweaters'];
+
+    // État local pour suivre les cases à cocher sélectionnées
+    const [checkedItems, setCheckedItems] = useState<(string | number)[]>([]);
+
+    // Fonction pour réinitialiser les cases à cocher
+    const clearFilter = () => setCheckedItems([]);
 
     return (
         <Flex direction="column" justifyContent="space-between" alignItems="start" padding="1rem">
             <Flex justifyContent="space-between" alignItems="center" width="100%">
-                <Text fontSize="xl" fontWeight="bold">Filter</Text>
-                <Text colorScheme="teal" cursor="pointer">Clear Filter</Text>
+                <Text fontSize={{ base: "1xl", md: "lg" }} fontWeight="bold">Filter</Text>
+                <Text  fontSize={{ base: "1xl", md: "lg" }} colorScheme="teal" cursor="pointer" onClick={clearFilter}>Clear Filter</Text>
             </Flex>
-            <Text fontSize="xl" fontWeight="bold" mt="2">Categorie</Text>
-            <CheckboxGroup colorScheme="teal" defaultValue={[]}>
+            <Text fontSize={{ base: "1xl", md: "lg" }} fontWeight="bold" mt="6">Categories</Text>
+            <CheckboxGroup colorScheme="teal" value={checkedItems} onChange={setCheckedItems}>
                 <Stack spacing={3} mt="2">
                     {categories.map((category, index) => (
                         <Checkbox key={index} value={category} borderRadius="full">{category}</Checkbox>

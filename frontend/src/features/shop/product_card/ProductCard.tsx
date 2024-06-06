@@ -1,5 +1,5 @@
-import { Box, Image, Text, Button, Flex } from "@chakra-ui/react";
-import {ShoppingCartIcon, StarIcon} from "@heroicons/react/16/solid";
+import {Box, Image, Text, Button, Flex, IconButton} from "@chakra-ui/react";
+import {ShoppingCartIcon, StarIcon} from "@heroicons/react/24/outline";
 
 // Product data
 const product = {
@@ -13,6 +13,7 @@ const product = {
 };
 
 export default function ProductCard() {
+
     return (
         <Box p="4" borderColor="gray" bg="white" borderWidth="1px" borderRadius="lg" overflow="hidden">
             <Text  fontWeight="bold">id :{product.id}</Text>
@@ -36,7 +37,7 @@ export default function ProductCard() {
                     {Array(5)
                         .fill("")
                         .map((_, i) => (
-                            <StarIcon key={i} className={i < product.note ? "h-5 w-5 text-teal-500" : "h-5 w-5 text-gray-300"} />
+                            <StarIcon key={i} className={i < product.note ? "h-5 w-5 text-dark-900" : "h-5 w-5 text-gray-400"} />
                         ))}
                     <Box as="span" ml="2" color="gray.600" fontSize="sm">
                         {product.comment}
@@ -44,15 +45,13 @@ export default function ProductCard() {
                 </Flex>
 
                 <Flex mt="3" alignItems="center" justifyContent="space-between">
-                    <Box fontSize="xl">
+                    <Box color="gray.900" fontSize="xl">
                         {product.price}€
-                        <Box  as="span" color="gray.600" fontSize="xl">
+                        <Box  as="span" color="gray.900" fontSize="xl">
                             / Days
                         </Box>
                     </Box>
-                    <Button colorScheme="teal">
-                        <ShoppingCartIcon className="h-6 w-6 text-white" />
-                    </Button>
+                    <IconButton variant="cartButton" aria-label="shopping cart" icon={ <ShoppingCartIcon width="24"  />} />
                 </Flex>
             </Box>
         </Box>
