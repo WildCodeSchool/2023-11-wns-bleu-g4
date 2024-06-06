@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg, Ctx, Authorized } from "type-graphql"
+import { Resolver, Mutation, Arg, Ctx, Authorized, Query, Int } from "type-graphql"
 import { Review } from "../entities/Review"
 import { NewReviewInput, UpdateReviewInput } from "../entities/Review"
 import { Context } from "vm"
@@ -7,6 +7,48 @@ import { UserRole } from "../entities/User"
 
 @Resolver()
 export class ReviewResolver {
+
+	@Query(() => [Review])
+	async getAllReviews(
+		@Arg("userId", { nullable: true }) userId?: number,
+		@Arg("productId", { nullable: true }) productId?: number,
+	) {
+		return await Review.find({
+			relations: { user: true, product: true }
+		})
+	}
+
+	@Query(() => Review)
+	async getReviewById(
+		@Arg("reviewId", () => Int) id: number,
+		@Arg("userId", { nullable: true }) userId?: number,
+		@Arg("productId", { nullable: true }) productId?: number,
+	) {
+		const review = await Review.findOne({
+			relations: { user: true, product: true },
+			where: { id }
+		})
+
+		if (!review) throw new GraphQLError("Not found")
+
+		return review
+	}
+
+	@Query(() => [Review])
+	async getReviewsByProductId(
+		@Arg("productId") productId: number,
+		@Arg("userId", { nullable: true }) userId?: number,
+	) {
+		const reviews = await Review.find({
+			relations: { user: true, product: true },
+			where: { product : { id : productId} }
+		})
+
+		if (!reviews) throw new GraphQLError("Not found")
+
+		return reviews
+	}
+
 	@Authorized([UserRole.CUSTOMER])
 	@Mutation(() => Review)
 	async createReview(
