@@ -35,44 +35,6 @@ export type Booking = {
   __typename?: 'Booking';
   agency: Agency;
   bookingDate: Scalars['DateTimeISO'];
-  endDate: Scalars['DateTimeISO'];
-  id: Scalars['Int'];
-  invoice: Scalars['String'];
-  startDate: Scalars['DateTimeISO'];
-  status: StatusBooking;
-  user: User;
-};
-
-export type Brand = {
-  __typename?: 'Brand';
-  id: Scalars['Int'];
-  logo: Scalars['String'];
-  name: Scalars['String'];
-  product: Array<Product>;
-};
-
-export type Agency = {
-  __typename?: 'Agency';
-  address: Scalars['String'];
-  bookings: Array<Booking>;
-  city: Scalars['String'];
-  country: Scalars['String'];
-  email: Scalars['String'];
-  id: Scalars['Int'];
-  name: Scalars['String'];
-  phone: Scalars['String'];
-  postcode: Scalars['String'];
-  productCodes: Array<Product_Code>;
-};
-
-export type AgencyId = {
-  id: Scalars['Int'];
-};
-
-export type Booking = {
-  __typename?: 'Booking';
-  agency: Agency;
-  bookingDate: Scalars['DateTimeISO'];
   bookingItem: Array<BookingItem>;
   endDate: Scalars['DateTimeISO'];
   id: Scalars['Int'];
@@ -104,6 +66,14 @@ export enum BookingItemStatus {
   Returned = 'RETURNED'
 }
 
+export type Brand = {
+  __typename?: 'Brand';
+  id: Scalars['Int'];
+  logo: Scalars['String'];
+  name: Scalars['String'];
+  product: Array<Product>;
+};
+
 export type Category = {
   __typename?: 'Category';
   id: Scalars['Int'];
@@ -123,6 +93,7 @@ export type Mutation = {
   confirmEmail: Scalars['String'];
   createAgency: Agency;
   createBooking: Booking;
+  createBookingItem: BookingItem;
   createBrand: Brand;
   createCategory: Category;
   createProduct: Product;
@@ -131,6 +102,7 @@ export type Mutation = {
   createSubCategory: SubCategory;
   createUser: User;
   deleteAgency: Scalars['String'];
+  deleteBookingItem: Scalars['String'];
   deleteBrand: Scalars['Boolean'];
   deleteCategory: Scalars['String'];
   deleteProduct: Scalars['String'];
@@ -141,10 +113,10 @@ export type Mutation = {
   logout: Scalars['String'];
   updateAgency: Agency;
   updateBooking: Booking;
+  updateBookingItem: Scalars['String'];
   updateBrand: Brand;
   updateCategory: Category;
   updateProduct: Product;
-  updateProduct_picture: Product_Picture;
   updateProduct_picture: Product_Picture;
   updateProfile: User;
   updateReview: Review;
@@ -172,6 +144,11 @@ export type MutationCreateBookingArgs = {
 };
 
 
+export type MutationCreateBookingItemArgs = {
+  data: NewBookingItemInput;
+};
+
+
 export type MutationCreateBrandArgs = {
   data: NewBrandInput;
 };
@@ -185,12 +162,6 @@ export type MutationCreateCategoryArgs = {
 export type MutationCreateProductArgs = {
   data: NewProductInput;
 };
-
-
-export type MutationCreateProduct_PictureArgs = {
-  data: NewProduct_PictureInput;
-};
-
 
 
 export type MutationCreateProduct_PictureArgs = {
@@ -215,6 +186,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteAgencyArgs = {
   agencyId: Scalars['Float'];
+};
+
+
+export type MutationDeleteBookingItemArgs = {
+  bookingItemId: Scalars['Float'];
 };
 
 
@@ -262,6 +238,12 @@ export type MutationUpdateAgencyArgs = {
 export type MutationUpdateBookingArgs = {
   bookingId: Scalars['Float'];
   data: UpdateBookingInput;
+};
+
+
+export type MutationUpdateBookingItemArgs = {
+  bookingItemId: Scalars['Float'];
+  data: UpdateBookingItemInput;
 };
 
 
@@ -325,65 +307,17 @@ export type NewBookingInput = {
   user: UserId;
 };
 
+export type NewBookingItemInput = {
+  booking: BookingId;
+  product: ProductId;
+  quantity: Scalars['Float'];
+  status: BookingItemStatus;
+  total_price: Scalars['Float'];
+};
+
 export type NewBrandInput = {
   logo: Scalars['String'];
   name: Scalars['String'];
-};
-
-export type NewAgencyInput = {
-  address: Scalars['String'];
-  city: Scalars['String'];
-  country: Scalars['String'];
-  email: Scalars['String'];
-  name: Scalars['String'];
-  phone: Scalars['String'];
-  postcode: Scalars['String'];
-};
-
-export type NewBookingInput = {
-  agency: AgencyId;
-  bookingDate: Scalars['DateTimeISO'];
-  endDate: Scalars['DateTimeISO'];
-  invoice: Scalars['String'];
-  startDate: Scalars['DateTimeISO'];
-  status: StatusBooking;
-  user: UserId;
-};
-
-export type NewBookingItemInput = {
-  booking: BookingId;
-  product: ProductId;
-  quantity: Scalars['Float'];
-  status: BookingItemStatus;
-  total_price: Scalars['Float'];
-};
-
-export type NewAgencyInput = {
-  address: Scalars['String'];
-  city: Scalars['String'];
-  country: Scalars['String'];
-  email: Scalars['String'];
-  name: Scalars['String'];
-  phone: Scalars['String'];
-  postcode: Scalars['String'];
-};
-
-export type NewBookingInput = {
-  agency: AgencyId;
-  bookingDate: Scalars['DateTimeISO'];
-  endDate: Scalars['DateTimeISO'];
-  invoice: Scalars['String'];
-  startDate: Scalars['DateTimeISO'];
-  status: StatusBooking;
-  user: UserId;
-};
-
-export type NewBookingItemInput = {
-  booking: BookingId;
-  product: ProductId;
-  quantity: Scalars['Float'];
-  status: BookingItemStatus;
-  total_price: Scalars['Float'];
 };
 
 export type NewCategoryInput = {
@@ -397,18 +331,6 @@ export type NewProductInput = {
   name: Scalars['String'];
   price: Scalars['Float'];
   reviews?: InputMaybe<Array<ObjectId>>;
-  thumbnail: Scalars['String'];
-};
-
-export type NewProduct_PictureInput = {
-  alt: Scalars['String'];
-  productId: Scalars['Int'];
-  thumbnail: Scalars['String'];
-};
-
-export type NewProduct_PictureInput = {
-  alt: Scalars['String'];
-  productId: Scalars['Int'];
   thumbnail: Scalars['String'];
 };
 
@@ -442,6 +364,7 @@ export type ObjectId = {
 
 export type Product = {
   __typename?: 'Product';
+  bookingItem: Array<BookingItem>;
   brand: Brand;
   categories: Array<Category>;
   description: Scalars['String'];
@@ -450,14 +373,12 @@ export type Product = {
   pictures: Array<Product_Picture>;
   price: Scalars['Float'];
   productCodes: Array<Product_Code>;
-  description: Scalars['String'];
-  id: Scalars['Int'];
-  name: Scalars['String'];
-  pictures: Array<Product_Picture>;
-  price: Scalars['Float'];
-  productCodes: Array<Product_Code>;
   reviews: Array<Review>;
   thumbnail: Scalars['String'];
+};
+
+export type ProductId = {
+  id: Scalars['Int'];
 };
 
 export type Product_Code = {
@@ -478,46 +399,6 @@ export type Product_Picture = {
   thumbnail: Scalars['String'];
 };
 
-export type ProductId = {
-  id: Scalars['Int'];
-};
-
-export type Product_Code = {
-  __typename?: 'Product_code';
-  agency?: Maybe<Agency>;
-  id: Scalars['Int'];
-  product?: Maybe<Product>;
-  status: Status;
-};
-
-export type Product_Picture = {
-  __typename?: 'Product_picture';
-  alt: Scalars['String'];
-  id: Scalars['Int'];
-  product: Product;
-  thumbnail: Scalars['String'];
-};
-
-export type ProductId = {
-  id: Scalars['Int'];
-};
-
-export type Product_Code = {
-  __typename?: 'Product_code';
-  agency?: Maybe<Agency>;
-  id: Scalars['Int'];
-  product?: Maybe<Product>;
-  status: Status;
-};
-
-export type Product_Picture = {
-  __typename?: 'Product_picture';
-  alt: Scalars['String'];
-  id: Scalars['Int'];
-  product: Product;
-  thumbnail: Scalars['String'];
-};
-
 export type Query = {
   __typename?: 'Query';
   getAgencyById: Agency;
@@ -527,32 +408,19 @@ export type Query = {
   getAllCategories: Array<Category>;
   getAllProduct_codes: Array<Product_Code>;
   getAllProduct_pictures: Array<Product_Picture>;
-  getAllProduct_codes: Array<Product_Code>;
-  getAllProduct_pictures: Array<Product_Picture>;
   getAllProducts: Array<Product>;
   getAllSubCategories: Array<SubCategory>;
   getBookingById: Booking;
+  getBookingItems: Array<BookingItem>;
+  getBookingItemsByBookingId: Array<BookingItem>;
   getBookingsByUser: Array<Booking>;
   getBrandById: Brand;
   getCategoryById: Category;
   getProductById: Product;
   getProductCodesByStatus: Array<Product_Code>;
-  getProductCodesByStatus: Array<Product_Code>;
   getSubCategoryById: SubCategory;
   profile: User;
 };
-
-
-export type QueryGetAgencyByIdArgs = {
-  agencyId: Scalars['Int'];
-};
-
-
-export type QueryGetAllBookingArgs = {
-  agencyId?: InputMaybe<Scalars['Float']>;
-  userId?: InputMaybe<Scalars['Float']>;
-};
-
 
 
 export type QueryGetAgencyByIdArgs = {
@@ -590,6 +458,11 @@ export type QueryGetBookingByIdArgs = {
 };
 
 
+export type QueryGetBookingItemsByBookingIdArgs = {
+  bookingId: Scalars['Float'];
+};
+
+
 export type QueryGetBookingsByUserArgs = {
   userId: Scalars['Int'];
 };
@@ -608,12 +481,6 @@ export type QueryGetCategoryByIdArgs = {
 export type QueryGetProductByIdArgs = {
   productId: Scalars['Int'];
 };
-
-
-export type QueryGetProductCodesByStatusArgs = {
-  status: Status;
-};
-
 
 
 export type QueryGetProductCodesByStatusArgs = {
@@ -648,69 +515,11 @@ export enum StatusBooking {
   Retrieved = 'RETRIEVED'
 }
 
-/** Check if the product is available or booked. */
-export enum Status {
-  Available = 'AVAILABLE',
-  Booked = 'BOOKED'
-}
-
-/** Check booking's state. */
-export enum StatusBooking {
-  Booked = 'BOOKED',
-  Canceled = 'CANCELED',
-  Late = 'LATE',
-  Retrieved = 'RETRIEVED'
-}
-
 export type SubCategory = {
   __typename?: 'SubCategory';
   id: Scalars['Int'];
   name: Scalars['String'];
   thumbnail: Scalars['String'];
-};
-
-export type UpdateAgencyInput = {
-  address?: InputMaybe<Scalars['String']>;
-  city?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  postcode?: InputMaybe<Scalars['String']>;
-};
-
-export type UpdateBookingInput = {
-  agency?: InputMaybe<AgencyId>;
-  bookingDate?: InputMaybe<Scalars['DateTimeISO']>;
-  endDate?: InputMaybe<Scalars['DateTimeISO']>;
-  invoice?: InputMaybe<Scalars['String']>;
-  startDate?: InputMaybe<Scalars['DateTimeISO']>;
-  status: StatusBooking;
-};
-
-export type UpdateAgencyInput = {
-  address?: InputMaybe<Scalars['String']>;
-  city?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  postcode?: InputMaybe<Scalars['String']>;
-};
-
-export type UpdateBookingInput = {
-  agency?: InputMaybe<AgencyId>;
-  bookingDate?: InputMaybe<Scalars['DateTimeISO']>;
-  endDate?: InputMaybe<Scalars['DateTimeISO']>;
-  invoice?: InputMaybe<Scalars['String']>;
-  startDate?: InputMaybe<Scalars['DateTimeISO']>;
-  status: StatusBooking;
-};
-
-export type UpdateBookingItemInput = {
-  quantity: Scalars['Float'];
-  status: BookingItemStatus;
-  total_price: Scalars['Float'];
 };
 
 export type UpdateAgencyInput = {
@@ -758,18 +567,6 @@ export type UpdateProduct_PictureInput = {
   thumbnail: Scalars['String'];
 };
 
-export type UpdateProduct_PictureInput = {
-  alt: Scalars['String'];
-  productId: Scalars['Int'];
-  thumbnail: Scalars['String'];
-};
-
-export type UpdateProduct_PictureInput = {
-  alt: Scalars['String'];
-  productId: Scalars['Int'];
-  thumbnail: Scalars['String'];
-};
-
 export type UpdateReviewInput = {
   comment?: InputMaybe<Scalars['String']>;
   rate?: InputMaybe<Scalars['Int']>;
@@ -807,14 +604,6 @@ export type User = {
   postcode: Scalars['String'];
   reviews: Array<Review>;
   role: Scalars['String'];
-};
-
-export type UserId = {
-  id: Scalars['Int'];
-};
-
-export type UserId = {
-  id: Scalars['Int'];
 };
 
 export type UserId = {
