@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next";
 
 export default function Footer() {
   const { t } = useTranslation("Footer");
-  
+
   type Footer = {
     name: string;
     link: string;
@@ -96,7 +96,9 @@ export default function Footer() {
           <Link href="/" className="flex w-full justify-center md:justify-start">
             <ThemedLogo />
           </Link>
-          <p className="justify-center text-xs font-thin md:justify-start">{t("Copyright © 2024 All Rights Reserved.")}</p>
+          <p className="justify-center text-xs font-thin md:justify-start">
+            {t("Copyright © 2024 All Rights Reserved.")}
+          </p>
         </div>
       </Card>
     </footer>

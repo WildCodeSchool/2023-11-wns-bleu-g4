@@ -25,9 +25,3 @@ export default function Login() {
     </Layout>
   );
 }
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
-  },
-});

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
-import AdminTableFooter from "@/features/admin/table/AdminTableFooter";
-import AdminTableBody from "@/features/admin/table/AdminTableBody";
+import TableFooter from "@/features/admin/table/TableFooter";
+import OrderTableBody from "@/features/admin/table/OrderTableBody";
 import data from "@/features/admin/helpers/dummyOrders";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "../../../../i18nUtils";
+import { GetStaticProps } from "next";
 
 export default function Orders() {
   const [sortColumn, setSortColumn] = useState<string | null>(null);
@@ -10,7 +13,7 @@ export default function Orders() {
   const [sortedData, setSortedData] = useState<any[]>(data);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsPerPage = 16;
+  const itemsPerPage = 14;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + Math.min(itemsPerPage, data?.length ?? 0);
   const currentOrders = sortedData.slice(startIndex, endIndex);
@@ -49,15 +52,15 @@ export default function Orders() {
   return (
     <LayoutAdmin pageTitle="Order list">
       <h1>Order list</h1>
-      <div className="overflow-x-auto overflow-y-hidden">
-        <AdminTableBody
+      <div className="overflow-x-auto">
+        <OrderTableBody
           data={currentOrders}
           sortOrder={sortOrder}
           sortColumnName={sortColumn}
           handleDateSort={handleDateSort}
         />
       </div>
-      <AdminTableFooter
+      <TableFooter
         data={sortedData}
         startIndex={startIndex}
         endIndex={endIndex}
@@ -68,3 +71,9 @@ export default function Orders() {
     </LayoutAdmin>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
+  },
+});

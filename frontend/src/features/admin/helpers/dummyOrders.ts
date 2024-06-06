@@ -5,7 +5,21 @@ const data = [
     agency: "Test",
     from: "2024-11-10",
     to: "2024-11-12",
-    customer: { fullName: "John Doe", address: "123 Main St" },
+    customer: { firstname: "John", name: "Doe", address: "123 Main St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 2,
@@ -13,7 +27,21 @@ const data = [
     agency: "Test",
     from: "2024-02-15",
     to: "2024-02-18",
-    customer: { fullName: "Jane Smith", address: "456 Elm St" },
+    customer: { firstname: "Jane", name: "Smith", address: "456 Elm St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 3,
@@ -21,7 +49,21 @@ const data = [
     agency: "Test",
     from: "2024-07-20",
     to: "2024-07-25",
-    customer: { fullName: "Mike Johnson", address: "789 Oak St" },
+    customer: { firstname: "Mike", name: "Johnson", address: "789 Oak St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 4,
@@ -29,7 +71,21 @@ const data = [
     agency: "Test",
     from: "2024-09-05",
     to: "2024-09-10",
-    customer: { fullName: "Sarah Williams", address: "321 Pine St" },
+    customer: { firstname: "Sarah", name: "Williams", address: "321 Pine St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 5,
@@ -37,7 +93,21 @@ const data = [
     agency: "Test",
     from: "2024-02-15",
     to: "2024-04-02",
-    customer: { fullName: "David Brown", address: "654 Cedar St" },
+    customer: { firstname: "David", name: "Brown", address: "654 Cedar St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 6,
@@ -45,7 +115,21 @@ const data = [
     agency: "Test",
     from: "2024-06-12",
     to: "2024-06-15",
-    customer: { fullName: "Emily Davis", address: "987 Maple St" },
+    customer: { firstname: "Emily", name: "Davis", address: "987 Maple St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 7,
@@ -53,7 +137,21 @@ const data = [
     agency: "Test",
     from: "2024-08-25",
     to: "2024-08-30",
-    customer: { fullName: "Michael Wilson", address: "741 Birch St" },
+    customer: { firstname: "Michael", name: "Wilson", address: "741 Birch St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 8,
@@ -61,7 +159,21 @@ const data = [
     agency: "Test",
     from: "2024-01-07",
     to: "2024-01-12",
-    customer: { fullName: "Olivia Taylor", address: "852 Walnut St" },
+    customer: { firstname: "Olivia", name: "Taylor", address: "852 Walnut St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 9,
@@ -69,7 +181,21 @@ const data = [
     agency: "Test",
     from: "2024-04-18",
     to: "2024-04-23",
-    customer: { fullName: "James Anderson", address: "963 Spruce St" },
+    customer: { firstname: "James", name: "Anderson", address: "963 Spruce St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 10,
@@ -77,7 +203,21 @@ const data = [
     agency: "Test",
     from: "2024-07-01",
     to: "2024-07-05",
-    customer: { fullName: "Sophia Martinez", address: "159 Cherry St" },
+    customer: { firstname: "Sophia", name: "Martinez", address: "159 Cherry St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 11,
@@ -85,7 +225,21 @@ const data = [
     agency: "Test",
     from: "2024-10-14",
     to: "2024-10-18",
-    customer: { fullName: "Daniel Thompson", address: "357 Pine St" },
+    customer: { firstname: "Daniel", name: "Thompson", address: "357 Pine St", city: "New York", postcode: "10001" },
+    booking_items: [
+      {
+        id: 1,
+        name: "Item 1",
+        quantity: 1,
+        price: 100,
+      },
+      {
+        id: 2,
+        name: "Item 2",
+        quantity: 2,
+        price: 200,
+      },
+    ],
   },
   {
     id: 12,
@@ -93,7 +247,7 @@ const data = [
     agency: "Test",
     from: "2024-12-27",
     to: "2024-12-31",
-    customer: { fullName: "Isabella Hernandez", address: "753 Elm St" },
+    customer: { firstname: "Isabella", name: "Hernandez", address: "753 Elm St", city: "New York", postcode: "10001" },
   },
   {
     id: 13,
@@ -101,7 +255,7 @@ const data = [
     agency: "Test",
     from: "2024-03-03",
     to: "2024-03-07",
-    customer: { fullName: "Joseph Smith", address: "951 Oak St" },
+    customer: { firstname: "Joseph", name: "Smith", address: "951 Oak St", city: "New York", postcode: "10001" },
   },
   {
     id: 14,
@@ -109,7 +263,7 @@ const data = [
     agency: "Test",
     from: "2024-05-16",
     to: "2024-05-20",
-    customer: { fullName: "Mia Johnson", address: "357 Pine St" },
+    customer: { firstname: "Mia", name: "Johnson", address: "357 Pine St", city: "New York", postcode: "10001" },
   },
   {
     id: 15,
@@ -117,7 +271,7 @@ const data = [
     agency: "Test",
     from: "2024-07-29",
     to: "2024-08-02",
-    customer: { fullName: "Alexander Davis", address: "753 Elm St" },
+    customer: { firstname: "Alexander", name: "Davis", address: "753 Elm St", city: "New York", postcode: "10001" },
   },
   {
     id: 16,
@@ -125,7 +279,7 @@ const data = [
     agency: "Test",
     from: "2024-09-10",
     to: "2024-09-15",
-    customer: { fullName: "Ava Wilson", address: "951 Oak St" },
+    customer: { firstname: "Ava", name: "Wilson", address: "951 Oak St", city: "New York", postcode: "10001" },
   },
   {
     id: 17,
@@ -133,7 +287,7 @@ const data = [
     agency: "Test",
     from: "2024-11-23",
     to: "2024-11-28",
-    customer: { fullName: "William Taylor", address: "123 Main St" },
+    customer: { firstname: "William", name: "Taylor", address: "123 Main St", city: "New York", postcode: "10001" },
   },
   {
     id: 18,
@@ -141,7 +295,7 @@ const data = [
     agency: "Test",
     from: "2024-02-05",
     to: "2024-02-10",
-    customer: { fullName: "Sofia Anderson", address: "456 Elm St" },
+    customer: { firstname: "Sofia", name: "Anderson", address: "456 Elm St", city: "New York", postcode: "10001" },
   },
   {
     id: 19,
@@ -149,7 +303,7 @@ const data = [
     agency: "Test",
     from: "2024-05-18",
     to: "2024-05-23",
-    customer: { fullName: "Benjamin Martinez", address: "789 Oak St" },
+    customer: { firstname: "Benjamin", name: "Martinez", address: "789 Oak St", city: "New York", postcode: "10001" },
   },
   {
     id: 20,
@@ -157,7 +311,7 @@ const data = [
     agency: "Test",
     from: "2024-08-01",
     to: "2024-08-05",
-    customer: { fullName: "Charlotte Thompson", address: "321 Pine St" },
+    customer: { firstname: "Charlotte", name: "Thompson", address: "321 Pine St", city: "New York", postcode: "10001" },
   },
 ];
 
