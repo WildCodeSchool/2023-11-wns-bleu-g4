@@ -43,8 +43,6 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
     return <p>Loading...</p>;
   }
 
-  console.log("selectedSize", selectedSize);
-
   return (
     <Flex w="50%" flexDirection="column" gap="10px">
       <ProductHeader product={product} />

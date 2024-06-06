@@ -43,11 +43,7 @@ export default function SizeSelector({
       sizeButtons = renderSizeButtons(allNumberSizes, availableSizes);
     }
   } else {
-    sizeButtons = (
-      <Text as="mark" bg="accent" fontWeight="bold" color="light">
-        {t("Please select an agency to see available sizes")}
-      </Text>
-    );
+    sizeButtons = <Text>{t("Please select an agency to see available sizes")}</Text>;
   }
 
   return (

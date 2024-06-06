@@ -1,4 +1,4 @@
-import { Flex, Button } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 
