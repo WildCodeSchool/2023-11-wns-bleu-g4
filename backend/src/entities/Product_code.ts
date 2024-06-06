@@ -5,10 +5,12 @@ import {
 	Column,
 	Entity,
 	ManyToOne,
+	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { Status } from "../enum/Status"
 import { Agency } from "./Agency"
+import { Booking } from "./Booking"
 import { Product } from "./Product"
 
 @Entity()
@@ -41,6 +43,10 @@ export class Product_code extends BaseEntity {
 	@Column({ type: "boolean", default: false })
 	@Field()
 	isSizeable: boolean
+
+	@OneToMany(() => Booking, (booking) => booking.product_code)
+	@Field(() => [Booking], { nullable: true })
+	bookings: Booking[]
 }
 
 @InputType()

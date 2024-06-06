@@ -1,22 +1,21 @@
-import { Field, InputType, Int, ObjectType } from "type-graphql"
 import { IsEnum } from "class-validator"
-import {BookingId, ProductId} from '../types'
+import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
 	Column,
 	Entity,
+	ManyToMany,
 	ManyToOne,
-	OneToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm"
-import Product from "./Product"
 import { BookingItemStatus } from "../enum/BookingItemStatus"
+import { BookingId, ProductId } from "../types"
 import { Booking } from "./Booking"
+import Product from "./Product"
 
 @Entity()
 @ObjectType()
 export class BookingItem extends BaseEntity {
-
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -25,7 +24,7 @@ export class BookingItem extends BaseEntity {
 		type: "enum",
 		enum: BookingItemStatus,
 	})
-	@Field(() => BookingItemStatus, {defaultValue : BookingItemStatus.RENTED})
+	@Field(() => BookingItemStatus, { defaultValue: BookingItemStatus.RENTED })
 	@IsEnum(BookingItemStatus)
 	status: BookingItemStatus
 
@@ -41,7 +40,7 @@ export class BookingItem extends BaseEntity {
 	@Field(() => Booking)
 	booking: Booking
 
-	@ManyToOne(() => Product, (product) => product.bookingItem)
+	@ManyToMany(() => Product, (product) => product.bookingItem)
 	@Field(() => Product)
 	product: Product
 }

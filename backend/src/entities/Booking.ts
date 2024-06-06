@@ -1,5 +1,4 @@
 import { IsEnum } from "class-validator"
-import { StatusBooking } from "../enum/StatusBooking"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
@@ -9,10 +8,12 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
-import User from "./User"
+import { StatusBooking } from "../enum/StatusBooking"
+import { AgencyId, UserId } from "../types"
 import Agency from "./Agency"
-import { UserId, AgencyId } from "../types"
 import { BookingItem } from "./BookingItem"
+import Product_code from "./Product_code"
+import User from "./User"
 
 @Entity()
 @ObjectType()
@@ -59,13 +60,16 @@ export class Booking extends BaseEntity {
 	@Field(() => Agency)
 	agency: Agency
 
-	@OneToMany(() => BookingItem, items => items.booking, {
+	@OneToMany(() => BookingItem, (items) => items.booking, {
 		cascade: true,
-		onDelete: "CASCADE"
+		onDelete: "CASCADE",
 	})
 	@Field(() => [BookingItem])
 	bookingItem: BookingItem[]
 
+	@ManyToOne(() => Product_code, (product_code) => product_code.bookings)
+	@Field(() => Product_code)
+	product_code: Product_code
 }
 
 @InputType()
@@ -86,10 +90,19 @@ export class NewBookingInput {
 	endDate: Date
 
 	@Field(() => UserId)
-	user: UserId;
+	user: UserId
 
-	@Field(() => AgencyId)
-	agency: AgencyId;
+	@Field(() => Int)
+	agency: AgencyId
+
+	@Field(() => Int)
+	productId!: number
+
+	@Field({ nullable: true })
+	size?: string
+
+	@Field(() => Int)
+	product_code!: number
 }
 
 @InputType()
@@ -110,7 +123,13 @@ export class UpdateBookingInput {
 	endDate?: Date
 
 	@Field(() => AgencyId, { nullable: true })
-	agency?: AgencyId;
+	agency?: AgencyId
+
+	@Field({ nullable: true })
+	size?: string
+
+	@Field(() => Int)
+	productId!: number
 }
 
 @InputType()

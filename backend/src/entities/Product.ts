@@ -11,12 +11,12 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { ObjectId } from "../utils"
+import { BookingItem } from "./BookingItem"
+import Brand from "./Brand"
 import Category from "./Category"
 import { Product_code } from "./Product_code"
 import { Product_picture } from "./Product_picture"
-import Brand from "./Brand"
 import Review from "./Review"
-import { BookingItem } from "./BookingItem"
 
 @Entity()
 @ObjectType()
@@ -67,10 +67,7 @@ export class Product extends BaseEntity {
 	@Field(() => [Product_picture])
 	pictures: Product_picture[]
 
-	@OneToMany(
-		() => BookingItem,
-		(items) => items.product
-	)
+	@ManyToMany(() => BookingItem, (items) => items.product)
 	@Field(() => [BookingItem])
 	bookingItem: BookingItem[]
 
