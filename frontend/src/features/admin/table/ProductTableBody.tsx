@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import { TableBodyProps } from "../types";
 import { productTableHeaders } from "../helpers/tableHeaders";
-import { ChevronDownIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import ProductDeleteModal from "../modal/productDeleteModal";
 import ProductUpdateModal from "../modal/productUpdateModal";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
 
 export default function ProductTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("ProductTableBody");
+  const router = useRouter();
 
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
-  const [openProductId, setOpenProductId] = useState<string | null>(null);
-
-  const handleProductDetails = (productId: string) => {
-    setOpenProductId(prevProductId => (prevProductId === productId ? null : productId));
-  };
 
   const toggleUpdateProductModal = (project: any) => {
     setSelectedProduct(project);
@@ -46,7 +44,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
         {data.length !== 0 ? (
           data.map((product: any, index: number) => (
             <React.Fragment key={product.id}>
-              <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12`}>
+              <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{product.reference}</td>
                 <td className="whitespace-nowrap p-3 w-96 min-w-max">{product.name}</td>
                 <td className="whitespace-nowrap p-3 w-96 min-w-max">{product.brand}</td>
@@ -56,12 +54,10 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                     <button
                       type="button"
                       className="inline-block bg-cactus-400 rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
-                      onClick={() => handleProductDetails(product.id)}
+                      onClick={() => router.push(`/admin/products/${product.id}`)}
                       aria-label="Product details button"
                     >
-                      <ChevronDownIcon
-                        className={`h-5 w-5 text-white ${openProductId === product.id ? "transform duration-150 rotate-180" : "transform duration-150 rotate-0"}`}
-                      />
+                      <MagnifyingGlassIcon className="h-5 w-5 text-white" />
                     </button>
                     <button
                       type="button"
@@ -76,6 +72,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                         product={selectedProduct}
                         isOpen={isUpdateModalOpen}
                         onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
+                        variant="baseStyle"
                       />
                     )}
                     <button
@@ -91,18 +88,12 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                         product={selectedProduct}
                         isOpen={isDeleteModalOpen}
                         onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
+                        variant="baseStyle"
                       />
                     )}
                   </div>
                 </td>
               </tr>
-              {openProductId === product.id && (
-                <tr>
-                  <td className="border-y border-b-gray-300 border-t-gray-200 p-4 text-center" colSpan={5}>
-                    {t("Product")} {product.description}
-                  </td>
-                </tr>
-              )}
             </React.Fragment>
           ))
         ) : (

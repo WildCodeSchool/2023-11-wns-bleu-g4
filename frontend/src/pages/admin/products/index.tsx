@@ -1,7 +1,6 @@
 import { useState } from "react";
 import TableFooter from "@/features/admin/table/TableFooter";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
-import data from "@/features/admin/helpers/dummyProducts";
 import ProductTableBody from "@/features/admin/table/ProductTableBody";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllNamespaces } from "../../../../i18nUtils";
@@ -9,15 +8,16 @@ import { GetStaticProps } from "next";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useDisclosure } from "@chakra-ui/react";
 import ProductCreateModal from "@/features/admin/modal/productCreateModal";
+import { products } from "@/features/admin/helpers/dummyProducts";
 
 export default function Products() {
-  const [sortedData, setSortedData] = useState<any[]>(data);
+  const [sortedData, setSortedData] = useState<any[]>(products);
   const [currentPage, setCurrentPage] = useState(1);
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const itemsPerPage = 14;
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + Math.min(itemsPerPage, data?.length ?? 0);
+  const endIndex = startIndex + Math.min(itemsPerPage, products?.length ?? 0);
   const currentProducts = sortedData.slice(startIndex, endIndex);
 
   const toggleCreateProductModal = () => {
@@ -29,8 +29,12 @@ export default function Products() {
     <LayoutAdmin pageTitle="Product list">
       <div className="flex justify-between items-center">
         <h1>Product list</h1>
-        <button type="button" className="flex gap-2 items-center bg-accent rounded-md text-light px-3 py-1" onClick={toggleCreateProductModal}>
-          <PlusIcon className="h-6 w-6 font-bold" />
+        <button
+          type="button"
+          className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
+          onClick={toggleCreateProductModal}
+        >
+          <PlusIcon className="h-6 w-6" />
           Add Product
         </button>
       </div>
