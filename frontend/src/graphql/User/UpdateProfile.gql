@@ -1,0 +1,15 @@
+mutation UpdateProfile($data: UpdateUserInput!) {
+  updateProfile(data: $data) {
+    id
+    email
+    name
+    firstname
+    address
+    postcode
+    city
+    country
+    phone
+    avatar
+    role
+  }
+}
