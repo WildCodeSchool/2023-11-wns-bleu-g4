@@ -49,6 +49,21 @@ export class ReviewResolver {
 		return reviews
 	}
 
+	@Query(() => [Review])
+	async getReviewsByUserId(
+		@Arg("userId", ()=> Int) userId: number,
+		@Arg("productId", { nullable: true }) productId?: number,
+	) {
+		const reviews = await Review.find({
+			relations: { user: true, product: true },
+			where: { user : { id : userId} }
+		})
+
+		if (!reviews) throw new GraphQLError("Not found")
+
+		return reviews
+	}
+
 	@Authorized([UserRole.CUSTOMER])
 	@Mutation(() => Review)
 	async createReview(
