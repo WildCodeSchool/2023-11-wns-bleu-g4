@@ -1,4 +1,87 @@
-const data = [
+export const productStocks = [
+  {
+    id: 1,
+    agency: "Paris",
+    quantity: 10,
+  },
+  {
+    id: 2,
+    agency: "Marseille",
+    quantity: 5,
+  },
+  {
+    id: 3,
+    agency: "Lyon",
+    quantity: 8,
+  },
+  {
+    id: 4,
+    agency: "Toulouse",
+    quantity: 3,
+  },
+  {
+    id: 5,
+    agency: "Nice",
+    quantity: 7,
+  },
+  {
+    id: 6,
+    agency: "Nantes",
+    quantity: 4,
+  },
+  {
+    id: 7,
+    agency: "Strasbourg",
+    quantity: 6,
+  },
+  {
+    id: 8,
+    agency: "Montpellier",
+    quantity: 2,
+  },
+  {
+    id: 9,
+    agency: "Bordeaux",
+    quantity: 9,
+  },
+  {
+    id: 10,
+    agency: "Lille",
+    quantity: 1,
+  },
+  {
+    id: 11,
+    agency: "Rennes",
+    quantity: 12,
+  },
+  {
+    id: 12,
+    agency: "Grenoble",
+    quantity: 9,
+  },
+  {
+    id: 13,
+    agency: "Nancy",
+    quantity: 3,
+  },
+  {
+    id: 14,
+    agency: "Angers",
+    quantity: 8,
+  },
+  {
+    id: 15,
+    agency: "Brest",
+    quantity: 5,
+  },
+  {
+    id: 16,
+    agency: "Dijon",
+    quantity: 7,
+  },
+];
+
+export const products = [
   {
     id: 1,
     reference: "REF001",
@@ -6,6 +89,8 @@ const data = [
     description: "This is product 1",
     brand: "Brand 1",
     price: 10.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 2,
@@ -14,6 +99,8 @@ const data = [
     description: "This is product 2",
     brand: "Brand 2",
     price: 19.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 3,
@@ -22,6 +109,8 @@ const data = [
     description: "This is product 3",
     brand: "Brand 3",
     price: 15.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 4,
@@ -30,6 +119,8 @@ const data = [
     description: "This is product 4",
     brand: "Brand 4",
     price: 12.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 5,
@@ -38,6 +129,8 @@ const data = [
     description: "This is product 5",
     brand: "Brand 5",
     price: 17.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 6,
@@ -46,6 +139,8 @@ const data = [
     description: "This is product 6",
     brand: "Brand 6",
     price: 11.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 7,
@@ -54,6 +149,8 @@ const data = [
     description: "This is product 7",
     brand: "Brand 7",
     price: 14.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 8,
@@ -62,6 +159,8 @@ const data = [
     description: "This is product 8",
     brand: "Brand 8",
     price: 16.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 9,
@@ -70,6 +169,8 @@ const data = [
     description: "This is product 9",
     brand: "Brand 9",
     price: 13.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 10,
@@ -78,6 +179,8 @@ const data = [
     description: "This is product 10",
     brand: "Brand 10",
     price: 18.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 11,
@@ -86,6 +189,8 @@ const data = [
     description: "This is product 11",
     brand: "Brand 11",
     price: 21.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 12,
@@ -94,6 +199,8 @@ const data = [
     description: "This is product 12",
     brand: "Brand 12",
     price: 23.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 13,
@@ -102,6 +209,7 @@ const data = [
     description: "This is product 13",
     brand: "Brand 13",
     price: 20.99,
+    stocks: productStocks,
   },
   {
     id: 14,
@@ -110,6 +218,8 @@ const data = [
     description: "This is product 14",
     brand: "Brand 14",
     price: 22.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 15,
@@ -118,6 +228,8 @@ const data = [
     description: "This is product 15",
     brand: "Brand 15",
     price: 25.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 16,
@@ -126,6 +238,8 @@ const data = [
     description: "This is product 16",
     brand: "Brand 16",
     price: 27.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 17,
@@ -134,6 +248,8 @@ const data = [
     description: "This is product 17",
     brand: "Brand 17",
     price: 26.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 18,
@@ -142,6 +258,8 @@ const data = [
     description: "This is product 18",
     brand: "Brand 18",
     price: 28.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 19,
@@ -150,6 +268,8 @@ const data = [
     description: "This is product 19",
     brand: "Brand 19",
     price: 24.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
   {
     id: 20,
@@ -158,7 +278,7 @@ const data = [
     description: "This is product 20",
     brand: "Brand 20",
     price: 30.99,
+    category: "Category 1",
+    stocks: productStocks,
   },
 ];
-
-export default data;
