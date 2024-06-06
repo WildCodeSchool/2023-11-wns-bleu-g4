@@ -1,6 +1,7 @@
 import {Box, Image, Text, Button, Flex, IconButton, Card} from "@chakra-ui/react";
 import {ShoppingCartIcon } from "@heroicons/react/24/outline";
 import {StarIcon} from "@heroicons/react/24/solid";
+import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
 
 // Product data
 const product = {
@@ -10,7 +11,7 @@ const product = {
     note : 3,
     comment : '39',
     price: 24,
-    image: 'https://dub.sh/S9sgKg2',
+    image: 'https://www.pngplay.com/wp-content/uploads/3/Veste-Transparentes-PNG.png',
 };
 
 export default function ProductCard() {
@@ -40,9 +41,10 @@ export default function ProductCard() {
                         .map((_, i) => (
                             <StarIcon key={i} className={i < product.note ? "h-5 w-5 text-dark-900" : "h-5 w-5 text-gray-400"} />
                         ))}
-                    <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                    <Flex as="span" ml="2" fontSize="sm" alignItems="center">
+                        <ChatBubbleLeftEllipsisIcon className="h-5 w-5 mr-2" />
                         {product.comment}
-                    </Box>
+                    </Flex>
                 </Flex>
 
                 <Flex mt="3" alignItems="center" justifyContent="space-between">
