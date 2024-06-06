@@ -13,7 +13,7 @@ export default function ProductDescription({
   agencies: Agency[];
   selectedAgency: number | null;
   setSelectedAgency: (id: number | null) => void;
-  setSelectedSize: (size: string | number | null) => void;
+  setSelectedSize: (size: string | null) => void;
 }) {
   const { t } = useTranslation("productDetails");
 

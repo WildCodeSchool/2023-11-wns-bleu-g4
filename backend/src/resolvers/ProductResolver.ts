@@ -25,7 +25,7 @@ class ProductResolver {
 		@Arg("name", { nullable: true }) name?: string
 	) {
 		return Product.find({
-			relations: { categories: true, pictures: true },
+			relations: { categories: true, pictures: true, brand: true },
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
 				categories: {

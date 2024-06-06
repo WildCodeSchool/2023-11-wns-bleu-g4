@@ -10,10 +10,10 @@ import { useTranslation } from "react-i18next";
 import { Agency, Product } from "../ProductPage";
 
 export default function DetailsComponent({ agencies, product }: DetailsComponentProps) {
-  const [selectedSize, setSelectedSize] = useState<string | number | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(0);
   const [selectedAgency, setSelectedAgency] = useState<number | null>(null);
-  const [availableSizes, setAvailableSizes] = useState<(string | number)[]>([]);
+  const [availableSizes, setAvailableSizes] = useState<string[]>([]);
   const { t } = useTranslation("productDetails");
 
   const filterAvailableSizes = (agencyId: number | null) => {
@@ -21,7 +21,8 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
       const selectedAgencyData = agencies?.find(agency => agency.id === agencyId);
       const sizes = selectedAgencyData?.productCodes
         ?.map(productCode => productCode.size)
-        .filter((size): size is string | number => size !== null && size !== undefined);
+        .filter((size): size is string => size !== null && size !== undefined)
+        .map(size => size.toUpperCase());
       return sizes || [];
     }
     return [];

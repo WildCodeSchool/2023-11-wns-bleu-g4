@@ -34,7 +34,6 @@ export default function ProductPage() {
   );
 }
 
-
 export interface Agency {
   postcode: string;
   phone: string;
@@ -57,8 +56,13 @@ export interface ProductCode {
 export interface Product {
   id: number;
   name: string;
-  brand: string;
   price: number;
   description: string;
+  brand: {
+    id: number;
+    name: string;
+    logo: string;
+  };
+  thumbnail: string;
 }
 

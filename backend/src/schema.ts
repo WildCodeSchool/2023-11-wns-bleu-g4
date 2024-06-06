@@ -2,6 +2,7 @@ import { buildSchema } from "type-graphql"
 import { authChecker } from "./auth"
 import AgencyResolver from "./resolvers/AgencyResolver"
 import BookingResolver from "./resolvers/BookingResolver"
+import BrandResolver from "./resolvers/BrandResolver"
 import CategoryResolver from "./resolvers/CategoryResolver"
 import ProductResolver from "./resolvers/ProductResolver"
 import Product_codeResolver from "./resolvers/Product_codeResolver"
@@ -21,6 +22,7 @@ export default buildSchema({
 		Product_codeResolver,
 		Product_pictureResolver,
 		BookingResolver,
+		BrandResolver,
 	],
 	authChecker,
 })

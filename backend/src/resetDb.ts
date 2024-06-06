@@ -1,6 +1,7 @@
 import db from "./db"
 import Agency from "./entities/Agency"
 import { Booking } from "./entities/Booking"
+import Brand from "./entities/Brand"
 import Category from "./entities/Category"
 import Product from "./entities/Product"
 import Product_code from "./entities/Product_code"
@@ -74,15 +75,25 @@ async function main() {
 	})
 	await agency.save()
 
+	const brand = new Brand()
+	Object.assign(brand, {
+		name: "Trek",
+		logo: "https://rad-protection.com/wp-content/uploads/2024/02/logo-trek-velo-1024x1024.png",
+		product: [],
+	})
+	await brand.save()
+
 	const product = new Product()
 	Object.assign(product, {
 		name: "Bike",
 		price: 99.99,
 		description: "A super bike for your daily commute.",
-		brand: "Trekk",
-		thumbnail: "thumbnail.jpg",
+		thumbnails: "thumbnail.jpg",
 		categories: [],
 		size: "M",
+		brand: {
+			id: 1,
+		},
 	})
 	await product.save()
 

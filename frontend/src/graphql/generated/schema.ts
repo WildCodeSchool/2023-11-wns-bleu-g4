@@ -43,6 +43,14 @@ export type Booking = {
   user: User;
 };
 
+export type Brand = {
+  __typename?: 'Brand';
+  id: Scalars['Int'];
+  logo: Scalars['String'];
+  name: Scalars['String'];
+  product: Array<Product>;
+};
+
 export type Category = {
   __typename?: 'Category';
   id: Scalars['Int'];
@@ -62,6 +70,7 @@ export type Mutation = {
   confirmEmail: Scalars['String'];
   createAgency: Agency;
   createBooking: Booking;
+  createBrand: Brand;
   createCategory: Category;
   createProduct: Product;
   createProduct_picture: Product_Picture;
@@ -69,6 +78,7 @@ export type Mutation = {
   createSubCategory: SubCategory;
   createUser: User;
   deleteAgency: Scalars['String'];
+  deleteBrand: Scalars['Boolean'];
   deleteCategory: Scalars['String'];
   deleteProduct: Scalars['String'];
   deleteProduct_picture: Scalars['Boolean'];
@@ -78,6 +88,7 @@ export type Mutation = {
   logout: Scalars['String'];
   updateAgency: Agency;
   updateBooking: Booking;
+  updateBrand: Brand;
   updateCategory: Category;
   updateProduct: Product;
   updateProduct_picture: Product_Picture;
@@ -104,6 +115,11 @@ export type MutationCreateAgencyArgs = {
 
 export type MutationCreateBookingArgs = {
   data: NewBookingInput;
+};
+
+
+export type MutationCreateBrandArgs = {
+  data: NewBrandInput;
 };
 
 
@@ -139,6 +155,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeleteAgencyArgs = {
   agencyId: Scalars['Float'];
+};
+
+
+export type MutationDeleteBrandArgs = {
+  brandId: Scalars['Int'];
 };
 
 
@@ -181,6 +202,12 @@ export type MutationUpdateAgencyArgs = {
 export type MutationUpdateBookingArgs = {
   bookingId: Scalars['Float'];
   data: UpdateBookingInput;
+};
+
+
+export type MutationUpdateBrandArgs = {
+  brandId: Scalars['Int'];
+  data: NewBrandInput;
 };
 
 
@@ -238,6 +265,11 @@ export type NewBookingInput = {
   user: UserId;
 };
 
+export type NewBrandInput = {
+  logo: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type NewCategoryInput = {
   name: Scalars['String'];
 };
@@ -282,7 +314,7 @@ export type ObjectId = {
 
 export type Product = {
   __typename?: 'Product';
-  brand: Scalars['String'];
+  brand: Brand;
   categories: Array<Category>;
   description: Scalars['String'];
   id: Scalars['Int'];
@@ -317,6 +349,7 @@ export type Query = {
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
   getAllBooking: Array<Booking>;
+  getAllBrands: Array<Brand>;
   getAllCategories: Array<Category>;
   getAllProduct_codes: Array<Product_Code>;
   getAllProduct_pictures: Array<Product_Picture>;
@@ -324,6 +357,7 @@ export type Query = {
   getAllSubCategories: Array<SubCategory>;
   getBookingById: Booking;
   getBookingsByUser: Array<Booking>;
+  getBrandById: Brand;
   getCategoryById: Category;
   getProductById: Product;
   getProductCodesByStatus: Array<Product_Code>;
@@ -369,6 +403,11 @@ export type QueryGetBookingByIdArgs = {
 
 export type QueryGetBookingsByUserArgs = {
   userId: Scalars['Int'];
+};
+
+
+export type QueryGetBrandByIdArgs = {
+  brandId: Scalars['Int'];
 };
 
 

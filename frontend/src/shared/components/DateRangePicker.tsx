@@ -1,6 +1,6 @@
 import { Button, ButtonProps, Text } from "@chakra-ui/react";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
-import { enUS, fr } from "date-fns/locale"; // Importez les locales depuis date-fns
+import { enUS, fr } from "date-fns/locale";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { DateRange, DayPicker, SelectRangeEventHandler } from "react-day-picker";
@@ -15,7 +15,7 @@ interface DateRangePickerProps {
 export default function DateRangePicker({ onDateChange, buttonSize = "md" }: DateRangePickerProps) {
   const [range, setRange] = useState<DateRange | undefined>();
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-  const datePickerRef = useRef<HTMLDivElement>(null); // Ref pour le conteneur du calendrier
+  const datePickerRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
@@ -32,6 +32,16 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
 
   const locale = useRouter().locale;
   const { t } = useTranslation("DateRangePicker");
+
+  useEffect(() => {
+    if (range) {
+      onDateChange(range.from ?? null, range.to ?? null);
+    }
+  }, [range, onDateChange]);
+
+  const handleSelectRange: SelectRangeEventHandler = selectedRange => {
+    setRange(selectedRange);
+  };
 
   return (
     <div style={{ position: "relative", display: "inline-block" }} ref={datePickerRef}>
@@ -74,7 +84,7 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
           <DayPicker
             mode="range"
             selected={range}
-            onSelect={setRange as SelectRangeEventHandler}
+            onSelect={handleSelectRange}
             numberOfMonths={2}
             locale={locale === "en" ? enUS : fr}
             showOutsideDays

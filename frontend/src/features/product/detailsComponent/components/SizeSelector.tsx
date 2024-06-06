@@ -6,16 +6,16 @@ export default function SizeSelector({
   selectedSize,
   setSelectedSize,
 }: {
-  availableSizes: (string | number)[];
-  selectedSize: string | number | null;
-  setSelectedSize: (size: string | number | null) => void;
+  availableSizes: string[];
+  selectedSize: string | null;
+  setSelectedSize: (size: string | null) => void;
 }) {
   const { t } = useTranslation("productDetails");
 
   const allStringSizes = ["S", "M", "L", "XL", "XXL"];
-  const allNumberSizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46];
+  const allNumberSizes = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
 
-  const renderSizeButtons = (allSizes: (string | number)[], availableSizes: (string | number)[]) => {
+  const renderSizeButtons = (allSizes: string[], availableSizes: string[]) => {
     return allSizes.map(size => {
       const isAvailable = availableSizes.includes(size);
       return (
@@ -37,7 +37,7 @@ export default function SizeSelector({
   let sizeButtons = null;
 
   if (availableSizes.length > 0) {
-    if (typeof availableSizes[0] === "string") {
+    if (allStringSizes.includes(availableSizes[0])) {
       sizeButtons = renderSizeButtons(allStringSizes, availableSizes);
     } else {
       sizeButtons = renderSizeButtons(allNumberSizes, availableSizes);

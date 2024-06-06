@@ -34,9 +34,9 @@ export class Product_code extends BaseEntity {
 	@ManyToOne(() => Agency, (agency) => agency.productCodes, { eager: true })
 	agency: Agency
 
-	@Column({ type: "varchar", length: 255, nullable: true })
+	@Column({ nullable: true })
 	@Field(() => String, { nullable: true })
-	size: string | number | null
+	size: string
 
 	@Column({ type: "boolean", default: false })
 	@Field()

@@ -1,14 +1,14 @@
 query GetAllProducts {
   getAllProducts {
-    brand
-    description
-    price
-    name
-    id
-    pictures {
-      alt
+    brand {
       id
-      thumbnail
+      logo
+      name
     }
+    description
+    id
+    name
+    price
+    thumbnail
   }
 }
