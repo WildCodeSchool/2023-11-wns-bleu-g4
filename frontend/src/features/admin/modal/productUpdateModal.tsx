@@ -23,15 +23,19 @@ import {
 } from "@chakra-ui/react";
 import { ProductModalProps } from "../types";
 
-export default function ProductUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
+export default function ProductUpdateModal({ isOpen, onClose, product, variant }: ProductModalProps) {
   const categories = [
     { id: 1, name: "Electronics" },
     { id: 2, name: "Food" },
     { id: 3, name: "Clothes" },
+    { id: 4, name: "Category 1" },
+    { id: 5, name: "Accessories" },
   ];
 
+  const currentCategory = categories.find(category => category.name === product.category)?.id;
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Update {product.name}</ModalHeader>
@@ -73,9 +77,9 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
                 <Text mb={1} id="category">
                   Category
                 </Text>
-                <Select placeholder="Select a category" defaultValue={product.category}>
+                <Select placeholder="Select a category" defaultValue={currentCategory}>
                   {categories.map((category: any) => (
-                    <option key={category.id} value={category.name}>
+                    <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
                   ))}
@@ -85,7 +89,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
             <FormLabel mb={1} id="countInStock">
               Thumbnail
             </FormLabel>
-            <input type="file" defaultValue={product.thumbnail} />
+            <input type="file" />
           </FormControl>
         </ModalBody>
 
