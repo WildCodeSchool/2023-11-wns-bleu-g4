@@ -27,4 +27,5 @@ export interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
   product?: any;
+  variant?: string;
 }
