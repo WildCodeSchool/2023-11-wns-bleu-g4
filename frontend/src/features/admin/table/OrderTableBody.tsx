@@ -44,7 +44,7 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
         {data.length !== 0 ? (
           data.map((order: any, index: number) => (
             <React.Fragment key={order.id}>
-              <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap`}>
+              <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap hover:bg-cactus-300`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{order.orderNb}</td>
                 <td className="whitespace-nowrap p-3 w-96 min-w-max">
                   {order.customer.firstname} {order.customer.name}
