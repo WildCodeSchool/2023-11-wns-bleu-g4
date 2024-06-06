@@ -36,14 +36,12 @@ export default function SizeSelector({
 
   let sizeButtons = null;
 
-  if (availableSizes.length > 0) {
-    if (allStringSizes.includes(availableSizes[0])) {
-      sizeButtons = renderSizeButtons(allStringSizes, availableSizes);
-    } else {
-      sizeButtons = renderSizeButtons(allNumberSizes, availableSizes);
-    }
-  } else {
+  if (availableSizes.length === 0) {
     sizeButtons = <Text>{t("Please select an agency to see available sizes")}</Text>;
+  } else {
+    const isStringSize = allStringSizes.includes(availableSizes[0]);
+    const allSizes = isStringSize ? allStringSizes : allNumberSizes;
+    sizeButtons = renderSizeButtons(allSizes, availableSizes);
   }
 
   return (
