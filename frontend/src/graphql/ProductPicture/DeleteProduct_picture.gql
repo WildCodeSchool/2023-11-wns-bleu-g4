@@ -1,0 +1,3 @@
+mutation DeleteProduct_picture($deleteProductPictureId: Int!) {
+  deleteProduct_picture(id: $deleteProductPictureId)
+}

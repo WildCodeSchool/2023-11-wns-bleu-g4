@@ -1,0 +1,6 @@
+query GetProductCodesByStatus($status: Status!) {
+  getProductCodesByStatus(status: $status) {
+    id
+    status
+  }
+}

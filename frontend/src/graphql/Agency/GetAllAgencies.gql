@@ -1,0 +1,12 @@
+query GetAllAgencies {
+  getAllAgencies {
+    id
+    name
+    address
+    postcode
+    city
+    country
+    phone
+    email
+  }
+}

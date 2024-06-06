@@ -1,0 +1,10 @@
+query GetReviewsByUserId($userId: Int!) {
+  getReviewsByUserId(userId: $userId) {
+    id
+    rate
+    comment
+    product {
+      id
+    }
+  }
+}

@@ -1,0 +1,10 @@
+query GetProductById($productId: Int!) {
+  getProductById(productId: $productId) {
+    id
+    name
+    price
+    description
+    brand
+    thumbnail
+  }
+}

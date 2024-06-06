@@ -1,0 +1,7 @@
+mutation UpdateSubCategory($data: UpdateSubCategoryInput!, $subCategoryId: Float!) {
+  updateSubCategory(data: $data, subCategoryId: $subCategoryId) {
+    id
+    name
+    thumbnail
+  }
+}

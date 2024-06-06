@@ -1,0 +1,3 @@
+mutation DeleteReview($reviewId: Float!) {
+  deleteReview(reviewId: $reviewId)
+}
