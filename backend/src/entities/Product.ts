@@ -6,6 +6,7 @@ import {
 	Entity,
 	JoinTable,
 	ManyToMany,
+	ManyToOne,
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
@@ -13,6 +14,7 @@ import { ObjectId } from "../utils"
 import Category from "./Category"
 import { Product_code } from "./Product_code"
 import { Product_picture } from "./Product_picture"
+import Brand from "./Brand"
 import Review from "./Review"
 import { BookingItem } from "./BookingItem"
 
@@ -34,10 +36,6 @@ export class Product extends BaseEntity {
 	@Column({ type: "text" })
 	@Field()
 	description: string
-
-	@Column()
-	@Field()
-	brand: string
 
 	@Column({
 		default:
@@ -75,6 +73,10 @@ export class Product extends BaseEntity {
 	)
 	@Field(() => [BookingItem])
 	bookingItem: BookingItem[]
+
+	@ManyToOne(() => Brand, (brand) => brand.product)
+	@Field(() => Brand)
+	brand: Brand
 }
 
 @InputType()

@@ -6,6 +6,7 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { appWithTranslation } from "next-i18next";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

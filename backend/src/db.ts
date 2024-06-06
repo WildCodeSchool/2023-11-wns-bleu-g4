@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm"
 import Agency from "./entities/Agency"
+import Brand from "./entities/Brand"
 import Category from "./entities/Category"
 import Product from "./entities/Product"
 import { Product_code } from "./entities/Product_code"
@@ -30,7 +31,8 @@ const db = new DataSource({
 		Product_code,
 		BookingItem,
 		Product_picture,
-		Booking
+		Booking,
+		Brand,
 	],
 	synchronize: true,
 })

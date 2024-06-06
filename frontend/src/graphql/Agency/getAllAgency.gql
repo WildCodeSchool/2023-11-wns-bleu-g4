@@ -1,0 +1,18 @@
+query GetAllAgencies {
+  getAllAgencies {
+    postcode
+    phone
+    name
+    id
+    email
+    country
+    city
+    address
+    productCodes {
+      size
+      isSizeable
+      status
+      id
+    }
+  }
+}

@@ -42,6 +42,7 @@ export const theme = extendTheme({
     bgDark: "#0B0F0B",
     bgLight: "#FFFFFF",
     accent: "#E66300",
+    accentLight: "#FF9533",
     babyGreen: "#B2E6C7",
     footerBgLight: "#F2F2F2",
     footerBgDark: "#0C0C0B",
