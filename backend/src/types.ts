@@ -25,3 +25,13 @@ export class AgencyId {
 	@Field(() => Int)
 	id!: number;
 }
+@InputType()
+export class ProductId {
+	@Field(() => Int)
+	id!: number;
+}
+@InputType()
+export class BookingId {
+	@Field(() => Int)
+	id!: number;
+}
