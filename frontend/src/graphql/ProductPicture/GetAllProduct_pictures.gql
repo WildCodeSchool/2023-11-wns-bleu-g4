@@ -1,0 +1,7 @@
+query GetAllProduct_pictures {
+  getAllProduct_pictures {
+    id
+    thumbnail
+    alt
+  }
+}

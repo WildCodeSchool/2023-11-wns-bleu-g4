@@ -1,0 +1,3 @@
+mutation DeleteAgency($agencyId: Float!) {
+  deleteAgency(agencyId: $agencyId)
+}

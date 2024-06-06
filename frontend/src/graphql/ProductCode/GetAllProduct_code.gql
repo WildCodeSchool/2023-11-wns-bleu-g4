@@ -1,0 +1,6 @@
+query GetAllProduct_codes {
+  getAllProduct_codes {
+    id
+    status
+  }
+}

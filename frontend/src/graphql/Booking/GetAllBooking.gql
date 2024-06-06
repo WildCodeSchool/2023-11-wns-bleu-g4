@@ -1,0 +1,10 @@
+query GetAllBooking {
+  getAllBooking {
+    id
+    status
+    invoice
+    bookingDate
+    startDate
+    endDate
+  }
+}
