@@ -54,10 +54,11 @@ const sizes = {
 const productCard = definePartsStyle({
     container: {
         _light: {
-            backgroundColor: 'light',
+            backgroundColor: 'white',
         },
         _dark: {
-            backgroundColor: 'dark',
+            backgroundColor: '#2a3b2c',
+            border: 'none',
         },
     },
 })
@@ -68,5 +69,6 @@ export const cardTheme = defineMultiStyleConfig({
   variants: {
     footerCard,
     loginCard,
+    productCard,
   },
 });
