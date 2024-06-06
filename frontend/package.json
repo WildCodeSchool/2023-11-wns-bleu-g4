@@ -10,7 +10,7 @@
     "prettier": "prettier \"**/*.{js,ts,tsx,json,yml,css}\" --check --cache --cache-strategy=content --cache-location=.prettiercache",
     "prettier:fix": "npm run prettier -- --write",
     "codegen": "graphql-codegen --config codegen.yml --watch",
-    "translate": "i18next 'src/**/*.{js,jsx,tsx}' -o public/static/locales/$LOCALE/$NAMESPACE.json"
+    "translate": "i18next 'src/**/*.{js,jsx,tsx}' -o 'public/static/locales/$LOCALE/$NAMESPACE.json'"
   },
   "author": "Jeremy Dohin",
   "license": "MIT",

@@ -1,6 +1,10 @@
-import DateRangePicker from "@/shared/components/DateRangePicker";
-import { Box, Button, ButtonGroup, Flex, HStack, Image, Select, Text, useNumberInput } from "@chakra-ui/react";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import AddToBasketButton from "@/features/product/detailsComponent/components/AddToBasketButton";
+import DateSelector from "@/features/product/detailsComponent/components/DateSelector";
+import ProductDescription from "@/features/product/detailsComponent/components/ProductDescription";
+import ProductHeader from "@/features/product/detailsComponent/components/ProductHeader";
+import ProductPricing from "@/features/product/detailsComponent/components/ProductPricing";
+import SizeSelector from "@/features/product/detailsComponent/components/SizeSelector";
+import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Agency, Product } from "../ProductPage";
@@ -12,20 +16,9 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
   const [availableSizes, setAvailableSizes] = useState<(string | number)[]>([]);
   const { t } = useTranslation("productDetails");
 
-  const { getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
-    value: quantity,
-    min: 0,
-    max: 10,
-    step: 1,
-    onChange: (valueAsString, valueAsNumber) => setQuantity(valueAsNumber),
-  });
-
-  const inc = getIncrementButtonProps();
-  const dec = getDecrementButtonProps();
-
-  const filterAvailableSizes = () => {
-    if (selectedAgency !== null) {
-      const selectedAgencyData = agencies?.find(agency => agency.id === selectedAgency);
+  const filterAvailableSizes = (agencyId: number | null) => {
+    if (agencyId !== null) {
+      const selectedAgencyData = agencies?.find(agency => agency.id === agencyId);
       const sizes = selectedAgencyData?.productCodes
         ?.map(productCode => productCode.size)
         .filter((size): size is string | number => size !== null && size !== undefined);
@@ -35,8 +28,10 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
   };
 
   useEffect(() => {
-    const sizes = filterAvailableSizes();
-    setAvailableSizes(sizes);
+    if (selectedAgency !== null) {
+      const sizes = filterAvailableSizes(selectedAgency);
+      setAvailableSizes(sizes);
+    }
   }, [selectedAgency, agencies]);
 
   const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
@@ -48,95 +43,22 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
     return <p>Loading...</p>;
   }
 
-  const allStringSizes = ["S", "M", "L", "XL", "XXL"];
-  const allNumberSizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46];
-
-  const renderSizeButtons = (allSizes: (string | number)[]) => {
-    return allSizes.map(size => {
-      const isAvailable = availableSizes.includes(size);
-      return (
-        <Button
-          variant="sizeButton"
-          key={size}
-          onClick={() => setSelectedSize(size)}
-          isActive={selectedSize === size}
-          colorScheme="blue"
-          m={0}
-          disabled={!isAvailable}
-        >
-          {size}
-        </Button>
-      );
-    });
-  };
-
-  const sizeButtons =
-    typeof availableSizes[0] === "string" ? renderSizeButtons(allStringSizes) : renderSizeButtons(allNumberSizes);
+  console.log("selectedSize", selectedSize);
 
   return (
     <Flex w="50%" flexDirection="column" gap="10px">
-      <Flex justifyContent="space-between">
-        <Flex flexDirection="column">
-          <Text size="18px" fontWeight="600">
-            Ref: 05221489
-          </Text>
-          <Text fontWeight="600">
-            {t("Brand")}: {product.brand}
-          </Text>
-        </Flex>
-        <Image width="20%" src="https://velos-cargo.com/wp-content/uploads/2023/05/logo-trek-.png" alt="product" />
-      </Flex>
-      <Flex flexDirection="column" gap="10px">
-        <Text fontSize="2xl" fontWeight="700" fontFamily="Poppins"></Text>
-        <Text fontWeight="600">{product.description}</Text>
-        <Select
-          placeholder="Sélectionner une agence"
-          width="fit-content"
-          onChange={e => setSelectedAgency(parseInt(e.target.value))}
-        >
-          {agencies.map((agency, index) => (
-            <option key={index} value={agency.id.toString()}>
-              {agency.name}
-            </option>
-          ))}
-        </Select>
-      </Flex>
-      <ButtonGroup gap="4" flexWrap="wrap" justifyContent="left" m={0} marginTop="10px">
-        {sizeButtons}
-      </ButtonGroup>
-
-      {selectedSize && (
-        <Text mt="4">
-          {t("Selected size")}: {selectedSize}
-        </Text>
-      )}
-      <Flex flexDirection="column">
-        <Text color="accent" fontFamily="Poppins" fontWeight="600" fontSize="2xl" m="10px">
-          {t("Price")} : {product.price} € / {t("Day")}
-        </Text>
-      </Flex>
-      <Flex flexDirection="column" gap="30px" p="19px 0">
-        <Flex flexDirection="column" gap={2}>
-          <Text fontWeight="700">{t("Quantity")}</Text>
-          <HStack maxW="200px" bg="#EDF2F7" borderRadius="10px" p="14px 18px">
-            <Button size="xs" variant="selectorButton" {...dec}>
-              -
-            </Button>
-            <Box color="dark" width="xs" textAlign="center" fontSize="18px" fontWeight="700">
-              {quantity}
-            </Box>
-            <Button size="xs" variant="selectorButton" {...inc}>
-              +
-            </Button>
-          </HStack>
-        </Flex>
-        <DateRangePicker onDateChange={handleDateChange} buttonSize="lg" />
-      </Flex>
-      <Flex justifyContent="center">
-        <Button h={54} rightIcon={<ShoppingCartIcon width={24} />} color="light" bg="accent" size="lg" width="100%">
-          {t("Add to basket")}
-        </Button>
-      </Flex>
+      <ProductHeader product={product} />
+      <ProductDescription
+        product={product}
+        agencies={agencies}
+        selectedAgency={selectedAgency}
+        setSelectedAgency={setSelectedAgency}
+        setSelectedSize={setSelectedSize}
+      />
+      <SizeSelector availableSizes={availableSizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
+      <ProductPricing product={product} quantity={quantity} setQuantity={setQuantity} />
+      <DateSelector handleDateChange={handleDateChange} />
+      <AddToBasketButton />
     </Flex>
   );
 }
