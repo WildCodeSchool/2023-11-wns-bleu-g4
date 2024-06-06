@@ -1,6 +1,7 @@
 import { TableBodyProps } from "../types";
 import { productStockTableHeaders } from "../helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 export default function ProductStockTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("ProductStockTableBody");
@@ -22,9 +23,15 @@ export default function ProductStockTableBody({ data }: TableBodyProps) {
       <tbody className="text-sm">
         {data?.length !== 0 ? (
           data.map((product: any, index: number) => (
-            <tr key={product.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`} >
+            <tr
+              key={product.id}
+              className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}
+            >
               <td className="whitespace-nowrap p-3 pl-8 w-auto min-w-max">{product.agency}</td>
-              <td className="whitespace-nowrap p-3 w-60 min-w-max">{product.quantity}</td>
+              <td className="whitespace-nowrap p-3 w-60 min-w-max align-middle">
+                <span className="inline-block mr-2">{product.quantity}</span>
+                {product.quantity <= 3 && <ExclamationTriangleIcon className="inline-block h-6 w-6 text-[#D23742]" />}
+              </td>
             </tr>
           ))
         ) : (
