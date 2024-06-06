@@ -22,7 +22,7 @@ export default function CustomerTableBody({ data }: TableBodyProps) {
       <tbody className="text-sm">
         {data.length !== 0 ? (
           data.map((customer: any, index: number) => (
-            <tr key={customer.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap`}>
+            <tr key={customer.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap hover:bg-cactus-300`}>
               <td className="flex gap-3 whitespace-nowrap px-3 py-2 pl-8 w-60 min-w-max items-center">
                 <img src={customer.avatar} alt={customer.name} className="h-8 w-8 rounded-full" />
                 {customer.name} {customer.firstname}
