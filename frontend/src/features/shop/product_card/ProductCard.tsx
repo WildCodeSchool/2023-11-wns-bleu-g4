@@ -1,5 +1,6 @@
-import {Box, Image, Text, Button, Flex, IconButton} from "@chakra-ui/react";
-import {ShoppingCartIcon, StarIcon} from "@heroicons/react/24/outline";
+import {Box, Image, Text, Button, Flex, IconButton, Card} from "@chakra-ui/react";
+import {ShoppingCartIcon } from "@heroicons/react/24/outline";
+import {StarIcon} from "@heroicons/react/24/solid";
 
 // Product data
 const product = {
@@ -15,7 +16,7 @@ const product = {
 export default function ProductCard() {
 
     return (
-        <Box p="4" borderColor="gray" bg="white" borderWidth="1px" borderRadius="lg" overflow="hidden">
+        <Card variant="productCard" p="4" borderColor="gray" bg="white" borderWidth="1px" borderRadius="lg" overflow="hidden">
             <Text  fontWeight="bold">id :{product.id}</Text>
             <Flex justifyContent="center" alignItems="center">
                 <Image my="2" width="80%"  src={product.image} alt={product.name} />
@@ -45,15 +46,15 @@ export default function ProductCard() {
                 </Flex>
 
                 <Flex mt="3" alignItems="center" justifyContent="space-between">
-                    <Box color="gray.900" fontSize="xl">
+                    <Box  fontSize="xl">
                         {product.price}€
-                        <Box  as="span" color="gray.900" fontSize="xl">
+                        <Box  as="span" fontSize="xl">
                             / Days
                         </Box>
                     </Box>
                     <IconButton variant="cartButton" aria-label="shopping cart" icon={ <ShoppingCartIcon width="24"  />} />
                 </Flex>
             </Box>
-        </Box>
+        </Card>
     );
 }
