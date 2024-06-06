@@ -1,11 +1,14 @@
 import { DataSource } from "typeorm"
+import Agency from "./entities/Agency"
+import Category from "./entities/Category"
+import Product from "./entities/Product"
+import { Product_code } from "./entities/Product_code"
+import { Product_picture } from "./entities/Product_picture"
+import Review from "./entities/Review"
+import SubCategory from "./entities/SubCategory"
 import { User } from "./entities/User"
 import env from "./env"
-import Review from "./entities/Review"
-import Product from "./entities/Product"
-import Category from "./entities/Category"
-import SubCategory from "./entities/SubCategory"
-import Agency from "./entities/Agency"
+import { Booking } from "./entities/Booking"
 
 const { DB_USER, DB_PASS, DB_NAME, DB_PORT, DB_HOST } = env
 
@@ -16,7 +19,17 @@ const db = new DataSource({
 	username: DB_USER,
 	password: DB_PASS,
 	database: DB_NAME,
-	entities: [Category, Product, SubCategory, Review, User, Agency],
+	entities: [
+		Category,
+		Product,
+		SubCategory,
+		Review,
+		User,
+		Agency,
+		Product_code,
+		Product_picture,
+		Booking
+	],
 	synchronize: true,
 })
 

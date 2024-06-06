@@ -1,4 +1,3 @@
-import { Length, Min } from "class-validator"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
@@ -7,7 +6,8 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
-// import ProductCode from "./ProductCode"
+import { Product_code } from "./Product_code"
+import {Booking}  from "./Booking"
 
 @Entity()
 @ObjectType()
@@ -40,13 +40,17 @@ export class Agency extends BaseEntity {
 	@Field()
 	phone: string
 
-    @Column()
+	@Column()
 	@Field()
 	email: string
 
-    // @OneToMany(() => ProductCode, (products) => products.agency)
-	// @Field(() => [ProductCode])
-	// products: ProductCode[]
+	@OneToMany(() => Product_code, (productCode) => productCode.agency)
+	@Field(() => [Product_code])
+	productCodes: Product_code[]
+
+	@OneToMany(() => Booking, (bookings) => bookings.agency)
+	@Field(() => [Booking])
+	bookings: Booking[]
 }
 
 @InputType()
@@ -75,7 +79,7 @@ export class NewAgencyInput {
 
 @InputType()
 export class UpdateAgencyInput {
-    @Field({ nullable: true })
+	@Field({ nullable: true })
 	name?: string
 
 	@Field({ nullable: true })

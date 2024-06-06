@@ -13,7 +13,7 @@ export default function LanguageSwitcher(): JSX.Element {
 
   return (
     <Select value={locale} onChange={handleChange} variant="filled" width="fit-content">
-      <option value="en">🇬🇧</option>
+      <option value="en">🇺🇸</option>
       <option value="fr">🇫🇷</option>
     </Select>
   );

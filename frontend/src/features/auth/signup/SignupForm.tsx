@@ -1,27 +1,28 @@
-import { ToastConfigLogin } from "@/config/ToastConfig";
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Flex,
-    Input,
-    FormControl,
-    FormLabel,
-    Button,
-    Box,
-    Text,
-    InputRightElement,
-    InputGroup,
-    LightMode,
-    Divider,
-    Heading,
-} from '@chakra-ui/react'
-import { CreateUserMutation, useCreateUserMutation } from '../../../graphql/generated/schema';
-import Link from 'next/link';
-import { ToastConfigLogin } from '@/config/ToastConfig';
-import { toast } from 'react-toastify';
-import { FetchResult } from '@apollo/client';
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Flex,
+  Input,
+  FormControl,
+  FormLabel,
+  Button,
+  Box,
+  Text,
+  InputRightElement,
+  InputGroup,
+  LightMode,
+  Divider,
+  Heading,
+} from "@chakra-ui/react";
+import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/generated/schema";
+import Link from "next/link";
+import { ToastConfigLogin } from "@/config/ToastConfig";
+import { toast } from "react-toastify";
+import { FetchResult } from "@apollo/client";
+import React, { FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function SignupForm() {
   const { t } = useTranslation("SignupForm");
@@ -34,33 +35,33 @@ export default function SignupForm() {
   const [showRepPass, setShowRepPass] = React.useState(false);
   const handleClickRepeatPass = () => setShowRepPass(!showRepPass);
 
-    function validatePassword(password: string, repeatPassword: string): boolean {
-        let validate: boolean = true
-        if (password !== repeatPassword) {
-            toast.error("Passwords must be the same", ToastConfigLogin)
-            validate = false
-        }
-        if (password.length < 8) {
-            toast.error("Password must be at least 8 chars long", ToastConfigLogin)
-            validate = false
-        }
-        if (password.search(/[a-z]/) < 0) {
-            toast.error("Password must contain a lowercase", ToastConfigLogin)
-            validate = false
-        }
-        if (password.search(/[A-Z]/) < 0) {
-            toast.error("Password must contain an uppercase letter", ToastConfigLogin)
-            validate = false
-        }
-        if (password.search(/[0-9]/) < 0) {
-            toast.error("Password must contain a number", ToastConfigLogin)
-            validate = false
-        }
+  function validatePassword(password: string, repeatPassword: string): boolean {
+    let validate: boolean = true;
+    if (password !== repeatPassword) {
+      toast.error("Passwords must be the same", ToastConfigLogin);
+      validate = false;
+    }
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 chars long", ToastConfigLogin);
+      validate = false;
+    }
+    if (password.search(/[a-z]/) < 0) {
+      toast.error("Password must contain a lowercase", ToastConfigLogin);
+      validate = false;
+    }
+    if (password.search(/[A-Z]/) < 0) {
+      toast.error("Password must contain an uppercase letter", ToastConfigLogin);
+      validate = false;
+    }
+    if (password.search(/[0-9]/) < 0) {
+      toast.error("Password must contain a number", ToastConfigLogin);
+      validate = false;
+    }
 
-        if (password.search(/\D+\S+\W/) < 0) {
-            toast.error("Password must contain at least 1 special character", ToastConfigLogin)
-            validate = false
-        }
+    if (password.search(/\D+\S+\W/) < 0) {
+      toast.error("Password must contain at least 1 special character", ToastConfigLogin);
+      validate = false;
+    }
 
     return validate;
   }
@@ -71,23 +72,23 @@ export default function SignupForm() {
     const formData = new FormData(e.target as HTMLFormElement);
     let formJSON: any = Object.fromEntries(formData.entries());
 
-        if (validatePassword(formJSON.password, formJSON.repeatPassword)) {
-            try {
-                delete formJSON.repeatPassword; 
+    if (validatePassword(formJSON.password, formJSON.repeatPassword)) {
+      try {
+        delete formJSON.repeatPassword;
 
-                const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
-                const toastInfo: string = `Account created`
-                toast.success(toastInfo, {...ToastConfigLogin, autoClose:3000})
-                setTimeout(()=> {
-                    window.location.replace("/account/"+res.data?.createUser.id);
-                },3000)
-            } catch (e: any) {
-                const errArr = e.message.replaceAll('_', ' ')
-                toast.error(errArr, ToastConfigLogin)
-                return
-            }
-        }
+        const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
+        const toastInfo: string = `Account created`;
+        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 3000 });
+        setTimeout(() => {
+          window.location.replace("/account/" + res.data?.createUser.id);
+        }, 3000);
+      } catch (e: any) {
+        const errArr = e.message.replaceAll("_", " ");
+        toast.error(errArr, ToastConfigLogin);
+        return;
+      }
     }
+  };
 
   return (
     <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
