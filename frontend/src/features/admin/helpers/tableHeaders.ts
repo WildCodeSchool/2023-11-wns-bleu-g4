@@ -29,6 +29,7 @@ export const productTableHeaders: menuItems[] = [
 export const productStockTableHeaders: menuItems[] = [
   { id: 1, name: "agency" },
   { id: 2, name: "quantity" },
+  { id: 3, name: "manage stock" },
 ];
 
 export const customerTableHeaders: menuItems[] = [
