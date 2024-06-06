@@ -1,0 +1,13 @@
+query GetAllReviews {
+  getAllReviews {
+    id
+    rate
+    comment
+    product {
+      id
+    }
+    user {
+      id
+    }
+  }
+}

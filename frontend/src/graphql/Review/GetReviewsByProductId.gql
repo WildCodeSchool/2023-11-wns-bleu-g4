@@ -1,0 +1,10 @@
+query GetReviewsByProductId($productId: Float!) {
+  getReviewsByProductId(productId: $productId) {
+    id
+    rate
+    comment
+    user {
+      id
+    }
+  }
+}
