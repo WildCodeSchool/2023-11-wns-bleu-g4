@@ -51,6 +51,18 @@ const sizes = {
   }),
 };
 
+const productCard = definePartsStyle({
+    container: {
+        _light: {
+            backgroundColor: 'light',
+        },
+        _dark: {
+            backgroundColor: 'dark',
+        },
+    },
+})
+
+
 export const cardTheme = defineMultiStyleConfig({
   sizes,
   variants: {

@@ -14,16 +14,15 @@ export default function Shop() {
                 gridTemplateRows={'50px 1fr 30px'}
                 gridTemplateColumns={'1fr 4fr'}
                 gap='1'
-                color='blackAlpha.700'
                 fontWeight='bold'
             >
                 <GridItem pl='2' bg='orange.300' area={'topFilter'}>
                     topFilter
                 </GridItem>
-                <GridItem pl='2' bg='pink.300' area={'Filter'}>
+                <GridItem pl='2'  area={'Filter'}>
                     <ProductFilter/>
                 </GridItem>
-                <GridItem pl='2' bg='green.300' area={'ProductGrid'}>
+                <GridItem pl='2'  area={'ProductGrid'}>
                     <ProductGrid />
                 </GridItem>
                 <GridItem pl='2' bg='blue.300' area={'Pagination'}>
