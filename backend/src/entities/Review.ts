@@ -13,6 +13,7 @@ import { Length, Max, Min } from "class-validator"
 @Entity()
 @ObjectType()
 export class Review extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -32,6 +33,8 @@ export class Review extends BaseEntity {
 	@Field(() => Product, { nullable: true })
 	product: Product
 
+	/** RELATIONS *********************/
+	/** MANY TO ONE */
 	@ManyToOne(() => User, (user) => user.reviews, {
 		cascade: true,
 		onDelete: "CASCADE",

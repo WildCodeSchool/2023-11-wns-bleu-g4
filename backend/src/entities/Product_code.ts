@@ -5,15 +5,19 @@ import {
 	Column,
 	Entity,
 	ManyToOne,
+	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { Status } from "../enum/Status"
 import { Agency } from "./Agency"
 import { Product } from "./Product"
+import { BookingItem } from "./BookingItem"
+import { ObjectId } from "../types"
 
 @Entity()
 @ObjectType()
 export class Product_code extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -26,21 +30,32 @@ export class Product_code extends BaseEntity {
 	@IsEnum(Status)
 	status: Status
 
-	@Field(() => Product, { nullable: true })
+	/** RELATIONS *********************/
+	/** MANY TO ONE */
 	@ManyToOne(() => Product, (product) => product.productCodes, { eager: true })
+	@Field(() => Product, { nullable: true })
 	product: Product
 
-	@Field(() => Agency, { nullable: true })
 	@ManyToOne(() => Agency, (agency) => agency.productCodes, { eager: true })
+	@Field(() => Agency, { nullable: true })
 	agency: Agency
 
-	@Column({ nullable: true })
-	@Field(() => String, { nullable: true })
-	size: string
+	/** ONE TO MANY */
+	@OneToMany(() => BookingItem, (item) => item.productCode, { eager: true })
+	@Field(() => [BookingItem], { nullable: true })
+	bookingItems: BookingItem[]
+}
 
-	@Column({ type: "boolean", default: false })
-	@Field()
-	isSizeable: boolean
+@InputType()
+export class NewProductCodeInput {
+	@Field(() => Status)
+	status: Status
+
+	@Field(() => ObjectId)
+	productId: ObjectId
+
+	@Field(() => ObjectId)
+	agencyId: ObjectId
 }
 
 @InputType()
@@ -48,5 +63,6 @@ export class ProductCodeStatusInput {
 	@Field(() => Status)
 	status: Status
 }
+
 
 export default Product_code

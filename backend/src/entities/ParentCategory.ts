@@ -3,16 +3,14 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
-	ManyToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm"
-import Category from "./Category"
 import { Length } from "class-validator"
-import { ObjectId } from "../utils"
 
 @Entity()
 @ObjectType()
-export class SubCategory extends BaseEntity {
+export class ParentCategory extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -24,35 +22,26 @@ export class SubCategory extends BaseEntity {
 	@Column()
 	@Field()
 	thumbnail: string
-
-	@ManyToOne(() => Category, (category) => category.subCategories)
-	category: Category
 }
 
 @InputType()
-export class NewSubCategoryInput {
+export class NewParentCategoryInput {
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	@Field()
 	name: string
 
 	@Field()
 	thumbnail: string
-
-	@Field(() => ObjectId)
-	category: ObjectId
 }
 
 @InputType()
-export class UpdateSubCategoryInput {
+export class UpdateParentCategoryInput {
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	@Field({ nullable: true })
 	name?: string
 
 	@Field({ nullable: true })
 	thumbnail?: string
-
-	@Field(() => ObjectId)
-	category?: ObjectId
 }
 
-export default SubCategory
+export default ParentCategory

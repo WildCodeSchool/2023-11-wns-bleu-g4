@@ -12,6 +12,7 @@ import { Product } from "./Product"
 @Entity()
 @ObjectType()
 export class Product_picture extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -24,6 +25,8 @@ export class Product_picture extends BaseEntity {
 	@Field()
 	alt: string
 
+	/** RELATIONS *********************/
+	/** MANY TO ONE */
 	@ManyToOne(() => Product, (product) => product.pictures)
 	@Field(() => Product)
 	product: Product

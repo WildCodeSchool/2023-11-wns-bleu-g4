@@ -11,6 +11,7 @@ import Product from "./Product"
 @Entity()
 @ObjectType()
 export class Brand extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -23,27 +24,29 @@ export class Brand extends BaseEntity {
 	@Field()
 	logo: string
 
-  @OneToMany(() => Product, (products) => products.brand)
+	/** RELATIONS *********************/
+	/** ONE TO MANY */
+	@OneToMany(() => Product, (products) => products.brand)
 	@Field(() => [Product])
 	product: Product[]
 }
 
 @InputType()
 export class NewBrandInput {
-  @Field()
-  name: string
+	@Field()
+	name: string
 
-  @Field()
-  logo: string
+	@Field()
+	logo: string
 }
 
 @InputType()
 export class UpdateBrandInput {
-  @Field({ nullable: true })
-  name?: string
+	@Field({ nullable: true })
+	name?: string
 
-  @Field({ nullable: true })
-  logo?: string
+	@Field({ nullable: true })
+	logo?: string
 }
 
 export default Brand
