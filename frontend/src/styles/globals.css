@@ -100,7 +100,44 @@ h4 {
 }
 
 .carousel .thumbs-wrapper {
+  display: flex !important;
+  justify-content: center !important;
   margin: 0 !important;
+  margin-top: 5px !important;
+}
+
+.carousel .thumbs {
+  display: flex !important;
+  justify-content: center !important;
+  flex-direction: row !important;
+  gap: 5px;
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-bottom: 2px !important;
+  width: 100% !important;
+}
+
+.carousel .thumb {
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-bottom: 2px !important;
+  border: none !important;
+  transition: none !important;
+  width: 100% !important;
+
+  &:hover {
+    border: 4px solid #e66300 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+
+.carousel .thumb.selected {
+  border: 4px solid #e66300 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 .carousel .control-dots .dot {
@@ -158,4 +195,50 @@ h4 {
   font-weight: bold;
   color: #000 !important;
   font-weight: bold !important;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  .swiper-slide {
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 2px;
+  }
+}
+
+.mySwiper2 {
+  height: 100%;
+  width: 100%;
+}
+
+.mySwiper {
+  width: 100%;
+  height: 10%;
+  box-sizing: border-box;
+  padding: 10px 0;
+
+  .swiper-slide {
+    opacity: 0.4;
+    height: 100%;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.swiper-slide-thumb-active {
+      opacity: 1;
+      border-bottom: #e66300 4px solid;
+    }
+  }
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

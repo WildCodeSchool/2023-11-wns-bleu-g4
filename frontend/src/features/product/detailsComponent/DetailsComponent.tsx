@@ -45,7 +45,7 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
   }
 
   return (
-    <Flex w="50%" flexDirection="column" gap="10px">
+    <Flex w="40%" flexDirection="column" gap="10px">
       <ProductHeader product={product} />
       <ProductDescription
         product={product}

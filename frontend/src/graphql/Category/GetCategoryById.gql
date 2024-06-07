@@ -1,6 +1,0 @@
-query GetCategoryById($categoryId: Int!) {
-  getCategoryById(categoryId: $categoryId) {
-    id
-    name
-  }
-}
