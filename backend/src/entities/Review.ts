@@ -9,6 +9,7 @@ import {
 import Product from "./Product"
 import User from "./User"
 import { Length, Max, Min } from "class-validator"
+import { ProductId, UserId } from "../types"
 
 @Entity()
 @ObjectType()
@@ -54,16 +55,16 @@ export class NewReviewInput {
 	@Length(1, 500)
 	comment: string
 
-	@Field(() => Int)
-	productId: number
+	@Field(() => ProductId)
+	productId: ProductId
 
-	@Field(() => Int)
-	userId: number
+	@Field(() => UserId)
+	userId: UserId
 }
 
 @InputType()
 export class UpdateReviewInput {
-	@Field(() => Int, { nullable: true })
+	@Field({ nullable: true })
 	rate?: number
 
 	@Field({ nullable: true })

@@ -3,9 +3,12 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
+	JoinTable,
+	ManyToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { Length } from "class-validator"
+import Category from "./Category"
 
 @Entity()
 @ObjectType()
@@ -22,6 +25,12 @@ export class ParentCategory extends BaseEntity {
 	@Column()
 	@Field()
 	thumbnail: string
+
+	/** MANY TO MANY */
+	@JoinTable()
+	@ManyToMany(() => Category)
+	@Field(() => Category)
+	category: Category
 }
 
 @InputType()

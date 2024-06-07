@@ -15,6 +15,7 @@ import { Product_picture } from "./Product_picture"
 import Brand from "./Brand"
 import Review from "./Review"
 import { BookingItem } from "./BookingItem"
+import { BrandId, CategoryId } from "../types"
 
 @Entity()
 @ObjectType()
@@ -92,11 +93,11 @@ export class NewProductInput {
 	@Field()
 	thumbnail: string
 
-	@Field(() => ObjectId)
-	categorie: ObjectId
+	@Field(() => CategoryId, {nullable:true})
+	categorie?: CategoryId
 
-	@Field(() => ObjectId)
-	brand: ObjectId
+	@Field(() => BrandId)
+	brand: BrandId
 }
 
 @InputType()

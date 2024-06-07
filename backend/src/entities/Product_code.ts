@@ -12,7 +12,7 @@ import { Status } from "../enum/Status"
 import { Agency } from "./Agency"
 import { Product } from "./Product"
 import { BookingItem } from "./BookingItem"
-import { ObjectId } from "../types"
+import { AgencyId, ObjectId, ProductId } from "../types"
 
 @Entity()
 @ObjectType()
@@ -32,16 +32,28 @@ export class Product_code extends BaseEntity {
 
 	/** RELATIONS *********************/
 	/** MANY TO ONE */
-	@ManyToOne(() => Product, (product) => product.productCodes, { eager: true })
+	@ManyToOne(() => Product, (product) => product.productCodes, {
+		eager: true,
+		cascade: true,
+		onDelete: "CASCADE",
+	})
 	@Field(() => Product, { nullable: true })
 	product: Product
 
-	@ManyToOne(() => Agency, (agency) => agency.productCodes, { eager: true })
+	@ManyToOne(() => Agency, (agency) => agency.productCodes, {
+		eager: true,
+		cascade: true,
+		onDelete: "CASCADE",
+	})
 	@Field(() => Agency, { nullable: true })
 	agency: Agency
 
 	/** ONE TO MANY */
-	@OneToMany(() => BookingItem, (item) => item.productCode, { eager: true })
+	@OneToMany(() => BookingItem, (item) => item.productCode, {
+		eager: true,
+		cascade: true,
+		onDelete: "CASCADE",
+	})
 	@Field(() => [BookingItem], { nullable: true })
 	bookingItems: BookingItem[]
 }
@@ -51,11 +63,11 @@ export class NewProductCodeInput {
 	@Field(() => Status)
 	status: Status
 
-	@Field(() => ObjectId)
-	productId: ObjectId
+	@Field(() => ProductId)
+	productId: ProductId
 
-	@Field(() => ObjectId)
-	agencyId: ObjectId
+	@Field(() => AgencyId)
+	agencyId: AgencyId
 }
 
 @InputType()

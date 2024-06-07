@@ -75,7 +75,7 @@ export class Booking extends BaseEntity {
 @InputType()
 export class NewBookingInput {
 	@Field(() => StatusBooking)
-	status?: StatusBooking
+	status: StatusBooking
 
 	@Field()
 	invoice: string

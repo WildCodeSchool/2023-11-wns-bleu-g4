@@ -5,6 +5,7 @@ import {
     Mutation,
     Int,
     Ctx,
+    Authorized,
 } from "type-graphql"
 import { GraphQLError } from "graphql"
 import { Context } from "../utils"
@@ -59,6 +60,7 @@ class BookingResolver {
         return bookings
     }
 
+    @Authorized()
     @Mutation(() => Booking)
     async createBooking(
         @Arg("data", { validate: true }) data: NewBookingInput, @Ctx() ctx: Context) {
@@ -74,6 +76,7 @@ class BookingResolver {
         })
     }
 
+    @Authorized()
     @Mutation(() => Booking)
     async updateBooking(
         @Arg("bookingId") id: number,
@@ -94,6 +97,7 @@ class BookingResolver {
         })
     }
 
+    @Authorized()
     @Mutation(() => String)
     async cancelBooking(
         @Arg("bookingId") id: number,

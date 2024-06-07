@@ -27,10 +27,7 @@ export class Category extends BaseEntity {
 
 	/** RELATIONS *******************/
 	/** ONE TO MANY */
-	@OneToMany(() => Product, (products) => products.categorie, {
-		cascade: true,
-		onDelete: "CASCADE",
-	})
+	@OneToMany(() => Product, (products) => products.categorie)
 	@Field(() => [Product])
 	products: Product[]
 

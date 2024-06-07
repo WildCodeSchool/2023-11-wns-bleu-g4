@@ -41,7 +41,7 @@ export class ReviewResolver {
 	) {
 		const reviews = await Review.find({
 			relations: { user: true, product: true },
-			where: { product : { id : productId} }
+			where: { product: { id: productId } }
 		})
 
 		if (!reviews) throw new GraphQLError("Not found")
@@ -51,12 +51,12 @@ export class ReviewResolver {
 
 	@Query(() => [Review])
 	async getReviewsByUserId(
-		@Arg("userId", ()=> Int) userId: number,
+		@Arg("userId", () => Int) userId: number,
 		@Arg("productId", { nullable: true }) productId?: number,
 	) {
 		const reviews = await Review.find({
 			relations: { user: true, product: true },
-			where: { user : { id : userId} }
+			where: { user: { id: userId } }
 		})
 
 		if (!reviews) throw new GraphQLError("Not found")
@@ -79,7 +79,7 @@ export class ReviewResolver {
 
 		const { id } = await newReview.save()
 		return Review.findOne({
-			where: { id },
+			where: { id},
 			relations: { product: true, user: true },
 		})
 	}
@@ -87,14 +87,13 @@ export class ReviewResolver {
 	@Authorized([UserRole.CUSTOMER])
 	@Mutation(() => Review)
 	async updateReview(
-		@Arg("reviewId") id: number,
-		@Arg("data", { validate: true }) data: UpdateReviewInput,
-		@Ctx() ctx: Context
+		@Ctx() ctx: Context,
+		@Arg("reviewId", () => Int) id: number,
+		@Arg("data", { validate: true, nullable: true }) data?: UpdateReviewInput,
 	) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const reviewToUpdate = await Review.findOne({ where: { id } })
 		if (!reviewToUpdate) throw new GraphQLError("Review not found")
-
 		if (ctx.currentUser.role !== UserRole.CUSTOMER)
 			throw new GraphQLError("Not authorized")
 		if (reviewToUpdate.user.id !== ctx.currentUser.id)
