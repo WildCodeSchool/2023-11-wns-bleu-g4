@@ -31,16 +31,19 @@ export default function GaleryComponent() {
   }
 
   return (
-    <Flex w="55%" height="fit-content" direction="column-reverse" gap="10px" justifyContent="flex-end">
+    <Flex w="55%" flexDirection="column" gap="10px">
       <Swiper
-        onSwiper={swiper => setThumbsSwiper(swiper)}
-        loop={true}
+        style={
+          {
+            "--swiper-navigation-color": "#fff",
+            "--swiper-pagination-color": "#fff",
+          } as React.CSSProperties
+        }
         spaceBetween={10}
-        slidesPerView={4}
-        freeMode={true}
-        watchSlidesProgress={true}
+        navigation={true}
+        thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper"
+        className="mySwiper2"
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
@@ -49,12 +52,13 @@ export default function GaleryComponent() {
         ))}
       </Swiper>
       <Swiper
-        loop={true}
+        onSwiper={setThumbsSwiper}
         spaceBetween={10}
-        navigation={true}
-        thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+        slidesPerView={4}
+        freeMode={true}
+        watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2"
+        className="mySwiper"
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
