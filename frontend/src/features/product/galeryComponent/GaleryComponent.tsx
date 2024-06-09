@@ -31,7 +31,7 @@ export default function GaleryComponent() {
   }
 
   return (
-    <Flex w="55%" flexDirection="column" gap="10px">
+    <Flex w="55%" flexDirection="column" gap="10px" className="galeryComponent">
       <Swiper
         style={
           {

@@ -20,15 +20,24 @@ export default function Welcome() {
           className="text-white md:text-current"
         >
           {t("Welcome on GearGo")}
+          <br />
+
         </Heading>
+        <Text fontSize={{ base: "4xl", md: "4xl" }} className="text-white md:text-current">
+          {t("The first outdoor equipment rental platform.")}
+        </Text>
         <Text fontSize={{ base: "1xl", md: "lg" }} className="text-white md:text-current">
           {t("Explore our outdoor equipment rental service for the mountains and the sea.")} <br />
           {t(
             "GearGo offers a wide selection of quality gear. Simply rent what you need and embark on your adventure with ease.",
           )}
         </Text>
+        <br />
+        <Text fontSize={{ base: "xs", md: "xs" }} className="text-white md:text-current">
+          {t("outdoor")}
+        </Text>
       </Box>
-      <Box w={{ base: "full", md: "65%" }} className="hidden md:block">
+      <Box w={{ base: "full", md: "55%" }} className="hidden md:block">
         <HeroCarousel />
       </Box>
     </Flex>
