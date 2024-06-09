@@ -25,6 +25,10 @@ export class Category extends BaseEntity {
 	@Field()
 	name: string
 
+	@Column()
+	@Field()
+	thumbnail: string
+
 	/** RELATIONS *******************/
 	/** ONE TO MANY */
 	@OneToMany(() => Product, (products) => products.categorie)
@@ -43,6 +47,9 @@ export class NewCategoryInput {
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	@Field()
 	name: string
+
+	@Field()
+	thumbnail: string
 
 	@Field(() => ParentCategoryId, { nullable: true })
 	parentCategories?: ParentCategoryId

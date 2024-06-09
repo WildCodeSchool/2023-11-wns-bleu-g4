@@ -103,6 +103,7 @@ async function main() {
 	const category = new Category()
 	Object.assign(category, {
 		name: "Mountain",
+		thumbnail : "mountain.jpg"
 	})
 	await category.save()
 

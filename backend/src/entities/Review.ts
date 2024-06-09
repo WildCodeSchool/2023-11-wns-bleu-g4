@@ -31,7 +31,7 @@ export class Review extends BaseEntity {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-	@Field(() => Product, { nullable: true })
+	@Field(() => Product)
 	product: Product
 
 	/** RELATIONS *********************/
@@ -40,7 +40,7 @@ export class Review extends BaseEntity {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-	@Field(() => User, { nullable: true })
+	@Field(() => User)
 	user: User
 }
 
