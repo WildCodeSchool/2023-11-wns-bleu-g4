@@ -25,10 +25,10 @@ class ProductResolver {
 		@Arg("name", { nullable: true }) name?: string
 	) {
 		return Product.find({
-			relations: { categorie: true, pictures: true, brand: true },
+			relations: { category: true, pictures: true, brand: true },
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
-				categorie: {
+				category: {
 					id: categoryId,
 				},
 			},
@@ -39,7 +39,7 @@ class ProductResolver {
 	async getProductById(@Arg("productId", () => Int) id: number) {
 		const product = await Product.findOne({
 			where: { id },
-			relations: { categorie: true, reviews: true, pictures: true },
+			relations: { category: true, reviews: true, pictures: true },
 		})
 		if (!product) throw new GraphQLError("Not found")
 		return product
@@ -61,7 +61,7 @@ class ProductResolver {
 		const { id } = await newProduct.save()
 		return Product.findOne({
 			where: { id },
-			relations: { categorie: true, reviews: true },
+			relations: { category: true, reviews: true },
 		})
 	}
 
@@ -83,7 +83,7 @@ class ProductResolver {
 		await productToUpdate.save()
 		return Product.findOne({
 			where: { id },
-			relations: { categorie: true, reviews: true },
+			relations: { category: true, reviews: true },
 		})
 	}
 

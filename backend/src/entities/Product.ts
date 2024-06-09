@@ -48,9 +48,9 @@ export class Product extends BaseEntity {
 
 	/** RELATIONS ****************************/
 	/** MANY TO ONE */
-	@ManyToOne(() => Category, categorie => categorie.products, { cascade: true, onDelete: "CASCADE" })
+	@ManyToOne(() => Category, category => category.products, { cascade: true, onDelete: "CASCADE" })
 	@Field(() => Category)
-	categorie: Category
+	category: Category
 
 	@ManyToOne(() => Brand, (brand) => brand.product, { cascade: true, onDelete: "CASCADE" })
 	@Field(() => Brand)

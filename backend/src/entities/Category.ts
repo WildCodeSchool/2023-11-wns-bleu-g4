@@ -31,7 +31,7 @@ export class Category extends BaseEntity {
 
 	/** RELATIONS *******************/
 	/** ONE TO MANY */
-	@OneToMany(() => Product, (products) => products.categorie)
+	@OneToMany(() => Product, (products) => products.category)
 	@Field(() => [Product])
 	products: Product[]
 

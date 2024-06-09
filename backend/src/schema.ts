@@ -8,7 +8,7 @@ import ProductResolver from "./resolvers/ProductResolver"
 import Product_codeResolver from "./resolvers/Product_codeResolver"
 import Product_pictureResolver from "./resolvers/Product_pictureResolver"
 import { ReviewResolver } from "./resolvers/ReviewResolver"
-import SubCategoryResolver from "./resolvers/ParentCategoryResolver"
+import ParentCategoryResolver from "./resolvers/ParentCategoryResolver"
 import BookingItemResolver from "./resolvers/BookingItemResolver"
 import UserResolver from "./resolvers/UserResolver"
 
@@ -17,7 +17,7 @@ export default buildSchema({
 		CategoryResolver,
 		ProductResolver,
 		ReviewResolver,
-		SubCategoryResolver,
+		ParentCategoryResolver,
 		UserResolver,
 		AgencyResolver,
 		Product_codeResolver,
