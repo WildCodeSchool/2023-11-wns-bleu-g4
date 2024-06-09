@@ -28,7 +28,7 @@ class ProductResolver {
 			relations: { category: true, pictures: true, brand: true },
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
-				categorie: {
+				category: {
 					id: categoryId,
 				},
 			},
