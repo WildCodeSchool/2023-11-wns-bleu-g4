@@ -7,7 +7,7 @@ interface CardItemProps {
 }
 
 export default function CardItem({ text, image }: CardItemProps) {
-  const color = useColorModeValue("#FFF", "#0b0f0b");
+  const color = useColorModeValue("transparent", "transparent");
   return (
     <Card
       width={{ base: "11.2em", lg: "16em" }}
@@ -16,6 +16,7 @@ export default function CardItem({ text, image }: CardItemProps) {
       overflow="hidden"
       bg={color}
       borderRadius="16px"
+
     >
       <Image
         objectFit="cover"
@@ -26,6 +27,7 @@ export default function CardItem({ text, image }: CardItemProps) {
         transition="transform 0.2s"
         _hover={{
           transform: "scale(1.3)",
+          borderRadius: "16px",
         }}
       />
       <CardFooter

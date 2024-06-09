@@ -23,7 +23,12 @@ export default function Welcome() {
           <br />
 
         </Heading>
-        <Text fontSize={{ base: "4xl", md: "4xl" }} className="text-white md:text-current">
+        <Text
+          fontSize={{ base: "4xl", md: "4xl" }}
+          lineHeight="100%"
+          className="text-white md:text-current"
+          mb={5}
+        >
           {t("The first outdoor equipment rental platform.")}
         </Text>
         <Text fontSize={{ base: "1xl", md: "lg" }} className="text-white md:text-current">
@@ -33,7 +38,7 @@ export default function Welcome() {
           )}
         </Text>
         <br />
-        <Text fontSize={{ base: "xs", md: "xs" }} className="text-white md:text-current">
+        <Text fontSize={{ base: "xs", md: "xs" }} className="text-white md:text-current" >
           {t("outdoor")}
         </Text>
       </Box>

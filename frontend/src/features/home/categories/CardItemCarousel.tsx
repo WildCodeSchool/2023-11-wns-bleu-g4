@@ -14,9 +14,11 @@ export default function CardItemCarousel() {
                     "--swiper-pagination-color": "#e66300",
                 } as React.CSSProperties
             }
-            slidesPerView='auto'
+            slidesPerView="auto"
             spaceBetween={14}
-            pagination={{ clickable: true }}
+            pagination={{
+                clickable: true,
+            }}
             modules={[Pagination]}
             loop={true}
             className="mySwiper4"
