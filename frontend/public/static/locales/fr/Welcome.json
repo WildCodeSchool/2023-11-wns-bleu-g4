@@ -1,7 +1,17 @@
 {
+  "Bike": "Vélo",
+  "CATEGORIES": "CATÉGORIES",
+  "Climb": "Escalade",
+  "Diving": "Plongée",
   "Explore our outdoor equipment rental service for the mountains and the sea.": "Découvrez notre service de location de matériel outdoor pour la montagne et la mer.",
   "GearGo offers a wide selection of quality gear. Simply rent what you need and embark on your adventure with ease.": "GearGo propose une large sélection d'équipements de qualité. Louez simplement ce dont vous avez besoin et lancez-vous facilement dans votre aventure.",
+  "Hiking": "Randonnée",
+  "Kayak": "Kayak",
   "outdoor": "*extérieur",
+  "Select the category of your choice.": "Sélectionnez la catégorie de votre choix.",
+  "Ski": "Ski",
+  "Snow": "Snowboard",
+  "Surf": "Surf",
   "The first outdoor equipment rental platform.": "La première plateforme de location de matériel outdoor*.",
   "Welcome on GearGo": "Bienvenue sur GearGo"
 }
