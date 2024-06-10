@@ -22,10 +22,6 @@ export class ParentCategory extends BaseEntity {
 	@Field()
 	name: string
 
-	@Column()
-	@Field()
-	thumbnail: string
-
 	/** MANY TO MANY */
 	@JoinTable()
 	@ManyToMany(() => Category)
@@ -39,8 +35,6 @@ export class NewParentCategoryInput {
 	@Field()
 	name: string
 
-	@Field()
-	thumbnail: string
 }
 
 @InputType()
@@ -48,9 +42,6 @@ export class UpdateParentCategoryInput {
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	@Field({ nullable: true })
 	name?: string
-
-	@Field({ nullable: true })
-	thumbnail?: string
 }
 
 export default ParentCategory
