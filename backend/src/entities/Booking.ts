@@ -17,6 +17,7 @@ import { BookingItem } from "./BookingItem"
 @Entity()
 @ObjectType()
 export class Booking extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -45,6 +46,8 @@ export class Booking extends BaseEntity {
 	@Field()
 	endDate: Date
 
+	/** RELATIONS *********************/
+	/** MANY TO ONE */
 	@ManyToOne(() => User, (user) => user.bookings, {
 		cascade: true,
 		onDelete: "CASCADE",
@@ -59,6 +62,7 @@ export class Booking extends BaseEntity {
 	@Field(() => Agency)
 	agency: Agency
 
+	/** ONE TO MANY */
 	@OneToMany(() => BookingItem, items => items.booking, {
 		cascade: true,
 		onDelete: "CASCADE"
@@ -71,7 +75,7 @@ export class Booking extends BaseEntity {
 @InputType()
 export class NewBookingInput {
 	@Field(() => StatusBooking)
-	status?: StatusBooking
+	status: StatusBooking
 
 	@Field()
 	invoice: string

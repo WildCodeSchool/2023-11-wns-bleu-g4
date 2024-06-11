@@ -3,17 +3,20 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
+	JoinTable,
 	ManyToMany,
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import Product from "./Product"
-import SubCategory from "./SubCategory"
+import ParentCategory from "./ParentCategory"
 import { Length } from "class-validator"
+import { ParentCategoryId } from "../types"
 
 @Entity()
 @ObjectType()
 export class Category extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -22,13 +25,21 @@ export class Category extends BaseEntity {
 	@Field()
 	name: string
 
-	@ManyToMany(() => Product, (product) => product.categories)
+	@Column()
+	@Field()
+	thumbnail: string
+
+	/** RELATIONS *******************/
+	/** ONE TO MANY */
+	@OneToMany(() => Product, (products) => products.category)
 	@Field(() => [Product])
 	products: Product[]
 
-	@OneToMany(() => SubCategory, (subCategories) => subCategories.category)
-	@Field(() => [SubCategory])
-	subCategories: SubCategory[]
+	/** MANY TO MANY */
+	@JoinTable()
+	@ManyToMany(() => ParentCategory)
+	@Field(() => [ParentCategory])
+	parentCategories: ParentCategory[]
 }
 
 @InputType()
@@ -36,6 +47,12 @@ export class NewCategoryInput {
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	@Field()
 	name: string
+
+	@Field()
+	thumbnail: string
+
+	@Field(() => ParentCategoryId, { nullable: true })
+	parentCategories?: ParentCategoryId
 }
 
 @InputType()
@@ -43,6 +60,9 @@ export class UpdateCategoryInput {
 	@Field({ nullable: true })
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	name?: string
+
+	@Field(() => ParentCategoryId, { nullable: true })
+	parentCategories?: ParentCategoryId
 }
 
 export default Category

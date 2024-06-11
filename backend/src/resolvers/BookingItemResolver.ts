@@ -1,6 +1,7 @@
 import { GraphQLError } from "graphql"
 import {
     Arg,
+    Authorized,
     Ctx,
     Mutation,
     Query,
@@ -8,15 +9,13 @@ import {
 } from "type-graphql"
 import { Context } from "../utils"
 import { BookingItem, NewBookingItemInput, UpdateBookingItemInput } from "../entities/BookingItem"
-import Product from "../entities/Product"
-import { BookingId } from "../types"
 
 @Resolver()
 class BookingItemResolver {
     @Query(() => [BookingItem])
     async getBookingItems() {
         return BookingItem.find({
-            relations: { booking: true, product: true }
+            relations: { booking: true, product: true, productCode: true }
         })
     }
 
@@ -25,13 +24,14 @@ class BookingItemResolver {
         @Arg("bookingId") bookingId: number,
     ) {
         const items = await BookingItem.find({
-            where: {booking: { id: bookingId }},
-            relations: { booking: true, product: true }
+            where: { booking: { id: bookingId } },
+            relations: { booking: true, product: true, productCode: true }
         })
 
         return items;
     }
 
+    @Authorized()
     @Mutation(() => BookingItem)
     async createBookingItem(
         @Arg("data") data: NewBookingItemInput,
@@ -50,7 +50,8 @@ class BookingItemResolver {
         })
     }
 
-    @Mutation(() => String)
+    @Authorized()
+    @Mutation(() => BookingItem)
     async updateBookingItem(
         @Arg("bookingItemId") id: number,
         @Arg("data", { validate: true }) data: UpdateBookingItemInput,
@@ -64,14 +65,15 @@ class BookingItemResolver {
         Object.assign(itemToUpdate, data)
 
         await itemToUpdate.save()
-        return `${itemToUpdate.product.name} updated`
+        return itemToUpdate
     }
 
+    @Authorized()
     @Mutation(() => String)
     async deleteBookingItem(@Arg("bookingItemId") id: number, @Ctx() ctx: Context) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-        const itemToDelete = await BookingItem.findOne({ where: { id }, relations :{product:true} })
+        const itemToDelete = await BookingItem.findOne({ where: { id }, relations: { product: true } })
         if (!itemToDelete) throw new GraphQLError("Item not found")
 
         await itemToDelete.remove()

@@ -9,10 +9,12 @@ import {
 import Product from "./Product"
 import User from "./User"
 import { Length, Max, Min } from "class-validator"
+import { ProductId, UserId } from "../types"
 
 @Entity()
 @ObjectType()
 export class Review extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -29,14 +31,16 @@ export class Review extends BaseEntity {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-	@Field(() => Product, { nullable: true })
+	@Field(() => Product)
 	product: Product
 
+	/** RELATIONS *********************/
+	/** MANY TO ONE */
 	@ManyToOne(() => User, (user) => user.reviews, {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-	@Field(() => User, { nullable: true })
+	@Field(() => User)
 	user: User
 }
 
@@ -51,16 +55,16 @@ export class NewReviewInput {
 	@Length(1, 500)
 	comment: string
 
-	@Field(() => Int)
-	productId: number
+	@Field(() => ProductId)
+	productId: ProductId
 
-	@Field(() => Int)
-	userId: number
+	@Field(() => UserId)
+	userId: UserId
 }
 
 @InputType()
 export class UpdateReviewInput {
-	@Field(() => Int, { nullable: true })
+	@Field({ nullable: true })
 	rate?: number
 
 	@Field({ nullable: true })

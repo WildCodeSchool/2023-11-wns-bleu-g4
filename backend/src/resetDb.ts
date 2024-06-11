@@ -91,8 +91,9 @@ async function main() {
 		price: 99.99,
 		description: "A super bike for your daily commute.",
 		thumbnails: "thumbnail.jpg",
-		categories: [],
-		size: "M",
+		category: {
+			id: 1,
+		},
 		brand: {
 			id: 1,
 		},
@@ -102,15 +103,19 @@ async function main() {
 	const category = new Category()
 	Object.assign(category, {
 		name: "Mountain",
-		product: product,
+		thumbnail : "mountain.jpg"
 	})
 	await category.save()
 
 	const productCode = new Product_code()
 	Object.assign(productCode, {
 		status: Status.AVAILABLE,
-		product: product,
-		agency: agency,
+		product: {
+			id: 1
+		},
+		agency: {
+			id: 1
+		},
 	})
 	await productCode.save()
 
@@ -118,21 +123,23 @@ async function main() {
 	Object.assign(productPicture, {
 		thumbnail: "thumbnail.jpg",
 		alt: "Bike thumbnail",
-		product: product,
+		productId: {
+			id: 1
+		},
 	})
 	await productPicture.save()
 
 	const booking = new Booking()
 	Object.assign(booking, {
-		bookingDate: "2024-06-04T10:15:30.000Z",
-		endDate: "2024-06-15T19:00:00.000Z",
+		status: StatusBooking.BOOKED,
 		invoice: "INV-20240604-1",
-		startDate: "2024-06-08T08:00:00.000Z",
-		status: StatusBooking.RETRIEVED,
-		agency: {
+		bookingDate: "2024-06-04T10:15:30.000Z",
+		startDate: "2024-06-10T08:00:00.000Z",
+		endDate: "2024-06-15T19:00:00.000Z",
+		user: {
 			id: 1,
 		},
-		user: {
+		agency: {
 			id: 1,
 		},
 	})
@@ -140,13 +147,11 @@ async function main() {
 
 	const bookingItem = new BookingItem()
 	Object.assign(bookingItem, {
-		quantity: 3,
 		status: BookingItemStatus.RENTED,
-		total_price: 45,
 		booking: {
 			id: 1
 		},
-		product: {
+		productCodes: {
 			id: 1
 		}
 	})
