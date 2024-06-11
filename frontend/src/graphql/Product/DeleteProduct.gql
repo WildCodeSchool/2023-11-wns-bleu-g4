@@ -1,3 +1,0 @@
-mutation DeleteProduct($productId: Float!) {
-  deleteProduct(productId: $productId)
-}

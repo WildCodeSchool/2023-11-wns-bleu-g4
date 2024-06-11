@@ -27,7 +27,7 @@ export default function ProductPage() {
   const agencies = agencyData?.getAllAgencies;
 
   return (
-    <Box width="100%" display="flex" flexDirection="row">
+    <Box width="100%" display="flex" flexDirection="row" justifyContent="space-between">
       <GaleryComponent />
       <DetailsComponent agencies={agencies} product={selectedProduct} />
     </Box>
@@ -65,4 +65,3 @@ export interface Product {
   };
   thumbnail: string;
 }
-

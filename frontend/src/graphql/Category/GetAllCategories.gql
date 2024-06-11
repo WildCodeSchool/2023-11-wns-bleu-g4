@@ -1,6 +1,0 @@
-query GetAllCategories {
-  getAllCategories {
-    id
-    name
-  }
-}

@@ -99,23 +99,6 @@ h4 {
   font-weight: 400;
 }
 
-.carousel .thumbs-wrapper {
-  margin: 0 !important;
-}
-
-.carousel .control-dots .dot {
-  background-color: #f0f0f0 !important;
-  width: 14px !important;
-  height: 14px !important;
-  opacity: 0.8 !important;
-}
-
-.carousel .control-dots .dot.selected {
-  background-color: #e66300 !important;
-  border-color: #e66300 !important;
-  opacity: 1 !important;
-}
-
 .css-bwntmo > *:not(style) ~ *:not(style) {
   -webkit-margin-start: 0 !important;
   margin-inline-start: 0 !important;
@@ -126,7 +109,7 @@ h4 {
   border: 2px solid #000;
   border-radius: 10px;
   margin: 0 !important;
-  padding: 15px 0;
+  padding: 15px 10px;
   & .rdp-day:not(.rdp-day_outside):hover {
     background-color: #4f6f52 !important;
     color: #fff !important;
@@ -158,4 +141,84 @@ h4 {
   font-weight: bold;
   color: #000 !important;
   font-weight: bold !important;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mySwiper2 {
+  width: 100%;
+  height: 80%;
+}
+
+.mySwiper {
+  height: 20%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.mySwiper3 {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+.mySwiper4 {
+  width: 100%;
+  height: 100%;
+}
+
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+  border-bottom: 4px solid grey;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.mySwiper .swiper-slide.swiper-slide-thumb-active {
+  opacity: 1;
+  border-bottom: 4px solid #e66300;
+}
+
+.mySwiper4 .swiper-slide {
+  width: auto !important;
+  height: 100%;
+  cursor: pointer;
+}
+
+.mySwiper4 .swiper-wrapper {
+  margin-bottom: 2.5rem;
+}
+
+[data-theme="dark"] .mySwiper4 .swiper-pagination-bullet {
+  background-color: #fff;
+}
+
+.mySwiper4 .swiper-button-prev {
+  left: 20px;
+}
+
+.mySwiper4 .swiper-button-next {
+  right: 20px;
 }
