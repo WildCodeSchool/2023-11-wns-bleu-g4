@@ -4,8 +4,6 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
-	JoinTable,
-	ManyToMany,
 	ManyToOne,
 	OneToMany,
 	PrimaryGeneratedColumn,
@@ -17,10 +15,12 @@ import { Product_picture } from "./Product_picture"
 import Brand from "./Brand"
 import Review from "./Review"
 import { BookingItem } from "./BookingItem"
+import { BrandId, CategoryId } from "../types"
 
 @Entity()
 @ObjectType()
 export class Product extends BaseEntity {
+	/** COLUMNS *****************************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -37,21 +37,26 @@ export class Product extends BaseEntity {
 	@Field()
 	description: string
 
-	@Column({
-		default:
-			"https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
-	})
+	@Column({ type: "text", nullable: true })
+	@Field({ nullable: true })
+	characteristic: string
+
+	@Column({ default: "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" })
 	@Field()
 	thumbnail: string
 
-	@JoinTable()
-	@ManyToMany(() => Category, (categories) => categories.products, {
-		cascade: true,
-		onDelete: "CASCADE",
-	})
-	@Field(() => [Category])
-	categories: Category[]
 
+	/** RELATIONS ****************************/
+	/** MANY TO ONE */
+	@ManyToOne(() => Category, category => category.products, { cascade: true, onDelete: "CASCADE" })
+	@Field(() => Category)
+	category: Category
+
+	@ManyToOne(() => Brand, (brand) => brand.product, { cascade: true, onDelete: "CASCADE" })
+	@Field(() => Brand)
+	brand: Brand
+
+	/** ONE TO MANY */
 	@OneToMany(() => Review, (reviews) => reviews.product)
 	@Field(() => [Review])
 	reviews: Review[]
@@ -60,23 +65,13 @@ export class Product extends BaseEntity {
 	@Field(() => [Product_code])
 	productCodes: Product_code[]
 
-	@OneToMany(
-		() => Product_picture,
-		(product_picture) => product_picture.product
-	)
+	@OneToMany(() => Product_picture, (product_picture) => product_picture.product)
 	@Field(() => [Product_picture])
 	pictures: Product_picture[]
 
-	@OneToMany(
-		() => BookingItem,
-		(items) => items.product
-	)
+	@OneToMany(() => BookingItem, (items) => items.product)
 	@Field(() => [BookingItem])
 	bookingItem: BookingItem[]
-
-	@ManyToOne(() => Brand, (brand) => brand.product)
-	@Field(() => Brand)
-	brand: Brand
 }
 
 @InputType()
@@ -92,17 +87,17 @@ export class NewProductInput {
 	@Field()
 	description: string
 
-	@Field()
-	brand: string
+	@Field({ nullable: true })
+	characteristic?: string
 
 	@Field()
 	thumbnail: string
 
-	@Field(() => [ObjectId])
-	categories: ObjectId[]
+	@Field(() => CategoryId, {nullable:true})
+	categorie?: CategoryId
 
-	@Field(() => [ObjectId], { nullable: true })
-	reviews: ObjectId[]
+	@Field(() => BrandId)
+	brand: BrandId
 }
 
 @InputType()
@@ -119,19 +114,18 @@ export class UpdateProductInput {
 	@Field({ nullable: true })
 	description?: string
 
-	@Length(2, 30)
 	@Field({ nullable: true })
-	brand?: string
+	characteristic?: string
 
 	@Length(2, 255)
 	@Field({ nullable: true })
 	thumbnail?: string
 
-	@Field(() => [ObjectId])
-	categories?: ObjectId[]
+	@Field(() => ObjectId, { nullable: true })
+	categorie?: ObjectId
 
-	@Field(() => [ObjectId], { nullable: true })
-	reviews?: ObjectId[]
+	@Field(() => ObjectId, { nullable: true })
+	brand?: ObjectId
 }
 
 export default Product

@@ -8,10 +8,12 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { Product } from "./Product"
+import { ObjectId, ProductId } from "../types"
 
 @Entity()
 @ObjectType()
 export class Product_picture extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -24,6 +26,8 @@ export class Product_picture extends BaseEntity {
 	@Field()
 	alt: string
 
+	/** RELATIONS *********************/
+	/** MANY TO ONE */
 	@ManyToOne(() => Product, (product) => product.pictures)
 	@Field(() => Product)
 	product: Product
@@ -31,36 +35,31 @@ export class Product_picture extends BaseEntity {
 
 @InputType()
 export class NewProduct_pictureInput {
-	@Column()
 	@Length(1, 255)
 	@Field()
 	thumbnail: string
 
-	@Column()
 	@Length(1, 255)
 	@Field()
 	alt: string
 
-	@Column()
-	@Field(() => Int)
-	productId: number
+	@Field(() => ProductId)
+	productId: ProductId
 }
 
 @InputType()
 export class UpdateProduct_pictureInput {
-	@Column()
+
 	@Length(1, 255)
 	@Field()
 	thumbnail?: string
 
-	@Column()
 	@Length(1, 255)
 	@Field()
 	alt?: string
 
-	@Column()
-	@Field(() => Int)
-	productId?: number
+	@Field(() => ProductId, {nullable : true})
+	productId?: ProductId
 }
 
 export default Product_picture

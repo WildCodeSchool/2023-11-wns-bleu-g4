@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql"
 import { Arg, Authorized, Int, Mutation, Query, Resolver } from "type-graphql"
-import Brand, { NewBrandInput } from "../entities/Brand"
+import Brand, { NewBrandInput, UpdateBrandInput } from "../entities/Brand"
 import { UserRole } from "../entities/User"
 
 @Resolver(Brand)
@@ -19,6 +19,7 @@ class BrandResolver {
 		if (!brand) throw new GraphQLError("Not found")
 		return brand
 	}
+
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => Brand)
 	async createBrand(@Arg("data") data: NewBrandInput) {
@@ -32,13 +33,13 @@ class BrandResolver {
 	@Mutation(() => Brand)
 	async updateBrand(
 		@Arg("brandId", () => Int) id: number,
-		@Arg("data") data: NewBrandInput
+		@Arg("data") data?: UpdateBrandInput
 	) {
-		const brand = await Brand.findOne({ where: { id } })
+		const brand = await Brand.findOne({ where: { id }, relations: {product:true} })
 		if (!brand) throw new GraphQLError("Brand not found")
 		Object.assign(brand, data)
 		await brand.save()
-		return brand
+		return Brand.findOne({ where: { id } })
 	}
 
 	@Authorized([UserRole.ADMIN])
