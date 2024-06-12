@@ -1,4 +1,3 @@
-import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
 	Column,
@@ -8,6 +7,7 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
+import { Field, InputType, Int, ObjectType } from "type-graphql"
 import Product from "./Product"
 import ParentCategory from "./ParentCategory"
 import { Length } from "class-validator"
@@ -16,7 +16,6 @@ import { ParentCategoryId } from "../types"
 @Entity()
 @ObjectType()
 export class Category extends BaseEntity {
-	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -25,19 +24,16 @@ export class Category extends BaseEntity {
 	@Field()
 	name: string
 
-	@Column()
+	@Column({ default: 'default_thumbnail.jpg' })
 	@Field()
 	thumbnail: string
 
-	/** RELATIONS *******************/
-	/** ONE TO MANY */
 	@OneToMany(() => Product, (products) => products.category)
 	@Field(() => [Product])
 	products: Product[]
 
-	/** MANY TO MANY */
-	@JoinTable()
 	@ManyToMany(() => ParentCategory)
+	@JoinTable()
 	@Field(() => [ParentCategory])
 	parentCategories: ParentCategory[]
 }
