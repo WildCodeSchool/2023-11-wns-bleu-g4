@@ -1,11 +1,10 @@
 import { Arg, Query, Resolver } from "type-graphql";
-import { Product_code } from "../entities/Product_code";
-import { Status } from "../enum/Status";
+import { Product_code } from "../entities/ProductCode";
+import { Status } from "../enum/StatusProductCode";
 
 @Resolver()
-class Product_codeResolver {
+class ProductCodeResolver {
 
-  // Query to get all product codes with their associated product and agency
   @Query(() => [Product_code])
   async getAllProduct_codes() {
     try {
@@ -16,11 +15,10 @@ class Product_codeResolver {
     }
   }
 
-  // Query to get product codes by status with related product and agency
   @Query(() => [Product_code])
   async getProductCodesByStatus(@Arg("status", () => Status) status: Status) {
     try {
-      return await Product_code.find({ 
+      return await Product_code.find({
         where: { status },
         relations: ["product", "agency"]
       });
@@ -31,4 +29,4 @@ class Product_codeResolver {
   }
 }
 
-export default Product_codeResolver;
+export default ProductCodeResolver;

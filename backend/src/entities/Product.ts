@@ -10,8 +10,8 @@ import {
 } from "typeorm"
 import { ObjectId } from "../utils"
 import Category from "./Category"
-import { Product_code } from "./Product_code"
-import { Product_picture } from "./Product_picture"
+import { Product_code } from "./ProductCode"
+import { Product_picture } from "./ProductPicture"
 import Brand from "./Brand"
 import Review from "./Review"
 import { BookingItem } from "./BookingItem"
@@ -93,7 +93,7 @@ export class NewProductInput {
 	@Field()
 	thumbnail: string
 
-	@Field(() => CategoryId, {nullable:true})
+	@Field(() => CategoryId, { nullable: true })
 	categorie?: CategoryId
 
 	@Field(() => BrandId)

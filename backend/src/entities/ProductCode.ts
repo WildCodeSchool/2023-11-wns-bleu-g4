@@ -4,15 +4,19 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
+	LessThanOrEqual,
 	ManyToOne,
+	MoreThanOrEqual,
+	Not,
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
-import { Status } from "../enum/Status"
+import { Status } from "../enum/StatusProductCode"
 import { Agency } from "./Agency"
 import { Product } from "./Product"
 import { BookingItem } from "./BookingItem"
-import { AgencyId, ObjectId, ProductId } from "../types"
+import { AgencyId, ProductId } from "../types"
+import { BookingItemStatus } from "../enum/BookingItemStatus"
 
 @Entity()
 @ObjectType()
@@ -56,6 +60,27 @@ export class Product_code extends BaseEntity {
 	})
 	@Field(() => [BookingItem], { nullable: true })
 	bookingItems: BookingItem[]
+
+	static async checkAvailability(productId: number, startDate: Date, endDate: Date): Promise<Product_code | null> {
+		const productCodes = await this.find({ where: { product: { id: productId }, status: Status.AVAILABLE } });
+
+		for (const productCode of productCodes) {
+			const overlappingBookings = await BookingItem.find({
+				where: {
+					productCode: { id: productCode.id },
+					startDate: LessThanOrEqual(endDate),
+					endDate: MoreThanOrEqual(startDate),
+					status: Not(BookingItemStatus.CANCELED)
+				}
+			});
+
+			if (overlappingBookings.length === 0) {
+				return productCode;
+			}
+		}
+
+		return null;
+	}
 }
 
 @InputType()

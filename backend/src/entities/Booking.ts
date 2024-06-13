@@ -1,4 +1,4 @@
-import { IsEnum } from "class-validator"
+import { IsEnum, IsNotEmpty } from "class-validator"
 import { StatusBooking } from "../enum/StatusBooking"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
@@ -69,7 +69,8 @@ export class Booking extends BaseEntity {
 	})
 	@Field(() => [BookingItem])
 	bookingItem: BookingItem[]
-
+	productId: any
+	productCodeId: any
 }
 
 @InputType()
@@ -84,16 +85,24 @@ export class NewBookingInput {
 	bookingDate: Date
 
 	@Field()
-	startDate: Date
+	@IsNotEmpty()
+	startDate: Date;
 
 	@Field()
-	endDate: Date
+	@IsNotEmpty()
+	endDate: Date;
 
 	@Field(() => UserId)
 	user: UserId;
 
 	@Field(() => AgencyId)
 	agency: AgencyId;
+
+	@Field(() => Int)
+	productId: number
+
+	@Field(() => Int, { nullable: true })
+	productCodeId: number
 }
 
 @InputType()
@@ -122,3 +131,5 @@ export class CancelBookingInput {
 	@Field(() => StatusBooking)
 	status?: StatusBooking
 }
+
+export default Booking

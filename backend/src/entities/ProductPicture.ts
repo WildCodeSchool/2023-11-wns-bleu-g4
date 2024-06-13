@@ -8,7 +8,7 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm"
 import { Product } from "./Product"
-import { ObjectId, ProductId } from "../types"
+import { ProductId } from "../types"
 
 @Entity()
 @ObjectType()
@@ -58,7 +58,7 @@ export class UpdateProduct_pictureInput {
 	@Field()
 	alt?: string
 
-	@Field(() => ProductId, {nullable : true})
+	@Field(() => ProductId, { nullable: true })
 	productId?: ProductId
 }
 

@@ -1,25 +1,24 @@
-import { Field, InputType, Int, ObjectType } from "type-graphql"
-import { IsEnum } from "class-validator"
-import { BookingId, ProductId } from '../types'
+import { Field, InputType, Int, ObjectType } from "type-graphql";
+import { IsEnum } from "class-validator";
+import { BookingId, ProductId } from '../types';
 import {
 	BaseEntity,
 	Column,
 	Entity,
 	ManyToOne,
 	PrimaryGeneratedColumn,
-} from "typeorm"
-import Product from "./Product"
-import { BookingItemStatus } from "../enum/BookingItemStatus"
-import { Booking } from "./Booking"
-import Product_code from "./Product_code"
+} from "typeorm";
+import Product from "./Product";
+import { BookingItemStatus } from "../enum/BookingItemStatus";
+import { Booking } from "./Booking";
+import Product_code from "./ProductCode";
 
 @Entity()
 @ObjectType()
 export class BookingItem extends BaseEntity {
-	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
-	id: number
+	id: number;
 
 	@Column({
 		type: "enum",
@@ -27,39 +26,74 @@ export class BookingItem extends BaseEntity {
 	})
 	@Field(() => BookingItemStatus, { defaultValue: BookingItemStatus.RENTED })
 	@IsEnum(BookingItemStatus)
-	status: BookingItemStatus
+	status: BookingItemStatus;
 
-	/** RELATIONS *********************/
-	/** MANY TO ONE */
-	@ManyToOne(() => Booking, (booking) => booking.bookingItem)
+	@Column({ type: "timestamp" })
+	@Field()
+	startDate: Date;
+
+	@Column({ type: "timestamp" })
+	@Field()
+	endDate: Date;
+
+	@ManyToOne(() => Booking, (booking) => booking.bookingItem, { nullable: false })
 	@Field(() => Booking)
-	booking: Booking
+	booking: Booking;
 
-	@ManyToOne(() => Product, (product) => product.bookingItem)
+	@ManyToOne(() => Product, (product) => product.bookingItem, { nullable: false })
 	@Field(() => Product)
-	product: Product
+	product: Product;
 
-	@ManyToOne(() => Product_code, (product) => product.bookingItems)
+	@ManyToOne(() => Product_code, (product) => product.bookingItems, { nullable: false })
 	@Field(() => Product_code)
-	productCode: Product_code
+	productCode: Product_code;
 }
 
 @InputType()
 export class NewBookingItemInput {
 	@Field(() => BookingItemStatus)
 	@IsEnum(BookingItemStatus)
-	status: BookingItemStatus
+	status: BookingItemStatus;
 
 	@Field(() => BookingId)
-	booking: BookingId
+	booking: BookingId;
 
 	@Field(() => ProductId)
-	productCodes: ProductId
+	productId: ProductId;
+
+	@Field(() => ProductId)
+	productCodeId: ProductId;
+
+	@Field()
+	startDate: Date;
+
+	@Field()
+	endDate: Date;
 }
 
 @InputType()
 export class UpdateBookingItemInput {
-	@Field(() => BookingItemStatus)
+	@Field(() => Int)
+	id: number;
+
+	@Field(() => BookingItemStatus, { nullable: true })
 	@IsEnum(BookingItemStatus)
-	status?: BookingItemStatus
+	status?: BookingItemStatus;
+
+	@Field(() => BookingId, { nullable: true })
+	booking?: BookingId;
+
+	@Field(() => ProductId, { nullable: true })
+	productId?: ProductId;
+
+	@Field(() => ProductId, { nullable: true })
+	productCodeId?: ProductId;
+
+	@Field({ nullable: true })
+	startDate?: Date;
+
+	@Field({ nullable: true })
+	endDate?: Date;
 }
+
+export default BookingItem

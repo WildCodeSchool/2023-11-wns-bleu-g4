@@ -6,7 +6,7 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
-import { Product_code } from "./Product_code"
+import { Product_code } from "./ProductCode"
 import { Booking } from "./Booking"
 
 @Entity()
