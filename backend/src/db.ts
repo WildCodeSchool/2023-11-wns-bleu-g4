@@ -3,7 +3,7 @@ import Agency from "./entities/Agency"
 import Brand from "./entities/Brand"
 import Category from "./entities/Category"
 import Product from "./entities/Product"
-import { Product_code } from "./entities/ProductCode"
+import { ProductCode } from "./entities/ProductCode"
 import { Product_picture } from "./entities/ProductPicture"
 import Review from "./entities/Review"
 import ParentCategory from "./entities/ParentCategory"
@@ -28,7 +28,7 @@ const db = new DataSource({
 		Review,
 		User,
 		Agency,
-		Product_code,
+		ProductCode,
 		BookingItem,
 		Product_picture,
 		Booking,

@@ -10,7 +10,7 @@ import {
 } from "typeorm"
 import { ObjectId } from "../utils"
 import Category from "./Category"
-import { Product_code } from "./ProductCode"
+import { ProductCode } from "./ProductCode"
 import { Product_picture } from "./ProductPicture"
 import Brand from "./Brand"
 import Review from "./Review"
@@ -61,9 +61,9 @@ export class Product extends BaseEntity {
 	@Field(() => [Review])
 	reviews: Review[]
 
-	@OneToMany(() => Product_code, (productCode) => productCode.product)
-	@Field(() => [Product_code])
-	productCodes: Product_code[]
+	@OneToMany(() => ProductCode, (productCode) => productCode.product)
+	@Field(() => [ProductCode])
+	productCodes: ProductCode[]
 
 	@OneToMany(() => Product_picture, (product_picture) => product_picture.product)
 	@Field(() => [Product_picture])

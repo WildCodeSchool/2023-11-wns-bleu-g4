@@ -4,7 +4,7 @@ import { Booking } from "./entities/Booking";
 import Brand from "./entities/Brand";
 import Category from "./entities/Category";
 import Product from "./entities/Product";
-import Product_code from "./entities/ProductCode";
+import ProductCode from "./entities/ProductCode";
 import Product_picture from "./entities/ProductPicture";
 import User, { UserRole } from "./entities/User";
 import { Status } from "./enum/StatusProductCode";
@@ -102,7 +102,7 @@ async function main() {
     });
     await product.save();
 
-    const productCode = new Product_code();
+    const productCode = new ProductCode();
     Object.assign(productCode, {
         status: Status.AVAILABLE,
         product: product,
@@ -112,7 +112,7 @@ async function main() {
 
     const productPicture = new Product_picture();
     Object.assign(productPicture, {
-        thumbnail: "thumbnail.jpg",
+        thumbnail: "https://media.trekbikes.com/image/upload/w_1200/Rail5Deore_23_36791_A_Portrait",
         alt: "Bike thumbnail",
         product: product,
     });

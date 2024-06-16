@@ -6,7 +6,7 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
-import { Product_code } from "./ProductCode"
+import { ProductCode } from "./ProductCode"
 import { Booking } from "./Booking"
 
 @Entity()
@@ -47,9 +47,9 @@ export class Agency extends BaseEntity {
 
 	/** RELATIONS *********************/
 	/** ONE TO MANY */
-	@OneToMany(() => Product_code, (productCode) => productCode.agency)
-	@Field(() => [Product_code])
-	productCodes: Product_code[]
+	@OneToMany(() => ProductCode, (productCode) => productCode.agency)
+	@Field(() => [ProductCode])
+	productCodes: ProductCode[]
 
 	@OneToMany(() => Booking, (bookings) => bookings.agency)
 	@Field(() => [Booking])

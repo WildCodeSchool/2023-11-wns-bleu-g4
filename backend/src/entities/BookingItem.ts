@@ -11,7 +11,7 @@ import {
 import Product from "./Product";
 import { BookingItemStatus } from "../enum/BookingItemStatus";
 import { Booking } from "./Booking";
-import Product_code from "./ProductCode";
+import ProductCode from "./ProductCode";
 
 @Entity()
 @ObjectType()
@@ -44,9 +44,9 @@ export class BookingItem extends BaseEntity {
 	@Field(() => Product)
 	product: Product;
 
-	@ManyToOne(() => Product_code, (product) => product.bookingItems, { nullable: false })
-	@Field(() => Product_code)
-	productCode: Product_code;
+	@ManyToOne(() => ProductCode, (product) => product.bookingItems, { nullable: false })
+	@Field(() => ProductCode)
+	productCode: ProductCode;
 }
 
 @InputType()
