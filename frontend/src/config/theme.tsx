@@ -1,5 +1,6 @@
 /* theme.ts */
 import { modalTheme } from "@/features/admin/ui/Modal";
+import { accordionTheme } from "@/shared/components/ui/Accordion";
 import { buttonTheme } from "@/shared/components/ui/Button";
 import { cardTheme } from "@/shared/components/ui/Card";
 import { drawerTheme } from "@/shared/components/ui/Drawer";
@@ -14,6 +15,7 @@ export const theme = extendTheme({
     Card: cardTheme,
     Drawer: drawerTheme,
     Modal: modalTheme,
+    Accordion: accordionTheme
   },
   fonts: {
     heading: "Poppins, sans-serif",
