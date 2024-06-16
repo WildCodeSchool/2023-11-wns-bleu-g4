@@ -17,12 +17,12 @@ export default function Faq() {
             content: t("answer3")
         },
         {
-            title: t("question3"),
-            content: t("answer3")
+            title: t("question4"),
+            content: t("answer4")
         },
         {
-            title: t("question3"),
-            content: t("answer3")
+            title: t("question5"),
+            content: t("answer5")
         },
     ];
 
