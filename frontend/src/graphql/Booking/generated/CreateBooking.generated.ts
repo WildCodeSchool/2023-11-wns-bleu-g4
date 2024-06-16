@@ -8,18 +8,22 @@ export type CreateBookingMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreateBookingMutation = { __typename?: 'Mutation', createBooking: { __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any } };
+export type CreateBookingMutation = { __typename?: 'Mutation', createBooking: { __typename?: 'Booking', id: number, bookingDate: any, startDate: any, endDate: any, agency: { __typename?: 'Agency', id: number }, user: { __typename?: 'User', id: number } } };
 
 
 export const CreateBookingDocument = gql`
     mutation CreateBooking($data: NewBookingInput!) {
   createBooking(data: $data) {
     id
-    status
-    invoice
+    agency {
+      id
+    }
     bookingDate
     startDate
     endDate
+    user {
+      id
+    }
   }
 }
     `;

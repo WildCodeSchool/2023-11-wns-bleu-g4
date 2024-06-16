@@ -1,28 +1,74 @@
-import AddToBasketButton from "@/features/product/detailsComponent/components/AddToBasketButton";
-import DateSelector from "@/features/product/detailsComponent/components/DateSelector";
-import ProductDescription from "@/features/product/detailsComponent/components/ProductDescription";
-import ProductHeader from "@/features/product/detailsComponent/components/ProductHeader";
-import ProductPricing from "@/features/product/detailsComponent/components/ProductPricing";
-import SizeSelector from "@/features/product/detailsComponent/components/SizeSelector";
 import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Agency, Product } from "../ProductPage";
+import { useCreateBookingMutation } from "@/graphql/Booking/generated/createBooking.generated";
+import { StatusBooking } from "@/graphql/generated/schema";
+import AddToBasketButton from "./components/AddToBasketButton";
+import DateSelector from "./components/DateSelector";
+import ProductDescription from "./components/ProductDescription";
+import ProductHeader from "./components/ProductHeader";
+import ProductPricing from "./components/ProductPricing";
+import SizeSelector from "./components/SizeSelector";
+import { useAuth } from "@/hooks/useAuth";
 
-export default function DetailsComponent({ agencies, product }: DetailsComponentProps) {
+export default function DetailsComponent({ agencies, product, productId }: DetailsComponentProps) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [selectedAgency, setSelectedAgency] = useState<number | null>(null);
   const [availableSizes, setAvailableSizes] = useState<string[]>([]);
   const { t } = useTranslation("productDetails");
+  const [createBooking] = useCreateBookingMutation();
+  const isLoggedIn = useAuth();
 
+  const createBookingMutation = async (startDate: Date | null, endDate: Date | null) => {
+    if (!isLoggedIn) {
+      console.log("User not authenticated");
+      return;
+    }
+
+    if (productId !== undefined) {
+      try {
+        const currentDate = new Date().toISOString();
+        const response = await createBooking({
+          variables: {
+            data: {
+              agency: {
+                id: 1, // Remplacez par l'id correct de l'agence
+              },
+              bookingDate: currentDate,
+              startDate: "2024-06-18T10:15:30.000Z", // Convertissez en format ISO string si startDate est défini
+              endDate: "2024-06-18T10:15:30.000Z", // Convertissez en format ISO string si endDate est défini
+              invoice: "123",
+              productCodeId: null,
+              productId: 1,
+              status: "BOOKED" as StatusBooking, // Assurez-vous que le status est correctement défini
+              user: {
+                id: 1, // Remplacez par l'id correct de l'utilisateur
+              },
+              quantity: 1, // Assurez-vous que quantity est correctement défini
+              size: "M", // Assurez-vous que size est correctement défini
+            },
+          },
+        });
+
+        console.log("Booking created", response);
+      } catch (error) {
+        console.error("Error creating booking", error);
+      }
+    } else {
+      console.error("productId is undefined");
+    }
+  };
+
+  // Filtrer les tailles disponibles en fonction de l'agence sélectionnée
   const filterAvailableSizes = (agencyId: number | null) => {
     if (agencyId !== null) {
-      const selectedAgencyData = agencies?.find(agency => agency.id === agencyId);
+      const selectedAgencyData = agencies?.find((agency) => agency.id === agencyId);
       const sizes = selectedAgencyData?.productCodes
-        ?.map(productCode => productCode.size)
+        ?.map((productCode) => productCode.size)
         .filter((size): size is string => size !== null && size !== undefined)
-        .map(size => size.toUpperCase());
+        .map((size) => size.toUpperCase());
       return sizes || [];
     }
     return [];
@@ -35,9 +81,16 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
     }
   }, [selectedAgency, agencies]);
 
+  // Gérer le changement de date
   const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
-    console.log("Date de début:", startDate);
-    console.log("Date de fin:", endDate);
+    console.log("Start Date:", startDate);
+    console.log("End Date:", endDate);
+    createBookingMutation(startDate, endDate);
+  };
+
+  // Gérer l'ajout au panier
+  const handleAddToBasket = () => {
+    createBookingMutation(null, null);
   };
 
   if (!product || !agencies) {
@@ -57,7 +110,7 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
       <SizeSelector availableSizes={availableSizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
       <ProductPricing product={product} quantity={quantity} setQuantity={setQuantity} />
       <DateSelector handleDateChange={handleDateChange} />
-      <AddToBasketButton />
+      <AddToBasketButton onAddToBasket={handleAddToBasket} />
     </Flex>
   );
 }
@@ -65,4 +118,5 @@ export default function DetailsComponent({ agencies, product }: DetailsComponent
 interface DetailsComponentProps {
   agencies?: Agency[];
   product?: Product;
+  productId: number; // Assurez-vous que productId est de type number
 }

@@ -1,6 +1,14 @@
 import {
   Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
+  Input,
   Menu,
   MenuButton,
   MenuItem,
@@ -89,9 +97,35 @@ export default function SubNavbar() {
         borderWidth="1px"
         variant="cartButton"
         leftIcon={<ShoppingCartIcon width={18} />}
+        onClick={onOpen}
       >
         {t("My basket")}
       </Button>
+      <Drawer size="md" isOpen={isOpen} onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Create your account</DrawerHeader>
+
+          <DrawerBody>
+            <form
+              id='my-form'
+              onSubmit={(e) => {
+                e.preventDefault()
+                console.log('submitted')
+              }}
+            >
+              <Input name='nickname' placeholder='Type here...' />
+            </form>
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Button type='submit' form='my-form'>
+              Save
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </Flex>
   );
 }

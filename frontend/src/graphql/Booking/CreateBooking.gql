@@ -1,10 +1,14 @@
 mutation CreateBooking($data: NewBookingInput!) {
   createBooking(data: $data) {
     id
-    status
-    invoice
+    agency {
+      id
+    }
     bookingDate
     startDate
     endDate
+    user {
+      id
+    }
   }
 }

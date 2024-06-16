@@ -1,3 +1,0 @@
-mutation CancelBooking($bookingId: Float!) {
-  cancelBooking(bookingId: $bookingId)
-}

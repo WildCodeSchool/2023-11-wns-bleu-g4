@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type GetAllProduct_CodesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetAllProduct_CodesQuery = { __typename?: 'Query', getAllProduct_codes: Array<{ __typename?: 'Product_code', id: number, status: Types.Status }> };
+export type GetAllProduct_CodesQuery = { __typename?: 'Query', getAllProduct_codes: Array<{ __typename?: 'ProductCode', id: number, status: Types.Status }> };
 
 
 export const GetAllProduct_CodesDocument = gql`

@@ -11,7 +11,7 @@ import { GraphQLError } from "graphql";
 import { Context } from "../utils";
 import { Booking, NewBookingInput, UpdateBookingInput } from "../entities/Booking";
 import { StatusBooking } from "../enum/StatusBooking";
-import Product_code from "../entities/ProductCode";
+import ProductCode from "../entities/ProductCode";
 import { BookingItem } from "../entities/BookingItem";
 import { BookingItemStatus } from "../enum/BookingItemStatus";
 import Product from "../entities/Product";
@@ -26,8 +26,8 @@ class BookingResolver {
         return Booking.find({
             relations: { user: true, agency: true },
             where: {
-                agency: { id: agencyId },
-                user: { id: userId }
+                ...(agencyId && { agency: { id: agencyId } }),
+                ...(userId && { user: { id: userId } })
             }
         });
     }
@@ -78,9 +78,17 @@ class BookingResolver {
         const product = await Product.findOne({ where: { id: data.productId } });
         if (!product) throw new GraphQLError("Product not found");
 
-        const productCode = await Product_code.checkAvailability(data.productId, startDate, endDate);
-        if (!productCode) {
-            throw new GraphQLError("No available Product Code found for the specified dates");
+        // Vérification de la disponibilité pour la quantité et la taille demandées
+        const availableProductCodes = await ProductCode.checkAvailability(
+            data.productId,
+            startDate,
+            endDate,
+            data.quantity,
+            data.size
+        );
+
+        if (!availableProductCodes || availableProductCodes.length < data.quantity) {
+            throw new GraphQLError("Not enough available Product Codes found for the specified dates and size");
         }
 
         const newBooking = new Booking();
@@ -88,16 +96,20 @@ class BookingResolver {
         newBooking.status = StatusBooking.BOOKED;
         await newBooking.save();
 
-        const bookingItem = new BookingItem();
-        bookingItem.status = BookingItemStatus.RENTED;
-        bookingItem.booking = newBooking;
-        bookingItem.product = product;
-        bookingItem.productCode = productCode;
-        bookingItem.startDate = startDate;
-        bookingItem.endDate = endDate;
-        await bookingItem.save();
+        const bookingItems = [];
+        for (const productCode of availableProductCodes) {
+            const bookingItem = new BookingItem();
+            bookingItem.status = BookingItemStatus.RENTED;
+            bookingItem.booking = newBooking;
+            bookingItem.product = product;
+            bookingItem.productCode = productCode;
+            bookingItem.startDate = startDate;
+            bookingItem.endDate = endDate;
+            await bookingItem.save();
+            bookingItems.push(bookingItem);
+        }
 
-        newBooking.bookingItem = [bookingItem];
+        newBooking.bookingItem = bookingItems;
         await newBooking.save();
 
         return Booking.findOne({

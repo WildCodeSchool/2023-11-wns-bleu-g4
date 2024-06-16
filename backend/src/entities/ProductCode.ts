@@ -1,5 +1,3 @@
-import { IsEnum } from "class-validator"
-import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
 	Column,
@@ -15,12 +13,13 @@ import { Status } from "../enum/StatusProductCode"
 import { Agency } from "./Agency"
 import { Product } from "./Product"
 import { BookingItem } from "./BookingItem"
-import { AgencyId, ProductId } from "../types"
+import { IsEnum } from "class-validator"
+import { Field, InputType, Int, ObjectType } from "type-graphql"
 import { BookingItemStatus } from "../enum/BookingItemStatus"
 
 @Entity()
 @ObjectType()
-export class Product_code extends BaseEntity {
+export class ProductCode extends BaseEntity {
 	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
@@ -33,6 +32,14 @@ export class Product_code extends BaseEntity {
 	@Field(() => Status)
 	@IsEnum(Status)
 	status: Status
+
+	@Column({ type: "boolean", default: false })
+	@Field(() => Boolean)
+	isSizeable: boolean
+
+	@Column({ nullable: true })
+	@Field({ nullable: true })
+	size?: string
 
 	/** RELATIONS *********************/
 	/** MANY TO ONE */
@@ -61,8 +68,20 @@ export class Product_code extends BaseEntity {
 	@Field(() => [BookingItem], { nullable: true })
 	bookingItems: BookingItem[]
 
-	static async checkAvailability(productId: number, startDate: Date, endDate: Date): Promise<Product_code | null> {
-		const productCodes = await this.find({ where: { product: { id: productId }, status: Status.AVAILABLE } });
+	/** METHODS *********************/
+
+	static async checkAvailability(
+		productId: number,
+		startDate: Date,
+		endDate: Date,
+		quantity: number,
+		size?: string | number
+	): Promise<ProductCode[] | null> {
+		const availableProductCodes = [];
+
+		const productCodes = await this.find({
+			where: { product: { id: productId }, status: Status.AVAILABLE, ...(size ? { size: size.toString() } : {}) }
+		});
 
 		for (const productCode of productCodes) {
 			const overlappingBookings = await BookingItem.find({
@@ -75,7 +94,10 @@ export class Product_code extends BaseEntity {
 			});
 
 			if (overlappingBookings.length === 0) {
-				return productCode;
+				availableProductCodes.push(productCode);
+				if (availableProductCodes.length === quantity) {
+					return availableProductCodes;
+				}
 			}
 		}
 
@@ -88,11 +110,17 @@ export class NewProductCodeInput {
 	@Field(() => Status)
 	status: Status
 
-	@Field(() => ProductId)
-	productId: ProductId
+	@Field(() => Int)
+	productId: number
 
-	@Field(() => AgencyId)
-	agencyId: AgencyId
+	@Field(() => Int)
+	agencyId: number
+
+	@Field(() => Boolean, { defaultValue: false })
+	isSizeable: boolean
+
+	@Field(() => String, { nullable: true })
+	size?: string
 }
 
 @InputType()
@@ -101,5 +129,4 @@ export class ProductCodeStatusInput {
 	status: Status
 }
 
-
-export default Product_code
+export default ProductCode

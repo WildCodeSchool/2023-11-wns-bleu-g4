@@ -103,6 +103,12 @@ export class NewBookingInput {
 
 	@Field(() => Int, { nullable: true })
 	productCodeId: number
+
+	@Field(() => Int, { defaultValue: 1 })
+	quantity: number;
+
+	@Field(() => String, { nullable: true })
+	size?: string | number
 }
 
 @InputType()
@@ -124,6 +130,9 @@ export class UpdateBookingInput {
 
 	@Field(() => AgencyId, { nullable: true })
 	agency?: AgencyId;
+
+	@Field(() => String, { nullable: true })
+	size?: string | number
 }
 
 @InputType()

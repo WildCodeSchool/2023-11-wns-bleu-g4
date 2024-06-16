@@ -8,7 +8,7 @@ export type GetProductCodesByStatusQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetProductCodesByStatusQuery = { __typename?: 'Query', getProductCodesByStatus: Array<{ __typename?: 'Product_code', id: number, status: Types.Status }> };
+export type GetProductCodesByStatusQuery = { __typename?: 'Query', getProductCodesByStatus: Array<{ __typename?: 'ProductCode', id: number, status: Types.Status }> };
 
 
 export const GetProductCodesByStatusDocument = gql`

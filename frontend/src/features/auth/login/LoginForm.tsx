@@ -1,4 +1,6 @@
 import { ToastConfigLogin } from "@/config/ToastConfig";
+import { useProfileQuery } from "@/graphql/User/generated/GetProfile.generated";
+import { useLoginMutation } from "@/graphql/User/generated/Login.generated";
 import {
   Box,
   Button,
@@ -21,12 +23,14 @@ import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import React, { FormEvent } from "react";
 import { toast } from "react-toastify";
-import { useLoginMutation } from "../../../graphql/generated/schema";
 
 export default function LoginForm() {
   const { t } = useTranslation("LoginForm");
 
   const [login] = useLoginMutation();
+  const { data: currentUser, client } = useProfileQuery({
+    errorPolicy: "ignore",
+  });
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 

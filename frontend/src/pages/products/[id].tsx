@@ -4,10 +4,10 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllNamespaces } from "../../../i18nUtils";
 
-export default function Product() {
+export default function Product({ id }: { id: string }) {
   return (
     <Layout>
-      <ProductPage />
+      <ProductPage productId={id} />
     </Layout>
   );
 }

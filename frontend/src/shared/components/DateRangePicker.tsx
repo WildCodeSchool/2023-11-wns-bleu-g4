@@ -2,7 +2,7 @@ import { Button, ButtonProps, Text } from "@chakra-ui/react";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { enUS, fr } from "date-fns/locale";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { DateRange, DayPicker, SelectRangeEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useTranslation } from "react-i18next";
@@ -30,14 +30,16 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
     };
   }, []);
 
-  const locale = useRouter().locale;
+  const { locale } = useRouter();
   const { t } = useTranslation("DateRangePicker");
+
+  const memoizedOnDateChange = useCallback(onDateChange, []);
 
   useEffect(() => {
     if (range) {
-      onDateChange(range.from ?? null, range.to ?? null);
+      memoizedOnDateChange(range.from ?? null, range.to ?? null);
     }
-  }, [range, onDateChange]);
+  }, [range, memoizedOnDateChange]);
 
   const handleSelectRange: SelectRangeEventHandler = selectedRange => {
     setRange(selectedRange);
