@@ -1,7 +1,0 @@
-mutation CreateSubCategory($data: NewSubCategoryInput!) {
-  createSubCategory(data: $data) {
-    id
-    name
-    thumbnail
-  }
-}
