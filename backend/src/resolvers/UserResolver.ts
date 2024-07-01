@@ -1,5 +1,5 @@
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql"
-import { User, NewUserInput, LoginInput, UpdateUserInput } from "../entities/User"
+import { User, NewUserInput, LoginInput, UpdateUserInput, UserRole } from "../entities/User"
 import { GraphQLError } from "graphql"
 import { verify } from "argon2"
 import jwt from "jsonwebtoken"
@@ -82,9 +82,10 @@ class UserResolver {
 		})
 	}
 
+	@Authorized([UserRole.ADMIN])
 	@Query(() => [User])
 	async getAllUsers() {
-		return User.find()
+		return User.find({ where: { role: UserRole.CUSTOMER } })
 	}
 }
 
