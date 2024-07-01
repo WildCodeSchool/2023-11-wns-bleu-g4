@@ -1,5 +1,8 @@
 import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+
+const MotionAccordionItem = motion(AccordionItem);
 
 export default function Faq() {
     const { t } = useTranslation("faq");
@@ -27,9 +30,15 @@ export default function Faq() {
     ];
 
     return (
-        <Accordion allowToggle reduceMotion={false} variant="faq" w={{ base: "100%", md: "60%" }}>
+        <Accordion allowToggle reduceMotion={false} variant="faq" w={{ base: "100%", md: "60%" }} overflow="hidden">
             {data.map((item, index) => (
-                <AccordionItem key={index} mb={{ base: 4, md: 8 }}>
+                <MotionAccordionItem
+                    key={index}
+                    mb={{ base: 4, md: 8 }}
+                    initial={{ x: 1000, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
                     {({ isExpanded }) => (
                         <>
                             <h2>
@@ -41,7 +50,6 @@ export default function Faq() {
                                         xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
                                         <path d="M16.75 0.416504L9.25 0.416504V9.15025H0.5L0.5 16.6503H9.25V25.384H16.75V16.6503H25.5V9.15025H16.75V0.416504Z" fill="#E66300" />
                                     </svg>
-
                                 </AccordionButton>
                             </h2>
                             <AccordionPanel pb={4}>
@@ -49,7 +57,7 @@ export default function Faq() {
                             </AccordionPanel>
                         </>
                     )}
-                </AccordionItem>
+                </MotionAccordionItem>
             ))}
         </Accordion>
     );
