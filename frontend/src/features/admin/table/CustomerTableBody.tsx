@@ -38,7 +38,7 @@ export default function CustomerTableBody({ data }: TableBodyProps) {
           ))
         ) : (
           <tr>
-            <td className="p-4 text-center" colSpan={4}>
+            <td className="p-4 text-center" colSpan={5}>
               No customer found
             </td>
           </tr>
