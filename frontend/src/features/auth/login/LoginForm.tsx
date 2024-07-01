@@ -87,7 +87,7 @@ export default function LoginForm() {
                     <Input
                       type={show ? "text" : "password"}
                       color="black"
-                      placeholder="Password"
+                      placeholder={t("Password")}
                       name="password"
                       size="md"
                       bg="bgLight"

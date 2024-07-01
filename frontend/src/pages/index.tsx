@@ -5,6 +5,7 @@ import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllNamespaces } from "../../i18nUtils";
 import CardItemCarousel from "@/features/home/categories/CardItemCarousel";
+import FaqSection from "@/features/home/faq/FaqSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Welcome />
       <BentoGrid />
       <CardItemCarousel />
+      <FaqSection />
     </Layout>
   );
 }
