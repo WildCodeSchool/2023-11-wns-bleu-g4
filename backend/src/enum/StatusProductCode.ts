@@ -1,11 +1,11 @@
 import { registerEnumType } from "type-graphql"
 
 export enum Status {
-	BOOKED = "booked",
 	AVAILABLE = "available",
+	BROKEN = "broken",
 }
 
 registerEnumType(Status, {
 	name: "Status",
-	description: "Check if the product is available or booked.",
+	description: "Check if the product is available.",
 })

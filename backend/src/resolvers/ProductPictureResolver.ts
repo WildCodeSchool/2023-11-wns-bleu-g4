@@ -12,12 +12,12 @@ import {
 	NewProduct_pictureInput,
 	Product_picture,
 	UpdateProduct_pictureInput,
-} from "../entities/Product_picture"
+} from "../entities/ProductPicture"
 import { UserRole } from "../entities/User"
 import { Context } from "../utils"
 
 @Resolver()
-class Product_pictureResolver {
+class ProductPictureResolver {
 	@Query(() => [Product_picture])
 	async getAllProduct_pictures() {
 		try {
@@ -82,4 +82,4 @@ class Product_pictureResolver {
 	}
 }
 
-export default Product_pictureResolver
+export default ProductPictureResolver

@@ -166,7 +166,7 @@ h4 {
 
 .mySwiper2 {
   width: 100%;
-  height: 80%;
+  max-height: 50%;
 }
 
 .mySwiper {
@@ -189,7 +189,7 @@ h4 {
 
 .mySwiper .swiper-slide {
   width: 25%;
-  height: 100%;
+  height: 80%;
   opacity: 0.4;
   border-bottom: 4px solid grey;
   padding-bottom: 10px;

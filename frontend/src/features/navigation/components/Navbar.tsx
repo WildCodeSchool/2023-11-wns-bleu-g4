@@ -7,6 +7,7 @@ import {
   Collapse,
   Flex,
   IconButton,
+  Link,
   Menu,
   MenuButton,
   MenuDivider,
@@ -19,14 +20,14 @@ import {
 import { ArrowLeftStartOnRectangleIcon, ArrowRightEndOnRectangleIcon, Bars3BottomRightIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
+import { useLogoutMutation } from "@/graphql/User/generated/Logout.generated";
+import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import LanguageSwitcher from "@/shared/components/LanguageSwitcher";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import TopNavItems from "./TopNavItems";
-import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
-import { useRouter } from "next/router";
-import { useLogoutMutation } from "@/graphql/User/generated/Logout.generated";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function DesktopNavbar() {
   const [t] = useTranslation("Navbar");
@@ -55,7 +56,9 @@ function DesktopNavbar() {
       <nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
         <ul className="flex w-full items-center justify-start gap-8">
           <div className="flex grow">
-            <ThemedLogo />
+            <Link href="/">
+              <ThemedLogo />
+            </Link>
           </div>
 
           <SearchBar onSearch={query => console.log(query)} placeholder={t("Search")} />
