@@ -18,7 +18,7 @@ function App({ Component, pageProps }: AppProps) {
         <BookingDataContextProvider>
           <ProductProvider>
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-            <Component {...pageProps} />
+            <Component {...pageProps} suppressHydrationWarning />
             <ToastContainer />
           </ProductProvider>
         </BookingDataContextProvider>
