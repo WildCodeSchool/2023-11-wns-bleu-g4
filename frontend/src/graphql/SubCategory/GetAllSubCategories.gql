@@ -1,7 +1,0 @@
-query GetAllSubCategories {
-  getAllSubCategories {
-    id
-    name
-    thumbnail
-  }
-}
