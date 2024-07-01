@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type DeleteAgencyMutationVariables = Types.Exact<{
-  agencyId: Types.Scalars['Float'];
+  agencyId: Types.Scalars['Float']['input'];
 }>;
 
 

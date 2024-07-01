@@ -42,6 +42,11 @@ export function useGetAllProduct_PicturesLazyQuery(baseOptions?: Apollo.LazyQuer
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetAllProduct_PicturesQuery, GetAllProduct_PicturesQueryVariables>(GetAllProduct_PicturesDocument, options);
         }
+export function useGetAllProduct_PicturesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllProduct_PicturesQuery, GetAllProduct_PicturesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllProduct_PicturesQuery, GetAllProduct_PicturesQueryVariables>(GetAllProduct_PicturesDocument, options);
+        }
 export type GetAllProduct_PicturesQueryHookResult = ReturnType<typeof useGetAllProduct_PicturesQuery>;
 export type GetAllProduct_PicturesLazyQueryHookResult = ReturnType<typeof useGetAllProduct_PicturesLazyQuery>;
+export type GetAllProduct_PicturesSuspenseQueryHookResult = ReturnType<typeof useGetAllProduct_PicturesSuspenseQuery>;
 export type GetAllProduct_PicturesQueryResult = Apollo.QueryResult<GetAllProduct_PicturesQuery, GetAllProduct_PicturesQueryVariables>;

@@ -1,68 +1,29 @@
-import AddToBasketButton from "@/features/product/detailsComponent/components/AddToBasketButton";
-import DateSelector from "@/features/product/detailsComponent/components/DateSelector";
-import ProductDescription from "@/features/product/detailsComponent/components/ProductDescription";
-import ProductHeader from "@/features/product/detailsComponent/components/ProductHeader";
-import ProductPricing from "@/features/product/detailsComponent/components/ProductPricing";
-import SizeSelector from "@/features/product/detailsComponent/components/SizeSelector";
+import { useProductContext } from "@/context/ProductPageContext";
 import { Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Agency, Product } from "../ProductPage";
+import AddToBasketButton from "./components/AddToBasketButton";
+import DateSelector from "./components/DateSelector";
+import ProductCharacteristic from "./components/ProductCharacteristic";
+import ProductDescription from "./components/ProductDescription";
+import ProductHeader from "./components/ProductHeader";
+import ProductPricing from "./components/ProductPricing";
+import SizeSelector from "./components/SizeSelector";
 
-export default function DetailsComponent({ agencies, product }: DetailsComponentProps) {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState(0);
-  const [selectedAgency, setSelectedAgency] = useState<number | null>(null);
-  const [availableSizes, setAvailableSizes] = useState<string[]>([]);
-  const { t } = useTranslation("productDetails");
+export default function DetailsComponent() {
+  const { selectedProduct, agencies } = useProductContext();
 
-  const filterAvailableSizes = (agencyId: number | null) => {
-    if (agencyId !== null) {
-      const selectedAgencyData = agencies?.find(agency => agency.id === agencyId);
-      const sizes = selectedAgencyData?.productCodes
-        ?.map(productCode => productCode.size)
-        .filter((size): size is string => size !== null && size !== undefined)
-        .map(size => size.toUpperCase());
-      return sizes || [];
-    }
-    return [];
-  };
-
-  useEffect(() => {
-    if (selectedAgency !== null) {
-      const sizes = filterAvailableSizes(selectedAgency);
-      setAvailableSizes(sizes);
-    }
-  }, [selectedAgency, agencies]);
-
-  const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
-    console.log("Date de début:", startDate);
-    console.log("Date de fin:", endDate);
-  };
-
-  if (!product || !agencies) {
+  if (!selectedProduct || !agencies) {
     return <p>Loading...</p>;
   }
 
   return (
     <Flex w="40%" flexDirection="column" gap="10px">
-      <ProductHeader product={product} />
-      <ProductDescription
-        product={product}
-        agencies={agencies}
-        selectedAgency={selectedAgency}
-        setSelectedAgency={setSelectedAgency}
-        setSelectedSize={setSelectedSize}
-      />
-      <SizeSelector availableSizes={availableSizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
-      <ProductPricing product={product} quantity={quantity} setQuantity={setQuantity} />
-      <DateSelector handleDateChange={handleDateChange} />
+      <ProductHeader />
+      <ProductDescription />
+      <SizeSelector />
+      <ProductPricing />
+      <DateSelector />
       <AddToBasketButton />
+      <ProductCharacteristic />
     </Flex>
   );
-}
-
-interface DetailsComponentProps {
-  agencies?: Agency[];
-  product?: Product;
 }

@@ -8,7 +8,7 @@ export type CreateAgencyMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreateAgencyMutation = { __typename?: 'Mutation', createAgency: { __typename?: 'Agency', id: number, name: string, address: string, postcode: string, city: string, country: string, phone: string, email: string, bookings: Array<{ __typename?: 'Booking', id: number }>, productCodes: Array<{ __typename?: 'Product_code', id: number }> } };
+export type CreateAgencyMutation = { __typename?: 'Mutation', createAgency: { __typename?: 'Agency', id: number, name: string, address: string, postcode: string, city: string, country: string, phone: string, email: string, bookings: Array<{ __typename?: 'Booking', id: number }>, productCodes: Array<{ __typename?: 'ProductCode', id: number }> } };
 
 
 export const CreateAgencyDocument = gql`

@@ -53,7 +53,8 @@ export default function Footer() {
               <li key={index} className="group w-fit hover:cursor-pointer">
                 <Link href={el.link}>{el.name}</Link>
                 <div
-                  className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} duration-500 ease-in-out group-hover:w-full`}
+                  className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} 
+                  duration-500 ease-in-out group-hover:w-full`}
                 ></div>
               </li>
             );
@@ -66,7 +67,8 @@ export default function Footer() {
           <li className="group w-fit hover:cursor-pointer">
             {t("Connect us")}
             <div
-              className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} duration-500 ease-in-out group-hover:w-full`}
+              className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} 
+              duration-500 ease-in-out group-hover:w-full`}
             ></div>
           </li>
           <li className="group w-fit hover:cursor-pointer">
@@ -76,7 +78,8 @@ export default function Footer() {
               <ArrowTopRightOnSquareIcon width={18} height={18} />
             </Link>
             <div
-              className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} duration-500 ease-in-out group-hover:w-full`}
+              className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} 
+              duration-500 ease-in-out group-hover:w-full`}
             ></div>
           </li>
           <li className="group w-fit hover:cursor-pointer">
@@ -86,13 +89,15 @@ export default function Footer() {
               <ArrowTopRightOnSquareIcon width={18} height={18} />
             </Link>
             <div
-              className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} duration-500 ease-in-out group-hover:w-full`}
+              className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} 
+              duration-500 ease-in-out group-hover:w-full`}
             ></div>
           </li>
         </ul>
 
         {/**Logo */}
-        <div className="flex w-full flex-col items-center py-3 md:w-1/3 md:items-start md:justify-between md:border-l-2 md:border-l-slate-300 md:px-12">
+        <div className="flex w-full flex-col items-center py-3 md:w-1/3 md:items-start 
+        md:justify-between md:border-l-2 md:border-l-slate-300 md:px-12">
           <Link href="/" className="flex w-full justify-center md:justify-start">
             <ThemedLogo />
           </Link>

@@ -7,8 +7,8 @@ import {
     Query,
     Resolver,
 } from "type-graphql"
-import { Context } from "../utils"
 import { BookingItem, NewBookingItemInput, UpdateBookingItemInput } from "../entities/BookingItem"
+import { Context } from "../utils"
 
 @Resolver()
 class BookingItemResolver {

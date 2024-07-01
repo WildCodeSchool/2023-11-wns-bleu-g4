@@ -1,33 +1,27 @@
-import { Flex, Text, Select } from "@chakra-ui/react";
+import { useProductContext } from "@/context/ProductPageContext";
+import { Flex, Select, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { Agency, Product } from "@/features/product/ProductPage";
 
-export default function ProductDescription({
-  product,
-  agencies,
-  selectedAgency,
-  setSelectedAgency,
-  setSelectedSize
-}: {
-  product: Product;
-  agencies: Agency[];
-  selectedAgency: number | null;
-  setSelectedAgency: (id: number | null) => void;
-  setSelectedSize: (size: string | null) => void;
-}) {
+export default function ProductDescription() {
   const { t } = useTranslation("productDetails");
+  const { selectedProduct, agencies, setSelectedAgency, setSelectedSize } = useProductContext();
+
+  if (!selectedProduct) return null;
 
   return (
     <Flex flexDirection="column" gap="10px">
-      <Text fontSize="2xl" fontWeight="700" fontFamily="Poppins"></Text>
-      <Text fontWeight="600">{product.description}</Text>
+      <Text fontSize="2xl" fontWeight="700" fontFamily="Poppins">{selectedProduct.name}</Text>
+      <Text fontWeight="600">{selectedProduct.description}</Text>
       <Select
         placeholder="Sélectionner une agence"
         width="fit-content"
+        mt={5}
         onChange={e => {
           const selectedId = parseInt(e.target.value);
-          setSelectedAgency(selectedId);
-          setSelectedSize(null); // Réinitialiser la taille sélectionnée lors du changement d'agence
+          if (!isNaN(selectedId)) {
+            setSelectedAgency(selectedId);
+            setSelectedSize(null);
+          }
         }}
       >
         {agencies.map((agency, index) => (

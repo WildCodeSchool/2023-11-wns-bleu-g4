@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdateAgencyMutationVariables = Types.Exact<{
   data: Types.UpdateAgencyInput;
-  agencyId: Types.Scalars['Float'];
+  agencyId: Types.Scalars['Float']['input'];
 }>;
 
 
