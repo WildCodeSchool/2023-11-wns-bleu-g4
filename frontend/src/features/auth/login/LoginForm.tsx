@@ -1,4 +1,5 @@
 import { ToastConfigLogin } from "@/config/ToastConfig";
+import { useLoginMutation } from "@/graphql/User/generated/Login.generated";
 import {
   Box,
   Button,
@@ -21,7 +22,6 @@ import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import React, { FormEvent } from "react";
 import { toast } from "react-toastify";
-import { useLoginMutation } from "../../../graphql/generated/schema";
 
 export default function LoginForm() {
   const { t } = useTranslation("LoginForm");
@@ -39,7 +39,7 @@ export default function LoginForm() {
     try {
       await login({ variables: { data: formJSON } });
       toast.info("LOGIN SUCCESSFULL", ToastConfigLogin);
-      window.location.replace("/account");
+      window.location.replace("/");
     } catch (e: any) {
       const errArr = e.message.replace("_", " ");
       toast.error(errArr, ToastConfigLogin);

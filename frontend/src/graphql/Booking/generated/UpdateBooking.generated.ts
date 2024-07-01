@@ -5,11 +5,11 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdateBookingMutationVariables = Types.Exact<{
   data: Types.UpdateBookingInput;
-  bookingId: Types.Scalars['Float'];
+  bookingId: Types.Scalars['Float']['input'];
 }>;
 
 
-export type UpdateBookingMutation = { __typename?: 'Mutation', updateBooking: { __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any, agency: { __typename?: 'Agency', id: number }, user: { __typename?: 'User', id: number } } };
+export type UpdateBookingMutation = { __typename?: 'Mutation', updateBooking: { __typename?: 'Booking', id: number, status: Types.StatusBooking, bookingDate: any, startDate: any, endDate: any, agency: { __typename?: 'Agency', id: number }, user: { __typename?: 'User', id: number } } };
 
 
 export const UpdateBookingDocument = gql`
@@ -17,7 +17,6 @@ export const UpdateBookingDocument = gql`
   updateBooking(data: $data, bookingId: $bookingId) {
     id
     status
-    invoice
     bookingDate
     startDate
     endDate

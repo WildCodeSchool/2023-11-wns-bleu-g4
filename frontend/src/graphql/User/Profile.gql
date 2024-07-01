@@ -1,0 +1,15 @@
+query Profile {
+  profile {
+    address
+    avatar
+    city
+    country
+    email
+    firstname
+    id
+    name
+    phone
+    postcode
+    role
+  }
+}

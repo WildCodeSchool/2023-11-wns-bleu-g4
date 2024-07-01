@@ -1,20 +1,20 @@
-import {
-    Resolver,
-    Query,
-    Arg,
-    Mutation,
-    Int,
-    Ctx,
-    Authorized,
-} from "type-graphql";
 import { GraphQLError } from "graphql";
-import { Context } from "../utils";
+import {
+    Arg,
+    Authorized,
+    Ctx,
+    Int,
+    Mutation,
+    Query,
+    Resolver,
+} from "type-graphql";
 import { Booking, NewBookingInput, UpdateBookingInput } from "../entities/Booking";
-import { StatusBooking } from "../enum/StatusBooking";
-import ProductCode from "../entities/ProductCode";
 import { BookingItem } from "../entities/BookingItem";
-import { BookingItemStatus } from "../enum/BookingItemStatus";
 import Product from "../entities/Product";
+import ProductCode from "../entities/ProductCode";
+import { BookingItemStatus } from "../enum/BookingItemStatus";
+import { StatusBooking } from "../enum/StatusBooking";
+import { Context } from "../utils";
 
 @Resolver()
 class BookingResolver {

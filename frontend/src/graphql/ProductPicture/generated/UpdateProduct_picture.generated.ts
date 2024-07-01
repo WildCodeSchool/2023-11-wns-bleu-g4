@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdateProduct_PictureMutationVariables = Types.Exact<{
   data: Types.UpdateProduct_PictureInput;
-  updateProductPictureId: Types.Scalars['Int'];
+  updateProductPictureId: Types.Scalars['Int']['input'];
 }>;
 
 

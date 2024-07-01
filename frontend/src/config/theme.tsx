@@ -6,6 +6,7 @@ import { drawerTheme } from "@/shared/components/ui/Drawer";
 
 import { switchTheme } from "@/shared/components/ui/Switch";
 import { extendTheme } from "@chakra-ui/react";
+import { darken, lighten } from "polished";
 
 export const theme = extendTheme({
   components: {
@@ -37,20 +38,45 @@ export const theme = extendTheme({
       900: "#233125",
       950: "#0B0F0B",
     },
+
+    // Text
     light: "#F5EEE5",
     dark: "#140111",
+
+    // Backgrounds
     bgDark: "#0B0F0B",
     bgLight: "#FFFFFF",
+
+    // Buttons
     accent: "#E66300",
+    accentDark: darken(0.05, "#E66300"),
     accentLight: "#FF9533",
+
+    // Common
     babyGreen: "#B2E6C7",
+
+    // Footer
     footerBgLight: "#F2F2F2",
     footerBgDark: "#0C0C0B",
+
+    // Cards
     cardBgLight: "#f5eee5e6",
+
+    // Light Theme
     primary: "#194D2E",
+    primaryLight: lighten(0.1, "#194D2E"),
+    primaryDark: darken(0.1, "#194D2E"),
     secondary: "#4F6F52",
-    primaryDark: "#B2E6C7",
-    secondaryDark: "#91B195",
+    secondaryLight: lighten(0.1, "#4F6F52"),
+    secondaryDark: darken(0.1, "#4F6F52"),
+
+    // Dark Theme
+    primaryDarkTheme: "#B2E6C7",
+    primaryDarkThemeLight: lighten(0.1, "#B2E6C7"),
+    primaryDarkThemeDark: darken(0.1, "#B2E6C7"),
+    secondaryDarkTheme: "#91B195",
+    secondaryDarkThemeLight: lighten(0.1, "#91B195"),
+    secondaryDarkThemeDark: darken(0.1, "#91B195"),
   },
   styles: {
     global: (props: any) => ({

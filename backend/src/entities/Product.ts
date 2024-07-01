@@ -4,18 +4,21 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
+	JoinTable,
+	ManyToMany,
 	ManyToOne,
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
+import { BrandId, CategoryId, CharacteristicID } from "../types"
 import { ObjectId } from "../utils"
+import { BookingItem } from "./BookingItem"
+import Brand from "./Brand"
 import Category from "./Category"
+import ProductCharacteristic from "./ProductCharacteristic"
 import { ProductCode } from "./ProductCode"
 import { Product_picture } from "./ProductPicture"
-import Brand from "./Brand"
 import Review from "./Review"
-import { BookingItem } from "./BookingItem"
-import { BrandId, CategoryId } from "../types"
 
 @Entity()
 @ObjectType()
@@ -37,11 +40,7 @@ export class Product extends BaseEntity {
 	@Field()
 	description: string
 
-	@Column({ type: "text", nullable: true })
-	@Field({ nullable: true })
-	characteristic: string
-
-	@Column({ default: "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" })
+	@Column({ default: "https://rad-protection.com/wp-content/uploads/2024/02/logo-trek-velo-1024x1024.png" })
 	@Field()
 	thumbnail: string
 
@@ -72,6 +71,11 @@ export class Product extends BaseEntity {
 	@OneToMany(() => BookingItem, (items) => items.product)
 	@Field(() => [BookingItem])
 	bookingItem: BookingItem[]
+
+	@ManyToMany(() => ProductCharacteristic, productCharacteristic => productCharacteristic.product, { cascade: true })
+	@JoinTable()
+	@Field(() => [ProductCharacteristic])
+	characteristics: ProductCharacteristic[]
 }
 
 @InputType()
@@ -87,8 +91,8 @@ export class NewProductInput {
 	@Field()
 	description: string
 
-	@Field({ nullable: true })
-	characteristic?: string
+	@Field(() => CharacteristicID, { nullable: true })
+	characteristics: CharacteristicID[]
 
 	@Field()
 	thumbnail: string
@@ -114,9 +118,6 @@ export class UpdateProductInput {
 	@Field({ nullable: true })
 	description?: string
 
-	@Field({ nullable: true })
-	characteristic?: string
-
 	@Length(2, 255)
 	@Field({ nullable: true })
 	thumbnail?: string
@@ -126,6 +127,9 @@ export class UpdateProductInput {
 
 	@Field(() => ObjectId, { nullable: true })
 	brand?: ObjectId
+
+	@Field(() => [ObjectId], { nullable: true })
+	characteristics?: ObjectId[]
 }
 
 export default Product

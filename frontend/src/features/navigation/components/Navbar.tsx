@@ -7,6 +7,7 @@ import {
   Collapse,
   Flex,
   IconButton,
+  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -29,7 +30,9 @@ function DesktopNavbar() {
       <nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
         <ul className="flex w-full items-center justify-start gap-8">
           <div className="flex grow">
-            <ThemedLogo />
+            <Link href="/">
+              <ThemedLogo />
+            </Link>
           </div>
 
           <SearchBar onSearch={query => console.log(query)} placeholder={t("Search")} />
@@ -39,7 +42,7 @@ function DesktopNavbar() {
                 as={Button}
                 size="sm"
                 leftIcon={<UserCircleIcon width={20} />}
-                variant="profilButton"
+                variant="primaryButton"
                 alignItems={"center"}
               >
                 Profil

@@ -84,7 +84,8 @@ export default function SearchBar({ onSearch, placeholder, variant = "desktop" }
               <XMarkIcon className="dark h-4 w-4" />
             </div>
           )}
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer" onClick={handleIconClick}>
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer"
+            onClick={handleIconClick}>
             <MagnifyingGlassIcon className="dark h-4 w-4" />
           </div>
         </div>
@@ -132,7 +133,9 @@ export default function SearchBar({ onSearch, placeholder, variant = "desktop" }
                 <input
                   type="search"
                   placeholder={placeholder}
-                  className="flex h-8 w-full items-center rounded-full border-b-2 border-accent px-4 py-1 pr-20 text-base focus:border-2 focus:border-accent focus:outline-none sm:bg-white md:bg-neutral-100/20 [&::-webkit-search-cancel-button]:hidden"
+                  className="flex h-8 w-full items-center rounded-full border-b-2 border-accent
+                   px-4 py-1 pr-20 text-base focus:border-2 focus:border-accent focus:outline-none
+                    sm:bg-white md:bg-neutral-100/20 [&::-webkit-search-cancel-button]:hidden"
                   value={query}
                   onChange={handleInputChange}
                   onKeyDown={e => {
@@ -145,7 +148,8 @@ export default function SearchBar({ onSearch, placeholder, variant = "desktop" }
                 />
                 {!isInputEmpty && (
                   <div
-                    className="absolute right-11 top-1/2 -translate-y-1/2 transform cursor-pointer sm:right-8 md:right-14"
+                    className="absolute right-11 top-1/2 -translate-y-1/2 transform cursor-pointer
+                     sm:right-8 md:right-14"
                     onClick={handleClearInput}
                   >
                     <XMarkIcon className="dark h-4 w-4" />

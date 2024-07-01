@@ -11,6 +11,7 @@ import { ReviewResolver } from "./resolvers/ReviewResolver"
 import ParentCategoryResolver from "./resolvers/ParentCategoryResolver"
 import BookingItemResolver from "./resolvers/BookingItemResolver"
 import UserResolver from "./resolvers/UserResolver"
+import ProductCharacteristicResolver from "./resolvers/ProductCharacteristicResolver"
 
 export default buildSchema({
 	resolvers: [
@@ -25,6 +26,7 @@ export default buildSchema({
 		ProductPictureResolver,
 		BookingResolver,
 		BrandResolver,
+		ProductCharacteristicResolver,
 	],
 	authChecker,
 })

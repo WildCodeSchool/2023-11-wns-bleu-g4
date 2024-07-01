@@ -6,32 +6,27 @@ const outline = defineStyle({
   fontWeight: "semibold", // change the font weight
 });
 
-const profilButton = defineStyle({
-  color: "light", // change the text color,
-  bg: "cactus.500",
-  _dark: {
-    background: "cactus.300",
-    color: "dark",
-  },
-  _hover: {
-    _dark: {
-      bg: "cactus.400",
-    },
-  }, // change the background color darkMode
-});
-
-const cartButton = defineStyle({
+const accentButton = defineStyle({
   color: "light", // change the text color,
   bg: "accent",
+
+  _hover: {
+    bg: "accentDark",
+  },
+});
+
+const primaryButton = defineStyle({
+  color: "light",
+  bg: "primary",
   _dark: {
-    background: "accent",
-    color: "white",
+    bg: "secondaryDarkTheme",
+    color: "dark",
+    _hover: {
+      bg: "secondaryDarkThemeDark",
+    },
   },
   _hover: {
-    bg: "accent",
-    _dark: {
-      bg: "accent",
-    },
+    bg: "primaryDark",
   },
 });
 
@@ -94,19 +89,19 @@ const selectorButton = defineStyle({
   color: "light",
   bg: "accent",
   _hover: {
-    bg: "orange.400",
+    bg: "accentDark",
   },
 });
 
 export const buttonTheme = defineStyleConfig({
   variants: {
     outline,
-    profilButton,
-    cartButton,
     subNavButton,
     loginButton,
     adminFooterButton,
     sizeButton,
     selectorButton,
+    accentButton,
+    primaryButton
   },
 });

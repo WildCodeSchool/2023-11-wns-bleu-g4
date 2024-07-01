@@ -1,21 +1,15 @@
+import { useProductContext } from "@/context/ProductPageContext";
 import { Button, ButtonGroup, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
-export default function SizeSelector({
-  availableSizes,
-  selectedSize,
-  setSelectedSize,
-}: {
-  availableSizes: string[];
-  selectedSize: string | null;
-  setSelectedSize: (size: string | null) => void;
-}) {
+export default function SizeSelector() {
+  const { availableSizes, selectedSize, setSelectedSize } = useProductContext();
   const { t } = useTranslation("productDetails");
 
   const allStringSizes = ["S", "M", "L", "XL", "XXL"];
   const allNumberSizes = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
 
-  const renderSizeButtons = (allSizes: string[], availableSizes: string[]) => {
+  const renderSizeButtons = (allSizes: any[], availableSizes: string | any[]) => {
     return allSizes.map(size => {
       const isAvailable = availableSizes.includes(size);
       return (

@@ -1,6 +1,5 @@
-import { Field, InputType, Int, ObjectType } from "type-graphql";
 import { IsEnum } from "class-validator";
-import { BookingId, ProductId } from '../types';
+import { Field, InputType, Int, ObjectType } from "type-graphql";
 import {
 	BaseEntity,
 	Column,
@@ -8,9 +7,10 @@ import {
 	ManyToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import Product from "./Product";
 import { BookingItemStatus } from "../enum/BookingItemStatus";
+import { BookingId, ProductId } from '../types';
 import { Booking } from "./Booking";
+import Product from "./Product";
 import ProductCode from "./ProductCode";
 
 @Entity()

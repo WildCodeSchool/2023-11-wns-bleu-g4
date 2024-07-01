@@ -1,26 +1,21 @@
-import { IsEnum, IsNotEmpty } from "class-validator"
-import { StatusBooking } from "../enum/StatusBooking"
-import { Field, InputType, Int, ObjectType } from "type-graphql"
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	ManyToOne,
-	OneToMany,
-	PrimaryGeneratedColumn,
-} from "typeorm"
-import User from "./User"
-import Agency from "./Agency"
-import { UserId, AgencyId } from "../types"
-import { BookingItem } from "./BookingItem"
+import { IsEnum, IsNotEmpty } from "class-validator";
+import { Field, InputType, Int, ObjectType } from "type-graphql";
+import { BaseEntity, BeforeInsert, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { v4 as uuidv4, v5 as uuidv5 } from "uuid";
+import { StatusBooking } from "../enum/StatusBooking";
+import { AgencyId, UserId } from "../types";
+import Agency from "./Agency";
+import { BookingItem } from "./BookingItem";
+import User from "./User";
+
+const NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341';
 
 @Entity()
 @ObjectType()
 export class Booking extends BaseEntity {
-	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
-	id: number
+	id: number;
 
 	@Column({
 		type: "enum",
@@ -28,61 +23,59 @@ export class Booking extends BaseEntity {
 	})
 	@Field(() => StatusBooking, { defaultValue: StatusBooking.BOOKED })
 	@IsEnum(StatusBooking)
-	status: StatusBooking
+	status: StatusBooking;
 
 	@Column()
 	@Field()
-	invoice: string
+	invoice: string;
 
 	@Column()
 	@Field()
-	bookingDate: Date
+	bookingDate: Date;
 
 	@Column()
 	@Field()
-	startDate: Date
+	startDate: Date;
 
 	@Column()
 	@Field()
-	endDate: Date
+	endDate: Date;
 
-	/** RELATIONS *********************/
-	/** MANY TO ONE */
 	@ManyToOne(() => User, (user) => user.bookings, {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
 	@Field(() => User)
-	user: User
+	user: User;
 
 	@ManyToOne(() => Agency, (agency) => agency.bookings, {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
 	@Field(() => Agency)
-	agency: Agency
+	agency: Agency;
 
-	/** ONE TO MANY */
-	@OneToMany(() => BookingItem, items => items.booking, {
+	@OneToMany(() => BookingItem, (items) => items.booking, {
 		cascade: true,
-		onDelete: "CASCADE"
+		onDelete: "CASCADE",
 	})
 	@Field(() => [BookingItem])
-	bookingItem: BookingItem[]
-	productId: any
-	productCodeId: any
+	bookingItem: BookingItem[];
+
+	@BeforeInsert()
+	generateInvoice() {
+		const shortUuid = uuidv5(uuidv4(), NAMESPACE).replace(/-/g, "").substring(0, 8).toUpperCase();
+		this.invoice = `INV-${shortUuid}-${this.agency.id}`;
+	}
 }
 
 @InputType()
 export class NewBookingInput {
 	@Field(() => StatusBooking)
-	status: StatusBooking
+	status: StatusBooking;
 
 	@Field()
-	invoice: string
-
-	@Field()
-	bookingDate: Date
+	bookingDate: Date;
 
 	@Field()
 	@IsNotEmpty()
@@ -99,25 +92,23 @@ export class NewBookingInput {
 	agency: AgencyId;
 
 	@Field(() => Int)
-	productId: number
+	productId: number;
 
 	@Field(() => Int, { nullable: true })
-	productCodeId: number
+	productCodeId: number;
 
 	@Field(() => Int, { defaultValue: 1 })
 	quantity: number;
 
 	@Field(() => String, { nullable: true })
-	size?: string | number
+	size?: string | number;
 }
+
 
 @InputType()
 export class UpdateBookingInput {
 	@Field(() => StatusBooking)
 	status?: StatusBooking
-
-	@Field({ nullable: true })
-	invoice?: string
 
 	@Field({ nullable: true })
 	bookingDate?: Date
@@ -142,3 +133,4 @@ export class CancelBookingInput {
 }
 
 export default Booking
+

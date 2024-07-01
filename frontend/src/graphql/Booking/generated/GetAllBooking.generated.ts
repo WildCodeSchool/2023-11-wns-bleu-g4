@@ -45,6 +45,11 @@ export function useGetAllBookingLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetAllBookingQuery, GetAllBookingQueryVariables>(GetAllBookingDocument, options);
         }
+export function useGetAllBookingSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllBookingQuery, GetAllBookingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllBookingQuery, GetAllBookingQueryVariables>(GetAllBookingDocument, options);
+        }
 export type GetAllBookingQueryHookResult = ReturnType<typeof useGetAllBookingQuery>;
 export type GetAllBookingLazyQueryHookResult = ReturnType<typeof useGetAllBookingLazyQuery>;
+export type GetAllBookingSuspenseQueryHookResult = ReturnType<typeof useGetAllBookingSuspenseQuery>;
 export type GetAllBookingQueryResult = Apollo.QueryResult<GetAllBookingQuery, GetAllBookingQueryVariables>;
