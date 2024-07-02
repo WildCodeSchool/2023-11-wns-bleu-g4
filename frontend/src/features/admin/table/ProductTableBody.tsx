@@ -94,7 +94,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                         product={selectedProduct}
                         isOpen={isUpdateModalOpen}
                         onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
-                        variant="darkOverlayStyle"
+                        variant="baseStyle"
                       />
                     )}
                     <button
@@ -110,7 +110,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                         product={selectedProduct}
                         isOpen={isDeleteModalOpen}
                         onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-                        variant="darkOverlayStyle"
+                        variant="baseStyle"
                         handleDeleteProduct={handleDeleteProduct}
                       />
                     )}
