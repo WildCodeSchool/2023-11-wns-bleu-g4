@@ -69,7 +69,7 @@ function DesktopNavbar() {
                   as={Button}
                   size="sm"
                   leftIcon={<UserCircleIcon width={20} />}
-                  variant="profilButton"
+                  variant="primaryButton"
                   alignItems={"center"}
                 >
                   {profileData?.profile.firstname}
