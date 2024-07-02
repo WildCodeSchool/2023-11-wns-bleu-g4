@@ -11,7 +11,7 @@ import ProductCreateModal from "@/features/admin/modal/productCreateModal";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 
 export default function Products() {
-  const { data } = useGetAllProductsQuery();
+  const { data, refetch } = useGetAllProductsQuery();
   const products = data?.getAllProducts ?? [];
   const [currentPage, setCurrentPage] = useState(1);
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -39,7 +39,7 @@ export default function Products() {
           Add Product
         </button>
       </div>
-      {isOpen && <ProductCreateModal isOpen={isOpen} onClose={onClose} />}
+      {isOpen && <ProductCreateModal isOpen={isOpen} onClose={onClose} refetch={refetch} />}
       <div className="overflow-x-auto">
         <ProductTableBody data={currentProducts} />
       </div>
