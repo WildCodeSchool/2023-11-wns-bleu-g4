@@ -28,23 +28,24 @@ import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCat
 import { useCreateProductMutation } from "@/graphql/Product/generated/createProduct.generated";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
+import uploadFile from "../helpers/uploadFile";
 
 export default function ProductCreateModal({ isOpen, onClose, refetch }: ProductModalProps) {
   const [createProduct] = useCreateProductMutation();
+  const [imageURL, setImageURL] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     brand: { id: 0 },
     description: "",
     price: 0,
     category: { id: 0 },
-    thumbnail: "",
+    thumbnail: imageURL,
   });
 
   const { data: categoriesData } = useGetAllCategoriesQuery();
   const categories = categoriesData?.getAllCategories ?? [];
   const { data: brandsData } = useGetAllBrandsQuery();
   const brands = brandsData?.getAllBrands ?? [];
-
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>
@@ -79,6 +80,7 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
       price: parseFloat(formData.price.toString()),
       category: { id: formData.category.id },
       brand: { id: formData.brand.id },
+      thumbnail: imageURL,
     };
 
     try {
@@ -191,10 +193,18 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
                 </FormControl>
               </Box>
             </Flex>
-            <FormLabel mb={1} htmlFor="thumbnail">
-              Thumbnail
-            </FormLabel>
-            <input type="file" id="thumbnail" name="thumbnail" />
+            <FormControl isRequired>
+              <FormLabel mb={1} htmlFor="thumbnail">
+                Thumbnail
+              </FormLabel>
+              <input
+                type="file"
+                onChange={(e) => {
+                  if (e.target.files?.[0])
+                    uploadFile(e.target.files?.[0]).then(setImageURL);
+                }}
+              />
+            </FormControl>
             <ModalFooter paddingInline={0} pb={0} pt={8}>
               <Button onClick={onClose}>Cancel</Button>
               <Button colorScheme="blue" ml={3} type="submit">
