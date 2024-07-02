@@ -6,15 +6,21 @@ query GetProductById($productId: Int!) {
     description
     thumbnail
     category {
+      id
       name
     }
     brand {
+      id
       name
     }
     pictures {
       thumbnail
       alt
       id
+    }
+    characteristics {
+      id
+      characteristic
     }
   }
 }
