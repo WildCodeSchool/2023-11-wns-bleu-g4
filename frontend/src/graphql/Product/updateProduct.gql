@@ -1,0 +1,14 @@
+mutation UpdateProduct($data: UpdateProductInput!, $productId: Float!) {
+  updateProduct(data: $data, productId: $productId) {
+    name
+    price
+    description
+    thumbnail
+    category {
+      id
+    }
+    brand {
+      id
+    }
+  }
+}
