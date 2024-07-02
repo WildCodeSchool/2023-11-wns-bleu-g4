@@ -21,14 +21,78 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../types";
+import { Brand, Category, ProductModalProps } from "../types";
 import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
+import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
+import { ChangeEvent, FormEvent, useState } from "react";
+import uploadFile from "../helpers/uploadFile";
+import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
+import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 
 export default function ProductUpdateModal({ isOpen, onClose, product, variant }: ProductModalProps) {
-  const { data } = useGetAllCategoriesQuery();
-  const categories = data?.getAllCategories ?? [];
+  const [updateProduct] = useUpdateProductMutation();
+  const [imageURL, setImageURL] = useState(product?.thumbnail);
+  const [formData, setFormData] = useState({
+    name: product.name,
+    brand: product.brand.id,
+    description: product.description,
+    price: product.price,
+    category: product.category.id,
+    thumbnail: imageURL,
+  });
 
-  const currentCategory = categories.find(category => category.name === product.category.name)?.id;
+  const productId = product.id;
+
+  const { data: categoriesData } = useGetAllCategoriesQuery();
+  const categories = categoriesData?.getAllCategories ?? [];
+  const { data: brandsData } = useGetAllBrandsQuery();
+  const brands = brandsData?.getAllBrands ?? [];
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleNumberInputChange = (valueAsString: string, valueAsNumber: number, name: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: valueAsNumber,
+    }));
+  };
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      // [name]: { id: parseInt(value, 10) },
+      [name]: parseInt(value, 10),
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const productData = {
+      ...formData,
+      price: parseFloat(formData.price.toString()),
+      category: { id: formData.category },
+      brand: { id: formData.brand },
+      thumbnail: imageURL,
+    };
+    console.log(productData);
+
+    updateProduct({
+      variables: { data: productData, productId },
+      refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
+    })
+      .then(onClose)
+      .catch(console.error);
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
@@ -37,65 +101,121 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
         <ModalHeader>Update {product.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <FormControl>
+          <form onSubmit={handleSubmit}>
             <Flex justifyContent="space-between" gap={2} mb={4}>
               <Box>
-                <FormLabel mb={1} id="name">
-                  Name
-                </FormLabel>
-                <Input type="text" placeholder="Name" defaultValue={product.name} />
+                <FormControl isRequired>
+                  <FormLabel mb={1} htmlFor="name">
+                    Name
+                  </FormLabel>
+                  <Input
+                    type="text"
+                    id=""
+                    name="name"
+                    placeholder="Name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
               </Box>
               <Box>
-                <FormLabel mb={1} id="brand">
-                  Brand
-                </FormLabel>
-                <Input type="text" placeholder="Brand" defaultValue={product.brand.name} />
+                <FormControl isRequired>
+                  <FormLabel mb={1} htmlFor="brand">
+                    Brand
+                  </FormLabel>
+                  <Select
+                    placeholder="Select a brand"
+                    id="brand"
+                    name="brand"
+                    value={formData.brand}
+                    onChange={handleSelectChange}
+                  >
+                    {brands.map((brand: Brand) => (
+                      <option key={brand.id} value={brand.id}>
+                        {brand.name}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
               </Box>
             </Flex>
             <Box mb={4}>
-              <Text mb={1}>Description</Text>
-              <Textarea placeholder="Describe the product" maxHeight={200} defaultValue={product.description} />
+              <FormControl isRequired>
+                <FormLabel mb={1}>Description</FormLabel>
+                <Textarea
+                  placeholder="Describe the product"
+                  maxHeight={200}
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                />
+              </FormControl>
             </Box>
             <Flex justifyContent="space-between" gap={2} mb={4}>
               <Box w="100%">
-                <FormLabel mb={1} id="price">
-                  Price
-                </FormLabel>
-                <NumberInput defaultValue={product.price} precision={2} allowMouseWheel min={0}>
-                  <NumberInputField placeholder="5.99" />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
+                <FormControl isRequired>
+                  <FormLabel mb={1} htmlFor="price">
+                    Price
+                  </FormLabel>
+                  <NumberInput
+                    precision={2}
+                    allowMouseWheel
+                    min={0}
+                    name="price"
+                    value={formData.price}
+                    onChange={(valueAsString, valueAsNumber) =>
+                      handleNumberInputChange(valueAsString, valueAsNumber, "price")
+                    }
+                  >
+                    <NumberInputField placeholder="5.99" />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </FormControl>
               </Box>
               <Box w="100%">
-                <Text mb={1} id="category">
-                  Category
-                </Text>
-                <Select placeholder="Select a category" defaultValue={currentCategory}>
-                  {categories.map((category: any) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </Select>
+                <FormControl isRequired>
+                  <FormLabel mb={1} htmlFor="category">
+                    Category
+                  </FormLabel>
+                  <Select
+                    placeholder="Select a category"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleSelectChange}
+                  >
+                    {categories.map((category: Category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
               </Box>
             </Flex>
-            <FormLabel mb={1} id="countInStock">
-              Thumbnail
-            </FormLabel>
-            <input type="file" />
-          </FormControl>
+            <FormControl isRequired>
+              <FormLabel mb={1} htmlFor="thumbnail">
+                Thumbnail
+              </FormLabel>
+              <input
+                type="file"
+                onChange={(e) => {
+                  if (e.target.files?.[0])
+                    uploadFile(e.target.files?.[0]).then(setImageURL);
+                }}
+              />
+            </FormControl>
+            <ModalFooter paddingInline={0} pb={0} pt={8}>
+              <Button onClick={onClose}>Cancel</Button>
+              <Button colorScheme="blue" ml={3} type="submit">
+                Update
+              </Button>
+            </ModalFooter>
+          </form>
         </ModalBody>
-
-        <ModalFooter>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button colorScheme="blue" ml={3} type="submit">
-            Update
-          </Button>
-        </ModalFooter>
       </ModalContent>
-    </Modal>
+    </Modal >
   );
 }
