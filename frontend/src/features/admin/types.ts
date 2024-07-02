@@ -31,3 +31,13 @@ export interface ProductModalProps {
   handleDeleteProduct?: (id: number) => Promise<void>;
   refetch?: () => void;
 }
+
+export interface Brand {
+  id: number;
+  name: string;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+}
