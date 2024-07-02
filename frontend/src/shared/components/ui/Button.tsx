@@ -16,6 +16,7 @@ const accentButton = defineStyle({
 });
 
 const primaryButton = defineStyle({
+  lineHeight: "0",
   color: "light",
   bg: "primary",
   _dark: {
