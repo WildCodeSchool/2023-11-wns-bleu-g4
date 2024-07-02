@@ -6,12 +6,13 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
-import { Product_code } from "./Product_code"
-import {Booking}  from "./Booking"
+import { ProductCode } from "./ProductCode"
+import { Booking } from "./Booking"
 
 @Entity()
 @ObjectType()
 export class Agency extends BaseEntity {
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
 	id: number
@@ -44,9 +45,11 @@ export class Agency extends BaseEntity {
 	@Field()
 	email: string
 
-	@OneToMany(() => Product_code, (productCode) => productCode.agency)
-	@Field(() => [Product_code])
-	productCodes: Product_code[]
+	/** RELATIONS *********************/
+	/** ONE TO MANY */
+	@OneToMany(() => ProductCode, (productCode) => productCode.agency)
+	@Field(() => [ProductCode])
+	productCodes: ProductCode[]
 
 	@OneToMany(() => Booking, (bookings) => bookings.agency)
 	@Field(() => [Booking])

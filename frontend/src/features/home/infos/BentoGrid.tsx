@@ -1,9 +1,12 @@
 import { Box, Flex, Grid, GridItem, Text, useColorModeValue } from "@chakra-ui/react";
 import { FaceSmileIcon, MagnifyingGlassCircleIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { motion, useAnimation } from "framer-motion";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import Facebook from "../../../../public/svg/facebookLight.svg";
 import Instagram from "../../../../public/svg/instagramLight.svg";
-import { useTranslation } from "next-i18next";
 
 export default function BentoGrid() {
   const { t } = useTranslation("Bento");
@@ -17,26 +20,51 @@ export default function BentoGrid() {
   const text1 = useColorModeValue("light", "dark");
   const text2 = useColorModeValue("light", "light");
 
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ triggerOnce: true });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  const variants = {
+    hidden: { opacity: 0, y: 300 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.2, duration: 0.6 },
+    }),
+  };
+
   return (
     <Grid
       templateColumns={{ base: "1fr", lg: "repeat(5, 1fr)" }}
       templateRows={{ base: "repeat(4, 1fr)", lg: "repeat(2, 1fr)" }}
       gap={[2, 4]}
-      px={{ base: 5, lg: 0 }}
+      px={{ base: 5, lg: 24 }}
+      py={{ base: 8, lg: 0 }}
       templateAreas={{
         base: `
-        "item1"
-        "item2"
-        "item3"
-        "item4"
-      `,
+          "item1"
+          "item2"
+          "item3"
+          "item4"
+        `,
         lg: `
-        "item1 item1 item1 item1 item2"
-        "item3 item3 item3 item4 item4"
-      `,
+          "item1 item1 item1 item1 item2"
+          "item3 item3 item3 item4 item4"
+        `,
       }}
     >
       <GridItem
+        as={motion.div}
+        custom={0}
+        initial="hidden"
+        animate={controls}
+        variants={variants}
+        ref={ref}
         gridArea="item1"
         display={"flex"}
         flexDirection={"column"}
@@ -49,14 +77,19 @@ export default function BentoGrid() {
         px={2.5}
         gap={[2.5, 7]}
       >
-        <Text fontSize={{ base: "24px", lg: "96px" }} color={text1} align="center">
+        <Text fontSize={{ base: "24px", lg: "96px" }} color={text2} align="center">
           {t("Over")} <span className="lg:text-9xl sm:text-3xl font-bold">{t("100+")}</span> {t("gear")}
         </Text>
-        <Text color={text1} align="center">
+        <Text color={text2} align="center">
           {t("and more incoming...")}
         </Text>
       </GridItem>
       <GridItem
+        as={motion.div}
+        custom={1}
+        initial="hidden"
+        animate={controls}
+        variants={variants}
         gridArea="item2"
         display={"flex"}
         flexDirection={"column"}
@@ -69,17 +102,22 @@ export default function BentoGrid() {
         py={{ base: 1.5, lg: 8 }}
         gap={[2.5, 2.5, 2.5, 7]}
       >
-        <Text fontSize={{ base: "16px", lg: "24px" }} color={text1} align="center">
+        <Text fontSize={{ base: "16px", lg: "24px" }} color={text2} align="center">
           {t("More than")}
         </Text>
-        <Text color={text1} fontSize={{ base: "32px", lg: "64px" }} fontWeight="700">
+        <Text color={text2} fontSize={{ base: "32px", lg: "64px" }} fontWeight="700">
           {t("50")}
         </Text>
-        <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
+        <Text fontSize={{ base: "16px", lg: "24px" }} color={text2}>
           {t("agencies")}
         </Text>
       </GridItem>
       <GridItem
+        as={motion.div}
+        custom={2}
+        initial="hidden"
+        animate={controls}
+        variants={variants}
         gridArea="item3"
         display={"flex"}
         flexDirection={"column"}
@@ -94,34 +132,54 @@ export default function BentoGrid() {
         <Text fontSize={{ base: "14px", md: "16px", lg: "32px" }} color={text1} align="center">
           {t("Renting equipment hase never been easier")}
         </Text>
-        <Flex width={"full"} justifyContent={"space-around"}>
-          <Flex direction={"column"} alignItems={"center"}>
+        <Flex width={"full"} justifyContent={"space-around"} overflow="hidden">
+          <motion.div
+            initial={{ x: -200, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex justify-center items-center flex-col"
+          >
             <Box width={["30px", "30px", "50px", "80px"]}>
               <MagnifyingGlassCircleIcon fill={isDark ? "dark" : "white"} />
             </Box>
             <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
               {t("Search")}
             </Text>
-          </Flex>
-          <Flex direction={"column"} alignItems={"center"}>
+          </motion.div>
+          <motion.div
+            initial={{ x: -200, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex justify-center items-center flex-col"
+          >
             <Box width={["30px", "30px", "50px", "80px"]}>
               <ShoppingCartIcon fill={isDark ? "dark" : "white"} />
             </Box>
             <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
               {t("Rent")}
             </Text>
-          </Flex>
-          <Flex direction={"column"} alignItems={"center"}>
+          </motion.div>
+          <motion.div
+            initial={{ x: -200, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex justify-center items-center flex-col"
+          >
             <Box width={["30px", "30px", "50px", "80px"]}>
               <FaceSmileIcon fill={isDark ? "dark" : "white"} />
             </Box>
             <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
               {t("Enjoy")}
             </Text>
-          </Flex>
+          </motion.div>
         </Flex>
       </GridItem>
       <GridItem
+        as={motion.div}
+        custom={3}
+        initial="hidden"
+        animate={controls}
+        variants={variants}
         gridArea="item4"
         display={"flex"}
         flexDirection={"column"}
@@ -146,6 +204,6 @@ export default function BentoGrid() {
           </Box>
         </Flex>
       </GridItem>
-    </Grid>
+    </Grid >
   );
 }

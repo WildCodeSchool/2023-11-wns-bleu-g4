@@ -1,0 +1,9 @@
+mutation CreateBooking($data: NewBookingInput!) {
+  createBooking(data: $data) {
+    id
+    status
+    bookingDate
+    startDate
+    endDate
+  }
+}

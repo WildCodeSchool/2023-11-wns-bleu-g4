@@ -1,6 +1,8 @@
 {
-  "extends": ["next/babel", "next/core-web-vitals"],
+  "extends": ["next"],
   "rules": {
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "max-len": ["error", { "code": 120 }],
+    "import/no-unused-modules": [1, { "unusedExports": true }]
   }
 }

@@ -4,26 +4,23 @@ import { Booking } from "./entities/Booking"
 import Brand from "./entities/Brand"
 import Category from "./entities/Category"
 import Product from "./entities/Product"
-import Product_code from "./entities/Product_code"
-import Product_picture from "./entities/Product_picture"
+import ProductCode from "./entities/ProductCode"
+import Product_picture from "./entities/ProductPicture"
 import User, { UserRole } from "./entities/User"
-import { Status } from "./enum/Status"
+import { Status } from "./enum/StatusProductCode"
 import { StatusBooking } from "./enum/StatusBooking"
 import { BookingItem } from "./entities/BookingItem"
 import { BookingItemStatus } from "./enum/BookingItemStatus"
+import ProductCharacteristic from "./entities/ProductCharacteristic"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
 	await runner.query("SET session_replication_role = 'replica'")
 	await Promise.all(
-		db.entityMetadatas.map(async (entity) =>
-			runner.query(`ALTER TABLE "${entity.tableName}" DISABLE TRIGGER ALL`)
-		)
+		db.entityMetadatas.map(async (entity) => runner.query(`ALTER TABLE "${entity.tableName}" DISABLE TRIGGER ALL`))
 	)
 	await Promise.all(
-		db.entityMetadatas.map(async (entity) =>
-			runner.query(`DROP TABLE IF EXISTS "${entity.tableName}" CASCADE`)
-		)
+		db.entityMetadatas.map(async (entity) => runner.query(`DROP TABLE IF EXISTS "${entity.tableName}" CASCADE`))
 	)
 	await runner.query("SET session_replication_role = 'origin'")
 	await db.synchronize()
@@ -81,79 +78,92 @@ async function main() {
 	Object.assign(brand, {
 		name: "Trek",
 		logo: "https://rad-protection.com/wp-content/uploads/2024/02/logo-trek-velo-1024x1024.png",
-		product: [],
 	})
 	await brand.save()
-
-	const product = new Product()
-	Object.assign(product, {
-		name: "Bike",
-		price: 99.99,
-		description: "A super bike for your daily commute.",
-		thumbnails: "thumbnail.jpg",
-		categories: [],
-		size: "M",
-		brand: {
-			id: 1,
-		},
-	})
-	await product.save()
 
 	const category = new Category()
 	Object.assign(category, {
 		name: "Mountain",
-		product: product,
+		thumbnail: "mountain.jpg",
 	})
 	await category.save()
 
-	const productCode = new Product_code()
+	const product = new Product()
+	Object.assign(product, {
+		name: "Bike Trek Rail 5 Deore 2024",
+		price: 99.99,
+		description:
+			"A super bike for your daily commute, with a powerful motor and a comfortable saddle. Perfect for long rides in the city or in the countryside.",
+		thumbnail: "https://rad-protection.com/wp-content/uploads/2024/02/logo-trek-velo-1024x1024.png",
+		category,
+		brand,
+		characteristics: [],
+	})
+
+	const characteristics = [
+		"Suspension hydraulique",
+		"Moteur 10W",
+		"Guidon renforcé",
+		"Freins à disque",
+		"Pneus anti-crevaison",
+		"Selle confortable",
+		"Éclairage LED",
+		"Antivol intégré",
+		"Porte-bagages",
+		"Garde-boue",
+	]
+
+	for (const characteristic of characteristics) {
+		const productCharacteristic = new ProductCharacteristic()
+		productCharacteristic.characteristic = characteristic
+		await productCharacteristic.save()
+		product.characteristics.push(productCharacteristic)
+	}
+
+	await product.save()
+
+	const productCode = new ProductCode()
 	Object.assign(productCode, {
 		status: Status.AVAILABLE,
-		product: product,
-		agency: agency,
+		product,
+		agency,
+		isSizeable: true,
+		size: "M",
 	})
 	await productCode.save()
 
 	const productPicture = new Product_picture()
 	Object.assign(productPicture, {
-		thumbnail: "thumbnail.jpg",
+		thumbnail: "https://media.trekbikes.com/image/upload/w_1200/Rail5Deore_23_36791_A_Portrait",
 		alt: "Bike thumbnail",
-		product: product,
+		product,
 	})
 	await productPicture.save()
 
 	const booking = new Booking()
 	Object.assign(booking, {
-		bookingDate: "2024-06-04T10:15:30.000Z",
-		endDate: "2024-06-15T19:00:00.000Z",
-		invoice: "INV-20240604-1",
-		startDate: "2024-06-08T08:00:00.000Z",
-		status: StatusBooking.RETRIEVED,
-		agency: {
-			id: 1,
-		},
-		user: {
-			id: 1,
-		},
+		status: StatusBooking.BOOKED,
+		bookingDate: new Date("2024-06-04T10:15:30.000Z"),
+		startDate: new Date("2024-06-10T08:00:00.000Z"),
+		endDate: new Date("2024-06-15T19:00:00.000Z"),
+		user: admin,
+		agency,
 	})
 	await booking.save()
 
 	const bookingItem = new BookingItem()
 	Object.assign(bookingItem, {
-		quantity: 3,
 		status: BookingItemStatus.RENTED,
-		total_price: 45,
-		booking: {
-			id: 1
-		},
-		product: {
-			id: 1
-		}
+		booking,
+		productCode,
+		startDate: new Date("2024-06-10T08:00:00.000Z"),
+		endDate: new Date("2024-06-15T19:00:00.000Z"),
+		product,
 	})
 	await bookingItem.save()
 
 	await db.destroy()
-	console.log("Done !")
+	console.log("Done!")
 }
 
 main()

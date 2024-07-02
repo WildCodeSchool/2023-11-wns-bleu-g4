@@ -1,0 +1,7 @@
+mutation CreateProduct_picture($data: NewProduct_pictureInput!) {
+  createProduct_picture(data: $data) {
+    id
+    thumbnail
+    alt
+  }
+}

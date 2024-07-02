@@ -8,13 +8,13 @@ import {
   Spacer,
   useColorMode,
   useDisclosure,
-  useOutsideClick,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
-import { useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { BasketDrawer } from "./BasketDrawer";
 
-// data for the subnavbar
 const categories = {
   Sea: ["Option 1", "Option 2", "Option 3"],
   Mountain: ["Option 1", "Option 2", "Option 3"],
@@ -22,25 +22,24 @@ const categories = {
 };
 
 export default function SubNavbar() {
+  const router = useRouter();
   const { t } = useTranslation("SubNav");
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen: originalOnOpen, onClose } = useDisclosure();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const ref = useRef<HTMLDivElement | null>(null);
 
-  useOutsideClick({
-    ref: ref,
-    handler: () => onClose(),
-  });
-
-  const handleButtonClick = (index: number) => {
-    if (activeIndex === index) {
-      onClose();
-      setActiveIndex(null);
-    } else {
-      onOpen();
-      setActiveIndex(index);
+  const onOpen = () => {
+    if (router.pathname === '/basket') {
+      return;
     }
+    originalOnOpen();
+  };
+
+  const handleMouseEnter = (index: number) => {
+    setActiveIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveIndex(null);
   };
 
   const { colorMode } = useColorMode();
@@ -51,27 +50,27 @@ export default function SubNavbar() {
 
   return (
     <Flex
-      className=" h-8 w-full justify-between px-5 py-8"
-      ref={ref}
+      className="h-8 w-full justify-between px-5 py-8"
       display={{ base: "none", md: "none", xl: "flex" }}
       align={"center"}
       style={{ boxShadow: shadowColor }}
     >
       <Flex gap={2}>
         {Object.entries(categories).map(([category, items], index) => (
-          <Menu key={index} isOpen={isOpen && activeIndex === index}>
+          <Menu key={index} isOpen={activeIndex === index} closeOnBlur>
             <MenuButton
               as={Button}
               size="sm"
               variant="subNavButton"
               borderRadius="md"
               borderWidth="1px"
-              onClick={() => handleButtonClick(index)}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
               rightIcon={
                 <div
-                  className={`transform transition-transform duration-300 ${isOpen && activeIndex === index ? "rotate-custom" : ""}`}
+                  className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-custom" : ""}`}
                   style={{
-                    transform: isOpen && activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
+                    transform: activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
                   }}
                 >
                   <ChevronDownIcon width={24} />
@@ -81,7 +80,7 @@ export default function SubNavbar() {
             >
               {t(category)}
             </MenuButton>
-            <MenuList>
+            <MenuList zIndex={100} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
               {items.map((item, i) => (
                 <MenuItem key={i}>{item}</MenuItem>
               ))}
@@ -92,14 +91,15 @@ export default function SubNavbar() {
       <Spacer />
       <Button
         size="sm"
-        as={Button}
+        onClick={onOpen}
         borderRadius="md"
         borderWidth="1px"
-        variant="cartButton"
+        variant="accentButton"
         leftIcon={<ShoppingCartIcon width={18} />}
       >
         {t("My basket")}
       </Button>
+      <BasketDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Flex>
   );
 }

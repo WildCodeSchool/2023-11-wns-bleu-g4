@@ -1,7 +1,10 @@
 {
   "Back to website": "Retourner sur le site",
+  "Login": "Se connecter",
+  "Logout": "Se déconnecter",
   "My Account": "Mon compte",
   "Payments": "Paiments",
   "Search": "Rechercher",
-  "Search a product": "Rechercher un produit"
+  "Search a product": "Rechercher un produit",
+  "Password": "Mot de passe"
 }

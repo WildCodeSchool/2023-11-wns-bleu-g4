@@ -1,0 +1,7 @@
+mutation UpdateProduct_picture($data: UpdateProduct_pictureInput!, $updateProductPictureId: Int!) {
+  updateProduct_picture(data: $data, id: $updateProductPictureId) {
+    id
+    thumbnail
+    alt
+  }
+}

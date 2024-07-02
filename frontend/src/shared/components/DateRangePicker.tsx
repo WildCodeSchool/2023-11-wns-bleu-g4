@@ -1,5 +1,6 @@
 import { Button, ButtonProps, Text } from "@chakra-ui/react";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { isBefore, isSameDay, isWeekend } from "date-fns";
 import { enUS, fr } from "date-fns/locale";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -43,16 +44,25 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
     setRange(selectedRange);
   };
 
+  const isDisabledDay = (date: Date) => {
+    if (isWeekend(date)) {
+      return true;
+    }
+    if (isBefore(date, new Date()) && !isSameDay(date, new Date())) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div style={{ position: "relative", display: "inline-block" }} ref={datePickerRef}>
       <Button
-        bg="secondary"
-        color="light"
+        variant="primaryButton"
         rightIcon={<CalendarDaysIcon width={24} />}
         size={buttonSize}
         onClick={() => setShowDatePicker(!showDatePicker)}
-        w="373px"
-        h="54px"
+        w="373px" // Ajustez la largeur du bouton ici
+        h="54px" // Ajustez la hauteur du bouton ici
       >
         {range?.from && range?.to ? (
           <Text as="span">
@@ -76,7 +86,7 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
         <div
           style={{
             position: "absolute",
-            top: "calc(100% + 10px)",
+            bottom: "calc(100% + 10px)",
             left: 0,
             zIndex: 1000,
           }}
@@ -88,7 +98,7 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
             numberOfMonths={2}
             locale={locale === "en" ? enUS : fr}
             showOutsideDays
-            disabled={{ before: new Date() }}
+            disabled={isDisabledDay}
           />
         </div>
       )}

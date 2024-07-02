@@ -30,8 +30,33 @@ export class ProductId {
 	@Field(() => Int)
 	id!: number;
 }
+
 @InputType()
 export class BookingId {
+	@Field(() => Int)
+	id!: number;
+}
+
+@InputType()
+export class CategoryId {
+	@Field(() => Int)
+	id!: number;
+}
+
+@InputType()
+export class CharacteristicID {
+	@Field(() => Int)
+	id!: number;
+}
+
+@InputType()
+export class ParentCategoryId {
+	@Field(() => Int)
+	id!: number;
+}
+
+@InputType()
+export class BrandId {
 	@Field(() => Int)
 	id!: number;
 }

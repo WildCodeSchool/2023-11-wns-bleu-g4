@@ -1,9 +1,9 @@
-import { AuthChecker } from "type-graphql"
-import { Context } from "./utils"
 import cookie from "cookie"
 import jwt from "jsonwebtoken"
-import env from "./env"
+import { AuthChecker } from "type-graphql"
 import User from "./entities/User"
+import env from "./env"
+import { Context } from "./utils"
 
 export const authChecker: AuthChecker<Context> = async (
 	{ context },

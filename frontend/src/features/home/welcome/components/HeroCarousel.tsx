@@ -1,51 +1,43 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import HeroImg from "/public/images/Hero.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Keyboard, Pagination, Mousewheel } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import Mountain from "/public/images/Welcome-caroussel/mountain.webp"
+import Outdoor from "/public/images/Welcome-caroussel/outdoor.webp"
+import Sea from "/public/images/Welcome-caroussel/sea.webp"
+import { Flex } from "@chakra-ui/react";
 
 export default function ImageCarousel() {
-  const renderArrowPrev = (onClickHandler: () => void, hasPrev: boolean, label: string) =>
-    hasPrev && (
-      <button
-        type="button"
-        onClick={onClickHandler}
-        title={label}
-        className="absolute z-10 top-1/2 left-4 transform -translate-y-1/2 w-12 h-12 bg-zinc-50 rounded-3xl cursor-pointer flex items-center justify-center"
-      >
-        <ChevronLeftIcon className="w-7 h-7 text-accent" />
-      </button>
-    );
-
-  const renderArrowNext = (onClickHandler: () => void, hasNext: boolean, label: string) =>
-    hasNext && (
-      <button
-        type="button"
-        onClick={onClickHandler}
-        title={label}
-        className="absolute z-10 top-1/2 right-4 transform -translate-y-1/2 w-12 h-12 bg-zinc-50 rounded-3xl cursor-pointer flex items-center justify-center"
-      >
-        <ChevronRightIcon className="w-7 h-7 text-accent" />
-      </button>
-    );
-
   return (
-    <Carousel
-      autoPlay
-      infiniteLoop
-      renderArrowPrev={renderArrowPrev}
-      renderArrowNext={renderArrowNext}
-      showStatus={false}
-    >
-      <div>
-        <Image src={HeroImg} alt="Image 1" />
-      </div>
-      <div>
-        <Image src={HeroImg} alt="Image 2" />
-      </div>
-      <div>
-        <Image src={HeroImg} alt="Image 3" />
-      </div>
-    </Carousel>
+    <Flex >
+      <Swiper
+        style={
+          {
+            "--swiper-navigation-color": "#fff",
+            "--swiper-pagination-color": "#e66300",
+            "--swiper-pagination-bullet-size": "1rem",
+          } as React.CSSProperties
+        }
+        cssMode={true}
+        navigation={true}
+        pagination={{ clickable: true }}
+        mousewheel={true}
+        keyboard={true}
+        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+        className="mySwiper3"
+      >
+        <SwiperSlide>
+          <Image src={Outdoor} alt="" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image src={Mountain} alt="" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image src={Sea} alt="" />
+        </SwiperSlide>
+      </Swiper>
+    </Flex>
   );
 }

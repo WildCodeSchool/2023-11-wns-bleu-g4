@@ -1,7 +1,10 @@
 {
   "Back to website": "Back to website",
+  "Login": "Login",
+  "Logout": "Logout",
   "My Account": "My Account",
   "Payments": "Payments",
   "Search": "Search",
-  "Search a product": "Search a product"
+  "Search a product": "Search a product",
+  "Password": "Password"
 }

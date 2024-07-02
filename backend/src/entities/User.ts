@@ -28,6 +28,7 @@ export class User extends BaseEntity {
 		this.hashedPassword = await hash(this.password)
 	}
 
+	/** COLUMNS *********************/
 	@PrimaryGeneratedColumn()
 	@Field()
 	id: number
@@ -74,14 +75,6 @@ export class User extends BaseEntity {
 	@Field()
 	avatar: string
 
-	@OneToMany(() => Booking, (bookings) => bookings.user)
-	@Field(()=> [Booking])
-	bookings: Booking[];
-
-	@OneToMany(() => Review, (reviews) => reviews.user)
-	@Field(() => [Review])
-	reviews: Review[]
-
 	@Column({ enum: UserRole, default: UserRole.VISITOR })
 	@Field()
 	role: UserRole
@@ -91,6 +84,16 @@ export class User extends BaseEntity {
 
 	@Column({ default: false })
 	emailVerified: boolean
+
+	/** RELATIONS *********************/
+	/** ONE TO MANY */
+	@OneToMany(() => Booking, (bookings) => bookings.user)
+	@Field(() => [Booking])
+	bookings: Booking[];
+
+	@OneToMany(() => Review, (reviews) => reviews.user)
+	@Field(() => [Review])
+	reviews: Review[]
 }
 
 @InputType()

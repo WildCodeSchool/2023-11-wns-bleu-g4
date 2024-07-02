@@ -25,11 +25,11 @@ class CategoryResolver {
 		@Arg("name", { nullable: true }) name?: string
 	) {
 		return Category.find({
-			relations: { products: true, subCategories: true },
+			relations: { products: true, parentCategories: true },
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
 				products: { id: productId },
-				subCategories: { id: subCategoryId },
+				parentCategories: { id: subCategoryId },
 			},
 		})
 	}
@@ -38,7 +38,7 @@ class CategoryResolver {
 	async getCategoryById(@Arg("categoryId", () => Int) id: number) {
 		const category = await Category.findOne({
 			where: { id },
-			relations: { products: true, subCategories: true },
+			relations: { products: true, parentCategories: true },
 		})
 		if (!category) throw new GraphQLError("Not found")
 		return category
@@ -60,7 +60,7 @@ class CategoryResolver {
 		const { id } = await newCategory.save()
 		return Category.findOne({
 			where: { id },
-			relations: { products: true, subCategories: true },
+			relations: { products: true, parentCategories: true },
 		})
 	}
 
@@ -82,7 +82,7 @@ class CategoryResolver {
 		await categoryToUpdate.save()
 		return Category.findOne({
 			where: { id },
-			relations: { products: true, subCategories: true },
+			relations: { products: true, parentCategories: true },
 		})
 	}
 
