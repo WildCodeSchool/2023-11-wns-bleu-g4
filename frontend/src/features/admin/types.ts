@@ -29,4 +29,5 @@ export interface ProductModalProps {
   product?: any;
   variant?: string;
   handleDeleteProduct?: (id: number) => Promise<void>;
+  refetch?: () => void;
 }
