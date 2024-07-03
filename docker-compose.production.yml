@@ -52,13 +52,13 @@ services:
       - prodUpload:/app/files/
 
   gateway:
-    stop_grace_period: 0s
     restart: always
+    stop_grace_period: 0s
     build:
       context: gateway
       dockerfile: Dockerfile.production
     ports:
-      - ${GATEWAY_PORT:-80}:80
+      - ${GATEWAY_PORT-80}:80
     
 volumes:
   prodDB:
