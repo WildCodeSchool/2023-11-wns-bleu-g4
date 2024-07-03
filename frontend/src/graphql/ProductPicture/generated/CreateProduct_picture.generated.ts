@@ -8,15 +8,17 @@ export type CreateProduct_PictureMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreateProduct_PictureMutation = { __typename?: 'Mutation', createProduct_picture: { __typename?: 'Product_picture', id: number, thumbnail: string, alt: string } };
+export type CreateProduct_PictureMutation = { __typename?: 'Mutation', createProduct_picture: { __typename?: 'Product_picture', thumbnail: string, alt: string, product: { __typename?: 'Product', id: number } } };
 
 
 export const CreateProduct_PictureDocument = gql`
     mutation CreateProduct_picture($data: NewProduct_pictureInput!) {
   createProduct_picture(data: $data) {
-    id
     thumbnail
     alt
+    product {
+      id
+    }
   }
 }
     `;

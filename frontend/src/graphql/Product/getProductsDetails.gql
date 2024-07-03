@@ -1,4 +1,4 @@
-query GetAllProducts {
+query GetProductsDetails {
   getAllProducts {
     brand {
       id

@@ -366,7 +366,7 @@ export type NewParentCategoryInput = {
 
 export type NewProductInput = {
   brand: BrandId;
-  categorie?: InputMaybe<CategoryId>;
+  category?: InputMaybe<CategoryId>;
   characteristics?: InputMaybe<CharacteristicId>;
   description: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -466,6 +466,7 @@ export type Query = {
   getAllProduct_pictures: Array<Product_Picture>;
   getAllProducts: Array<Product>;
   getAllReviews: Array<Review>;
+  getAllUsers: Array<User>;
   getBookingById: Booking;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
@@ -656,7 +657,7 @@ export type UpdateParentCategoryInput = {
 
 export type UpdateProductInput = {
   brand?: InputMaybe<ObjectId>;
-  categorie?: InputMaybe<ObjectId>;
+  category?: InputMaybe<ObjectId>;
   characteristics?: InputMaybe<Array<ObjectId>>;
   description?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;

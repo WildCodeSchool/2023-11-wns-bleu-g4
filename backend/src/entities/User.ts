@@ -1,13 +1,6 @@
 import { IsEmail, IsStrongPassword, Length } from "class-validator"
 import { Field, InputType, ObjectType } from "type-graphql"
-import {
-	BaseEntity,
-	BeforeInsert,
-	Column,
-	Entity,
-	OneToMany,
-	PrimaryGeneratedColumn,
-} from "typeorm"
+import { BaseEntity, BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { hash } from "argon2"
 import Review from "./Review"
 import { Booking } from "./Booking"
@@ -15,7 +8,6 @@ import { Booking } from "./Booking"
 export enum UserRole {
 	ADMIN = "admin",
 	CUSTOMER = "customer",
-	VISITOR = "visitor",
 }
 
 @Entity()
@@ -69,13 +61,12 @@ export class User extends BaseEntity {
 	hashedPassword: string
 
 	@Column({
-		default:
-			"https://icons.veryicon.com/png/o/miscellaneous/standard/avatar-15.png",
+		default: "https://icons.veryicon.com/png/o/miscellaneous/standard/avatar-15.png",
 	})
 	@Field()
 	avatar: string
 
-	@Column({ enum: UserRole, default: UserRole.VISITOR })
+	@Column({ enum: UserRole, default: UserRole.CUSTOMER })
 	@Field()
 	role: UserRole
 
@@ -89,7 +80,7 @@ export class User extends BaseEntity {
 	/** ONE TO MANY */
 	@OneToMany(() => Booking, (bookings) => bookings.user)
 	@Field(() => [Booking])
-	bookings: Booking[];
+	bookings: Booking[]
 
 	@OneToMany(() => Review, (reviews) => reviews.user)
 	@Field(() => [Review])

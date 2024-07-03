@@ -14,16 +14,12 @@ export default function TableFooter({
   const { t } = useTranslation("TableFooter");
 
   const handlePreviousClick = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
   const handleNextClick = () => {
     const totalPages = Math.ceil(data.length / itemsPerPage);
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   return (

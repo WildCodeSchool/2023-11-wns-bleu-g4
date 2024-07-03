@@ -6,17 +6,14 @@ const defaultOptions = {} as const;
 export type GetAllProductCharacteristicsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetAllProductCharacteristicsQuery = { __typename?: 'Query', getAllProductCharacteristics: Array<{ __typename?: 'ProductCharacteristic', characteristic: string, id: number, product: { __typename?: 'Product', id: number } }> };
+export type GetAllProductCharacteristicsQuery = { __typename?: 'Query', getAllProductCharacteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, characteristic: string }> };
 
 
 export const GetAllProductCharacteristicsDocument = gql`
     query GetAllProductCharacteristics {
   getAllProductCharacteristics {
-    characteristic
     id
-    product {
-      id
-    }
+    characteristic
   }
 }
     `;

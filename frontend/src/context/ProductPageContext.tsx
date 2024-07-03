@@ -1,5 +1,5 @@
 import { useGetAllAgenciesQuery } from '@/graphql/Agency/generated/getAllAgency.generated';
-import { useGetAllProductsQuery } from '@/graphql/Product/generated/getProductsDetails.generated';
+import { useGetProductsDetailsQuery } from '@/graphql/Product/generated/getProductsDetails.generated';
 import { Agency, Product, ProductCode } from '@/graphql/generated/schema';
 import { useRouter } from 'next/router';
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -36,7 +36,7 @@ export const useProductContext = () => {
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const router = useRouter();
     const { data: agencyData } = useGetAllAgenciesQuery();
-    const { data: productData, loading: productLoading, error: productError } = useGetAllProductsQuery();
+    const { data: productData, loading: productLoading, error: productError } = useGetProductsDetailsQuery();
     const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
     const [selectedAgency, setSelectedAgency] = useState<number | null>(null);
     const [startDate, setStartDate] = useState<Date | null>(null);
