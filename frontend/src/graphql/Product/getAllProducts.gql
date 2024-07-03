@@ -4,10 +4,13 @@ query GetAllProducts {
     name
     price
     description
+    thumbnail
     brand {
+      id
       name
     }
     category {
+      id
       name
     }
   }
