@@ -38,6 +38,8 @@ services:
   frontend:
     stop_grace_period: 0s
     env_file: frontend/.env
+    ports: 
+      - 3000:3000
     build:
       context: frontend
       dockerfile: Dockerfile.production
