@@ -4,7 +4,6 @@ import {
   Button,
   Flex,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Input,
   Modal,
@@ -20,7 +19,6 @@ import {
   NumberInputField,
   NumberInputStepper,
   Select,
-  Text,
   Textarea,
 } from "@chakra-ui/react";
 import { ProductModalProps } from "../types";
@@ -193,12 +191,15 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
                 </FormControl>
               </Box>
             </Flex>
-            <FormControl isRequired>
+
+            <FormControl isRequired mt={4}>
               <FormLabel mb={1} htmlFor="thumbnail">
                 Thumbnail
               </FormLabel>
               <input
                 type="file"
+                id="thumbnail"
+                name="thumbnail"
                 onChange={(e) => {
                   if (e.target.files?.[0])
                     uploadFile(e.target.files?.[0]).then(setImageURL);
