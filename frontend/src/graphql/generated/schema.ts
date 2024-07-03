@@ -86,7 +86,7 @@ export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
-  parentCategories: Array<ParentCategory>;
+  parentCategory: ParentCategory;
   products: Array<Product>;
   thumbnail: Scalars['String']['output'];
 };
@@ -356,7 +356,7 @@ export type NewBrandInput = {
 
 export type NewCategoryInput = {
   name: Scalars['String']['input'];
-  parentCategories?: InputMaybe<ParentCategoryId>;
+  parentCategory?: InputMaybe<ParentCategoryId>;
   thumbnail: Scalars['String']['input'];
 };
 
@@ -398,7 +398,7 @@ export type ObjectId = {
 
 export type ParentCategory = {
   __typename?: 'ParentCategory';
-  category: Category;
+  categories: Array<Category>;
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
 };
@@ -648,7 +648,7 @@ export type UpdateBrandInput = {
 
 export type UpdateCategoryInput = {
   name?: InputMaybe<Scalars['String']['input']>;
-  parentCategories?: InputMaybe<ParentCategoryId>;
+  parentCategory?: InputMaybe<ParentCategoryId>;
 };
 
 export type UpdateParentCategoryInput = {
