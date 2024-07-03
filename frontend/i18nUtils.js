@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 export const getAllNamespaces = () => {
-  const localesPath = path.resolve("./public/static/locales");
+  const localesPath = path.resolve("@/public/static/locales");
   const namespaces = [];
 
   fs.readdirSync(localesPath).forEach(locale => {
