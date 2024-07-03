@@ -56,8 +56,8 @@ export class Product extends BaseEntity {
 	brand: Brand
 
 	/** ONE TO MANY */
-	@OneToMany(() => Review, (reviews) => reviews.product)
-	@Field(() => [Review])
+	@OneToMany(() => Review, (reviews) => reviews.product,)
+	@Field(() => [Review], { nullable: true })
 	reviews: Review[]
 
 	@OneToMany(() => ProductCode, (productCode) => productCode.product)

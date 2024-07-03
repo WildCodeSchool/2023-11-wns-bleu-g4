@@ -1,29 +1,45 @@
-import {Box, Image, Text, Button, Flex, IconButton, Card} from "@chakra-ui/react";
-import {ShoppingCartIcon } from "@heroicons/react/24/outline";
-import {StarIcon} from "@heroicons/react/24/solid";
-import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
+import { Box, Card, Flex, IconButton, Image, Text } from "@chakra-ui/react";
+import { ChatBubbleLeftEllipsisIcon, StarIcon as OutlineStarIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { StarIcon as SolidStarIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 
-// Product data
-const product = {
-    id: '1234789046',
-    name: 'Product 1',
-    Brand: 'marque',
-    note : 3,
-    comment : '39',
-    price: 24,
-    image: 'https://www.pngplay.com/wp-content/uploads/3/Veste-Transparentes-PNG.png',
-};
+interface ProductCardProps {
+    product: any;
+}
 
-export default function ProductCard() {
+export default function ProductCard({ product }: ProductCardProps) {
+    const router = useRouter();
+
+    const handleCardClick = () => {
+        router.push(`/products/${product.id}`);
+    };
+
+    const averageRating = product.reviews?.length
+        ? product.reviews.reduce((acc: number, review: any) => acc + review.rate, 0) / product.reviews.length
+        : 0;
+
+    const totalReviews = product.reviews?.length || 0;
 
     return (
-        <Card variant="productCard" p="4" borderColor="gray" bg="white" borderWidth="1px" borderRadius="lg" overflow="hidden">
-            <Text  fontWeight="bold">id :{product.id}</Text>
+        <Card
+            variant="productCard"
+            p="4"
+            borderColor="gray"
+            bg="white"
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow="hidden"
+            onClick={handleCardClick}
+            cursor="pointer"
+            w="221px"
+            h="344px"
+            padding="20px"
+        >
             <Flex justifyContent="center" alignItems="center">
-                <Image my="2" width="80%"  src={product.image} alt={product.name} />
+                <Image src={product.thumbnail} alt={product.name} width="100%" />
             </Flex>
-            <Box >
-                <Box  alignItems="baseline">
+            <Box>
+                <Box alignItems="baseline">
                     <Text
                         mt="1"
                         fontWeight="semibold"
@@ -34,27 +50,35 @@ export default function ProductCard() {
                         {product.name}
                     </Text>
                 </Box>
-                <Text>{product.Brand}</Text>
-                <Flex  mt="2" alignItems="center">
+                <Text>{product.brand.name}</Text>
+
+                <Flex mt="2" alignItems="center">
                     {Array(5)
                         .fill("")
                         .map((_, i) => (
-                            <StarIcon key={i} className={i < product.note ? "h-5 w-5 text-dark-900" : "h-5 w-5 text-gray-400"} />
+                            <div key={i}>
+                                {i < averageRating ? (
+                                    <SolidStarIcon className="h-5 w-5 text-yellow-500" />
+                                ) : (
+                                    <OutlineStarIcon className="h-5 w-5 text-gray-300" />
+                                )}
+                            </div>
                         ))}
                     <Flex as="span" ml="2" fontSize="sm" alignItems="center">
                         <ChatBubbleLeftEllipsisIcon className="h-5 w-5 mr-2" />
-                        {product.comment}
+                        {totalReviews}
                     </Flex>
                 </Flex>
 
                 <Flex mt="3" alignItems="center" justifyContent="space-between">
-                    <Box  fontSize="xl">
+                    <Box fontSize="xl">
                         {product.price}€
-                        <Box  as="span" fontSize="xl">
-                            / Days
+                        <Box as="span" fontSize="xl">
+                            / Day
                         </Box>
                     </Box>
-                    <IconButton variant="cartButton" aria-label="shopping cart" icon={ <ShoppingCartIcon width="24"  />} />
+                    <IconButton variant="accentButton" aria-label="shopping cart" icon={<ShoppingCartIcon width="24" />}
+                    />
                 </Flex>
             </Box>
         </Card>
