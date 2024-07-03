@@ -8,7 +8,7 @@ export type GetProductByIdQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetProductByIdQuery = { __typename?: 'Query', getProductById: { __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, category: { __typename?: 'Category', id: number, name: string }, brand: { __typename?: 'Brand', id: number, name: string }, pictures: Array<{ __typename?: 'Product_picture', thumbnail: string, alt: string, id: number }>, characteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, characteristic: string }> } };
+export type GetProductByIdQuery = { __typename?: 'Query', getProductById: { __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, category: { __typename?: 'Category', id: number, name: string }, brand: { __typename?: 'Brand', id: number, name: string }, pictures: Array<{ __typename?: 'Product_picture', id: number, thumbnail: string, alt: string }>, characteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, characteristic: string }> } };
 
 
 export const GetProductByIdDocument = gql`
@@ -28,9 +28,9 @@ export const GetProductByIdDocument = gql`
       name
     }
     pictures {
+      id
       thumbnail
       alt
-      id
     }
     characteristics {
       id

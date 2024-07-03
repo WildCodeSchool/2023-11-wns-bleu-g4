@@ -14,9 +14,9 @@ query GetProductById($productId: Int!) {
       name
     }
     pictures {
+      id
       thumbnail
       alt
-      id
     }
     characteristics {
       id
