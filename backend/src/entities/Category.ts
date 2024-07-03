@@ -32,7 +32,7 @@ export class Category extends BaseEntity {
 	@Field(() => [Product])
 	products: Product[]
 
-	@ManyToMany(() => ParentCategory)
+	@ManyToMany(() => ParentCategory, (parentCategory)=> parentCategory.category )
 	@JoinTable()
 	@Field(() => [ParentCategory])
 	parentCategories: ParentCategory[]

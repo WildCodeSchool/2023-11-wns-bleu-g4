@@ -75,7 +75,7 @@ function DesktopNavbar() {
                   {profileData?.profile.firstname}
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>{t("My Account")}</MenuItem>
+                  <MenuItem onClick={() => router.push(`/account/user/${profileData?.profile.id}`)}>{t("My Account")}</MenuItem>
                   <MenuItem>{t("Payments")} </MenuItem>
                   <MenuDivider />
                   <MenuItem

@@ -23,8 +23,8 @@ export class ParentCategory extends BaseEntity {
 	name: string
 
 	/** MANY TO MANY */
-	@JoinTable()
-	@ManyToMany(() => Category)
+	// @JoinTable()
+	@ManyToMany(() => Category, (category)=> category.parentCategories )
 	@Field(() => Category)
 	category: Category
 }

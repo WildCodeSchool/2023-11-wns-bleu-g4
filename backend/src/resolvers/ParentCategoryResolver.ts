@@ -20,10 +20,10 @@ import ParentCategory, {
 class ParentCategoryResolver {
 	@Query(() => [ParentCategory])
 	async getAllParentCategories(
-		@Arg("categoryId", () => Int, { nullable: true }) categoryId?: number,
 		@Arg("name", { nullable: true }) name?: string
 	) {
 		return ParentCategory.find({
+			relations: {category : true},
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
 			},
