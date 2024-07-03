@@ -1,12 +1,5 @@
 import { Field, InputType, Int, ObjectType } from "type-graphql"
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	JoinTable,
-	ManyToMany,
-	PrimaryGeneratedColumn,
-} from "typeorm"
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Length } from "class-validator"
 import Category from "./Category"
 
@@ -22,11 +15,9 @@ export class ParentCategory extends BaseEntity {
 	@Field()
 	name: string
 
-	/** MANY TO MANY */
-	@JoinTable()
-	@ManyToMany(() => Category)
-	@Field(() => Category)
-	category: Category
+	@OneToMany(() => Category, (categories) => categories.parentCategory, { cascade: true, onDelete: "CASCADE" })
+	@Field(() => [Category])
+	categories: [Category]
 }
 
 @InputType()
@@ -34,7 +25,6 @@ export class NewParentCategoryInput {
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	@Field()
 	name: string
-
 }
 
 @InputType()

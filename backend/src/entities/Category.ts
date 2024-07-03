@@ -4,6 +4,7 @@ import {
 	Entity,
 	JoinTable,
 	ManyToMany,
+	ManyToOne,
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm"
@@ -24,7 +25,7 @@ export class Category extends BaseEntity {
 	@Field()
 	name: string
 
-	@Column({ default: 'default_thumbnail.jpg' })
+	@Column({ default: "default_thumbnail.jpg" })
 	@Field()
 	thumbnail: string
 
@@ -32,10 +33,12 @@ export class Category extends BaseEntity {
 	@Field(() => [Product])
 	products: Product[]
 
-	@ManyToMany(() => ParentCategory)
-	@JoinTable()
-	@Field(() => [ParentCategory])
-	parentCategories: ParentCategory[]
+	@ManyToOne(() => ParentCategory, (parentCategory) => parentCategory.categories, {
+		cascade: true,
+		onDelete: "CASCADE",
+	})
+	@Field(() => ParentCategory)
+	parentCategory: ParentCategory
 }
 
 @InputType()
@@ -48,7 +51,7 @@ export class NewCategoryInput {
 	thumbnail: string
 
 	@Field(() => ParentCategoryId, { nullable: true })
-	parentCategories?: ParentCategoryId
+	parentCategory?: ParentCategoryId
 }
 
 @InputType()
@@ -58,7 +61,7 @@ export class UpdateCategoryInput {
 	name?: string
 
 	@Field(() => ParentCategoryId, { nullable: true })
-	parentCategories?: ParentCategoryId
+	parentCategory?: ParentCategoryId
 }
 
 export default Category
