@@ -17,10 +17,9 @@ export default function ProductTableBody({ data }: TableBodyProps) {
   const router = useRouter();
 
   const [deleteProduct] = useDeleteProductMutation();
-
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const toggleUpdateProductModal = (product: Product) => {
     setSelectedProduct(product);
