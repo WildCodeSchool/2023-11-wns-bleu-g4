@@ -1,10 +1,5 @@
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql"
-import {
-	User,
-	NewUserInput,
-	LoginInput,
-	UpdateUserInput,
-} from "../entities/User"
+import { User, NewUserInput, LoginInput, UpdateUserInput, UserRole } from "../entities/User"
 import { GraphQLError } from "graphql"
 import { verify } from "argon2"
 import jwt from "jsonwebtoken"
@@ -12,7 +7,7 @@ import env from "../env"
 import { Context } from "../utils"
 import crypto from "crypto"
 
-@Resolver()
+@Resolver(User)
 class UserResolver {
 	@Mutation(() => User)
 	async createUser(@Arg("data", { validate: true }) data: NewUserInput) {
@@ -34,13 +29,9 @@ class UserResolver {
 	async login(@Arg("data") data: LoginInput, @Ctx() ctx: Context) {
 		const existingUser = await User.findOneBy({ email: data.email })
 		if (existingUser === null) throw new GraphQLError("INVALID_CREDENTIALS")
-		const passwordValid = await verify(
-			existingUser.hashedPassword,
-			data.password
-		)
+		const passwordValid = await verify(existingUser.hashedPassword, data.password)
 		if (!passwordValid) throw new GraphQLError("INVALID_CREDENTIALS")
-		if (!existingUser.emailVerified)
-			throw new GraphQLError("EMAIL_NOT_VERIFIED")
+		if (!existingUser.emailVerified) throw new GraphQLError("EMAIL_NOT_VERIFIED")
 
 		const token = jwt.sign({ userId: existingUser.id }, env.JWT_PRIVATE_KEY)
 
@@ -56,10 +47,7 @@ class UserResolver {
 
 	@Authorized()
 	@Mutation(() => User)
-	async updateProfile(
-		@Ctx() ctx: Context,
-		@Arg("data", { validate: true }) data: UpdateUserInput
-	) {
+	async updateProfile(@Ctx() ctx: Context, @Arg("data", { validate: true }) data: UpdateUserInput) {
 		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
 
 		if (data.name) ctx.currentUser.name = data.name
@@ -92,6 +80,12 @@ class UserResolver {
 		return User.findOneOrFail({
 			where: { id: ctx.currentUser?.id },
 		})
+	}
+
+	@Authorized([UserRole.ADMIN])
+	@Query(() => [User])
+	async getAllUsers() {
+		return User.find({ where: { role: UserRole.CUSTOMER } })
 	}
 }
 

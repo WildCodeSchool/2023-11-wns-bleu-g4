@@ -114,7 +114,6 @@ export type Mutation = {
   createBrand: Brand;
   createCategory: Category;
   createParentCategory: ParentCategory;
-  createParentCategory: ParentCategory;
   createProduct: Product;
   createProductCharacteristic: ProductCharacteristic;
   createProduct_picture: Product_Picture;
@@ -232,6 +231,7 @@ export type MutationDeleteCategoryArgs = {
 export type MutationDeleteParentCategoryArgs = {
   parentCategoryId: Scalars['Float']['input'];
 };
+
 
 export type MutationDeleteProductArgs = {
   productId: Scalars['Float']['input'];
@@ -466,6 +466,7 @@ export type Query = {
   getAllProduct_pictures: Array<Product_Picture>;
   getAllProducts: Array<Product>;
   getAllReviews: Array<Review>;
+  getAllUsers: Array<User>;
   getBookingById: Booking;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
@@ -501,10 +502,18 @@ export type QueryGetAllCategoriesArgs = {
   subCategoryId?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type QueryGetAllParentCategoriesArgs = {
   categoryId?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
 };
+
+
+export type QueryGetAllProductsArgs = {
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
 
 export type QueryGetAllReviewsArgs = {
   productId?: InputMaybe<Scalars['Float']['input']>;
@@ -540,6 +549,7 @@ export type QueryGetCategoryByIdArgs = {
 export type QueryGetParentCategoryByIdArgs = {
   parentCategoryId: Scalars['Int']['input'];
 };
+
 
 export type QueryGetProductByIdArgs = {
   productId: Scalars['Int']['input'];
