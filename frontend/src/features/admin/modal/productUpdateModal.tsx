@@ -84,7 +84,6 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
       brand: { id: formData.brand },
       thumbnail: imageURL,
     };
-    console.log(productData);
 
     updateProduct({
       variables: { data: productData, productId },
