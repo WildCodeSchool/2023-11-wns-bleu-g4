@@ -6,14 +6,15 @@ const defaultOptions = {} as const;
 export type GetAllCategoriesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCategoriesQuery = { __typename?: 'Query', getAllCategories: Array<{ __typename?: 'Category', id: number, name: string }> };
+export type GetAllCategoriesQuery = { __typename?: 'Query', getAllCategories: Array<{ __typename?: 'Category', name: string, id: number, thumbnail: string }> };
 
 
 export const GetAllCategoriesDocument = gql`
     query GetAllCategories {
   getAllCategories {
-    id
     name
+    id
+    thumbnail
   }
 }
     `;
