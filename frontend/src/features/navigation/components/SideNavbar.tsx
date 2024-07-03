@@ -23,9 +23,9 @@ export default function SideNavbar() {
         </Link>
         <hr className="bg-light" />
         <div className="flex flex-col gap-3">
-          {adminNavigation.map((navItem, index) => (
+          {adminNavigation.map((navItem) => (
             <Link
-              key={index}
+              key={navItem.id}
               href={navItem.path}
               className={`flex cursor-pointer items-center gap-3 rounded px-3 py-2 text-light 
                 hover:bg-cactus-300 hover:text-dark ${isActive(navItem.path) && "bg-cactus-300 text-black"}`}

@@ -1,7 +1,7 @@
 import { Product_Picture } from "@/graphql/generated/schema";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import ProductPictureAddModal from "../modal/productPictureAddModal";
+import ProductPictureAddModal from "./modal/ProductPictureAddModal";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDeleteProduct_PictureMutation } from "@/graphql/ProductPicture/generated/DeleteProduct_picture.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";

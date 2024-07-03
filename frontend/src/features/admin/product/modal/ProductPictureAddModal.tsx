@@ -11,10 +11,10 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../types";
+import { ProductModalProps } from "../../types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
-import uploadFile from "../helpers/uploadFile";
+import uploadFile from "../../helpers/uploadFile";
 import { useCreateProduct_PictureMutation } from "@/graphql/ProductPicture/generated/CreateProduct_picture.generated";
 
 interface Product_Picture {

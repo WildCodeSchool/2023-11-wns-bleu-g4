@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../types";
+import { ProductModalProps } from "../../types";
 
 export default function ProductDeleteModal({ isOpen, onClose, product: { id, name }, variant, handleDeleteProduct }: ProductModalProps) {
 
