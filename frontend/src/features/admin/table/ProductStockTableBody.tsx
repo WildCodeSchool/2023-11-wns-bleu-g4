@@ -1,10 +1,10 @@
 import { TableBodyProps } from "../types";
-import { productStockTableHeaders } from "../helpers/tableHeaders";
+import { productStockTableHeaders } from "./../helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import ProductStockModal from "../modal/productStockModal";
+import ProductStockModal from "../modal/ProductStockModal";
 
 export default function ProductStockTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("ProductStockTableBody");
