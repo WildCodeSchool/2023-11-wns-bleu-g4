@@ -1,4 +1,4 @@
-import { menuItems } from "../types";
+import { menuItems } from "../product/types";
 
 export const orderTableHeaders: menuItems[] = [
   { id: 1, name: "order number" },
@@ -31,6 +31,17 @@ export const productStockTableHeaders: menuItems[] = [
   { id: 1, name: "agency" },
   { id: 2, name: "quantity" },
   { id: 3, name: "manage stock" },
+];
+
+export const categoryTableHeaders: menuItems[] = [
+  { id: 1, name: "name" },
+  { id: 2, name: "parent category" },
+  { id: 3, name: "manage category" },
+];
+
+export const parentCategoryTableHeaders: menuItems[] = [
+  { id: 1, name: "name" },
+  { id: 3, name: "manage category" },
 ];
 
 export const customerTableHeaders: menuItems[] = [
