@@ -31,21 +31,38 @@ export interface ProductModalProps {
 }
 
 export interface User {
-  id : number,
-  name : string,
-  email : string,
-  address : string,
-  avatar : string,
-  city : string,
-  country : string,
-  phone : string,
-  firstname : string,
-  postcode : string
-  role : string
+  id: number,
+  name: string,
+  email: string,
+  address: string,
+  avatar: string,
+  city: string,
+  country: string,
+  phone: string,
+  firstname: string,
+  postcode: string
+  role: string
 }
 
 export interface userInfoProps {
-    icon?: any ,
-    label?: string,
-    userInfo?: string
+  icon?: any,
+  label?: string,
+  userInfo?: string
+}
+
+export interface Agency {
+  id?: number,
+  name?: string
+}
+
+export interface Booking {
+  id?: number,
+  status?: string,
+  invoice?: string,
+  bookingDate?: string,
+  startDate?: string,
+  endDate?: string,
+  userId?: number,
+  agency?: Agency[]
+
 }

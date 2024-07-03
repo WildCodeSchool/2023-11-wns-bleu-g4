@@ -2,7 +2,7 @@ import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { HomeIcon, MapPinIcon, MapIcon, GlobeEuropeAfricaIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
 import { User } from "../types";
 import { useState } from "react";
-import UserMInfoModal from "../helpers/UserInfoModal";
+import UserInfoModal from "../modal/UserInfoModal";
 
 
 export default function UserInfos({ user }: { user?: User }) {
@@ -47,6 +47,7 @@ export default function UserInfos({ user }: { user?: User }) {
     const toggleUpdateProductModal = () => setIsUpdateModalOpen(!isUpdateModalOpen);
 
     return (
+        <>
             <Flex maxW='md' direction={'column'} gap={10} padding={5} className='bg-cactus-600 text-white rounded'>
                 <Box>
                     <Heading size={"sm"} marginBottom={3}>Address</Heading>
@@ -80,8 +81,9 @@ export default function UserInfos({ user }: { user?: User }) {
                 <Flex justifyContent={'end'}>
                     <Button variant={'primaryButton'} onClick={toggleUpdateProductModal}>Update</Button>
                 </Flex>
-                <UserMInfoModal isOpen={isUpdateModalOpen} onClose={toggleUpdateProductModal} user={user} />
             </Flex>
+            <UserInfoModal isOpen={isUpdateModalOpen} onClose={toggleUpdateProductModal} user={user} />
+        </>
     )
 }
 

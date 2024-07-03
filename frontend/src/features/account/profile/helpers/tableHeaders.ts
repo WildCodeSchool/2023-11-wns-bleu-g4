@@ -6,7 +6,7 @@ export const orderTableHeaders: menuItems[] = [
   { id: 3, name: "from" },
   { id: 4, name: "to" },
   { id: 5, name: "status" },
-  { id: 6, name: "order details" },
+  { id: 6, name: "Details" }
 ];
 
 export const orderDetailsHeaders: menuItems[] = [

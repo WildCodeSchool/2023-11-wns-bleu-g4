@@ -1,0 +1,14 @@
+query GetBookingsByUser($userId: Float) {
+  getAllBooking(userId: $userId) {
+    id
+    status
+    invoice
+    bookingDate
+    startDate
+    endDate
+    agency {
+      name
+      id
+    }
+  }
+}
