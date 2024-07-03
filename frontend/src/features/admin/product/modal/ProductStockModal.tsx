@@ -15,7 +15,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../../types";
+import { ProductModalProps } from "../types";
 
 export default function ProductStockModal({ isOpen, onClose, product, variant }: ProductModalProps) {
   return (

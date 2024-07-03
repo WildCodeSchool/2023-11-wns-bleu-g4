@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TableBodyProps } from "../../types";
+import { TableBodyProps } from "../types";
 import { productTableHeaders } from "../../helpers/tableHeaders";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";

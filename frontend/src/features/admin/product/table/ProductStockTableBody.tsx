@@ -1,4 +1,4 @@
-import { TableBodyProps } from "../../types";
+import { TableBodyProps } from "../types";
 import { productStockTableHeaders } from "../../helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
