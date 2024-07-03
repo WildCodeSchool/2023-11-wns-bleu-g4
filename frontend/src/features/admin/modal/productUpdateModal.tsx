@@ -22,17 +22,13 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { ProductModalProps } from "../types";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 
 export default function ProductUpdateModal({ isOpen, onClose, product, variant }: ProductModalProps) {
-  const categories = [
-    { id: 1, name: "Electronics" },
-    { id: 2, name: "Food" },
-    { id: 3, name: "Clothes" },
-    { id: 4, name: "Category 1" },
-    { id: 5, name: "Accessories" },
-  ];
+  const { data } = useGetAllCategoriesQuery();
+  const categories = data?.getAllCategories ?? [];
 
-  const currentCategory = categories.find(category => category.name === product.category)?.id;
+  const currentCategory = categories.find(category => category.name === product.category.name)?.id;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
@@ -53,7 +49,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
                 <FormLabel mb={1} id="brand">
                   Brand
                 </FormLabel>
-                <Input type="text" placeholder="Brand" defaultValue={product.brand} />
+                <Input type="text" placeholder="Brand" defaultValue={product.brand.name} />
               </Box>
             </Flex>
             <Box mb={4}>

@@ -7,23 +7,44 @@ import ProductDeleteModal from "../modal/productDeleteModal";
 import ProductUpdateModal from "../modal/productUpdateModal";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
+import { Product } from "@/graphql/generated/schema";
+import { GetAllProductsDocument, GetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
+import client from "@/graphql/client";
+import { useDeleteProductMutation } from "@/graphql/Product/generated/deleteProduct.generated";
 
 export default function ProductTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("ProductTableBody");
   const router = useRouter();
 
+  const [deleteProduct] = useDeleteProductMutation();
+
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
 
-  const toggleUpdateProductModal = (project: any) => {
-    setSelectedProduct(project);
+  const toggleUpdateProductModal = (product: Product) => {
+    setSelectedProduct(product);
     setIsUpdateModalOpen(!isUpdateModalOpen);
   };
 
-  const toggleDeleteProductModal = (project: any) => {
-    setSelectedProduct(project);
+  const toggleDeleteProductModal = (product: Product) => {
+    setSelectedProduct(product);
     setIsDeleteModalOpen(!isDeleteModalOpen);
+  };
+
+  const handleDeleteProduct = async (id: number) => {
+    try {
+      await deleteProduct({ variables: { productId: id } });
+      client.writeQuery<GetAllProductsQuery>({
+        query: GetAllProductsDocument,
+        data: {
+          getAllProducts: data.filter((product: Product) => product.id !== id),
+        },
+      });
+      setIsDeleteModalOpen(!isDeleteModalOpen)
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -42,12 +63,13 @@ export default function ProductTableBody({ data }: TableBodyProps) {
       </thead>
       <tbody className="text-sm">
         {data.length !== 0 ? (
-          data.map((product: any, index: number) => (
+          data.map((product: Product, index: number) => (
             <React.Fragment key={product.id}>
               <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
-                <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{product.reference}</td>
+                <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{product.id}</td>
                 <td className="whitespace-nowrap p-3 w-96 min-w-max">{product.name}</td>
-                <td className="whitespace-nowrap p-3 w-96 min-w-max">{product.brand}</td>
+                <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.brand.name}</td>
+                <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.category.name}</td>
                 <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.price}</td>
                 <td className="whitespace-nowrap p-3 pr-8 w-48 min-w-max text-left align-middle">
                   <div className="inline-block">
@@ -89,6 +111,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                         isOpen={isDeleteModalOpen}
                         onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
                         variant="baseStyle"
+                        handleDeleteProduct={handleDeleteProduct}
                       />
                     )}
                   </div>
@@ -98,7 +121,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
           ))
         ) : (
           <tr>
-            <td className="p-4 text-center" colSpan={5}>
+            <td className="p-4 text-center" colSpan={6}>
               {t("No products found")}
             </td>
           </tr>

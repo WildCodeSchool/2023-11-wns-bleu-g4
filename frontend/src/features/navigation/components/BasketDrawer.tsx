@@ -1,5 +1,5 @@
 import { useBookingData } from '@/context/BookingDataContext';
-import { useGetAllProductsQuery } from '@/graphql/Product/generated/getProductsDetails.generated';
+import { useGetProductsDetailsQuery } from '@/graphql/Product/generated/getProductsDetails.generated';
 import {
     Button,
     Divider,
@@ -29,7 +29,7 @@ interface BasketDrawerProps {
 export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onClose }) => {
     const { t } = useTranslation("BasketDrawer");
     const { bookingData, removeBookingData } = useBookingData();
-    const { data: productData } = useGetAllProductsQuery();
+    const { data: productData } = useGetProductsDetailsQuery();
     const router = useRouter();
     const colorScheme = useColorModeValue('#fff', '#0B0F0B');
 
