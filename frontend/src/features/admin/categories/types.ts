@@ -1,8 +1,11 @@
+import { Category, ParentCategory } from "@/graphql/generated/schema";
+
 export interface CategoryModalProps {
   isOpen: boolean;
   onClose: () => void;
-  category?: any;
+  category?: Category;
+  parentCategory?: ParentCategory;
   variant?: string;
-  handleDeleteCategory?: (id: number) => Promise<void>;
+  handleDelete?: (id: number) => Promise<void>;
   refetch?: () => void;
 }
