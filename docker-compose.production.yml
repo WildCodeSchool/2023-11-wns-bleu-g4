@@ -33,7 +33,7 @@ services:
     ports: 
       - 4000:4000
     volumes: 
-      - prodBackend:./backend/src:/app/src/
+      - prodBackend:/app/src/
 
   frontend:
     stop_grace_period: 0s
@@ -42,14 +42,14 @@ services:
       context: frontend
       dockerfile: Dockerfile.production
     volumes:
-      - prodFrontSrc:./frontend/src:/app/src/
-      - prodFrontPublic:./frontend/public:/app/public/
+      - prodFrontSrc:/app/src/
+      - prodFrontPublic:/app/public/
 
   upload:
     stop_grace_period: 0s
     build: upload
     volumes:
-      - prodUpload:./upload/files:/app/files/
+      - prodUpload:/app/files/
 
   gateway:
     stop_grace_period: 0s
