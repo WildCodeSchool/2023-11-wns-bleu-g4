@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout";
 import { Flex } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../../i18nUtils";
+import { getAllNamespaces } from "../i18nUtils";
 
 export default function Login() {
   const urlBg: string =
