@@ -3,7 +3,7 @@ import TableFooter from "@/features/admin/table/TableFooter";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 import ProductTableBody from "@/features/admin/table/ProductTableBody";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../../../i18nUtils";
+import { getAllNamespaces } from "../../../../i18nUtils";
 import { GetStaticProps } from "next";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useDisclosure } from "@chakra-ui/react";

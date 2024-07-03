@@ -5,7 +5,7 @@ import data from "@/features/admin/helpers/dummyCustomers";
 import CustomerTableBody from "@/features/admin/table/CustomerTableBody";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../../../i18nUtils";
+import { getAllNamespaces } from "../../../../i18nUtils";
 
 export default function Customers() {
   const [sortedData, setSortedData] = useState<any[]>(data);

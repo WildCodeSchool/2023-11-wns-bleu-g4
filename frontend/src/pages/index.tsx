@@ -3,7 +3,7 @@ import Welcome from "@/features/home/welcome/Welcome";
 import Layout from "@/layouts/Layout";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../i18nUtils";
+import { getAllNamespaces } from "../../i18nUtils";
 import CardItemCarousel from "@/features/home/categories/CardItemCarousel";
 
 export default function Home() {
