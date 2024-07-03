@@ -12,21 +12,25 @@ services:
       retries: 5
     ports:
       - 5432:5432
+    volumes:
+      - prodDB:/var/lib/postgresql/data
 
   backend:
     stop_grace_period: 0s
-    env_file: backend/.env
     environment:
-      DB_HOST: db
-      DB_PASS: ${DB_PASS-postgres}
-      DB_USER: ${DB_USER-postgres}
-      NODE_ENV: ${NODE_ENV:-production}
+      - DB_HOST=db
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}
+      - NODE_ENV=${NODE_ENV}
     depends_on:
       db:
         condition: service_healthy
     build:
       context: backend
       dockerfile: Dockerfile.production
+    ports:
+      - 4000:4000
     volumes:
       - ./backend/src:/app/src/
 
