@@ -15,9 +15,9 @@ export class ParentCategory extends BaseEntity {
 	@Field()
 	name: string
 
-	@OneToMany(() => Category, (categories) => categories.parentCategory, { cascade: true, onDelete: "CASCADE" })
+	@OneToMany(() => Category, (categories) => categories.parentCategory)
 	@Field(() => [Category])
-	categories: [Category]
+	categories: Category[]
 }
 
 @InputType()
