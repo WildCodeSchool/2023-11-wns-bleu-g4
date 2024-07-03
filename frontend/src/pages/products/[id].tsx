@@ -2,7 +2,7 @@ import ProductPage from "@/features/product/ProductPage";
 import Layout from "@/layouts/Layout";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../../../i18nUtils";
+import { getAllNamespaces } from "@root/i18nUtils";
 
 export default function Product() {
   return (
