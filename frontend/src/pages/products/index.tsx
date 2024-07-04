@@ -1,5 +1,5 @@
 import ProductFilter from "@/features/shop/filters/ProductFilter";
-import ProductGrid from "@/features/shop/product_grid/ProductGrid";
+import ProductGrid from "@/features/shop/product_grid/Productgrid";
 import Layout from "@/layouts/Layout";
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
