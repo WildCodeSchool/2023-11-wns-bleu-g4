@@ -78,7 +78,6 @@ export default function ProductDetails({ product }: { product: Product }) {
                 product={product}
                 isOpen={isCharacteristicsModalOpen}
                 onClose={() => setIsCharacteristicsModalOpen(!isCharacteristicsModalOpen)}
-                variant="darkOverlayStyle"
               />
             )}
           </div>
@@ -99,7 +98,6 @@ export default function ProductDetails({ product }: { product: Product }) {
             product={product}
             isOpen={isUpdateModalOpen}
             onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
-            variant="darkOverlayStyle"
           />
         )}
         <button type="button" className="bg-[#D23732] rounded px-3 py-1 text-white" onClick={toggleDeleteProductModal}>
@@ -110,7 +108,6 @@ export default function ProductDetails({ product }: { product: Product }) {
             product={product}
             isOpen={isDeleteModalOpen}
             onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-            variant="darkOverlayStyle"
             handleDeleteProduct={handleDeleteProduct}
           />
         )}
