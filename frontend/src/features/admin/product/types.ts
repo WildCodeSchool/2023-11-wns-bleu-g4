@@ -57,7 +57,6 @@ export interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product;
-  variant?: string;
   handleDeleteProduct?: (id: number) => Promise<void>;
   refetch?: () => void;
 }

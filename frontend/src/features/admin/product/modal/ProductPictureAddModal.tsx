@@ -23,7 +23,7 @@ interface Product_Picture {
   alt: string;
 }
 
-export default function ProductPictureAddModal({ isOpen, onClose, product, variant }: ProductModalProps) {
+export default function ProductPictureAddModal({ isOpen, onClose, product }: ProductModalProps) {
   const productId = product?.id!;
   const [addProductPicture] = useCreateProduct_PictureMutation();
   const [newPicture, setNewPicture] = useState<Product_Picture>({ thumbnail: '', alt: '' });
@@ -63,7 +63,7 @@ export default function ProductPictureAddModal({ isOpen, onClose, product, varia
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Update {product.name}</ModalHeader>

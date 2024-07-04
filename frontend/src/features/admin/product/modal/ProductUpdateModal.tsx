@@ -29,7 +29,7 @@ import uploadFile from "../../helpers/uploadFile";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 
-export default function ProductUpdateModal({ isOpen, onClose, product, variant }: ProductModalProps) {
+export default function ProductUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
   const [updateProduct] = useUpdateProductMutation();
   const [imageURL, setImageURL] = useState(product?.thumbnail);
   const [formData, setFormData] = useState({
@@ -93,7 +93,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Update {product.name}</ModalHeader>
