@@ -90,7 +90,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                     </button>
                     {isUpdateModalOpen && (
                       <ProductUpdateModal
-                        product={selectedProduct}
+                        product={selectedProduct!}
                         isOpen={isUpdateModalOpen}
                         onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
                         variant="baseStyle"
@@ -106,7 +106,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                     </button>
                     {isDeleteModalOpen && (
                       <ProductDeleteModal
-                        product={selectedProduct}
+                        product={selectedProduct!}
                         isOpen={isDeleteModalOpen}
                         onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
                         variant="baseStyle"

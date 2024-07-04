@@ -18,12 +18,13 @@ import uploadFile from "../../helpers/uploadFile";
 import { useCreateProduct_PictureMutation } from "@/graphql/ProductPicture/generated/CreateProduct_picture.generated";
 
 interface Product_Picture {
+  id?: number;
   thumbnail: string;
   alt: string;
 }
 
 export default function ProductPictureAddModal({ isOpen, onClose, product, variant }: ProductModalProps) {
-  const productId = product.id;
+  const productId = product?.id!;
   const [addProductPicture] = useCreateProduct_PictureMutation();
   const [newPicture, setNewPicture] = useState<Product_Picture>({ thumbnail: '', alt: '' });
 
@@ -50,7 +51,7 @@ export default function ProductPictureAddModal({ isOpen, onClose, product, varia
 
     const pictureData = {
       ...newPicture,
-      productId: { id: product.id },
+      productId: { id: productId },
     };
 
     addProductPicture({

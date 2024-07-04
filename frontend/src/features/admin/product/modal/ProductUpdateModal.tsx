@@ -33,15 +33,15 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
   const [updateProduct] = useUpdateProductMutation();
   const [imageURL, setImageURL] = useState(product?.thumbnail);
   const [formData, setFormData] = useState({
-    name: product.name,
-    brand: product.brand.id,
-    description: product.description,
-    price: product.price,
-    category: product.category.id,
+    name: product?.name,
+    brand: product?.brand.id!,
+    description: product?.description,
+    price: product?.price,
+    category: product?.category.id!,
     thumbnail: imageURL,
   });
 
-  const productId = product.id;
+  const productId = product.id!;
 
   const { data: categoriesData } = useGetAllCategoriesQuery();
   const categories = categoriesData?.getAllCategories ?? [];
@@ -69,7 +69,6 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      // [name]: { id: parseInt(value, 10) },
       [name]: parseInt(value, 10),
     }));
   };
@@ -199,6 +198,8 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
                 Thumbnail
               </FormLabel>
               <input
+                id="thumbnail"
+                name="thumbnail"
                 type="file"
                 onChange={(e) => {
                   if (e.target.files?.[0])

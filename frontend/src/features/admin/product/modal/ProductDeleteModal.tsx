@@ -23,7 +23,7 @@ export default function ProductDeleteModal({ isOpen, onClose, product: { id, nam
         <ModalFooter>
           <Button onClick={onClose}>Cancel</Button>
           <Button colorScheme="red" ml={3} type="submit"
-            onClick={() => { handleDeleteProduct && handleDeleteProduct(id) }}>
+            onClick={() => { handleDeleteProduct && handleDeleteProduct(id!) }}>
             Delete
           </Button>
         </ModalFooter>
