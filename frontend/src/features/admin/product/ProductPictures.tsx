@@ -1,11 +1,10 @@
-import { Product_Picture } from "@/graphql/generated/schema";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import ProductPictureAddModal from "./modal/ProductPictureAddModal";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDeleteProduct_PictureMutation } from "@/graphql/ProductPicture/generated/DeleteProduct_picture.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
-import { Product } from "./types";
+import { Product, Product_Picture } from "./types";
 
 export default function ProductPictures({ product }: { product: Product }) {
     const [deletePicture] = useDeleteProduct_PictureMutation();
@@ -54,7 +53,7 @@ export default function ProductPictures({ product }: { product: Product }) {
                             type="button"
                             className="absolute top-1 right-1 bg-[#D23732]/50 rounded-md p-1"
                             aria-label="Delete button"
-                            onClick={() => handleDeletePicture(picture.id)}
+                            onClick={() => handleDeletePicture(picture?.id!)}
                         >
                             <XMarkIcon className="h-5 w-5 text-white" />
                         </button>

@@ -1,5 +1,3 @@
-import { Product_Picture } from "@/graphql/generated/schema";
-
 export interface menuItems {
   id?: number;
   name: string;
@@ -19,6 +17,12 @@ export interface Characteristic {
   id?: number;
   characteristic?: string;
   value?: string;
+}
+
+export interface Product_Picture {
+  id?: number;
+  thumbnail: string;
+  alt: string;
 }
 
 export interface Product {

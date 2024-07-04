@@ -11,17 +11,11 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../types";
+import { Product_Picture, ProductModalProps } from "../types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 import uploadFile from "../../helpers/uploadFile";
 import { useCreateProduct_PictureMutation } from "@/graphql/ProductPicture/generated/CreateProduct_picture.generated";
-
-interface Product_Picture {
-  id?: number;
-  thumbnail: string;
-  alt: string;
-}
 
 export default function ProductPictureAddModal({ isOpen, onClose, product }: ProductModalProps) {
   const productId = product?.id!;

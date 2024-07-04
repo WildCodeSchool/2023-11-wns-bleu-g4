@@ -18,7 +18,6 @@ import {
   NumberInputField,
   NumberInputStepper,
   Select,
-  Text,
   Textarea,
 } from "@chakra-ui/react";
 import { Brand, Category, ProductModalProps } from "../types";
