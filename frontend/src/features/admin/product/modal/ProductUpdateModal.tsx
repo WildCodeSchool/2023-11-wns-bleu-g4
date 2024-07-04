@@ -21,12 +21,12 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Brand, Category, ProductModalProps } from "../types";
-import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
 import { ChangeEvent, FormEvent, useState } from "react";
 import uploadFile from "../../helpers/uploadFile";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
 
 export default function ProductUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
   const [updateProduct] = useUpdateProductMutation();
@@ -35,12 +35,12 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
     name: product?.name,
     brand: product?.brand.id!,
     description: product?.description,
-    price: product?.price,
+    price: product?.price!,
     category: product?.category.id!,
     thumbnail: imageURL,
   });
 
-  const productId = product.id!;
+  const productId = product?.id!;
 
   const { data: categoriesData } = useGetAllCategoriesQuery();
   const categories = categoriesData?.getAllCategories ?? [];
@@ -75,7 +75,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
 
     const productData = {
       ...formData,
-      price: parseFloat(formData.price.toString()),
+      price: parseFloat(formData.price?.toString()),
       category: { id: formData.category },
       brand: { id: formData.brand },
       thumbnail: imageURL,
@@ -93,7 +93,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
     <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Update {product.name}</ModalHeader>
+        <ModalHeader>Update {product?.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit}>
