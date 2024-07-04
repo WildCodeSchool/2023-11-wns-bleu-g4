@@ -5,12 +5,15 @@ import { parentCategoryTableHeaders } from "../../helpers/tableHeaders";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import { ParentCategory } from "@/graphql/generated/schema";
-import { useDeleteParentCategoryMutation } from "@/graphql/ParentCategory/generated/deleteParentCategory.generated";
-import { GetAllParentCategoriesDocument, GetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
+import {
+  useDeleteParentCategoryMutation
+} from "@/graphql/ParentCategory/generated/deleteParentCategory.generated";
+import {
+  GetAllParentCategoriesDocument,
+  GetAllParentCategoriesQuery,
+} from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import ParentCategoryDeleteModal from "../modal/ParentCategoryDeleteModal";
 import ParentCategoryUpdateModal from "../modal/ParentCategoryUpdateModal";
-import { GetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
-import { Category } from "../types";
 
 export default function ParentCategoryTableBody({ data, refetch }: TableBodyProps) {
   const { t } = useTranslation("ParentCategoryTableBody");
@@ -40,7 +43,7 @@ export default function ParentCategoryTableBody({ data, refetch }: TableBodyProp
         },
       });
       refetch && refetch();
-      setIsDeleteModalOpen(!isDeleteModalOpen)
+      setIsDeleteModalOpen(!isDeleteModalOpen);
     } catch (e) {
       console.error(e);
     }
@@ -52,7 +55,8 @@ export default function ParentCategoryTableBody({ data, refetch }: TableBodyProp
         <tr>
           {parentCategoryTableHeaders.map(menu => (
             <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
+              border-b border-gray-200"
               key={menu.id}
             >
               {menu.name}

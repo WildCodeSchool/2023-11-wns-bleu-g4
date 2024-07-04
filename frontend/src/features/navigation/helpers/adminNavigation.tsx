@@ -1,4 +1,10 @@
-import { ChartBarSquareIcon, CubeIcon, ShoppingBagIcon, UserGroupIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
+import {
+  ChartBarSquareIcon,
+  CubeIcon,
+  ShoppingBagIcon,
+  UserGroupIcon,
+  Squares2X2Icon,
+} from "@heroicons/react/24/outline";
 import { ReactNode } from "react";
 
 interface Navigation {

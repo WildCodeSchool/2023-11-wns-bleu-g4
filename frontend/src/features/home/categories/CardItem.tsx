@@ -27,7 +27,6 @@ export default function CardItem({ text, image, id }: CardItemProps) {
       bg={color}
       borderRadius="16px"
       onClick={() => navigateToCategory(id)}
-
     >
       <Image
         objectFit="cover"

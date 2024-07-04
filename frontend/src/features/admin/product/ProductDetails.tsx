@@ -31,9 +31,9 @@ export default function ProductDetails({ product }: { product: Product }) {
     <div className="bg-[#F5F5F5] rounded flex flex-col gap-12 p-4 justify-between w-full max-w-96 2xl:max-w-md">
       <div className="flex flex-col gap-8">
         <div className="flex gap-4">
-          {product?.thumbnail &&
+          {product?.thumbnail && (
             <img src={product.thumbnail} alt={product.name} className="h-40 w-40 rounded object-cover object-center" />
-          }
+          )}
           <div className="mt-4">
             <h3>{product?.name}</h3>
             <span>Reference: {product?.id}</span>
@@ -82,9 +82,7 @@ export default function ProductDetails({ product }: { product: Product }) {
               />
             )}
           </div>
-          {product?.characteristics.length === 0 && (
-            <span className="col-span-2 italic">No characteristics</span>
-          )}
+          {product?.characteristics.length === 0 && <span className="col-span-2 italic">No characteristics</span>}
           {product?.characteristics.map((characteristic: any) => (
             <div key={characteristic.id} className="flex flex-col">
               <span>- {characteristic.characteristic}</span>
@@ -93,11 +91,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         </div>
       </div>
       <div className="flex gap-2 justify-end flex-grow">
-        <button
-          type="button"
-          className="bg-cactus-400 rounded px-3 py-1 text-white"
-          onClick={toggleUpdateProductModal}
-        >
+        <button type="button" className="bg-cactus-400 rounded px-3 py-1 text-white" onClick={toggleUpdateProductModal}>
           Edit Product
         </button>
         {isUpdateModalOpen && (
@@ -108,11 +102,7 @@ export default function ProductDetails({ product }: { product: Product }) {
             variant="darkOverlayStyle"
           />
         )}
-        <button
-          type="button"
-          className="bg-[#D23732] rounded px-3 py-1 text-white"
-          onClick={toggleDeleteProductModal}
-        >
+        <button type="button" className="bg-[#D23732] rounded px-3 py-1 text-white" onClick={toggleDeleteProductModal}>
           Delete Product
         </button>
         {isDeleteModalOpen && (

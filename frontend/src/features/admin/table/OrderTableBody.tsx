@@ -5,7 +5,12 @@ import { ArrowsUpDownIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import OrderDetailsDropdown from "./orderDetailsDropdown";
 
-export default function OrderTableBody({ data, handleDateSort, sortColumnName, sortOrder }: OrderTableBodyProps) {
+export default function OrderTableBody({
+  data,
+  handleDateSort,
+  sortColumnName,
+  sortOrder
+}: OrderTableBodyProps) {
   const { t } = useTranslation("OrderTableBody");
   const [openOrderId, setOpenOrderId] = useState<string | null>(null);
 
@@ -19,7 +24,8 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
         <tr>
           {orderTableHeaders.map(menu => (
             <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
+              border-b border-gray-200"
               key={menu.id}
             >
               <span className="flex gap-2 items-center">
@@ -31,7 +37,8 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
                     onClick={() => handleDateSort(menu.name)}
                   >
                     <ArrowsUpDownIcon
-                      className={`h-5 w-5 ${sortColumnName === menu.name && sortOrder && "text-accent"} group-hover:text-accent`}
+                      className={`h-5 w-5 ${sortColumnName === menu.name && sortOrder && "text-accent"}
+                       group-hover:text-accent`}
                     />
                   </button>
                 )}
@@ -60,7 +67,8 @@ export default function OrderTableBody({ data, handleDateSort, sortColumnName, s
                     onClick={() => handleOrderDetails(order.id)}
                   >
                     <ChevronDownIcon
-                      className={`h-5 w-5 text-white ${openOrderId === order.id ? "transform duration-150 rotate-180" : "transform duration-150 rotate-0"}`}
+                      className={`h-5 w-5 text-white ${openOrderId === order.id ?
+                        "transform duration-150 rotate-180" : "transform duration-150 rotate-0"}`}
                     />
                   </button>
                 </td>

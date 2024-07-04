@@ -31,11 +31,9 @@ export default function CategoryCreateModal({ isOpen, onClose, refetch }: Catego
   const { data: parentCategoriesData } = useGetAllParentCategoriesQuery();
   const parentCategories = parentCategoriesData?.getAllParentCategories ?? [];
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
@@ -43,7 +41,7 @@ export default function CategoryCreateModal({ isOpen, onClose, refetch }: Catego
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: { id: parseInt(value, 10) },
     }));
@@ -114,9 +112,8 @@ export default function CategoryCreateModal({ isOpen, onClose, refetch }: Catego
                 type="file"
                 id="thumbnail"
                 name="thumbnail"
-                onChange={(e) => {
-                  if (e.target.files?.[0])
-                    uploadFile(e.target.files?.[0]).then(setImageURL);
+                onChange={e => {
+                  if (e.target.files?.[0]) uploadFile(e.target.files?.[0]).then(setImageURL);
                 }}
               />
             </FormControl>

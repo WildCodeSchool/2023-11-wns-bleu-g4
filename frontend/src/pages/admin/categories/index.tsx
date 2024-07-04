@@ -11,64 +11,64 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 export default function Categories() {
-    const [createCategoryModalOpen, setCreateCategoryModalOpen] = useState(false);
-    const [createParentCategoryModalOpen, setCreateParentCategoryModalOpen] = useState(false);
+  const [createCategoryModalOpen, setCreateCategoryModalOpen] = useState(false);
+  const [createParentCategoryModalOpen, setCreateParentCategoryModalOpen] = useState(false);
 
-    const { data: categoriesData, refetch: refetchCategories } = useGetAllCategoriesQuery();
-    const categories = categoriesData?.getAllCategories || [];
-    const { data: parentCategoriesData, refetch: refetchParentCategories } = useGetAllParentCategoriesQuery();
-    const parentCategories = parentCategoriesData?.getAllParentCategories || [];
+  const { data: categoriesData, refetch: refetchCategories } = useGetAllCategoriesQuery();
+  const categories = categoriesData?.getAllCategories || [];
+  const { data: parentCategoriesData, refetch: refetchParentCategories } = useGetAllParentCategoriesQuery();
+  const parentCategories = parentCategoriesData?.getAllParentCategories || [];
 
-    const toggleCreateCategoryModal = () => setCreateCategoryModalOpen(!createCategoryModalOpen);
-    const toggleCreateParentCategoryModal = () => setCreateParentCategoryModalOpen(!createParentCategoryModalOpen);
+  const toggleCreateCategoryModal = () => setCreateCategoryModalOpen(!createCategoryModalOpen);
+  const toggleCreateParentCategoryModal = () => setCreateParentCategoryModalOpen(!createParentCategoryModalOpen);
 
-    return (
-        <LayoutAdmin pageTitle="Categories">
-            <h1>Categories</h1>
-            <Tabs variant='enclosed'>
-                <TabList>
-                    <Tab>Parent Categories</Tab>
-                    <Tab>Categories</Tab>
-                </TabList>
-                <TabPanels>
-                    <TabPanel className="flex flex-col items-end gap-4">
-                        <button
-                            type="button"
-                            className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
-                            onClick={toggleCreateParentCategoryModal}
-                        >
-                            <PlusIcon className="h-6 w-6" />
-                            Add Parent Category
-                        </button>
-                        {createParentCategoryModalOpen && (
-                            <ParentCategoryCreateModal
-                                isOpen={createParentCategoryModalOpen}
-                                onClose={toggleCreateParentCategoryModal}
-                                refetch={refetchParentCategories}
-                            />
-                        )}
-                        <ParentCategoryTableBody data={parentCategories} refetch={refetchCategories}/>
-                    </TabPanel>
-                    <TabPanel className="flex flex-col items-end gap-4">
-                        <button
-                            type="button"
-                            className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
-                            onClick={toggleCreateCategoryModal}
-                        >
-                            <PlusIcon className="h-6 w-6" />
-                            Add Category
-                        </button>
-                        {createCategoryModalOpen && (
-                            <CategoryCreateModal
-                                isOpen={createCategoryModalOpen}
-                                onClose={toggleCreateCategoryModal}
-                                refetch={refetchCategories}
-                            />
-                        )}
-                        <CategoryTableBody data={categories} />
-                    </TabPanel>
-                </TabPanels>
-            </Tabs>
-        </LayoutAdmin>
-    );
-};
+  return (
+    <LayoutAdmin pageTitle="Categories">
+      <h1>Categories</h1>
+      <Tabs variant="enclosed">
+        <TabList>
+          <Tab>Parent Categories</Tab>
+          <Tab>Categories</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel className="flex flex-col items-end gap-4">
+            <button
+              type="button"
+              className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
+              onClick={toggleCreateParentCategoryModal}
+            >
+              <PlusIcon className="h-6 w-6" />
+              Add Parent Category
+            </button>
+            {createParentCategoryModalOpen && (
+              <ParentCategoryCreateModal
+                isOpen={createParentCategoryModalOpen}
+                onClose={toggleCreateParentCategoryModal}
+                refetch={refetchParentCategories}
+              />
+            )}
+            <ParentCategoryTableBody data={parentCategories} refetch={refetchCategories} />
+          </TabPanel>
+          <TabPanel className="flex flex-col items-end gap-4">
+            <button
+              type="button"
+              className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
+              onClick={toggleCreateCategoryModal}
+            >
+              <PlusIcon className="h-6 w-6" />
+              Add Category
+            </button>
+            {createCategoryModalOpen && (
+              <CategoryCreateModal
+                isOpen={createCategoryModalOpen}
+                onClose={toggleCreateCategoryModal}
+                refetch={refetchCategories}
+              />
+            )}
+            <CategoryTableBody data={categories} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </LayoutAdmin>
+  );
+}

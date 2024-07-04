@@ -17,7 +17,12 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ArrowLeftStartOnRectangleIcon, ArrowRightEndOnRectangleIcon, Bars3BottomRightIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowLeftStartOnRectangleIcon,
+  ArrowRightEndOnRectangleIcon,
+  Bars3BottomRightIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 import { useLogoutMutation } from "@/graphql/User/generated/Logout.generated";
@@ -31,9 +36,7 @@ import { useEffect, useState } from "react";
 
 function DesktopNavbar() {
   const [t] = useTranslation("Navbar");
-  const { data: profileData, refetch, client } = useProfileQuery(
-    { errorPolicy: "ignore" }
-  );
+  const { data: profileData, refetch, client } = useProfileQuery({ errorPolicy: "ignore" });
   const [logout] = useLogoutMutation();
   const router = useRouter();
 
@@ -48,7 +51,7 @@ function DesktopNavbar() {
     await client.resetStore();
     await refetch();
     setIsLogged(false);
-    router.push('/login');
+    router.push("/login");
   };
 
   return (
@@ -78,10 +81,7 @@ function DesktopNavbar() {
                   <MenuItem>{t("My Account")}</MenuItem>
                   <MenuItem>{t("Payments")} </MenuItem>
                   <MenuDivider />
-                  <MenuItem
-                    icon={<ArrowLeftStartOnRectangleIcon width={24} />}
-                    onClick={handleLogout}
-                  >
+                  <MenuItem icon={<ArrowLeftStartOnRectangleIcon width={24} />} onClick={handleLogout}>
                     {t("Logout")}
                   </MenuItem>
                 </MenuList>
@@ -110,9 +110,7 @@ function MobileNavbar() {
   const bg = useColorModeValue("white", "#3B3B3B");
   const textColor = useColorModeValue("black", "white");
   const [t] = useTranslation("Navbar");
-  const { data: profileData, refetch, client } = useProfileQuery(
-    { errorPolicy: "ignore" }
-  );
+  const { data: profileData, refetch, client } = useProfileQuery({ errorPolicy: "ignore" });
   const [logout] = useLogoutMutation();
   const router = useRouter();
 
@@ -127,7 +125,7 @@ function MobileNavbar() {
     await client.resetStore();
     await refetch();
     setIsLogged(false);
-    router.push('/login');
+    router.push("/login");
   };
 
   return (
@@ -183,10 +181,7 @@ function MobileNavbar() {
           <TopNavItems />
           <Flex justifyContent="center" alignItems="center" py={4} gap={8}>
             <ThemeToggle />
-            <Button
-              leftIcon={<ArrowLeftStartOnRectangleIcon width={24} />}
-              onClick={handleLogout}
-            >
+            <Button leftIcon={<ArrowLeftStartOnRectangleIcon width={24} />} onClick={handleLogout}>
               {t("Logout")}
             </Button>
           </Flex>

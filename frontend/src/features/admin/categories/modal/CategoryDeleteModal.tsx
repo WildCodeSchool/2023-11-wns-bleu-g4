@@ -17,12 +17,19 @@ export default function CategoryDeleteModal({ isOpen, onClose, category, handleD
       <ModalContent>
         <ModalHeader>Delete {category?.name}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody pb={6}>Are you sure you want to delete <b>{category?.name} category</b>? This action cannot be undone.</ModalBody>
-
+        <ModalBody pb={6}>
+          Are you sure you want to delete <b>{category?.name} category</b>? This action cannot be undone.
+        </ModalBody>
         <ModalFooter>
           <Button onClick={onClose}>Cancel</Button>
-          <Button colorScheme="red" ml={3} type="submit"
-            onClick={() => { handleDelete && handleDelete(category?.id!) }}>
+          <Button
+            colorScheme="red"
+            ml={3}
+            type="submit"
+            onClick={() => {
+              handleDelete && handleDelete(category?.id!);
+            }}
+          >
             Delete
           </Button>
         </ModalFooter>

@@ -40,7 +40,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
           getAllProducts: data.filter((product: Product) => product.id !== id),
         },
       });
-      setIsDeleteModalOpen(!isDeleteModalOpen)
+      setIsDeleteModalOpen(!isDeleteModalOpen);
     } catch (e) {
       console.error(e);
     }
@@ -52,7 +52,8 @@ export default function ProductTableBody({ data }: TableBodyProps) {
         <tr>
           {productTableHeaders.map(menu => (
             <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
+              border-b border-gray-200"
               key={menu.id}
             >
               {menu.name}
@@ -93,7 +94,6 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                         product={selectedProduct!}
                         isOpen={isUpdateModalOpen}
                         onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
-                        variant="baseStyle"
                       />
                     )}
                     <button
@@ -109,7 +109,6 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                         product={selectedProduct!}
                         isOpen={isDeleteModalOpen}
                         onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-                        variant="baseStyle"
                         handleDeleteProduct={handleDeleteProduct}
                       />
                     )}

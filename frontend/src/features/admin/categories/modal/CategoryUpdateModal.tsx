@@ -18,9 +18,9 @@ import uploadFile from "../../helpers/uploadFile";
 import { CategoryModalProps, ParentCategory } from "../types";
 import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import { useUpdateCategoryMutation } from "@/graphql/Category/generated/updateCategory.generated";
-import { GetCategoryByIdDocument } from "@/graphql/Category/generated/getCategoryById.generated";
+import { GetCategoryByIdDocument } from "@/graphql/Category/generated/GetCategoryById.generated";
 
-export default function CategoryUpdateModal({ isOpen, onClose, category, refetch }: CategoryModalProps) {
+export default function CategoryUpdateModal({ isOpen, onClose, category }: CategoryModalProps) {
   const [updateCategory] = useUpdateCategoryMutation();
   const [imageURL, setImageURL] = useState(category?.thumbnail);
   const [formData, setFormData] = useState({
@@ -34,11 +34,9 @@ export default function CategoryUpdateModal({ isOpen, onClose, category, refetch
   const { data: parentCategoriesData } = useGetAllParentCategoriesQuery();
   const parentCategories = parentCategoriesData?.getAllParentCategories ?? [];
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
@@ -46,7 +44,7 @@ export default function CategoryUpdateModal({ isOpen, onClose, category, refetch
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: parseInt(value, 10),
     }));
@@ -116,9 +114,8 @@ export default function CategoryUpdateModal({ isOpen, onClose, category, refetch
                 type="file"
                 id="thumbnail"
                 name="thumbnail"
-                onChange={(e) => {
-                  if (e.target.files?.[0])
-                    uploadFile(e.target.files?.[0]).then(setImageURL);
+                onChange={e => {
+                  if (e.target.files?.[0]) uploadFile(e.target.files?.[0]).then(setImageURL);
                 }}
               />
             </FormControl>
