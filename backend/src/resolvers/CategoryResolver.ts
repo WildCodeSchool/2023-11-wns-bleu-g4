@@ -1,20 +1,20 @@
-import {
-	Resolver,
-	Query,
-	Arg,
-	Mutation,
-	Int,
-	Ctx,
-	Authorized,
-} from "type-graphql"
 import { GraphQLError } from "graphql"
+import {
+	Arg,
+	Authorized,
+	Ctx,
+	Int,
+	Mutation,
+	Query,
+	Resolver,
+} from "type-graphql"
 import { ILike } from "typeorm"
-import { Context } from "../utils"
-import { UserRole } from "../entities/User"
 import Category, {
 	NewCategoryInput,
 	UpdateCategoryInput,
 } from "../entities/Category"
+import { UserRole } from "../entities/User"
+import { Context } from "../utils"
 
 @Resolver()
 class CategoryResolver {
@@ -27,12 +27,13 @@ class CategoryResolver {
 		return Category.find({
 			relations: { products: true, parentCategories: true },
 			where: {
-				name: name ? ILike(`%${name}%`) : undefined,
+				name: name ? ILike(`'%${name}%'`) : undefined,
 				products: { id: productId },
 				parentCategories: { id: subCategoryId },
 			},
-		})
+		});
 	}
+
 
 	@Query(() => Category)
 	async getCategoryById(@Arg("categoryId", () => Int) id: number) {

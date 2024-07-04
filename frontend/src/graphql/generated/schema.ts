@@ -398,7 +398,7 @@ export type ObjectId = {
 
 export type ParentCategory = {
   __typename?: 'ParentCategory';
-  category: Category;
+  categories: Array<Category>;
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
 };
@@ -419,7 +419,7 @@ export type Product = {
   pictures: Array<Product_Picture>;
   price: Scalars['Float']['output'];
   productCodes: Array<ProductCode>;
-  reviews: Array<Review>;
+  reviews?: Maybe<Array<Review>>;
   thumbnail: Scalars['String']['output'];
 };
 
