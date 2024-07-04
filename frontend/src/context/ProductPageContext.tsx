@@ -49,7 +49,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
     useEffect(() => {
         if (!productLoading && !productError && productData) {
             const productId = router.query.id as string;
-            const selected = productData.getAllProducts.find(product => product.id === parseInt(productId));
+            const selected = productData.getAllProducts.find((product: { id: number; }) => product.id === parseInt(productId));
             setSelectedProduct(selected as Product | undefined);
         }
     }, [productData, productLoading, productError, router.query.id]);
