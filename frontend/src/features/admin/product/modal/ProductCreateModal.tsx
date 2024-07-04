@@ -26,7 +26,7 @@ import { useCreateProductMutation } from "@/graphql/Product/generated/createProd
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
 import uploadFile from "../../helpers/uploadFile";
-import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
 
 export default function ProductCreateModal({ isOpen, onClose, refetch }: ProductModalProps) {
   const [createProduct] = useCreateProductMutation();
