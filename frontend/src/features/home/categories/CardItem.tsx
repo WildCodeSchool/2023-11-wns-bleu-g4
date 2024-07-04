@@ -16,8 +16,6 @@ export default function CardItem({ text, image, id }: CardItemProps) {
     router.push(`/productsByCategory/${categoryId}`);
   };
 
-  console.log("text:", navigateToCategory);
-
   return (
     <Card
       width={{ base: "11.2em", lg: "16em" }}
