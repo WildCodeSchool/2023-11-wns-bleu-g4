@@ -22,7 +22,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Brand, Category, ProductModalProps } from "../types";
-import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
 import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
 import { ChangeEvent, FormEvent, useState } from "react";
 import uploadFile from "../helpers/uploadFile";
