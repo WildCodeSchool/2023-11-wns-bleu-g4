@@ -61,7 +61,7 @@ export interface TableFooterProps {
 export interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
-  product: Product;
+  product?: Product;
   handleDeleteProduct?: (id: number) => Promise<void>;
   refetch?: () => void;
 }

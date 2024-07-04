@@ -1,32 +1,45 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type CreateUserMutationVariables = Types.Exact<{
   data: Types.NewUserInput;
 }>;
 
-
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number, email: string, name: string, firstname: string, address: string, postcode: string, city: string, country: string, phone: string, avatar: string } };
-
+export type CreateUserMutation = {
+  __typename?: "Mutation";
+  createUser: {
+    __typename?: "User";
+    id: number;
+    email: string;
+    name: string;
+    firstname: string;
+    address: string;
+    postcode: string;
+    city: string;
+    country: string;
+    phone: string;
+    avatar: string;
+  };
+};
 
 export const CreateUserDocument = gql`
-    mutation CreateUser($data: NewUserInput!) {
-  createUser(data: $data) {
-    id
-    email
-    name
-    firstname
-    address
-    postcode
-    city
-    country
-    phone
-    avatar
+  mutation CreateUser($data: NewUserInput!) {
+    createUser(data: $data) {
+      id
+      email
+      name
+      firstname
+      address
+      postcode
+      city
+      country
+      phone
+      avatar
+    }
   }
-}
-    `;
+`;
 export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 
 /**
@@ -46,10 +59,12 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  *   },
  * });
  */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
-      }
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+}
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;

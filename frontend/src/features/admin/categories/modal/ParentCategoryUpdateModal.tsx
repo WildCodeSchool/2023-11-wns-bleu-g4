@@ -23,11 +23,9 @@ export default function ParentCategoryUpdateModal({ isOpen, onClose, parentCateg
 
   const parentCategoryId = parentCategory?.id!;
 
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
@@ -38,8 +36,10 @@ export default function ParentCategoryUpdateModal({ isOpen, onClose, parentCateg
 
     updateParentCategory({
       variables: { data: formData, parentCategoryId },
-      refetchQueries: [{ query: GetParentCategoryByIdDocument, variables: { parentCategoryId } }]
-    }).then(onClose).catch(console.error);
+      refetchQueries: [{ query: GetParentCategoryByIdDocument, variables: { parentCategoryId } }],
+    })
+      .then(onClose)
+      .catch(console.error);
   };
 
   return (

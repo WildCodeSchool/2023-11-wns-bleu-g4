@@ -1,33 +1,43 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type CreateProductMutationVariables = Types.Exact<{
   data: Types.NewProductInput;
 }>;
 
-
-export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, category: { __typename?: 'Category', id: number }, brand: { __typename?: 'Brand', id: number } } };
-
+export type CreateProductMutation = {
+  __typename?: "Mutation";
+  createProduct: {
+    __typename?: "Product";
+    id: number;
+    name: string;
+    price: number;
+    description: string;
+    thumbnail: string;
+    category: { __typename?: "Category"; id: number };
+    brand: { __typename?: "Brand"; id: number };
+  };
+};
 
 export const CreateProductDocument = gql`
-    mutation CreateProduct($data: NewProductInput!) {
-  createProduct(data: $data) {
-    id
-    name
-    price
-    description
-    thumbnail
-    category {
+  mutation CreateProduct($data: NewProductInput!) {
+    createProduct(data: $data) {
       id
-    }
-    brand {
-      id
+      name
+      price
+      description
+      thumbnail
+      category {
+        id
+      }
+      brand {
+        id
+      }
     }
   }
-}
-    `;
+`;
 export type CreateProductMutationFn = Apollo.MutationFunction<CreateProductMutation, CreateProductMutationVariables>;
 
 /**
@@ -47,10 +57,15 @@ export type CreateProductMutationFn = Apollo.MutationFunction<CreateProductMutat
  *   },
  * });
  */
-export function useCreateProductMutation(baseOptions?: Apollo.MutationHookOptions<CreateProductMutation, CreateProductMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateProductMutation, CreateProductMutationVariables>(CreateProductDocument, options);
-      }
+export function useCreateProductMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateProductMutation, CreateProductMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateProductMutation, CreateProductMutationVariables>(CreateProductDocument, options);
+}
 export type CreateProductMutationHookResult = ReturnType<typeof useCreateProductMutation>;
 export type CreateProductMutationResult = Apollo.MutationResult<CreateProductMutation>;
-export type CreateProductMutationOptions = Apollo.BaseMutationOptions<CreateProductMutation, CreateProductMutationVariables>;
+export type CreateProductMutationOptions = Apollo.BaseMutationOptions<
+  CreateProductMutation,
+  CreateProductMutationVariables
+>;

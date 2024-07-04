@@ -1,27 +1,35 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type CreateBookingMutationVariables = Types.Exact<{
   data: Types.NewBookingInput;
 }>;
 
-
-export type CreateBookingMutation = { __typename?: 'Mutation', createBooking: { __typename?: 'Booking', id: number, status: Types.StatusBooking, bookingDate: any, startDate: any, endDate: any } };
-
+export type CreateBookingMutation = {
+  __typename?: "Mutation";
+  createBooking: {
+    __typename?: "Booking";
+    id: number;
+    status: Types.StatusBooking;
+    bookingDate: any;
+    startDate: any;
+    endDate: any;
+  };
+};
 
 export const CreateBookingDocument = gql`
-    mutation CreateBooking($data: NewBookingInput!) {
-  createBooking(data: $data) {
-    id
-    status
-    bookingDate
-    startDate
-    endDate
+  mutation CreateBooking($data: NewBookingInput!) {
+    createBooking(data: $data) {
+      id
+      status
+      bookingDate
+      startDate
+      endDate
+    }
   }
-}
-    `;
+`;
 export type CreateBookingMutationFn = Apollo.MutationFunction<CreateBookingMutation, CreateBookingMutationVariables>;
 
 /**
@@ -41,10 +49,15 @@ export type CreateBookingMutationFn = Apollo.MutationFunction<CreateBookingMutat
  *   },
  * });
  */
-export function useCreateBookingMutation(baseOptions?: Apollo.MutationHookOptions<CreateBookingMutation, CreateBookingMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateBookingMutation, CreateBookingMutationVariables>(CreateBookingDocument, options);
-      }
+export function useCreateBookingMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateBookingMutation, CreateBookingMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateBookingMutation, CreateBookingMutationVariables>(CreateBookingDocument, options);
+}
 export type CreateBookingMutationHookResult = ReturnType<typeof useCreateBookingMutation>;
 export type CreateBookingMutationResult = Apollo.MutationResult<CreateBookingMutation>;
-export type CreateBookingMutationOptions = Apollo.BaseMutationOptions<CreateBookingMutation, CreateBookingMutationVariables>;
+export type CreateBookingMutationOptions = Apollo.BaseMutationOptions<
+  CreateBookingMutation,
+  CreateBookingMutationVariables
+>;

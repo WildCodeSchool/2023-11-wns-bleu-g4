@@ -1,28 +1,37 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type GetBookingByIdQueryVariables = Types.Exact<{
-  bookingId: Types.Scalars['Int']['input'];
+  bookingId: Types.Scalars["Int"]["input"];
 }>;
 
-
-export type GetBookingByIdQuery = { __typename?: 'Query', getBookingById: { __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any } };
-
+export type GetBookingByIdQuery = {
+  __typename?: "Query";
+  getBookingById: {
+    __typename?: "Booking";
+    id: number;
+    status: Types.StatusBooking;
+    invoice: string;
+    bookingDate: any;
+    startDate: any;
+    endDate: any;
+  };
+};
 
 export const GetBookingByIdDocument = gql`
-    query GetBookingById($bookingId: Int!) {
-  getBookingById(bookingId: $bookingId) {
-    id
-    status
-    invoice
-    bookingDate
-    startDate
-    endDate
+  query GetBookingById($bookingId: Int!) {
+    getBookingById(bookingId: $bookingId) {
+      id
+      status
+      invoice
+      bookingDate
+      startDate
+      endDate
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetBookingByIdQuery__
@@ -40,18 +49,25 @@ export const GetBookingByIdDocument = gql`
  *   },
  * });
  */
-export function useGetBookingByIdQuery(baseOptions: Apollo.QueryHookOptions<GetBookingByIdQuery, GetBookingByIdQueryVariables> & ({ variables: GetBookingByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetBookingByIdQuery, GetBookingByIdQueryVariables>(GetBookingByIdDocument, options);
-      }
-export function useGetBookingByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBookingByIdQuery, GetBookingByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetBookingByIdQuery, GetBookingByIdQueryVariables>(GetBookingByIdDocument, options);
-        }
-export function useGetBookingByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetBookingByIdQuery, GetBookingByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetBookingByIdQuery, GetBookingByIdQueryVariables>(GetBookingByIdDocument, options);
-        }
+export function useGetBookingByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<GetBookingByIdQuery, GetBookingByIdQueryVariables> &
+    ({ variables: GetBookingByIdQueryVariables; skip?: boolean } | { skip: boolean }),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetBookingByIdQuery, GetBookingByIdQueryVariables>(GetBookingByIdDocument, options);
+}
+export function useGetBookingByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetBookingByIdQuery, GetBookingByIdQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetBookingByIdQuery, GetBookingByIdQueryVariables>(GetBookingByIdDocument, options);
+}
+export function useGetBookingByIdSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetBookingByIdQuery, GetBookingByIdQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetBookingByIdQuery, GetBookingByIdQueryVariables>(GetBookingByIdDocument, options);
+}
 export type GetBookingByIdQueryHookResult = ReturnType<typeof useGetBookingByIdQuery>;
 export type GetBookingByIdLazyQueryHookResult = ReturnType<typeof useGetBookingByIdLazyQuery>;
 export type GetBookingByIdSuspenseQueryHookResult = ReturnType<typeof useGetBookingByIdSuspenseQuery>;

@@ -1,23 +1,24 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
-export type GetAllBrandsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetAllBrandsQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-
-export type GetAllBrandsQuery = { __typename?: 'Query', getAllBrands: Array<{ __typename?: 'Brand', name: string, id: number, logo: string }> };
-
+export type GetAllBrandsQuery = {
+  __typename?: "Query";
+  getAllBrands: Array<{ __typename?: "Brand"; name: string; id: number; logo: string }>;
+};
 
 export const GetAllBrandsDocument = gql`
-    query GetAllBrands {
-  getAllBrands {
-    name
-    id
-    logo
+  query GetAllBrands {
+    getAllBrands {
+      name
+      id
+      logo
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAllBrandsQuery__
@@ -34,18 +35,24 @@ export const GetAllBrandsDocument = gql`
  *   },
  * });
  */
-export function useGetAllBrandsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllBrandsQuery, GetAllBrandsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllBrandsQuery, GetAllBrandsQueryVariables>(GetAllBrandsDocument, options);
-      }
-export function useGetAllBrandsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllBrandsQuery, GetAllBrandsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllBrandsQuery, GetAllBrandsQueryVariables>(GetAllBrandsDocument, options);
-        }
-export function useGetAllBrandsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllBrandsQuery, GetAllBrandsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllBrandsQuery, GetAllBrandsQueryVariables>(GetAllBrandsDocument, options);
-        }
+export function useGetAllBrandsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetAllBrandsQuery, GetAllBrandsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllBrandsQuery, GetAllBrandsQueryVariables>(GetAllBrandsDocument, options);
+}
+export function useGetAllBrandsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAllBrandsQuery, GetAllBrandsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllBrandsQuery, GetAllBrandsQueryVariables>(GetAllBrandsDocument, options);
+}
+export function useGetAllBrandsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllBrandsQuery, GetAllBrandsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetAllBrandsQuery, GetAllBrandsQueryVariables>(GetAllBrandsDocument, options);
+}
 export type GetAllBrandsQueryHookResult = ReturnType<typeof useGetAllBrandsQuery>;
 export type GetAllBrandsLazyQueryHookResult = ReturnType<typeof useGetAllBrandsLazyQuery>;
 export type GetAllBrandsSuspenseQueryHookResult = ReturnType<typeof useGetAllBrandsSuspenseQuery>;

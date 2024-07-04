@@ -1,34 +1,44 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type UpdateBookingMutationVariables = Types.Exact<{
   data: Types.UpdateBookingInput;
-  bookingId: Types.Scalars['Float']['input'];
+  bookingId: Types.Scalars["Float"]["input"];
 }>;
 
-
-export type UpdateBookingMutation = { __typename?: 'Mutation', updateBooking: { __typename?: 'Booking', id: number, status: Types.StatusBooking, bookingDate: any, startDate: any, endDate: any, agency: { __typename?: 'Agency', id: number }, user: { __typename?: 'User', id: number } } };
-
+export type UpdateBookingMutation = {
+  __typename?: "Mutation";
+  updateBooking: {
+    __typename?: "Booking";
+    id: number;
+    status: Types.StatusBooking;
+    bookingDate: any;
+    startDate: any;
+    endDate: any;
+    agency: { __typename?: "Agency"; id: number };
+    user: { __typename?: "User"; id: number };
+  };
+};
 
 export const UpdateBookingDocument = gql`
-    mutation UpdateBooking($data: UpdateBookingInput!, $bookingId: Float!) {
-  updateBooking(data: $data, bookingId: $bookingId) {
-    id
-    status
-    bookingDate
-    startDate
-    endDate
-    agency {
+  mutation UpdateBooking($data: UpdateBookingInput!, $bookingId: Float!) {
+    updateBooking(data: $data, bookingId: $bookingId) {
       id
-    }
-    user {
-      id
+      status
+      bookingDate
+      startDate
+      endDate
+      agency {
+        id
+      }
+      user {
+        id
+      }
     }
   }
-}
-    `;
+`;
 export type UpdateBookingMutationFn = Apollo.MutationFunction<UpdateBookingMutation, UpdateBookingMutationVariables>;
 
 /**
@@ -49,10 +59,15 @@ export type UpdateBookingMutationFn = Apollo.MutationFunction<UpdateBookingMutat
  *   },
  * });
  */
-export function useUpdateBookingMutation(baseOptions?: Apollo.MutationHookOptions<UpdateBookingMutation, UpdateBookingMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateBookingMutation, UpdateBookingMutationVariables>(UpdateBookingDocument, options);
-      }
+export function useUpdateBookingMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateBookingMutation, UpdateBookingMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateBookingMutation, UpdateBookingMutationVariables>(UpdateBookingDocument, options);
+}
 export type UpdateBookingMutationHookResult = ReturnType<typeof useUpdateBookingMutation>;
 export type UpdateBookingMutationResult = Apollo.MutationResult<UpdateBookingMutation>;
-export type UpdateBookingMutationOptions = Apollo.BaseMutationOptions<UpdateBookingMutation, UpdateBookingMutationVariables>;
+export type UpdateBookingMutationOptions = Apollo.BaseMutationOptions<
+  UpdateBookingMutation,
+  UpdateBookingMutationVariables
+>;

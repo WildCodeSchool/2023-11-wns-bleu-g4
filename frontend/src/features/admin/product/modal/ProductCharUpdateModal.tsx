@@ -11,22 +11,24 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { Characteristic, ProductModalProps } from "../types";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
-import { useGetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/GetAllProductCharasteristics.generated";
+import {
+  useGetAllProductCharacteristicsQuery
+} from "@/graphql/ProductCharacteristic/generated/GetAllProductCharasteristics.generated";
 import Select from "react-select";
 
-export default function ProductCharUpdateModal({ isOpen, onClose, product, variant }: ProductModalProps) {
+export default function ProductCharUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
   const [updateProduct] = useUpdateProductMutation();
   const [formData, setFormData] = useState({
-    characteristics: product.characteristics,
+    characteristics: product?.characteristics,
   });
   const [selectedCharacteristics, setSelectedCharacteristics] = useState<Characteristic[]>([]);
   const { data: characteristicsData } = useGetAllProductCharacteristicsQuery();
   const characteristics = characteristicsData?.getAllProductCharacteristics ?? [];
 
-  const productId = product.id!;
+  const productId = product?.id!;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,18 +47,21 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product, varia
   };
 
   useEffect(() => {
-    setSelectedCharacteristics(product.characteristics.map((c: Characteristic) => ({
-      id: c.id,
-      label: c.characteristic,
-      value: c.id?.toString(),
-    })));
-  }, [product.characteristics]);
+    if (!product) return;
+    setSelectedCharacteristics(
+      product.characteristics.map((c: Characteristic) => ({
+        id: c.id,
+        label: c.characteristic,
+        value: c.id?.toString(),
+      })),
+    );
+  }, [product?.characteristics]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Update {product.name}</ModalHeader>
+        <ModalHeader>Update {product?.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit}>
@@ -73,9 +78,12 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product, varia
                 isMulti
                 value={selectedCharacteristics}
                 closeMenuOnSelect={false}
-                onChange={(characteristics) => {
+                onChange={characteristics => {
                   setSelectedCharacteristics(characteristics as Characteristic[]);
-                  setFormData({ ...formData, characteristics: characteristics.map((c: Characteristic) => ({ id: c.id })) });
+                  setFormData({
+                    ...formData,
+                    characteristics: characteristics.map((c: Characteristic) => ({ id: c.id })),
+                  });
                 }}
               />
             </FormControl>
@@ -88,6 +96,6 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product, varia
           </form>
         </ModalBody>
       </ModalContent>
-    </Modal >
+    </Modal>
   );
 }

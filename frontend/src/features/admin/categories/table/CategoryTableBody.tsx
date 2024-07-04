@@ -9,7 +9,10 @@ import { useDeleteCategoryMutation } from "@/graphql/Category/generated/deleteCa
 import { Category } from "../types";
 import CategoryThumbnailModal from "../modal/CategoryThumbnailModal";
 import CategoryUpdateModal from "../modal/CategoryUpdateModal";
-import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
+import {
+  GetAllCategoriesDocument,
+  GetAllCategoriesQuery,
+} from "@/graphql/Category/generated/GetAllCategories.generated";
 
 export default function CategoryTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("CategoryTableBody");
@@ -23,7 +26,7 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
   const toggleThumbnailModal = (category: Category) => {
     setSelectedCategory(category);
     setIsThumbnailModalOpen(!isThumbnailModalOpen);
-  }
+  };
 
   const toggleUpdateCategoryModal = (category: Category) => {
     setSelectedCategory(category);
@@ -44,7 +47,7 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
           getAllCategories: data.filter((category: Category) => category.id !== id),
         },
       });
-      setIsDeleteModalOpen(!isDeleteModalOpen)
+      setIsDeleteModalOpen(!isDeleteModalOpen);
     } catch (e) {
       console.error(e);
     }
@@ -56,7 +59,8 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
         <tr>
           {categoryTableHeaders.map(menu => (
             <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
+              border-b border-gray-200"
               key={menu.id}
             >
               {menu.name}

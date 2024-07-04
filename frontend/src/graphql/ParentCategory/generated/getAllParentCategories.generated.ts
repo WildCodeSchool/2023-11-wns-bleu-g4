@@ -1,22 +1,23 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
-export type GetAllParentCategoriesQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetAllParentCategoriesQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-
-export type GetAllParentCategoriesQuery = { __typename?: 'Query', getAllParentCategories: Array<{ __typename?: 'ParentCategory', id: number, name: string }> };
-
+export type GetAllParentCategoriesQuery = {
+  __typename?: "Query";
+  getAllParentCategories: Array<{ __typename?: "ParentCategory"; id: number; name: string }>;
+};
 
 export const GetAllParentCategoriesDocument = gql`
-    query GetAllParentCategories {
-  getAllParentCategories {
-    id
-    name
+  query GetAllParentCategories {
+    getAllParentCategories {
+      id
+      name
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAllParentCategoriesQuery__
@@ -33,19 +34,37 @@ export const GetAllParentCategoriesDocument = gql`
  *   },
  * });
  */
-export function useGetAllParentCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>(GetAllParentCategoriesDocument, options);
-      }
-export function useGetAllParentCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>(GetAllParentCategoriesDocument, options);
-        }
-export function useGetAllParentCategoriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>(GetAllParentCategoriesDocument, options);
-        }
+export function useGetAllParentCategoriesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>(
+    GetAllParentCategoriesDocument,
+    options,
+  );
+}
+export function useGetAllParentCategoriesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>(
+    GetAllParentCategoriesDocument,
+    options,
+  );
+}
+export function useGetAllParentCategoriesSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>(
+    GetAllParentCategoriesDocument,
+    options,
+  );
+}
 export type GetAllParentCategoriesQueryHookResult = ReturnType<typeof useGetAllParentCategoriesQuery>;
 export type GetAllParentCategoriesLazyQueryHookResult = ReturnType<typeof useGetAllParentCategoriesLazyQuery>;
 export type GetAllParentCategoriesSuspenseQueryHookResult = ReturnType<typeof useGetAllParentCategoriesSuspenseQuery>;
-export type GetAllParentCategoriesQueryResult = Apollo.QueryResult<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>;
+export type GetAllParentCategoriesQueryResult = Apollo.QueryResult<
+  GetAllParentCategoriesQuery,
+  GetAllParentCategoriesQueryVariables
+>;

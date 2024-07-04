@@ -47,18 +47,16 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
   const { data: brandsData } = useGetAllBrandsQuery();
   const brands = brandsData?.getAllBrands ?? [];
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
   const handleNumberInputChange = (valueAsString: string, valueAsNumber: number, name: string) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: valueAsNumber,
     }));
@@ -66,7 +64,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: parseInt(value, 10),
     }));
@@ -200,9 +198,8 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
                 id="thumbnail"
                 name="thumbnail"
                 type="file"
-                onChange={(e) => {
-                  if (e.target.files?.[0])
-                    uploadFile(e.target.files?.[0]).then(setImageURL);
+                onChange={e => {
+                  if (e.target.files?.[0]) uploadFile(e.target.files?.[0]).then(setImageURL);
                 }}
               />
             </FormControl>
@@ -215,6 +212,6 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
           </form>
         </ModalBody>
       </ModalContent>
-    </Modal >
+    </Modal>
   );
 }

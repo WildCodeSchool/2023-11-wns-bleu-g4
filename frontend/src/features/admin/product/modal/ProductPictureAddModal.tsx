@@ -20,11 +20,11 @@ import { useCreateProduct_PictureMutation } from "@/graphql/ProductPicture/gener
 export default function ProductPictureAddModal({ isOpen, onClose, product }: ProductModalProps) {
   const productId = product?.id!;
   const [addProductPicture] = useCreateProduct_PictureMutation();
-  const [newPicture, setNewPicture] = useState<Product_Picture>({ thumbnail: '', alt: '' });
+  const [newPicture, setNewPicture] = useState<Product_Picture>({ thumbnail: "", alt: "" });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setNewPicture((prev) => ({
+    setNewPicture(prev => ({
       ...prev,
       [name]: value,
     }));
@@ -33,7 +33,7 @@ export default function ProductPictureAddModal({ isOpen, onClose, product }: Pro
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       const newImageUrl = await uploadFile(e.target.files[0]);
-      setNewPicture((prev) => ({
+      setNewPicture(prev => ({
         ...prev,
         thumbnail: newImageUrl,
       }));
@@ -68,24 +68,13 @@ export default function ProductPictureAddModal({ isOpen, onClose, product }: Pro
               <FormLabel mb={1} htmlFor="alt">
                 Picture Alt
               </FormLabel>
-              <Input
-                type="text"
-                id="alt"
-                name="alt"
-                value={newPicture.alt}
-                onChange={handleInputChange}
-              />
+              <Input type="text" id="alt" name="alt" value={newPicture.alt} onChange={handleInputChange} />
             </FormControl>
             <FormControl>
               <FormLabel mb={1} htmlFor="pictures">
                 Picture
               </FormLabel>
-              <input
-                id="pictures"
-                name="pictures"
-                type="file"
-                onChange={handleFileChange}
-              />
+              <input id="pictures" name="pictures" type="file" onChange={handleFileChange} />
             </FormControl>
             <ModalFooter paddingInline={0} pb={0} pt={8}>
               <Button onClick={onClose}>Cancel</Button>
@@ -96,6 +85,6 @@ export default function ProductPictureAddModal({ isOpen, onClose, product }: Pro
           </form>
         </ModalBody>
       </ModalContent>
-    </Modal >
+    </Modal>
   );
 }

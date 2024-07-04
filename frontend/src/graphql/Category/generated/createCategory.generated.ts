@@ -1,28 +1,35 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type CreateCategoryMutationVariables = Types.Exact<{
   data: Types.NewCategoryInput;
 }>;
 
-
-export type CreateCategoryMutation = { __typename?: 'Mutation', createCategory: { __typename?: 'Category', id: number, name: string, thumbnail: string, parentCategory: { __typename?: 'ParentCategory', id: number } } };
-
+export type CreateCategoryMutation = {
+  __typename?: "Mutation";
+  createCategory: {
+    __typename?: "Category";
+    id: number;
+    name: string;
+    thumbnail: string;
+    parentCategory: { __typename?: "ParentCategory"; id: number };
+  };
+};
 
 export const CreateCategoryDocument = gql`
-    mutation CreateCategory($data: NewCategoryInput!) {
-  createCategory(data: $data) {
-    id
-    name
-    thumbnail
-    parentCategory {
+  mutation CreateCategory($data: NewCategoryInput!) {
+    createCategory(data: $data) {
       id
+      name
+      thumbnail
+      parentCategory {
+        id
+      }
     }
   }
-}
-    `;
+`;
 export type CreateCategoryMutationFn = Apollo.MutationFunction<CreateCategoryMutation, CreateCategoryMutationVariables>;
 
 /**
@@ -42,10 +49,15 @@ export type CreateCategoryMutationFn = Apollo.MutationFunction<CreateCategoryMut
  *   },
  * });
  */
-export function useCreateCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateCategoryMutation, CreateCategoryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateCategoryMutation, CreateCategoryMutationVariables>(CreateCategoryDocument, options);
-      }
+export function useCreateCategoryMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateCategoryMutation, CreateCategoryMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateCategoryMutation, CreateCategoryMutationVariables>(CreateCategoryDocument, options);
+}
 export type CreateCategoryMutationHookResult = ReturnType<typeof useCreateCategoryMutation>;
 export type CreateCategoryMutationResult = Apollo.MutationResult<CreateCategoryMutation>;
-export type CreateCategoryMutationOptions = Apollo.BaseMutationOptions<CreateCategoryMutation, CreateCategoryMutationVariables>;
+export type CreateCategoryMutationOptions = Apollo.BaseMutationOptions<
+  CreateCategoryMutation,
+  CreateCategoryMutationVariables
+>;

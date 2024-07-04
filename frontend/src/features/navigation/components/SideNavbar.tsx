@@ -23,7 +23,7 @@ export default function SideNavbar() {
         </Link>
         <hr className="bg-light" />
         <div className="flex flex-col gap-3">
-          {adminNavigation.map((navItem) => (
+          {adminNavigation.map(navItem => (
             <Link
               key={navItem.id}
               href={navItem.path}

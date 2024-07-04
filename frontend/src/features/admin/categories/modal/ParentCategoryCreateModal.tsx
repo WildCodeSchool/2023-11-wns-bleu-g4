@@ -16,16 +16,13 @@ import { CategoryModalProps } from "../types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useCreateParentCategoryMutation } from "@/graphql/ParentCategory/generated/createParentCategory.generated";
 
-
 export default function ParentCategoryCreateModal({ isOpen, onClose, refetch }: CategoryModalProps) {
   const [createParentCategory] = useCreateParentCategoryMutation();
   const [formData, setFormData] = useState({ name: "" });
 
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));

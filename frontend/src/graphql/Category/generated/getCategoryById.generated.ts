@@ -1,24 +1,25 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type GetCategoryByIdQueryVariables = Types.Exact<{
-  categoryId: Types.Scalars['Int']['input'];
+  categoryId: Types.Scalars["Int"]["input"];
 }>;
 
-
-export type GetCategoryByIdQuery = { __typename?: 'Query', getCategoryById: { __typename?: 'Category', name: string, id: number } };
-
+export type GetCategoryByIdQuery = {
+  __typename?: "Query";
+  getCategoryById: { __typename?: "Category"; name: string; id: number };
+};
 
 export const GetCategoryByIdDocument = gql`
-    query GetCategoryById($categoryId: Int!) {
-  getCategoryById(categoryId: $categoryId) {
-    name
-    id
+  query GetCategoryById($categoryId: Int!) {
+    getCategoryById(categoryId: $categoryId) {
+      name
+      id
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetCategoryByIdQuery__
@@ -36,18 +37,25 @@ export const GetCategoryByIdDocument = gql`
  *   },
  * });
  */
-export function useGetCategoryByIdQuery(baseOptions: Apollo.QueryHookOptions<GetCategoryByIdQuery, GetCategoryByIdQueryVariables> & ({ variables: GetCategoryByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>(GetCategoryByIdDocument, options);
-      }
-export function useGetCategoryByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>(GetCategoryByIdDocument, options);
-        }
-export function useGetCategoryByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>(GetCategoryByIdDocument, options);
-        }
+export function useGetCategoryByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<GetCategoryByIdQuery, GetCategoryByIdQueryVariables> &
+    ({ variables: GetCategoryByIdQueryVariables; skip?: boolean } | { skip: boolean }),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>(GetCategoryByIdDocument, options);
+}
+export function useGetCategoryByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>(GetCategoryByIdDocument, options);
+}
+export function useGetCategoryByIdSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetCategoryByIdQuery, GetCategoryByIdQueryVariables>(GetCategoryByIdDocument, options);
+}
 export type GetCategoryByIdQueryHookResult = ReturnType<typeof useGetCategoryByIdQuery>;
 export type GetCategoryByIdLazyQueryHookResult = ReturnType<typeof useGetCategoryByIdLazyQuery>;
 export type GetCategoryByIdSuspenseQueryHookResult = ReturnType<typeof useGetCategoryByIdSuspenseQuery>;

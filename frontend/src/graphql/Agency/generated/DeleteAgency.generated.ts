@@ -1,21 +1,19 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type DeleteAgencyMutationVariables = Types.Exact<{
-  agencyId: Types.Scalars['Float']['input'];
+  agencyId: Types.Scalars["Float"]["input"];
 }>;
 
-
-export type DeleteAgencyMutation = { __typename?: 'Mutation', deleteAgency: string };
-
+export type DeleteAgencyMutation = { __typename?: "Mutation"; deleteAgency: string };
 
 export const DeleteAgencyDocument = gql`
-    mutation DeleteAgency($agencyId: Float!) {
-  deleteAgency(agencyId: $agencyId)
-}
-    `;
+  mutation DeleteAgency($agencyId: Float!) {
+    deleteAgency(agencyId: $agencyId)
+  }
+`;
 export type DeleteAgencyMutationFn = Apollo.MutationFunction<DeleteAgencyMutation, DeleteAgencyMutationVariables>;
 
 /**
@@ -35,10 +33,15 @@ export type DeleteAgencyMutationFn = Apollo.MutationFunction<DeleteAgencyMutatio
  *   },
  * });
  */
-export function useDeleteAgencyMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAgencyMutation, DeleteAgencyMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteAgencyMutation, DeleteAgencyMutationVariables>(DeleteAgencyDocument, options);
-      }
+export function useDeleteAgencyMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteAgencyMutation, DeleteAgencyMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<DeleteAgencyMutation, DeleteAgencyMutationVariables>(DeleteAgencyDocument, options);
+}
 export type DeleteAgencyMutationHookResult = ReturnType<typeof useDeleteAgencyMutation>;
 export type DeleteAgencyMutationResult = Apollo.MutationResult<DeleteAgencyMutation>;
-export type DeleteAgencyMutationOptions = Apollo.BaseMutationOptions<DeleteAgencyMutation, DeleteAgencyMutationVariables>;
+export type DeleteAgencyMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAgencyMutation,
+  DeleteAgencyMutationVariables
+>;

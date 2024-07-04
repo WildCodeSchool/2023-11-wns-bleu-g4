@@ -1,26 +1,30 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type UpdateParentCategoryMutationVariables = Types.Exact<{
   data: Types.UpdateParentCategoryInput;
-  parentCategoryId: Types.Scalars['Float']['input'];
+  parentCategoryId: Types.Scalars["Float"]["input"];
 }>;
 
-
-export type UpdateParentCategoryMutation = { __typename?: 'Mutation', updateParentCategory: { __typename?: 'ParentCategory', id: number, name: string } };
-
+export type UpdateParentCategoryMutation = {
+  __typename?: "Mutation";
+  updateParentCategory: { __typename?: "ParentCategory"; id: number; name: string };
+};
 
 export const UpdateParentCategoryDocument = gql`
-    mutation UpdateParentCategory($data: UpdateParentCategoryInput!, $parentCategoryId: Float!) {
-  updateParentCategory(data: $data, parentCategoryId: $parentCategoryId) {
-    id
-    name
+  mutation UpdateParentCategory($data: UpdateParentCategoryInput!, $parentCategoryId: Float!) {
+    updateParentCategory(data: $data, parentCategoryId: $parentCategoryId) {
+      id
+      name
+    }
   }
-}
-    `;
-export type UpdateParentCategoryMutationFn = Apollo.MutationFunction<UpdateParentCategoryMutation, UpdateParentCategoryMutationVariables>;
+`;
+export type UpdateParentCategoryMutationFn = Apollo.MutationFunction<
+  UpdateParentCategoryMutation,
+  UpdateParentCategoryMutationVariables
+>;
 
 /**
  * __useUpdateParentCategoryMutation__
@@ -40,10 +44,18 @@ export type UpdateParentCategoryMutationFn = Apollo.MutationFunction<UpdateParen
  *   },
  * });
  */
-export function useUpdateParentCategoryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateParentCategoryMutation, UpdateParentCategoryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateParentCategoryMutation, UpdateParentCategoryMutationVariables>(UpdateParentCategoryDocument, options);
-      }
+export function useUpdateParentCategoryMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateParentCategoryMutation, UpdateParentCategoryMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateParentCategoryMutation, UpdateParentCategoryMutationVariables>(
+    UpdateParentCategoryDocument,
+    options,
+  );
+}
 export type UpdateParentCategoryMutationHookResult = ReturnType<typeof useUpdateParentCategoryMutation>;
 export type UpdateParentCategoryMutationResult = Apollo.MutationResult<UpdateParentCategoryMutation>;
-export type UpdateParentCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateParentCategoryMutation, UpdateParentCategoryMutationVariables>;
+export type UpdateParentCategoryMutationOptions = Apollo.BaseMutationOptions<
+  UpdateParentCategoryMutation,
+  UpdateParentCategoryMutationVariables
+>;

@@ -1,27 +1,31 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type UpdateProduct_PictureMutationVariables = Types.Exact<{
   data: Types.UpdateProduct_PictureInput;
-  updateProductPictureId: Types.Scalars['Int']['input'];
+  updateProductPictureId: Types.Scalars["Int"]["input"];
 }>;
 
-
-export type UpdateProduct_PictureMutation = { __typename?: 'Mutation', updateProduct_picture: { __typename?: 'Product_picture', id: number, thumbnail: string, alt: string } };
-
+export type UpdateProduct_PictureMutation = {
+  __typename?: "Mutation";
+  updateProduct_picture: { __typename?: "Product_picture"; id: number; thumbnail: string; alt: string };
+};
 
 export const UpdateProduct_PictureDocument = gql`
-    mutation UpdateProduct_picture($data: UpdateProduct_pictureInput!, $updateProductPictureId: Int!) {
-  updateProduct_picture(data: $data, id: $updateProductPictureId) {
-    id
-    thumbnail
-    alt
+  mutation UpdateProduct_picture($data: UpdateProduct_pictureInput!, $updateProductPictureId: Int!) {
+    updateProduct_picture(data: $data, id: $updateProductPictureId) {
+      id
+      thumbnail
+      alt
+    }
   }
-}
-    `;
-export type UpdateProduct_PictureMutationFn = Apollo.MutationFunction<UpdateProduct_PictureMutation, UpdateProduct_PictureMutationVariables>;
+`;
+export type UpdateProduct_PictureMutationFn = Apollo.MutationFunction<
+  UpdateProduct_PictureMutation,
+  UpdateProduct_PictureMutationVariables
+>;
 
 /**
  * __useUpdateProduct_PictureMutation__
@@ -41,10 +45,18 @@ export type UpdateProduct_PictureMutationFn = Apollo.MutationFunction<UpdateProd
  *   },
  * });
  */
-export function useUpdateProduct_PictureMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProduct_PictureMutation, UpdateProduct_PictureMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateProduct_PictureMutation, UpdateProduct_PictureMutationVariables>(UpdateProduct_PictureDocument, options);
-      }
+export function useUpdateProduct_PictureMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateProduct_PictureMutation, UpdateProduct_PictureMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateProduct_PictureMutation, UpdateProduct_PictureMutationVariables>(
+    UpdateProduct_PictureDocument,
+    options,
+  );
+}
 export type UpdateProduct_PictureMutationHookResult = ReturnType<typeof useUpdateProduct_PictureMutation>;
 export type UpdateProduct_PictureMutationResult = Apollo.MutationResult<UpdateProduct_PictureMutation>;
-export type UpdateProduct_PictureMutationOptions = Apollo.BaseMutationOptions<UpdateProduct_PictureMutation, UpdateProduct_PictureMutationVariables>;
+export type UpdateProduct_PictureMutationOptions = Apollo.BaseMutationOptions<
+  UpdateProduct_PictureMutation,
+  UpdateProduct_PictureMutationVariables
+>;

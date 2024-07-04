@@ -22,11 +22,11 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Brand, Category, ProductModalProps } from "../types";
-import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 import { useCreateProductMutation } from "@/graphql/Product/generated/createProduct.generated";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
 import uploadFile from "../../helpers/uploadFile";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
 
 export default function ProductCreateModal({ isOpen, onClose, refetch }: ProductModalProps) {
   const [createProduct] = useCreateProductMutation();
@@ -46,17 +46,17 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
   const brands = brandsData?.getAllBrands ?? [];
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
   const handleNumberInputChange = (valueAsString: string, valueAsNumber: number, name: string) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: valueAsNumber,
     }));
@@ -64,7 +64,7 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: { id: parseInt(value, 10) },
     }));
@@ -200,9 +200,8 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
                 type="file"
                 id="thumbnail"
                 name="thumbnail"
-                onChange={(e) => {
-                  if (e.target.files?.[0])
-                    uploadFile(e.target.files?.[0]).then(setImageURL);
+                onChange={e => {
+                  if (e.target.files?.[0]) uploadFile(e.target.files?.[0]).then(setImageURL);
                 }}
               />
             </FormControl>

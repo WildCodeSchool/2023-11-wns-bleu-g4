@@ -1,54 +1,52 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import * as Apollo from '@apollo/client';
-import { gql } from '@apollo/client';
+import * as Apollo from "@apollo/client";
+import { gql } from "@apollo/client";
 const defaultOptions = {} as const;
-export type GetAllAgenciesQueryVariables = Types.Exact<{ [key: string]: never; }>;
-
+export type GetAllAgenciesQueryVariables = Types.Exact<{ [key: string]: never }>;
 
 export type GetAllAgenciesQuery = {
-  __typename?: 'Query',
+  __typename?: "Query";
   getAllAgencies: Array<{
-    __typename?: 'Agency',
-    postcode: string,
-    phone: string,
-    name: string,
-    id: number,
-    email: string,
-    country: string,
-    city: string,
-    address: string,
+    __typename?: "Agency";
+    postcode: string;
+    phone: string;
+    name: string;
+    id: number;
+    email: string;
+    country: string;
+    city: string;
+    address: string;
     productCodes: Array<{
-      __typename?: 'Product_code',
-      size?: string | null,
-      isSizeable: boolean,
-      status: Types.Status,
-      id: number
-    }>
-  }>
+      __typename?: "Product_code";
+      size?: string | null;
+      isSizeable: boolean;
+      status: Types.Status;
+      id: number;
+    }>;
+  }>;
 };
 
-
 export const GetAllAgenciesDocument = gql`
-    query GetAllAgencies {
-  getAllAgencies {
-    postcode
-    phone
-    name
-    id
-    email
-    country
-    city
-    address
-    productCodes {
-      size
-      isSizeable
-      status
+  query GetAllAgencies {
+    getAllAgencies {
+      postcode
+      phone
+      name
       id
+      email
+      country
+      city
+      address
+      productCodes {
+        size
+        isSizeable
+        status
+        id
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAllAgenciesQuery__
@@ -67,14 +65,16 @@ export const GetAllAgenciesDocument = gql`
  *   },
  * });
  */
-export function useGetAllAgenciesQuery(baseOptions?:
-  Apollo.QueryHookOptions<GetAllAgenciesQuery, GetAllAgenciesQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
+export function useGetAllAgenciesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetAllAgenciesQuery, GetAllAgenciesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<GetAllAgenciesQuery, GetAllAgenciesQueryVariables>(GetAllAgenciesDocument, options);
 }
-export function useGetAllAgenciesLazyQuery(baseOptions?:
-  Apollo.LazyQueryHookOptions<GetAllAgenciesQuery, GetAllAgenciesQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
+export function useGetAllAgenciesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAllAgenciesQuery, GetAllAgenciesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<GetAllAgenciesQuery, GetAllAgenciesQueryVariables>(GetAllAgenciesDocument, options);
 }
 export type GetAllAgenciesQueryHookResult = ReturnType<typeof useGetAllAgenciesQuery>;

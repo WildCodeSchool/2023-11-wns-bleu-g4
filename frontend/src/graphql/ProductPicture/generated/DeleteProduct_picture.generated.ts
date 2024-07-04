@@ -1,22 +1,23 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type DeleteProduct_PictureMutationVariables = Types.Exact<{
-  deleteProductPictureId: Types.Scalars['Int']['input'];
+  deleteProductPictureId: Types.Scalars["Int"]["input"];
 }>;
 
-
-export type DeleteProduct_PictureMutation = { __typename?: 'Mutation', deleteProduct_picture: boolean };
-
+export type DeleteProduct_PictureMutation = { __typename?: "Mutation"; deleteProduct_picture: boolean };
 
 export const DeleteProduct_PictureDocument = gql`
-    mutation DeleteProduct_picture($deleteProductPictureId: Int!) {
-  deleteProduct_picture(id: $deleteProductPictureId)
-}
-    `;
-export type DeleteProduct_PictureMutationFn = Apollo.MutationFunction<DeleteProduct_PictureMutation, DeleteProduct_PictureMutationVariables>;
+  mutation DeleteProduct_picture($deleteProductPictureId: Int!) {
+    deleteProduct_picture(id: $deleteProductPictureId)
+  }
+`;
+export type DeleteProduct_PictureMutationFn = Apollo.MutationFunction<
+  DeleteProduct_PictureMutation,
+  DeleteProduct_PictureMutationVariables
+>;
 
 /**
  * __useDeleteProduct_PictureMutation__
@@ -35,10 +36,18 @@ export type DeleteProduct_PictureMutationFn = Apollo.MutationFunction<DeleteProd
  *   },
  * });
  */
-export function useDeleteProduct_PictureMutation(baseOptions?: Apollo.MutationHookOptions<DeleteProduct_PictureMutation, DeleteProduct_PictureMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteProduct_PictureMutation, DeleteProduct_PictureMutationVariables>(DeleteProduct_PictureDocument, options);
-      }
+export function useDeleteProduct_PictureMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteProduct_PictureMutation, DeleteProduct_PictureMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<DeleteProduct_PictureMutation, DeleteProduct_PictureMutationVariables>(
+    DeleteProduct_PictureDocument,
+    options,
+  );
+}
 export type DeleteProduct_PictureMutationHookResult = ReturnType<typeof useDeleteProduct_PictureMutation>;
 export type DeleteProduct_PictureMutationResult = Apollo.MutationResult<DeleteProduct_PictureMutation>;
-export type DeleteProduct_PictureMutationOptions = Apollo.BaseMutationOptions<DeleteProduct_PictureMutation, DeleteProduct_PictureMutationVariables>;
+export type DeleteProduct_PictureMutationOptions = Apollo.BaseMutationOptions<
+  DeleteProduct_PictureMutation,
+  DeleteProduct_PictureMutationVariables
+>;

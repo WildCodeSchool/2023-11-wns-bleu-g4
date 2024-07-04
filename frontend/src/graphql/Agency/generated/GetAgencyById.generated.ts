@@ -1,30 +1,41 @@
-import * as Types from '../../generated/schema';
+import * as Types from "../../generated/schema";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type GetAgencyByIdQueryVariables = Types.Exact<{
-  agencyId: Types.Scalars['Int']['input'];
+  agencyId: Types.Scalars["Int"]["input"];
 }>;
 
-
-export type GetAgencyByIdQuery = { __typename?: 'Query', getAgencyById: { __typename?: 'Agency', id: number, name: string, address: string, postcode: string, city: string, country: string, phone: string, email: string } };
-
+export type GetAgencyByIdQuery = {
+  __typename?: "Query";
+  getAgencyById: {
+    __typename?: "Agency";
+    id: number;
+    name: string;
+    address: string;
+    postcode: string;
+    city: string;
+    country: string;
+    phone: string;
+    email: string;
+  };
+};
 
 export const GetAgencyByIdDocument = gql`
-    query GetAgencyById($agencyId: Int!) {
-  getAgencyById(agencyId: $agencyId) {
-    id
-    name
-    address
-    postcode
-    city
-    country
-    phone
-    email
+  query GetAgencyById($agencyId: Int!) {
+    getAgencyById(agencyId: $agencyId) {
+      id
+      name
+      address
+      postcode
+      city
+      country
+      phone
+      email
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAgencyByIdQuery__
@@ -42,18 +53,25 @@ export const GetAgencyByIdDocument = gql`
  *   },
  * });
  */
-export function useGetAgencyByIdQuery(baseOptions: Apollo.QueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables> & ({ variables: GetAgencyByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
-      }
-export function useGetAgencyByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
-        }
-export function useGetAgencyByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
-        }
+export function useGetAgencyByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables> &
+    ({ variables: GetAgencyByIdQueryVariables; skip?: boolean } | { skip: boolean }),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
+}
+export function useGetAgencyByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
+}
+export function useGetAgencyByIdSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
+}
 export type GetAgencyByIdQueryHookResult = ReturnType<typeof useGetAgencyByIdQuery>;
 export type GetAgencyByIdLazyQueryHookResult = ReturnType<typeof useGetAgencyByIdLazyQuery>;
 export type GetAgencyByIdSuspenseQueryHookResult = ReturnType<typeof useGetAgencyByIdSuspenseQuery>;

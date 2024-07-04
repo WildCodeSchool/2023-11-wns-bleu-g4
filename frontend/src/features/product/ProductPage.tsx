@@ -1,8 +1,7 @@
-import { Box } from '@chakra-ui/react';
-import DetailsComponent from './detailsComponent/DetailsComponent';
-import GaleryComponent from './galeryComponent/GaleryComponent';
-import { useProductContext } from '@/context/ProductPageContext';
-
+import { Box } from "@chakra-ui/react";
+import DetailsComponent from "./detailsComponent/DetailsComponent";
+import GaleryComponent from "./galeryComponent/GaleryComponent";
+import { useProductContext } from "@/context/ProductPageContext";
 
 const ProductPage: React.FC = () => {
   const { selectedProduct, agencies } = useProductContext();
@@ -13,13 +12,10 @@ const ProductPage: React.FC = () => {
       display="flex"
       flexDirection="row"
       justifyContent="space-between"
-      className="p-5 lg:px-24 lg:pb-24">
+      className="p-5 lg:px-24 lg:pb-24"
+    >
       <GaleryComponent />
-      {selectedProduct && agencies.length > 0 ? (
-        <DetailsComponent />
-      ) : (
-        <p>Loading...</p>
-      )}
+      {selectedProduct && agencies.length > 0 ? <DetailsComponent /> : <p>Loading...</p>}
     </Box>
   );
 };
