@@ -35,8 +35,9 @@ export const productStockTableHeaders: menuItems[] = [
 
 export const categoryTableHeaders: menuItems[] = [
   { id: 1, name: "category name" },
-  { id: 2, name: "parent category" },
-  { id: 3, name: "manage category" },
+  { id: 2, name: "category thumbnail" },
+  { id: 3, name: "parent category" },
+  { id: 4, name: "manage category" },
 ];
 
 export const parentCategoryTableHeaders: menuItems[] = [
