@@ -8,28 +8,19 @@ app.use("/*", cors());
 
 app.get("/", (c) =>
   c.html(
-    `<p>To use this service, POST on ${c.req.url + "upload"} 
+    `<p>To use this service, POST on ${c.req.url + "uploads"} 
     with a multipart form containing a "file" field with your file to store.</p>`
   )
 );
 
 app.use("/files/*", serveStatic({ root: "." }));
 
-app.post("/upload", async (c) => {
+app.post("/uploads", async (c) => {
   const { file }: { file: File } = await c.req.parseBody();
-  const path = ("files/" + Date.now() + "-" + file.name).replaceAll(" ", "");
+  const path = "files/" + Date.now() + "-" + file.name;
+  await Bun.write(path, file);
 
-  try {
-    await Bun.write(path, file);
-  } catch (err) {
-    console.error(err);
-  }
-
-  const url = process.env.HOST
-    ? process.env.HOST + path
-    : c.req.url.replace("upload", path);
-
-  return c.json({ path, url });
+  return c.json({ path, url: c.req.url.replace("uploads", path) });
 });
 
 console.log("server ready");
