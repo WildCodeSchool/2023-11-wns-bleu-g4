@@ -60,6 +60,9 @@ export class UpdateCategoryInput {
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	name?: string
 
+	@Field({ nullable: true })
+	thumbnail?: string
+
 	@Field(() => ParentCategoryId, { nullable: true })
 	parentCategory?: ParentCategoryId
 }
