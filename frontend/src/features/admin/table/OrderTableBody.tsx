@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { OrderTableBodyProps } from "../types";
+import { OrderTableBodyProps } from "../product/types";
 import { orderTableHeaders } from "../helpers/tableHeaders";
 import { ArrowsUpDownIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
