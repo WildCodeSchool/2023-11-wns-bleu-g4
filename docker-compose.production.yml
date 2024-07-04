@@ -47,7 +47,7 @@ services:
       context: upload
       dockerfile: Dockerfile
     volumes:
-      - ./upload/files:/app/files/
+      - prodUpload:/app/files/
 
   gateway:
     restart: always
@@ -60,3 +60,4 @@ services:
     
 volumes:
   prodDB:
+  prodUpload:
