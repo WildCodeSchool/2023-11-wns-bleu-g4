@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TableFooter from "../table/TableFooter";
-import ProductStockTableBody from "../table/ProductStockTableBody";
+import ProductStockTableBody from "./table/ProductStockTableBody";
 
 export default function ProductStocks({ product }: { product: any }) {
   const [sortedData, setSortedData] = useState<any[]>(product.stocks);

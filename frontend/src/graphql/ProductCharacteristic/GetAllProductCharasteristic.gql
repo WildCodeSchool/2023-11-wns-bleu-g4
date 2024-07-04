@@ -1,9 +1,0 @@
-query GetAllProductCharacteristics {
-  getAllProductCharacteristics {
-    characteristic
-    id
-    product {
-      id
-    }
-  }
-}

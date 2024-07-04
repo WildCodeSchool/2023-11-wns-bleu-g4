@@ -1,13 +1,23 @@
-import { Card, CardFooter, Image, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/color-mode";
+import { Card, CardFooter, Image, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 interface CardItemProps {
   text: string;
   image: string;
+  id: number;
 }
 
-export default function CardItem({ text, image }: CardItemProps) {
+export default function CardItem({ text, image, id }: CardItemProps) {
   const color = useColorModeValue("transparent", "transparent");
+
+  const router = useRouter();
+  const navigateToCategory = (categoryId: number) => {
+    router.push(`/productsByCategory/${categoryId}`);
+  };
+
+  console.log("text:", navigateToCategory);
+
   return (
     <Card
       width={{ base: "11.2em", lg: "16em" }}
@@ -16,7 +26,7 @@ export default function CardItem({ text, image }: CardItemProps) {
       overflow="hidden"
       bg={color}
       borderRadius="16px"
-
+      onClick={() => navigateToCategory(id)}
     >
       <Image
         objectFit="cover"
@@ -26,8 +36,7 @@ export default function CardItem({ text, image }: CardItemProps) {
         borderRadius="16px"
         transition="transform 0.2s"
         _hover={{
-          transform: "scale(1.3)",
-          borderRadius: "16px",
+          transform: "scale(1.1)",
         }}
       />
       <CardFooter

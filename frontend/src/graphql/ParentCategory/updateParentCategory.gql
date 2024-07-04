@@ -1,0 +1,6 @@
+mutation UpdateParentCategory($data: UpdateParentCategoryInput!, $parentCategoryId: Float!) {
+  updateParentCategory(data: $data, parentCategoryId: $parentCategoryId) {
+    id
+    name
+  }
+}

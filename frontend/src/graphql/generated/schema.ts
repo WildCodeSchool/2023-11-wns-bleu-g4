@@ -86,7 +86,7 @@ export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
-  parentCategories: Array<ParentCategory>;
+  parentCategory: ParentCategory;
   products: Array<Product>;
   thumbnail: Scalars['String']['output'];
 };
@@ -356,7 +356,7 @@ export type NewBrandInput = {
 
 export type NewCategoryInput = {
   name: Scalars['String']['input'];
-  parentCategories?: InputMaybe<ParentCategoryId>;
+  parentCategory?: InputMaybe<ParentCategoryId>;
   thumbnail: Scalars['String']['input'];
 };
 
@@ -366,7 +366,7 @@ export type NewParentCategoryInput = {
 
 export type NewProductInput = {
   brand: BrandId;
-  categorie?: InputMaybe<CategoryId>;
+  category?: InputMaybe<CategoryId>;
   characteristics?: InputMaybe<CharacteristicId>;
   description: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -398,7 +398,7 @@ export type ObjectId = {
 
 export type ParentCategory = {
   __typename?: 'ParentCategory';
-  category: Category;
+  categories: Array<Category>;
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
 };
@@ -419,7 +419,7 @@ export type Product = {
   pictures: Array<Product_Picture>;
   price: Scalars['Float']['output'];
   productCodes: Array<ProductCode>;
-  reviews: Array<Review>;
+  reviews?: Maybe<Array<Review>>;
   thumbnail: Scalars['String']['output'];
 };
 
@@ -466,6 +466,7 @@ export type Query = {
   getAllProduct_pictures: Array<Product_Picture>;
   getAllProducts: Array<Product>;
   getAllReviews: Array<Review>;
+  getAllUsers: Array<User>;
   getBookingById: Booking;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
@@ -497,12 +498,18 @@ export type QueryGetAllBookingArgs = {
 
 export type QueryGetAllCategoriesArgs = {
   name?: InputMaybe<Scalars['String']['input']>;
+  parentCategoryId?: InputMaybe<Scalars['Int']['input']>;
   productId?: InputMaybe<Scalars['Int']['input']>;
-  subCategoryId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryGetAllParentCategoriesArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryGetAllProductsArgs = {
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -646,7 +653,8 @@ export type UpdateBrandInput = {
 
 export type UpdateCategoryInput = {
   name?: InputMaybe<Scalars['String']['input']>;
-  parentCategories?: InputMaybe<ParentCategoryId>;
+  parentCategory?: InputMaybe<ParentCategoryId>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateParentCategoryInput = {
@@ -655,7 +663,7 @@ export type UpdateParentCategoryInput = {
 
 export type UpdateProductInput = {
   brand?: InputMaybe<ObjectId>;
-  categorie?: InputMaybe<ObjectId>;
+  category?: InputMaybe<ObjectId>;
   characteristics?: InputMaybe<Array<ObjectId>>;
   description?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;

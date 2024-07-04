@@ -44,10 +44,9 @@ export class Product extends BaseEntity {
 	@Field()
 	thumbnail: string
 
-
 	/** RELATIONS ****************************/
 	/** MANY TO ONE */
-	@ManyToOne(() => Category, category => category.products, { cascade: true, onDelete: "CASCADE" })
+	@ManyToOne(() => Category, (category) => category.products, { cascade: true, onDelete: "CASCADE" })
 	@Field(() => Category)
 	category: Category
 
@@ -56,8 +55,8 @@ export class Product extends BaseEntity {
 	brand: Brand
 
 	/** ONE TO MANY */
-	@OneToMany(() => Review, (reviews) => reviews.product)
-	@Field(() => [Review])
+	@OneToMany(() => Review, (reviews) => reviews.product,)
+	@Field(() => [Review], { nullable: true })
 	reviews: Review[]
 
 	@OneToMany(() => ProductCode, (productCode) => productCode.product)
@@ -72,7 +71,7 @@ export class Product extends BaseEntity {
 	@Field(() => [BookingItem])
 	bookingItem: BookingItem[]
 
-	@ManyToMany(() => ProductCharacteristic, productCharacteristic => productCharacteristic.product, { cascade: true })
+	@ManyToMany(() => ProductCharacteristic, (productCharacteristic) => productCharacteristic.product, { cascade: true })
 	@JoinTable()
 	@Field(() => [ProductCharacteristic])
 	characteristics: ProductCharacteristic[]
@@ -98,7 +97,7 @@ export class NewProductInput {
 	thumbnail: string
 
 	@Field(() => CategoryId, { nullable: true })
-	categorie?: CategoryId
+	category?: CategoryId
 
 	@Field(() => BrandId)
 	brand: BrandId
@@ -123,7 +122,7 @@ export class UpdateProductInput {
 	thumbnail?: string
 
 	@Field(() => ObjectId, { nullable: true })
-	categorie?: ObjectId
+	category?: ObjectId
 
 	@Field(() => ObjectId, { nullable: true })
 	brand?: ObjectId

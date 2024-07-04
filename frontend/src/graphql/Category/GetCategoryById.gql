@@ -1,0 +1,6 @@
+query GetCategoryById($categoryId: Int!) {
+  getCategoryById(categoryId: $categoryId) {
+    name
+    id
+  }
+}

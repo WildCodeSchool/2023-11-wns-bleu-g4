@@ -1,0 +1,7 @@
+query GetAllBrands {
+  getAllBrands {
+    name
+    id
+    logo
+  }
+}

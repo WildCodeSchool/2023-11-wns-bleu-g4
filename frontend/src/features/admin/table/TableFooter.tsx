@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { TableFooterProps } from "../types";
+import { TableFooterProps } from "../product/types";
 import { useTranslation } from "react-i18next";
 
 export default function TableFooter({
@@ -14,16 +14,12 @@ export default function TableFooter({
   const { t } = useTranslation("TableFooter");
 
   const handlePreviousClick = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
   const handleNextClick = () => {
     const totalPages = Math.ceil(data.length / itemsPerPage);
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   return (

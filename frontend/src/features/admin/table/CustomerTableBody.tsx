@@ -1,4 +1,4 @@
-import { TableBodyProps } from "../types";
+import { TableBodyProps } from "../product/types";
 import { customerTableHeaders } from "../helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
 
@@ -11,7 +11,8 @@ export default function CustomerTableBody({ data }: TableBodyProps) {
         <tr>
           {customerTableHeaders.map(menu => (
             <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
+              border-b border-gray-200"
               key={menu.id}
             >
               {menu.name}
@@ -38,7 +39,7 @@ export default function CustomerTableBody({ data }: TableBodyProps) {
           ))
         ) : (
           <tr>
-            <td className="p-4 text-center" colSpan={4}>
+            <td className="p-4 text-center" colSpan={5}>
               No customer found
             </td>
           </tr>

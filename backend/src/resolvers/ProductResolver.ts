@@ -1,19 +1,7 @@
 import { GraphQLError } from "graphql"
-import {
-	Arg,
-	Authorized,
-	Ctx,
-	Int,
-	Mutation,
-	Query,
-	Resolver,
-} from "type-graphql"
+import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
 import { ILike } from "typeorm"
-import {
-	NewProductInput,
-	Product,
-	UpdateProductInput,
-} from "../entities/Product"
+import { NewProductInput, Product, UpdateProductInput } from "../entities/Product"
 import { UserRole } from "../entities/User"
 import { Context } from "../utils"
 
@@ -25,7 +13,7 @@ class ProductResolver {
 		@Arg("name", { nullable: true }) name?: string
 	) {
 		return Product.find({
-			relations: { category: true, pictures: true, brand: true, characteristics: true },
+			relations: { category: true, pictures: true, brand: true, characteristics: true, reviews: true },
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
 				category: {
@@ -47,21 +35,17 @@ class ProductResolver {
 
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => Product)
-	async createProduct(
-		@Arg("data", { validate: true }) data: NewProductInput,
-		@Ctx() ctx: Context
-	) {
+	async createProduct(@Arg("data", { validate: true }) data: NewProductInput, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const newProduct = new Product()
 
-		if (ctx.currentUser.role !== UserRole.ADMIN)
-			throw new GraphQLError("Not authorized")
+		if (ctx.currentUser.role !== UserRole.ADMIN) throw new GraphQLError("Not authorized")
 		Object.assign(newProduct, data)
 
 		const { id } = await newProduct.save()
 		return Product.findOne({
 			where: { id },
-			relations: { category: true, reviews: true },
+			relations: { category: true, reviews: true, pictures: true, brand: true, characteristics: true },
 		})
 	}
 
@@ -76,14 +60,13 @@ class ProductResolver {
 		const productToUpdate = await Product.findOne({ where: { id } })
 		if (!productToUpdate) throw new GraphQLError("Product not found")
 
-		if (ctx.currentUser.role !== UserRole.ADMIN)
-			throw new GraphQLError("Not authorized")
+		if (ctx.currentUser.role !== UserRole.ADMIN) throw new GraphQLError("Not authorized")
 		await Object.assign(productToUpdate, data)
 
 		await productToUpdate.save()
 		return Product.findOne({
 			where: { id },
-			relations: { category: true, reviews: true },
+			relations: { category: true, reviews: true, pictures: true, brand: true, characteristics: true },
 		})
 	}
 
@@ -94,8 +77,7 @@ class ProductResolver {
 		const productToDelete = await Product.findOne({ where: { id } })
 		if (!productToDelete) throw new GraphQLError("Product not found")
 
-		if (ctx.currentUser.role !== UserRole.ADMIN)
-			throw new GraphQLError("Not authorized")
+		if (ctx.currentUser.role !== UserRole.ADMIN) throw new GraphQLError("Not authorized")
 
 		await productToDelete.remove()
 		return "Product deleted"

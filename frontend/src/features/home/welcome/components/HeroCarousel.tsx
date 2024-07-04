@@ -1,31 +1,27 @@
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Keyboard, Pagination, Mousewheel } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import Mountain from "/public/images/Welcome-caroussel/mountain.webp"
-import Outdoor from "/public/images/Welcome-caroussel/outdoor.webp"
-import Sea from "/public/images/Welcome-caroussel/sea.webp"
 import { Flex } from "@chakra-ui/react";
+import Image from "next/image";
+import "swiper/css";
+import "swiper/css/effect-cards";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Autoplay, EffectCards } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Mountain from "/public/images/Welcome-caroussel/mountain.webp";
+import Outdoor from "/public/images/Welcome-caroussel/outdoor.webp";
+import Sea from "/public/images/Welcome-caroussel/sea.webp";
 
 export default function ImageCarousel() {
   return (
-    <Flex >
+    <Flex>
       <Swiper
-        style={
-          {
-            "--swiper-navigation-color": "#fff",
-            "--swiper-pagination-color": "#e66300",
-            "--swiper-pagination-bullet-size": "1rem",
-          } as React.CSSProperties
-        }
-        cssMode={true}
-        navigation={true}
-        pagination={{ clickable: true }}
-        mousewheel={true}
-        keyboard={true}
-        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
+        effect={"cards"}
+        grabCursor={true}
+        modules={[EffectCards, Autoplay]}
         className="mySwiper3"
       >
         <SwiperSlide>

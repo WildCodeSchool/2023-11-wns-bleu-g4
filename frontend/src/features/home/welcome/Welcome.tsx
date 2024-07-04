@@ -15,12 +15,15 @@ export default function Welcome() {
       w="full"
       m={{ base: "none", md: "6.25rem 0 6.25rem 0" }}
       className="lg:px-24"
+      overflow="hidden"
     >
       <Image src={HeroImageMobile} alt="Hero Mobile" className="absolute w-full h-full object-cover md:hidden z-1  " />
       <div className="absolute w-full h-full bg-gradient-to-r opacity-50 from-black to-30 md:hidden z-2 " />
       <Box
-        flex={1} m={{ base: "1.25rem", lg: "1.25rem 2rem 1.25rem 1.25rem" }}
-        className="relative w-full md:w-1/2 z-3 p-5 md:p-0">
+        flex={1}
+        m={{ base: "1.25rem", lg: "1.25rem 2rem 1.25rem 1.25rem" }}
+        className="relative w-full md:w-1/2 z-3 p-5 md:p-0"
+      >
         <Heading
           as="h1"
           fontSize={{ base: "4xl", md: "7xl" }}
@@ -31,7 +34,6 @@ export default function Welcome() {
         >
           {t("Welcome on GearGo")}
           <br />
-
         </Heading>
         <Text
           fontSize={{ base: "2xl", md: "4xl" }}
@@ -45,11 +47,11 @@ export default function Welcome() {
           {t("Explore our outdoor equipment rental service for the mountains and the sea.")} <br />
           {t(
             "GearGo offers a wide selection of quality gear. Simply rent what you need and embark on your " +
-            "adventure with ease."
+              "adventure with ease.",
           )}
         </Text>
         <br />
-        <Text fontSize={{ base: "xs", md: "xs" }} className="text-white md:text-current" >
+        <Text fontSize={{ base: "xs", md: "xs" }} className="text-white md:text-current">
           {t("outdoor")}
         </Text>
       </Box>

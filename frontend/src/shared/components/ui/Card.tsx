@@ -51,10 +51,23 @@ const sizes = {
   }),
 };
 
+const productCard = definePartsStyle({
+  container: {
+    _light: {
+      backgroundColor: "white",
+    },
+    _dark: {
+      backgroundColor: "#2a3b2c",
+      border: "none",
+    },
+  },
+});
+
 export const cardTheme = defineMultiStyleConfig({
   sizes,
   variants: {
     footerCard,
     loginCard,
+    productCard,
   },
 });
