@@ -41,11 +41,11 @@ services:
       - ./frontend/src:/app/src/
       - ./frontend/public:/app/public/
 
-  upload:
-    stop_grace_period: 0s
-    build: upload
-    volumes:
-      - ./upload/files:/app/files/
+  # upload:
+  #   stop_grace_period: 0s
+  #   build: upload
+  #   volumes:
+  #     - ./upload/files:/app/files/
 
   gateway:
     restart: always
