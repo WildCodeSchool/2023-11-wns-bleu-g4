@@ -10,16 +10,16 @@ class CategoryResolver {
 	@Query(() => [Category])
 	async getAllCategories(
 		@Arg("productId", () => Int, { nullable: true }) productId?: number,
-		@Arg("subCategoryId", () => Int, { nullable: true }) subCategoryId?: number,
+		@Arg("parentCategoryId", () => Int, { nullable: true }) parentCategoryId?: number,
 		@Arg("name", { nullable: true }) name?: string
 	) {
 		return Category.find({
-			relations: { products: true, parentCategory: true },
 			where: {
 				name: name ? ILike(`%${name}%`) : undefined,
 				products: { id: productId },
-				parentCategory: { id: subCategoryId },
+				parentCategory: { id: parentCategoryId },
 			},
+			relations: { products: true, parentCategory: true },
 		})
 	}
 
