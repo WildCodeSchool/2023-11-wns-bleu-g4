@@ -498,8 +498,8 @@ export type QueryGetAllBookingArgs = {
 
 export type QueryGetAllCategoriesArgs = {
   name?: InputMaybe<Scalars['String']['input']>;
+  parentCategoryId?: InputMaybe<Scalars['Int']['input']>;
   productId?: InputMaybe<Scalars['Int']['input']>;
-  subCategoryId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 

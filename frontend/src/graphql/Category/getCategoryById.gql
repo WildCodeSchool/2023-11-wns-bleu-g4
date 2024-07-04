@@ -1,0 +1,11 @@
+query GetCategoryById($categoryId: Int!) {
+  getCategoryById(categoryId: $categoryId) {
+    id
+    name
+    thumbnail
+    parentCategory {
+      id
+      name
+    }
+  }
+}
