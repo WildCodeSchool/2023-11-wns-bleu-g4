@@ -44,7 +44,7 @@ export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onCl
                 <DrawerBody >
                     {bookingData && bookingData.length > 0 ? (
                         bookingData.map((data, index) => {
-                            const product = productData?.getAllProducts.find(p => p.id === data.product?.id);
+                            const product = productData?.getAllProducts.find((p: { id: number | undefined; }) => p.id === data.product?.id);
                             return (
                                 <Flex key={index} flexDirection="column" gap={10}>
                                     <Flex justifyContent="space-around" mt={10}>
