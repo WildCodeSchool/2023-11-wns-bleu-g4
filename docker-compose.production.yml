@@ -41,7 +41,7 @@ services:
       - ./frontend/src:/app/src/
       - ./frontend/public:/app/public/
 
-  upload:
+  upload-service:
     stop_grace_period: 0s
     build: 
       context: upload
