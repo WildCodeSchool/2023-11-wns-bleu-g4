@@ -419,7 +419,7 @@ export type Product = {
   pictures: Array<Product_Picture>;
   price: Scalars['Float']['output'];
   productCodes: Array<ProductCode>;
-  reviews: Array<Review>;
+  reviews?: Maybe<Array<Review>>;
   thumbnail: Scalars['String']['output'];
 };
 
@@ -649,6 +649,7 @@ export type UpdateBrandInput = {
 export type UpdateCategoryInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   parentCategory?: InputMaybe<ParentCategoryId>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateParentCategoryInput = {

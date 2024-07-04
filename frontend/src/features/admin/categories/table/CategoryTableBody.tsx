@@ -5,11 +5,11 @@ import { categoryTableHeaders } from "../../helpers/tableHeaders";
 import { PencilSquareIcon, PhotoIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import CategoryDeleteModal from "../modal/CategoryDeleteModal";
-import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 import { useDeleteCategoryMutation } from "@/graphql/Category/generated/deleteCategory.generated";
 import { Category } from "../types";
 import CategoryThumbnailModal from "../modal/CategoryThumbnailModal";
 import CategoryUpdateModal from "../modal/CategoryUpdateModal";
+import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 
 export default function CategoryTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("CategoryTableBody");

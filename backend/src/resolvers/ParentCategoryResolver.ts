@@ -14,7 +14,8 @@ class ParentCategoryResolver {
 	) {
 		return ParentCategory.find({
 			where: {
-				name: name ? ILike(`%${name}%`) : undefined,
+				name: name ? ILike(`'%${name}%'`) : undefined,
+				categories: { id: categoryId },
 			},
 			relations: { categories: true },
 		})

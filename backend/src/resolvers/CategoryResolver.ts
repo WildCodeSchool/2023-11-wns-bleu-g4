@@ -15,13 +15,14 @@ class CategoryResolver {
 	) {
 		return Category.find({
 			where: {
-				name: name ? ILike(`%${name}%`) : undefined,
+				name: name ? ILike(`'%${name}%'`) : undefined,
 				products: { id: productId },
 				parentCategory: { id: parentCategoryId },
 			},
 			relations: { products: true, parentCategory: true },
 		})
 	}
+
 
 	@Query(() => Category)
 	async getCategoryById(@Arg("categoryId", () => Int) id: number) {

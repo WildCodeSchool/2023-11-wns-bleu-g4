@@ -1,3 +1,4 @@
+import { useGetAllParentCategoryQuery } from "@/graphql/ParentCategory/generated/GetAllParentCategory.generated";
 import {
   Button,
   Flex,
@@ -11,15 +12,10 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import qs from "query-string";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BasketDrawer } from "./BasketDrawer";
-
-const categories = {
-  Sea: ["Option 1", "Option 2", "Option 3"],
-  Mountain: ["Option 1", "Option 2", "Option 3"],
-  Outdoor: ["Option A", "Option B", "Option C"],
-};
 
 export default function SubNavbar() {
   const router = useRouter();
@@ -28,7 +24,7 @@ export default function SubNavbar() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const onOpen = () => {
-    if (router.pathname === '/basket') {
+    if (router.pathname === "/basket") {
       return;
     }
     originalOnOpen();
@@ -48,6 +44,18 @@ export default function SubNavbar() {
       ? "0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1)"
       : "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)";
 
+  const { data: categoriesData } = useGetAllParentCategoryQuery();
+
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (typeof router.query.name === "string") {
+      setSearch(router.query.name);
+    }
+  }, [router.query.name]);
+
+  const searchParams = qs.parse(window.location.search);
+
   return (
     <Flex
       className="h-8 w-full justify-between px-5 py-8"
@@ -56,7 +64,7 @@ export default function SubNavbar() {
       style={{ boxShadow: shadowColor }}
     >
       <Flex gap={2}>
-        {Object.entries(categories).map(([category, items], index) => (
+        {categoriesData?.getAllParentCategories.map((category, index) => (
           <Menu key={index} isOpen={activeIndex === index} closeOnBlur>
             <MenuButton
               as={Button}
@@ -68,7 +76,8 @@ export default function SubNavbar() {
               onMouseLeave={handleMouseLeave}
               rightIcon={
                 <div
-                  className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-custom" : ""}`}
+                  className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-custom" : ""
+                    }`}
                   style={{
                     transform: activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
                   }}
@@ -78,12 +87,34 @@ export default function SubNavbar() {
               }
               py={4}
             >
-              {t(category)}
+              {t(category.name)}
             </MenuButton>
-            <MenuList zIndex={100} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
-              {items.map((item, i) => (
-                <MenuItem key={i}>{item}</MenuItem>
-              ))}
+            <MenuList
+              zIndex={100}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
+            >
+              {category.categories.map((subCat) => {
+                const [firstLetter, ...restOfSubCatName] = subCat.name.split("");
+                const subCatName = firstLetter.toUpperCase() + restOfSubCatName.join("");
+                const isActive = router.query.categoryId === subCat.id.toString();
+
+                return (
+                  <MenuItem
+                    onClick={() => {
+                      router.push(
+                        `/products?${qs.stringify({
+                          ...searchParams,
+                          categoryId: subCat.id,
+                        })}`
+                      );
+                    }}
+                    key={subCat.id}
+                  >
+                    {subCatName}
+                  </MenuItem>
+                );
+              })}
             </MenuList>
           </Menu>
         ))}

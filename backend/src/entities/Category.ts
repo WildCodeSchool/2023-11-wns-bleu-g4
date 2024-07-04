@@ -1,18 +1,9 @@
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	JoinTable,
-	ManyToMany,
-	ManyToOne,
-	OneToMany,
-	PrimaryGeneratedColumn,
-} from "typeorm"
-import { Field, InputType, Int, ObjectType } from "type-graphql"
-import Product from "./Product"
-import ParentCategory from "./ParentCategory"
 import { Length } from "class-validator"
+import { Field, InputType, Int, ObjectType } from "type-graphql"
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { ParentCategoryId } from "../types"
+import ParentCategory from "./ParentCategory"
+import Product from "./Product"
 
 @Entity()
 @ObjectType()

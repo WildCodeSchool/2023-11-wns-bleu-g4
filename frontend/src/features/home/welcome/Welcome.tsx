@@ -15,6 +15,7 @@ export default function Welcome() {
       w="full"
       m={{ base: "none", md: "6.25rem 0 6.25rem 0" }}
       className="lg:px-24"
+      overflow="hidden"
     >
       <Image src={HeroImageMobile} alt="Hero Mobile" className="absolute w-full h-full object-cover md:hidden z-1  " />
       <div className="absolute w-full h-full bg-gradient-to-r opacity-50 from-black to-30 md:hidden z-2 " />

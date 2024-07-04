@@ -160,7 +160,7 @@ async function main() {
 		Object.assign(category, {
 			name: data.name,
 			thumbnail: data.thumbnail,
-			parentCategory: parentCategory && parentCategory,
+			parentCategory: parentCategory,
 		})
 		await category.save()
 		categories.push(category)

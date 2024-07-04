@@ -1,6 +1,6 @@
-import { Field, InputType, Int, ObjectType } from "type-graphql"
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Length } from "class-validator"
+import { Field, InputType, Int, ObjectType } from "type-graphql"
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import Category from "./Category"
 
 @Entity()

@@ -1,5 +1,5 @@
-query GetProductsDetails {
-  getAllProducts {
+query getAllProductsByCategoryID($categoryId: Int) {
+  getAllProducts(categoryId: $categoryId) {
     brand {
       id
       logo
@@ -23,6 +23,9 @@ query GetProductsDetails {
       comment
       id
       rate
+    }
+    category {
+      id
     }
   }
 }
