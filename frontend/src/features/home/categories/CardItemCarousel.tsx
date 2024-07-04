@@ -1,4 +1,4 @@
-import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import "swiper/css";
