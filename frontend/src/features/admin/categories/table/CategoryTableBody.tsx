@@ -2,21 +2,28 @@ import React, { useState } from "react";
 import client from "@/graphql/client";
 import { TableBodyProps } from "../../product/types";
 import { categoryTableHeaders } from "../../helpers/tableHeaders";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, PhotoIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import CategoryDeleteModal from "../modal/CategoryDeleteModal";
-// import ProductUpdateModal from "../modal/ProductUpdateModal";
-import { Category } from "@/graphql/generated/schema";
 import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 import { useDeleteCategoryMutation } from "@/graphql/Category/generated/deleteCategory.generated";
+import { Category } from "../types";
+import CategoryThumbnailModal from "../modal/CategoryThumbnailModal";
+import CategoryUpdateModal from "../modal/CategoryUpdateModal";
 
 export default function CategoryTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("CategoryTableBody");
 
   const [deleteCategory] = useDeleteCategoryMutation();
+  const [isThumbnailModalOpen, setIsThumbnailModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+
+  const toggleThumbnailModal = (category: Category) => {
+    setSelectedCategory(category);
+    setIsThumbnailModalOpen(!isThumbnailModalOpen);
+  }
 
   const toggleUpdateCategoryModal = (category: Category) => {
     setSelectedCategory(category);
@@ -62,9 +69,27 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
           data.map((category: Category, index: number) => (
             <React.Fragment key={category.id}>
               <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
-                <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{category.name}</td>
-                <td className="whitespace-nowrap p-3 w-48 min-w-max">{category.name}</td>
-                <td className="whitespace-nowrap p-3 pr-8 w-48 min-w-max text-left align-middle">
+                <td className="whitespace-nowrap p-3 pl-8 w-1/4 min-w-max">{category.name}</td>
+                <td className="whitespace-nowrap p-3 w-1/4 min-w-max">
+                  <button
+                    type="button"
+                    className="inline-block bg-cactus-400 rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
+                    aria-label="Edit button"
+                    onClick={() => toggleThumbnailModal(category)}
+                  >
+                    <PhotoIcon className="h-5 w-5 text-white" />
+                  </button>
+                  {isThumbnailModalOpen && (
+                    <CategoryThumbnailModal
+                      category={selectedCategory!}
+                      isOpen={isThumbnailModalOpen}
+                      onClose={() => setIsThumbnailModalOpen(!isThumbnailModalOpen)}
+                    />
+                  )}
+                </td>
+
+                <td className="whitespace-nowrap p-3 w-1/4 min-w-max">{category.parentCategory?.name}</td>
+                <td className="whitespace-nowrap p-3 pr-8 w-1/4 min-w-max text-left align-middle">
                   <div className="inline-block">
                     <button
                       type="button"
@@ -74,14 +99,13 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
                     >
                       <PencilSquareIcon className="h-5 w-5 text-white" />
                     </button>
-                    {/* {isUpdateModalOpen && (
-                      <ProductUpdateModal
-                        product={selectedCategory}
+                    {isUpdateModalOpen && (
+                      <CategoryUpdateModal
+                        category={selectedCategory!}
                         isOpen={isUpdateModalOpen}
                         onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
-                        variant="baseStyle"
                       />
-                    )} */}
+                    )}
                     <button
                       type="button"
                       className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle"
