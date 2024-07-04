@@ -44,6 +44,12 @@ export class CategoryId {
 }
 
 @InputType()
+export class CharacteristicID {
+	@Field(() => Int)
+	id!: number;
+}
+
+@InputType()
 export class ParentCategoryId {
 	@Field(() => Int)
 	id!: number;

@@ -4,7 +4,7 @@ module.exports = {
   defaultNamespace: "common",
   defaultValue: "",
   indentation: 2,
-  keepRemoved: false,
+  keepRemoved: true,
   keySeparator: false,
   locales: ["en", "fr"],
   namespaceSeparator: false,

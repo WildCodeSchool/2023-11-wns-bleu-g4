@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type DeleteProduct_PictureMutationVariables = Types.Exact<{
-  deleteProductPictureId: Types.Scalars['Int'];
+  deleteProductPictureId: Types.Scalars['Int']['input'];
 }>;
 
 

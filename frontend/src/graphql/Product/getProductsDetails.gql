@@ -1,4 +1,4 @@
-query GetAllProducts {
+query GetProductsDetails {
   getAllProducts {
     brand {
       id
@@ -10,5 +10,19 @@ query GetAllProducts {
     name
     price
     thumbnail
+    characteristics {
+      characteristic
+      id
+    }
+    pictures {
+      alt
+      id
+      thumbnail
+    }
+    reviews {
+      comment
+      id
+      rate
+    }
   }
 }

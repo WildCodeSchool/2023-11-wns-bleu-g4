@@ -1,6 +1,14 @@
 query GetAllProduct_codes {
   getAllProduct_codes {
+    agency {
+      id
+    }
     id
+    isSizeable
+    product {
+      id
+    }
+    size
     status
   }
 }

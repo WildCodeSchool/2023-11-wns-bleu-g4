@@ -1,21 +1,24 @@
-import { Product } from "@/features/product/ProductPage";
+import { useProductContext } from "@/context/ProductPageContext";
 import { Flex, Image, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
-export default function ProductHeader({ product }: { product: Product }) {
+export default function ProductHeader() {
   const { t } = useTranslation("productDetails");
+  const { selectedProduct } = useProductContext();
+
+  if (!selectedProduct) return null;
 
   return (
-    <Flex justifyContent="space-between">
+    <Flex justifyContent="space-between" align="center">
       <Flex flexDirection="column">
-        <Text size="18px" fontWeight="600">
+        <Text fontSize={18} fontWeight={600} fontFamily="Poppins">
           Ref: 05221489
         </Text>
         <Text fontWeight="600">
-          {t("Brand")}: {product.brand.name}
+          {t("Brand")}: {selectedProduct.brand.name}
         </Text>
       </Flex>
-      <Image width="20%" src={product.brand.logo} alt="brand logo" />
+      <Image width="20%" src={selectedProduct.brand.logo} alt="brand logo" />
     </Flex>
   );
 }

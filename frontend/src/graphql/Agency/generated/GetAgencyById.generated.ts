@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetAgencyByIdQueryVariables = Types.Exact<{
-  agencyId: Types.Scalars['Int'];
+  agencyId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -42,7 +42,7 @@ export const GetAgencyByIdDocument = gql`
  *   },
  * });
  */
-export function useGetAgencyByIdQuery(baseOptions: Apollo.QueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>) {
+export function useGetAgencyByIdQuery(baseOptions: Apollo.QueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables> & ({ variables: GetAgencyByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
       }
@@ -50,6 +50,11 @@ export function useGetAgencyByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
         }
+export function useGetAgencyByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>(GetAgencyByIdDocument, options);
+        }
 export type GetAgencyByIdQueryHookResult = ReturnType<typeof useGetAgencyByIdQuery>;
 export type GetAgencyByIdLazyQueryHookResult = ReturnType<typeof useGetAgencyByIdLazyQuery>;
+export type GetAgencyByIdSuspenseQueryHookResult = ReturnType<typeof useGetAgencyByIdSuspenseQuery>;
 export type GetAgencyByIdQueryResult = Apollo.QueryResult<GetAgencyByIdQuery, GetAgencyByIdQueryVariables>;

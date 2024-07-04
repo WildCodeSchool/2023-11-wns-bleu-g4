@@ -1,3 +1,4 @@
+import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/GetAllParentCategory.generated";
 import {
   Button,
   Flex,
@@ -10,29 +11,31 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import qs from "query-string";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
-const categories = {
-  Sea: ["Option 1", "Option 2", "Option 3"],
-  Mountain: ["Option 1", "Option 2", "Option 3"],
-  Outdoor: ["Option A", "Option B", "Option C"],
-};
+import { BasketDrawer } from "./BasketDrawer";
 
 export default function SubNavbar() {
+  const router = useRouter();
   const { t } = useTranslation("SubNav");
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen: originalOnOpen, onClose } = useDisclosure();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const onOpen = () => {
+    if (router.pathname === "/basket") {
+      return;
+    }
+    originalOnOpen();
+  };
 
   const handleMouseEnter = (index: number) => {
     setActiveIndex(index);
-    onOpen();
   };
 
   const handleMouseLeave = () => {
     setActiveIndex(null);
-    onClose();
   };
 
   const { colorMode } = useColorMode();
@@ -40,6 +43,18 @@ export default function SubNavbar() {
     colorMode === "dark"
       ? "0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1)"
       : "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)";
+
+  const { data: categoriesData } = useGetAllParentCategoriesQuery();
+
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (typeof router.query.name === "string") {
+      setSearch(router.query.name);
+    }
+  }, [router.query.name]);
+
+  const searchParams = qs.parse(window.location.search);
 
   return (
     <Flex
@@ -49,8 +64,8 @@ export default function SubNavbar() {
       style={{ boxShadow: shadowColor }}
     >
       <Flex gap={2}>
-        {Object.entries(categories).map(([category, items], index) => (
-          <Menu key={index} isOpen={isOpen && activeIndex === index} closeOnBlur>
+        {categoriesData?.getAllParentCategories.map((category, index) => (
+          <Menu key={index} isOpen={activeIndex === index} closeOnBlur>
             <MenuButton
               as={Button}
               size="sm"
@@ -61,9 +76,10 @@ export default function SubNavbar() {
               onMouseLeave={handleMouseLeave}
               rightIcon={
                 <div
-                  className={`transform transition-transform duration-300 ${isOpen && activeIndex === index ? "rotate-custom" : ""}`}
+                  className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-custom" : ""
+                    }`}
                   style={{
-                    transform: isOpen && activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
+                    transform: activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
                   }}
                 >
                   <ChevronDownIcon width={24} />
@@ -71,12 +87,34 @@ export default function SubNavbar() {
               }
               py={4}
             >
-              {t(category)}
+              {t(category.name)}
             </MenuButton>
-            <MenuList zIndex={100} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
-              {items.map((item, i) => (
-                <MenuItem key={i}>{item}</MenuItem>
-              ))}
+            <MenuList
+              zIndex={100}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
+            >
+              {category.categories.map((subCat) => {
+                const [firstLetter, ...restOfSubCatName] = subCat.name.split("");
+                const subCatName = firstLetter.toUpperCase() + restOfSubCatName.join("");
+                const isActive = router.query.categoryId === subCat.id.toString();
+
+                return (
+                  <MenuItem
+                    onClick={() => {
+                      router.push(
+                        `/products?${qs.stringify({
+                          ...searchParams,
+                          categoryId: subCat.id,
+                        })}`
+                      );
+                    }}
+                    key={subCat.id}
+                  >
+                    {subCatName}
+                  </MenuItem>
+                );
+              })}
             </MenuList>
           </Menu>
         ))}
@@ -84,14 +122,15 @@ export default function SubNavbar() {
       <Spacer />
       <Button
         size="sm"
-        as={Button}
+        onClick={onOpen}
         borderRadius="md"
         borderWidth="1px"
-        variant="cartButton"
+        variant="accentButton"
         leftIcon={<ShoppingCartIcon width={18} />}
       >
         {t("My basket")}
       </Button>
+      <BasketDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Flex>
   );
 }

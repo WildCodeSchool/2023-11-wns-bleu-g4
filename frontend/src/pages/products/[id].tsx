@@ -18,14 +18,14 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   return {
     props: {
       id: id as string,
-      ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
+      ...(await serverSideTranslations(locale ?? 'en', getAllNamespaces())),
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const ids = ["1", "2", "3"];
-  const locales = ["en", "fr"];
+  const ids = ['1', '2', '3'];
+  const locales = ['en', 'fr'];
 
   const paths = ids.flatMap(id =>
     locales.map(locale => ({

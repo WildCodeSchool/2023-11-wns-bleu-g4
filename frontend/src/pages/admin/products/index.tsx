@@ -8,17 +8,18 @@ import { GetStaticProps } from "next";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useDisclosure } from "@chakra-ui/react";
 import ProductCreateModal from "@/features/admin/modal/productCreateModal";
-import { products } from "@/features/admin/helpers/dummyProducts";
+import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 
 export default function Products() {
-  const [sortedData, setSortedData] = useState<any[]>(products);
+  const { data, refetch } = useGetAllProductsQuery();
+  const products = data?.getAllProducts ?? [];
   const [currentPage, setCurrentPage] = useState(1);
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const itemsPerPage = 14;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + Math.min(itemsPerPage, products?.length ?? 0);
-  const currentProducts = sortedData.slice(startIndex, endIndex);
+  const currentProducts = products.slice(startIndex, endIndex);
 
   const toggleCreateProductModal = () => {
     onOpen();
@@ -38,12 +39,12 @@ export default function Products() {
           Add Product
         </button>
       </div>
-      {isOpen && <ProductCreateModal isOpen={isOpen} onClose={onClose} />}
+      {isOpen && <ProductCreateModal isOpen={isOpen} onClose={onClose} refetch={refetch} />}
       <div className="overflow-x-auto">
         <ProductTableBody data={currentProducts} />
       </div>
       <TableFooter
-        data={sortedData}
+        data={products}
         startIndex={startIndex}
         endIndex={endIndex}
         currentPage={currentPage}

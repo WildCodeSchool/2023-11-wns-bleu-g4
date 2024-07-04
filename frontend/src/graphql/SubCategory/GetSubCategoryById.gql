@@ -1,7 +1,0 @@
-query GetSubCategoryById($subCategoryId: Int!) {
-  getSubCategoryById(subCategoryId: $subCategoryId) {
-    id
-    name
-    thumbnail
-  }
-}

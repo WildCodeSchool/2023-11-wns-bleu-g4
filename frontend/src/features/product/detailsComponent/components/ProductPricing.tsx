@@ -1,17 +1,10 @@
-import { Flex, Text, HStack, Box, Button, useNumberInput } from "@chakra-ui/react";
+import { useProductContext } from "@/context/ProductPageContext";
+import { Box, Button, Flex, HStack, Text, useNumberInput } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { Product } from "@/features/product/ProductPage";
 
-export default function ProductPricing({
-  product,
-  quantity,
-  setQuantity
-}: {
-  product: Product;
-  quantity: number;
-  setQuantity: (quantity: number) => void;
-}) {
+export default function ProductPricing() {
   const { t } = useTranslation("productDetails");
+  const { selectedProduct, quantity, setQuantity, totalPrice } = useProductContext();
 
   const { getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
     value: quantity,
@@ -24,10 +17,15 @@ export default function ProductPricing({
   const inc = getIncrementButtonProps();
   const dec = getDecrementButtonProps();
 
+  if (!selectedProduct) return null;
+
   return (
     <Flex flexDirection="column">
       <Text color="accent" fontFamily="Poppins" fontWeight="600" fontSize="2xl" m="10px">
-        {t("Price")} : {product.price} € / {t("Day")}
+        {t("Price")} : {selectedProduct.price} € / {t("Day")}
+      </Text>
+      <Text color="accent" fontFamily="Poppins" fontWeight="600" fontSize="2xl" m="10px">
+        {t("Total Price")} : {parseFloat(totalPrice.toFixed(2))} €
       </Text>
       <Flex flexDirection="column" gap="30px" p="19px 0">
         <Flex flexDirection="column" gap={2}>

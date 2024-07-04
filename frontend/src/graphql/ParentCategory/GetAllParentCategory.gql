@@ -1,0 +1,10 @@
+query GetAllParentCategories($categoryId: Int) {
+  getAllParentCategories(categoryId: $categoryId) {
+    id
+    name
+    categories {
+      id
+      name
+    }
+  }
+}

@@ -1,5 +1,5 @@
-import "react-toastify/dist/ReactToastify.css";
 import { Bounce, ToastOptions } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const ToastConfigDark: ToastOptions = {
   position: "bottom-right",

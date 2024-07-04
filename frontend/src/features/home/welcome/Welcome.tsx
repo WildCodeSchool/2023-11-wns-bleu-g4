@@ -15,6 +15,7 @@ export default function Welcome() {
       w="full"
       m={{ base: "none", md: "6.25rem 0 6.25rem 0" }}
       className="lg:px-24"
+      overflow="hidden"
     >
       <Image src={HeroImageMobile} alt="Hero Mobile" className="absolute w-full h-full object-cover md:hidden z-1  " />
       <div className="absolute w-full h-full bg-gradient-to-r opacity-50 from-black to-30 md:hidden z-2 " />
@@ -44,7 +45,8 @@ export default function Welcome() {
         <Text fontSize={{ base: "1xl", md: "2xl" }} className="text-white md:text-current">
           {t("Explore our outdoor equipment rental service for the mountains and the sea.")} <br />
           {t(
-            "GearGo offers a wide selection of quality gear. Simply rent what you need and embark on your adventure with ease.",
+            "GearGo offers a wide selection of quality gear. Simply rent what you need and embark on your " +
+            "adventure with ease."
           )}
         </Text>
         <br />

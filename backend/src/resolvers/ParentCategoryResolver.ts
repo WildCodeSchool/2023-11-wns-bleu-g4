@@ -1,20 +1,20 @@
-import {
-	Resolver,
-	Query,
-	Arg,
-	Mutation,
-	Int,
-	Ctx,
-	Authorized,
-} from "type-graphql"
 import { GraphQLError } from "graphql"
+import {
+	Arg,
+	Authorized,
+	Ctx,
+	Int,
+	Mutation,
+	Query,
+	Resolver,
+} from "type-graphql"
 import { ILike } from "typeorm"
-import { Context } from "../utils"
-import { UserRole } from "../entities/User"
 import ParentCategory, {
 	NewParentCategoryInput,
 	UpdateParentCategoryInput,
 } from "../entities/ParentCategory"
+import { UserRole } from "../entities/User"
+import { Context } from "../utils"
 
 @Resolver()
 class ParentCategoryResolver {
@@ -25,9 +25,11 @@ class ParentCategoryResolver {
 	) {
 		return ParentCategory.find({
 			where: {
-				name: name ? ILike(`%${name}%`) : undefined,
+				name: name ? ILike(`'%${name}%'`) : undefined,
+				categories: { id: categoryId },
 			},
-		})
+			relations: { categories: true },
+		});
 	}
 
 	@Query(() => ParentCategory)
