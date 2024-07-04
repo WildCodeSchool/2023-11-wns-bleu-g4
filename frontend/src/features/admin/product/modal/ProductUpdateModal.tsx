@@ -18,30 +18,29 @@ import {
   NumberInputField,
   NumberInputStepper,
   Select,
-  Text,
   Textarea,
 } from "@chakra-ui/react";
 import { Brand, Category, ProductModalProps } from "../types";
 import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
 import { ChangeEvent, FormEvent, useState } from "react";
-import uploadFile from "../helpers/uploadFile";
+import uploadFile from "../../helpers/uploadFile";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 
-export default function ProductUpdateModal({ isOpen, onClose, product, variant }: ProductModalProps) {
+export default function ProductUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
   const [updateProduct] = useUpdateProductMutation();
   const [imageURL, setImageURL] = useState(product?.thumbnail);
   const [formData, setFormData] = useState({
-    name: product.name,
-    brand: product.brand.id,
-    description: product.description,
-    price: product.price,
-    category: product.category.id,
+    name: product?.name,
+    brand: product?.brand.id!,
+    description: product?.description,
+    price: product?.price,
+    category: product?.category.id!,
     thumbnail: imageURL,
   });
 
-  const productId = product.id;
+  const productId = product.id!;
 
   const { data: categoriesData } = useGetAllCategoriesQuery();
   const categories = categoriesData?.getAllCategories ?? [];
@@ -69,7 +68,6 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      // [name]: { id: parseInt(value, 10) },
       [name]: parseInt(value, 10),
     }));
   };
@@ -94,7 +92,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Update {product.name}</ModalHeader>
@@ -199,6 +197,8 @@ export default function ProductUpdateModal({ isOpen, onClose, product, variant }
                 Thumbnail
               </FormLabel>
               <input
+                id="thumbnail"
+                name="thumbnail"
                 type="file"
                 onChange={(e) => {
                   if (e.target.files?.[0])

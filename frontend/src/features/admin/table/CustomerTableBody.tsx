@@ -1,4 +1,4 @@
-import { TableBodyProps } from "../types";
+import { TableBodyProps } from "../product/types";
 import { customerTableHeaders } from "../helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
 

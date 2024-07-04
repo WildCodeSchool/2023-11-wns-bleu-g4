@@ -1,0 +1,6 @@
+query GetParentCategoryById($parentCategoryId: Int!) {
+  getParentCategoryById(parentCategoryId: $parentCategoryId) {
+    id
+    name
+  }
+}

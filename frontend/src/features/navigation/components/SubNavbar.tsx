@@ -1,4 +1,4 @@
-import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/GetAllParentCategory.generated";
+import { useGetAllParentCategoryQuery } from "@/graphql/ParentCategory/generated/GetAllParentCategory.generated";
 import {
   Button,
   Flex,
@@ -44,7 +44,7 @@ export default function SubNavbar() {
       ? "0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1)"
       : "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)";
 
-  const { data: categoriesData } = useGetAllParentCategoriesQuery();
+  const { data: categoriesData } = useGetAllParentCategoryQuery();
 
   const [search, setSearch] = useState("");
 

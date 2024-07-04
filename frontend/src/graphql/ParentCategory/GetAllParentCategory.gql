@@ -1,4 +1,4 @@
-query GetAllParentCategories($categoryId: Int) {
+query GetAllParentCategory($categoryId: Int) {
   getAllParentCategories(categoryId: $categoryId) {
     id
     name

@@ -1,12 +1,12 @@
-import { Product_Picture } from "@/graphql/generated/schema";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import ProductPictureAddModal from "../modal/productPictureAddModal";
+import ProductPictureAddModal from "./modal/ProductPictureAddModal";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDeleteProduct_PictureMutation } from "@/graphql/ProductPicture/generated/DeleteProduct_picture.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
+import { Product, Product_Picture } from "./types";
 
-export default function ProductPictures({ product }: { product: any }) {
+export default function ProductPictures({ product }: { product: Product }) {
     const [deletePicture] = useDeleteProduct_PictureMutation();
     const [productPictureModal, setProductPictureModal] = useState(false);
     const toggleAddPictureModal = () => setProductPictureModal(!productPictureModal);
@@ -48,12 +48,12 @@ export default function ProductPictures({ product }: { product: any }) {
                 }
                 {product?.pictures.map((picture: Product_Picture) => (
                     <div key={picture.id} className="relative h-36 max-w-52 rounded aspect-auto">
-                        <img src={picture.thumbnail} alt={picture.alt} className="h-full w-full object-cover rounded object-center" />
+                        <img src={picture.thumbnail} alt={picture.alt} className="h-full w-full min-w-32 object-cover rounded object-center" />
                         <button
                             type="button"
                             className="absolute top-1 right-1 bg-[#D23732]/50 rounded-md p-1"
                             aria-label="Delete button"
-                            onClick={() => handleDeletePicture(picture.id)}
+                            onClick={() => handleDeletePicture(picture?.id!)}
                         >
                             <XMarkIcon className="h-5 w-5 text-white" />
                         </button>

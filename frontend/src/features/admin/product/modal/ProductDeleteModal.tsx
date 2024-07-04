@@ -10,10 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { ProductModalProps } from "../types";
 
-export default function ProductDeleteModal({ isOpen, onClose, product: { id, name }, variant, handleDeleteProduct }: ProductModalProps) {
+export default function ProductDeleteModal({ isOpen, onClose, product: { id, name }, handleDeleteProduct }: ProductModalProps) {
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Delete {name}</ModalHeader>
@@ -23,7 +23,7 @@ export default function ProductDeleteModal({ isOpen, onClose, product: { id, nam
         <ModalFooter>
           <Button onClick={onClose}>Cancel</Button>
           <Button colorScheme="red" ml={3} type="submit"
-            onClick={() => { handleDeleteProduct && handleDeleteProduct(id) }}>
+            onClick={() => { handleDeleteProduct && handleDeleteProduct(id!) }}>
             Delete
           </Button>
         </ModalFooter>

@@ -13,9 +13,6 @@ export default function ProductGrid({ categoryId }: ProductGridProps) {
         skip: typeof categoryId === "undefined",
     });
 
-    console.log("categoryId:", categoryId);
-    console.log("productData:", productData);
-
     if (productLoading) return <p>Loading...</p>;
     if (productError) return <p>Error: {productError.message}</p>;
 

@@ -1,12 +1,13 @@
 import { BanknotesIcon, CubeIcon, DocumentTextIcon, Squares2X2Icon, TagIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import ProductDeleteModal from "../modal/productDeleteModal";
-import ProductUpdateModal from "../modal/productUpdateModal";
+import ProductDeleteModal from "./modal/ProductDeleteModal";
+import ProductUpdateModal from "./modal/ProductUpdateModal";
 import { useDeleteProductMutation } from "@/graphql/Product/generated/deleteProduct.generated";
 import { useRouter } from "next/router";
-import ProductCharUpdateModal from "../modal/productCharUpdateModal";
+import ProductCharUpdateModal from "./modal/ProductCharUpdateModal";
+import { Product } from "./types";
 
-export default function ProductDetails({ product }: { product: any }) {
+export default function ProductDetails({ product }: { product: Product }) {
   const router = useRouter();
   const [deleteProduct] = useDeleteProductMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);

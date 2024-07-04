@@ -1,0 +1,5 @@
+mutation CreateParentCategory($data: NewParentCategoryInput!) {
+  createParentCategory(data: $data) {
+    name
+  }
+}
