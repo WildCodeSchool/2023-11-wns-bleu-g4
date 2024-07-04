@@ -1,49 +1,36 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CreateAgencyMutationVariables = Types.Exact<{
   data: Types.NewAgencyInput;
 }>;
 
-export type CreateAgencyMutation = {
-  __typename?: "Mutation";
-  createAgency: {
-    __typename?: "Agency";
-    id: number;
-    name: string;
-    address: string;
-    postcode: string;
-    city: string;
-    country: string;
-    phone: string;
-    email: string;
-    bookings: Array<{ __typename?: "Booking"; id: number }>;
-    productCodes: Array<{ __typename?: "ProductCode"; id: number }>;
-  };
-};
+
+export type CreateAgencyMutation = { __typename?: 'Mutation', createAgency: { __typename?: 'Agency', id: number, name: string, address: string, postcode: string, city: string, country: string, phone: string, email: string, bookings: Array<{ __typename?: 'Booking', id: number }>, productCodes: Array<{ __typename?: 'ProductCode', id: number }> } };
+
 
 export const CreateAgencyDocument = gql`
-  mutation CreateAgency($data: NewAgencyInput!) {
-    createAgency(data: $data) {
+    mutation CreateAgency($data: NewAgencyInput!) {
+  createAgency(data: $data) {
+    id
+    name
+    address
+    postcode
+    city
+    country
+    phone
+    email
+    bookings {
       id
-      name
-      address
-      postcode
-      city
-      country
-      phone
-      email
-      bookings {
-        id
-      }
-      productCodes {
-        id
-      }
+    }
+    productCodes {
+      id
     }
   }
-`;
+}
+    `;
 export type CreateAgencyMutationFn = Apollo.MutationFunction<CreateAgencyMutation, CreateAgencyMutationVariables>;
 
 /**
@@ -63,15 +50,10 @@ export type CreateAgencyMutationFn = Apollo.MutationFunction<CreateAgencyMutatio
  *   },
  * });
  */
-export function useCreateAgencyMutation(
-  baseOptions?: Apollo.MutationHookOptions<CreateAgencyMutation, CreateAgencyMutationVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<CreateAgencyMutation, CreateAgencyMutationVariables>(CreateAgencyDocument, options);
-}
+export function useCreateAgencyMutation(baseOptions?: Apollo.MutationHookOptions<CreateAgencyMutation, CreateAgencyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAgencyMutation, CreateAgencyMutationVariables>(CreateAgencyDocument, options);
+      }
 export type CreateAgencyMutationHookResult = ReturnType<typeof useCreateAgencyMutation>;
 export type CreateAgencyMutationResult = Apollo.MutationResult<CreateAgencyMutation>;
-export type CreateAgencyMutationOptions = Apollo.BaseMutationOptions<
-  CreateAgencyMutation,
-  CreateAgencyMutationVariables
->;
+export type CreateAgencyMutationOptions = Apollo.BaseMutationOptions<CreateAgencyMutation, CreateAgencyMutationVariables>;

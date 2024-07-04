@@ -1,19 +1,21 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type LoginMutationVariables = Types.Exact<{
   data: Types.LoginInput;
 }>;
 
-export type LoginMutation = { __typename?: "Mutation"; login: string };
+
+export type LoginMutation = { __typename?: 'Mutation', login: string };
+
 
 export const LoginDocument = gql`
-  mutation Login($data: LoginInput!) {
-    login(data: $data)
-  }
-`;
+    mutation Login($data: LoginInput!) {
+  login(data: $data)
+}
+    `;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
@@ -34,9 +36,9 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  * });
  */
 export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;

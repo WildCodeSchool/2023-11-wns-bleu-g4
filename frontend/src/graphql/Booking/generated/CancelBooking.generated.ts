@@ -1,19 +1,21 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CancelBookingMutationVariables = Types.Exact<{
-  bookingId: Types.Scalars["Float"]["input"];
+  bookingId: Types.Scalars['Float']['input'];
 }>;
 
-export type CancelBookingMutation = { __typename?: "Mutation"; cancelBooking: string };
+
+export type CancelBookingMutation = { __typename?: 'Mutation', cancelBooking: string };
+
 
 export const CancelBookingDocument = gql`
-  mutation CancelBooking($bookingId: Float!) {
-    cancelBooking(bookingId: $bookingId)
-  }
-`;
+    mutation CancelBooking($bookingId: Float!) {
+  cancelBooking(bookingId: $bookingId)
+}
+    `;
 export type CancelBookingMutationFn = Apollo.MutationFunction<CancelBookingMutation, CancelBookingMutationVariables>;
 
 /**
@@ -33,15 +35,10 @@ export type CancelBookingMutationFn = Apollo.MutationFunction<CancelBookingMutat
  *   },
  * });
  */
-export function useCancelBookingMutation(
-  baseOptions?: Apollo.MutationHookOptions<CancelBookingMutation, CancelBookingMutationVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<CancelBookingMutation, CancelBookingMutationVariables>(CancelBookingDocument, options);
-}
+export function useCancelBookingMutation(baseOptions?: Apollo.MutationHookOptions<CancelBookingMutation, CancelBookingMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CancelBookingMutation, CancelBookingMutationVariables>(CancelBookingDocument, options);
+      }
 export type CancelBookingMutationHookResult = ReturnType<typeof useCancelBookingMutation>;
 export type CancelBookingMutationResult = Apollo.MutationResult<CancelBookingMutation>;
-export type CancelBookingMutationOptions = Apollo.BaseMutationOptions<
-  CancelBookingMutation,
-  CancelBookingMutationVariables
->;
+export type CancelBookingMutationOptions = Apollo.BaseMutationOptions<CancelBookingMutation, CancelBookingMutationVariables>;

@@ -1,39 +1,30 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetAllProduct_CodesQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type GetAllProduct_CodesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
-export type GetAllProduct_CodesQuery = {
-  __typename?: "Query";
-  getAllProduct_codes: Array<{
-    __typename?: "ProductCode";
-    id: number;
-    isSizeable: boolean;
-    size?: string | null;
-    status: Types.Status;
-    agency?: { __typename?: "Agency"; id: number } | null;
-    product?: { __typename?: "Product"; id: number } | null;
-  }>;
-};
+
+export type GetAllProduct_CodesQuery = { __typename?: 'Query', getAllProduct_codes: Array<{ __typename?: 'ProductCode', id: number, isSizeable: boolean, size?: string | null, status: Types.Status, agency?: { __typename?: 'Agency', id: number } | null, product?: { __typename?: 'Product', id: number } | null }> };
+
 
 export const GetAllProduct_CodesDocument = gql`
-  query GetAllProduct_codes {
-    getAllProduct_codes {
-      agency {
-        id
-      }
+    query GetAllProduct_codes {
+  getAllProduct_codes {
+    agency {
       id
-      isSizeable
-      product {
-        id
-      }
-      size
-      status
     }
+    id
+    isSizeable
+    product {
+      id
+    }
+    size
+    status
   }
-`;
+}
+    `;
 
 /**
  * __useGetAllProduct_CodesQuery__
@@ -50,37 +41,19 @@ export const GetAllProduct_CodesDocument = gql`
  *   },
  * });
  */
-export function useGetAllProduct_CodesQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>(
-    GetAllProduct_CodesDocument,
-    options,
-  );
-}
-export function useGetAllProduct_CodesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>(
-    GetAllProduct_CodesDocument,
-    options,
-  );
-}
-export function useGetAllProduct_CodesSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>(
-    GetAllProduct_CodesDocument,
-    options,
-  );
-}
+export function useGetAllProduct_CodesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>(GetAllProduct_CodesDocument, options);
+      }
+export function useGetAllProduct_CodesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>(GetAllProduct_CodesDocument, options);
+        }
+export function useGetAllProduct_CodesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>(GetAllProduct_CodesDocument, options);
+        }
 export type GetAllProduct_CodesQueryHookResult = ReturnType<typeof useGetAllProduct_CodesQuery>;
 export type GetAllProduct_CodesLazyQueryHookResult = ReturnType<typeof useGetAllProduct_CodesLazyQuery>;
 export type GetAllProduct_CodesSuspenseQueryHookResult = ReturnType<typeof useGetAllProduct_CodesSuspenseQuery>;
-export type GetAllProduct_CodesQueryResult = Apollo.QueryResult<
-  GetAllProduct_CodesQuery,
-  GetAllProduct_CodesQueryVariables
->;
+export type GetAllProduct_CodesQueryResult = Apollo.QueryResult<GetAllProduct_CodesQuery, GetAllProduct_CodesQueryVariables>;

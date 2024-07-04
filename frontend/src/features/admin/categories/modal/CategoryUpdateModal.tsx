@@ -20,7 +20,7 @@ import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generat
 import { useUpdateCategoryMutation } from "@/graphql/Category/generated/updateCategory.generated";
 import { GetCategoryByIdDocument } from "@/graphql/Category/generated/GetCategoryById.generated";
 
-export default function CategoryUpdateModal({ isOpen, onClose, category, refetch }: CategoryModalProps) {
+export default function CategoryUpdateModal({ isOpen, onClose, category }: CategoryModalProps) {
   const [updateCategory] = useUpdateCategoryMutation();
   const [imageURL, setImageURL] = useState(category?.thumbnail);
   const [formData, setFormData] = useState({

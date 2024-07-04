@@ -1,23 +1,22 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type DeleteParentCategoryMutationVariables = Types.Exact<{
-  parentCategoryId: Types.Scalars["Float"]["input"];
+  parentCategoryId: Types.Scalars['Float']['input'];
 }>;
 
-export type DeleteParentCategoryMutation = { __typename?: "Mutation"; deleteParentCategory: string };
+
+export type DeleteParentCategoryMutation = { __typename?: 'Mutation', deleteParentCategory: string };
+
 
 export const DeleteParentCategoryDocument = gql`
-  mutation DeleteParentCategory($parentCategoryId: Float!) {
-    deleteParentCategory(parentCategoryId: $parentCategoryId)
-  }
-`;
-export type DeleteParentCategoryMutationFn = Apollo.MutationFunction<
-  DeleteParentCategoryMutation,
-  DeleteParentCategoryMutationVariables
->;
+    mutation DeleteParentCategory($parentCategoryId: Float!) {
+  deleteParentCategory(parentCategoryId: $parentCategoryId)
+}
+    `;
+export type DeleteParentCategoryMutationFn = Apollo.MutationFunction<DeleteParentCategoryMutation, DeleteParentCategoryMutationVariables>;
 
 /**
  * __useDeleteParentCategoryMutation__
@@ -36,18 +35,10 @@ export type DeleteParentCategoryMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useDeleteParentCategoryMutation(
-  baseOptions?: Apollo.MutationHookOptions<DeleteParentCategoryMutation, DeleteParentCategoryMutationVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<DeleteParentCategoryMutation, DeleteParentCategoryMutationVariables>(
-    DeleteParentCategoryDocument,
-    options,
-  );
-}
+export function useDeleteParentCategoryMutation(baseOptions?: Apollo.MutationHookOptions<DeleteParentCategoryMutation, DeleteParentCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteParentCategoryMutation, DeleteParentCategoryMutationVariables>(DeleteParentCategoryDocument, options);
+      }
 export type DeleteParentCategoryMutationHookResult = ReturnType<typeof useDeleteParentCategoryMutation>;
 export type DeleteParentCategoryMutationResult = Apollo.MutationResult<DeleteParentCategoryMutation>;
-export type DeleteParentCategoryMutationOptions = Apollo.BaseMutationOptions<
-  DeleteParentCategoryMutation,
-  DeleteParentCategoryMutationVariables
->;
+export type DeleteParentCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteParentCategoryMutation, DeleteParentCategoryMutationVariables>;

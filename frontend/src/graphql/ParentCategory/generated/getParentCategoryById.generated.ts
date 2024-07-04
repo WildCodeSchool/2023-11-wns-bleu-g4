@@ -1,25 +1,24 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetParentCategoryByIdQueryVariables = Types.Exact<{
-  parentCategoryId: Types.Scalars["Int"]["input"];
+  parentCategoryId: Types.Scalars['Int']['input'];
 }>;
 
-export type GetParentCategoryByIdQuery = {
-  __typename?: "Query";
-  getParentCategoryById: { __typename?: "ParentCategory"; id: number; name: string };
-};
+
+export type GetParentCategoryByIdQuery = { __typename?: 'Query', getParentCategoryById: { __typename?: 'ParentCategory', id: number, name: string } };
+
 
 export const GetParentCategoryByIdDocument = gql`
-  query GetParentCategoryById($parentCategoryId: Int!) {
-    getParentCategoryById(parentCategoryId: $parentCategoryId) {
-      id
-      name
-    }
+    query GetParentCategoryById($parentCategoryId: Int!) {
+  getParentCategoryById(parentCategoryId: $parentCategoryId) {
+    id
+    name
   }
-`;
+}
+    `;
 
 /**
  * __useGetParentCategoryByIdQuery__
@@ -37,38 +36,19 @@ export const GetParentCategoryByIdDocument = gql`
  *   },
  * });
  */
-export function useGetParentCategoryByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables> &
-    ({ variables: GetParentCategoryByIdQueryVariables; skip?: boolean } | { skip: boolean }),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>(
-    GetParentCategoryByIdDocument,
-    options,
-  );
-}
-export function useGetParentCategoryByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>(
-    GetParentCategoryByIdDocument,
-    options,
-  );
-}
-export function useGetParentCategoryByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>(
-    GetParentCategoryByIdDocument,
-    options,
-  );
-}
+export function useGetParentCategoryByIdQuery(baseOptions: Apollo.QueryHookOptions<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables> & ({ variables: GetParentCategoryByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>(GetParentCategoryByIdDocument, options);
+      }
+export function useGetParentCategoryByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>(GetParentCategoryByIdDocument, options);
+        }
+export function useGetParentCategoryByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>(GetParentCategoryByIdDocument, options);
+        }
 export type GetParentCategoryByIdQueryHookResult = ReturnType<typeof useGetParentCategoryByIdQuery>;
 export type GetParentCategoryByIdLazyQueryHookResult = ReturnType<typeof useGetParentCategoryByIdLazyQuery>;
 export type GetParentCategoryByIdSuspenseQueryHookResult = ReturnType<typeof useGetParentCategoryByIdSuspenseQuery>;
-export type GetParentCategoryByIdQueryResult = Apollo.QueryResult<
-  GetParentCategoryByIdQuery,
-  GetParentCategoryByIdQueryVariables
->;
+export type GetParentCategoryByIdQueryResult = Apollo.QueryResult<GetParentCategoryByIdQuery, GetParentCategoryByIdQueryVariables>;

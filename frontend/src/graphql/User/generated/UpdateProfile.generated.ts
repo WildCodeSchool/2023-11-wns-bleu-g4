@@ -1,47 +1,33 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdateProfileMutationVariables = Types.Exact<{
   data: Types.UpdateUserInput;
 }>;
 
-export type UpdateProfileMutation = {
-  __typename?: "Mutation";
-  updateProfile: {
-    __typename?: "User";
-    id: number;
-    email: string;
-    name: string;
-    firstname: string;
-    address: string;
-    postcode: string;
-    city: string;
-    country: string;
-    phone: string;
-    avatar: string;
-    role: string;
-  };
-};
+
+export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'User', id: number, email: string, name: string, firstname: string, address: string, postcode: string, city: string, country: string, phone: string, avatar: string, role: string } };
+
 
 export const UpdateProfileDocument = gql`
-  mutation UpdateProfile($data: UpdateUserInput!) {
-    updateProfile(data: $data) {
-      id
-      email
-      name
-      firstname
-      address
-      postcode
-      city
-      country
-      phone
-      avatar
-      role
-    }
+    mutation UpdateProfile($data: UpdateUserInput!) {
+  updateProfile(data: $data) {
+    id
+    email
+    name
+    firstname
+    address
+    postcode
+    city
+    country
+    phone
+    avatar
+    role
   }
-`;
+}
+    `;
 export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutation, UpdateProfileMutationVariables>;
 
 /**
@@ -61,15 +47,10 @@ export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutat
  *   },
  * });
  */
-export function useUpdateProfileMutation(
-  baseOptions?: Apollo.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
-}
+export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
+      }
 export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
-export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<
-  UpdateProfileMutation,
-  UpdateProfileMutationVariables
->;
+export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;

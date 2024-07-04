@@ -1,19 +1,21 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type DeleteProductMutationVariables = Types.Exact<{
-  productId: Types.Scalars["Float"]["input"];
+  productId: Types.Scalars['Float']['input'];
 }>;
 
-export type DeleteProductMutation = { __typename?: "Mutation"; deleteProduct: string };
+
+export type DeleteProductMutation = { __typename?: 'Mutation', deleteProduct: string };
+
 
 export const DeleteProductDocument = gql`
-  mutation DeleteProduct($productId: Float!) {
-    deleteProduct(productId: $productId)
-  }
-`;
+    mutation DeleteProduct($productId: Float!) {
+  deleteProduct(productId: $productId)
+}
+    `;
 export type DeleteProductMutationFn = Apollo.MutationFunction<DeleteProductMutation, DeleteProductMutationVariables>;
 
 /**
@@ -33,15 +35,10 @@ export type DeleteProductMutationFn = Apollo.MutationFunction<DeleteProductMutat
  *   },
  * });
  */
-export function useDeleteProductMutation(
-  baseOptions?: Apollo.MutationHookOptions<DeleteProductMutation, DeleteProductMutationVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<DeleteProductMutation, DeleteProductMutationVariables>(DeleteProductDocument, options);
-}
+export function useDeleteProductMutation(baseOptions?: Apollo.MutationHookOptions<DeleteProductMutation, DeleteProductMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteProductMutation, DeleteProductMutationVariables>(DeleteProductDocument, options);
+      }
 export type DeleteProductMutationHookResult = ReturnType<typeof useDeleteProductMutation>;
 export type DeleteProductMutationResult = Apollo.MutationResult<DeleteProductMutation>;
-export type DeleteProductMutationOptions = Apollo.BaseMutationOptions<
-  DeleteProductMutation,
-  DeleteProductMutationVariables
->;
+export type DeleteProductMutationOptions = Apollo.BaseMutationOptions<DeleteProductMutation, DeleteProductMutationVariables>;

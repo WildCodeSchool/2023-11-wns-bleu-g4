@@ -1,56 +1,44 @@
-import * as Types from "../../generated/schema";
+import * as Types from '../../generated/schema';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetProductByIdQueryVariables = Types.Exact<{
-  productId: Types.Scalars["Int"]["input"];
+  productId: Types.Scalars['Int']['input'];
 }>;
 
-export type GetProductByIdQuery = {
-  __typename?: "Query";
-  getProductById: {
-    __typename?: "Product";
-    id: number;
-    name: string;
-    price: number;
-    description: string;
-    thumbnail: string;
-    category: { __typename?: "Category"; id: number; name: string };
-    brand: { __typename?: "Brand"; id: number; name: string };
-    pictures: Array<{ __typename?: "Product_picture"; id: number; thumbnail: string; alt: string }>;
-    characteristics: Array<{ __typename?: "ProductCharacteristic"; id: number; characteristic: string }>;
-  };
-};
+
+export type GetProductByIdQuery = { __typename?: 'Query', getProductById: { __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, category: { __typename?: 'Category', id: number, name: string }, brand: { __typename?: 'Brand', id: number, name: string }, pictures: Array<{ __typename?: 'Product_picture', id: number, thumbnail: string, alt: string }>, characteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, characteristic: string }> } };
+
 
 export const GetProductByIdDocument = gql`
-  query GetProductById($productId: Int!) {
-    getProductById(productId: $productId) {
+    query GetProductById($productId: Int!) {
+  getProductById(productId: $productId) {
+    id
+    name
+    price
+    description
+    thumbnail
+    category {
       id
       name
-      price
-      description
+    }
+    brand {
+      id
+      name
+    }
+    pictures {
+      id
       thumbnail
-      category {
-        id
-        name
-      }
-      brand {
-        id
-        name
-      }
-      pictures {
-        id
-        thumbnail
-        alt
-      }
-      characteristics {
-        id
-        characteristic
-      }
+      alt
+    }
+    characteristics {
+      id
+      characteristic
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetProductByIdQuery__
@@ -68,25 +56,18 @@ export const GetProductByIdDocument = gql`
  *   },
  * });
  */
-export function useGetProductByIdQuery(
-  baseOptions: Apollo.QueryHookOptions<GetProductByIdQuery, GetProductByIdQueryVariables> &
-    ({ variables: GetProductByIdQueryVariables; skip?: boolean } | { skip: boolean }),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetProductByIdQuery, GetProductByIdQueryVariables>(GetProductByIdDocument, options);
-}
-export function useGetProductByIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetProductByIdQuery, GetProductByIdQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetProductByIdQuery, GetProductByIdQueryVariables>(GetProductByIdDocument, options);
-}
-export function useGetProductByIdSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<GetProductByIdQuery, GetProductByIdQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<GetProductByIdQuery, GetProductByIdQueryVariables>(GetProductByIdDocument, options);
-}
+export function useGetProductByIdQuery(baseOptions: Apollo.QueryHookOptions<GetProductByIdQuery, GetProductByIdQueryVariables> & ({ variables: GetProductByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductByIdQuery, GetProductByIdQueryVariables>(GetProductByIdDocument, options);
+      }
+export function useGetProductByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductByIdQuery, GetProductByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductByIdQuery, GetProductByIdQueryVariables>(GetProductByIdDocument, options);
+        }
+export function useGetProductByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetProductByIdQuery, GetProductByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetProductByIdQuery, GetProductByIdQueryVariables>(GetProductByIdDocument, options);
+        }
 export type GetProductByIdQueryHookResult = ReturnType<typeof useGetProductByIdQuery>;
 export type GetProductByIdLazyQueryHookResult = ReturnType<typeof useGetProductByIdLazyQuery>;
 export type GetProductByIdSuspenseQueryHookResult = ReturnType<typeof useGetProductByIdSuspenseQuery>;
