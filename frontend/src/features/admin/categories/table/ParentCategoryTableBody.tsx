@@ -4,9 +4,7 @@ import { TableBodyProps } from "../../product/types";
 import { parentCategoryTableHeaders } from "../../helpers/tableHeaders";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
-import CategoryDeleteModal from "../modal/CategoryDeleteModal";
-// import ProductUpdateModal from "../modal/ProductUpdateModal";
-import { Category, ParentCategory } from "@/graphql/generated/schema";
+import { ParentCategory } from "@/graphql/generated/schema";
 import { useDeleteParentCategoryMutation } from "@/graphql/ParentCategory/generated/deleteParentCategory.generated";
 import { GetAllParentCategoriesDocument, GetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import ParentCategoryDeleteModal from "../modal/ParentCategoryDeleteModal";
@@ -82,15 +80,6 @@ export default function ParentCategoryTableBody({ data }: TableBodyProps) {
                         onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
                       />
                     )}
-
-                    {/* {isUpdateModalOpen && (
-                      <ProductUpdateModal
-                        product={selectedCategory}
-                        isOpen={isUpdateModalOpen}
-                        onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
-                        variant="baseStyle"
-                      />
-                    )} */}
                     <button
                       type="button"
                       className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle"

@@ -9,7 +9,6 @@ import { useDeleteCategoryMutation } from "@/graphql/Category/generated/deleteCa
 import { Category } from "../types";
 import CategoryThumbnailModal from "../modal/CategoryThumbnailModal";
 import CategoryUpdateModal from "../modal/CategoryUpdateModal";
-import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 
 export default function CategoryTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("CategoryTableBody");

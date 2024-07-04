@@ -3,7 +3,7 @@ import CategoryCreateModal from "@/features/admin/categories/modal/CategoryCreat
 import ParentCategoryCreateModal from "@/features/admin/categories/modal/ParentCategoryCreateModal";
 import CategoryTableBody from "@/features/admin/categories/table/CategoryTableBody";
 import ParentCategoryTableBody from "@/features/admin/categories/table/ParentCategoryTableBody";
-import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
 import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
