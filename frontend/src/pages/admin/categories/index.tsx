@@ -1,4 +1,5 @@
 "use client";
+import CategoryCreateModal from "@/features/admin/categories/modal/CategoryCreateModal";
 import ParentCategoryCreateModal from "@/features/admin/categories/modal/ParentCategoryCreateModal";
 import CategoryTableBody from "@/features/admin/categories/table/CategoryTableBody";
 import ParentCategoryTableBody from "@/features/admin/categories/table/ParentCategoryTableBody";
@@ -57,6 +58,13 @@ export default function Categories() {
                             <PlusIcon className="h-6 w-6" />
                             Add Category
                         </button>
+                        {createCategoryModalOpen && (
+                            <CategoryCreateModal
+                                isOpen={createCategoryModalOpen}
+                                onClose={toggleCreateCategoryModal}
+                                refetch={refetchCategories}
+                            />
+                        )}
                         <CategoryTableBody data={categories} />
                     </TabPanel>
                 </TabPanels>
