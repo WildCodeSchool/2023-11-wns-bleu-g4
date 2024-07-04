@@ -9,10 +9,7 @@ import { useDeleteCategoryMutation } from "@/graphql/Category/generated/deleteCa
 import { Category } from "../types";
 import CategoryThumbnailModal from "../modal/CategoryThumbnailModal";
 import CategoryUpdateModal from "../modal/CategoryUpdateModal";
-import {
-  GetAllCategoriesDocument,
-  GetAllCategoriesQuery,
-} from "@/graphql/Category/generated/GetAllCategories.generated";
+import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
 
 export default function CategoryTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("CategoryTableBody");
@@ -133,7 +130,7 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
           ))
         ) : (
           <tr>
-            <td className="p-4 text-center" colSpan={3}>
+            <td className="p-4 text-center" colSpan={4}>
               {t("No categories found")}
             </td>
           </tr>

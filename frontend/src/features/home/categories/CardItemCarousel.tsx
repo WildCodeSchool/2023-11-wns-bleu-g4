@@ -1,4 +1,3 @@
-import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
 import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import "swiper/css";
@@ -7,6 +6,7 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardItem from "./CardItem";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
 
 interface Category {
   id: number;
