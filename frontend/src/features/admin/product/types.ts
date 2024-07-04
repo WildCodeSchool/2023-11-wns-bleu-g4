@@ -46,6 +46,7 @@ export interface OrderTableBodyProps {
 
 export interface TableBodyProps {
   data: any;
+  refetch?: () => void;
 }
 
 export interface TableFooterProps {

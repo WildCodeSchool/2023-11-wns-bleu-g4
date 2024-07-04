@@ -9,8 +9,10 @@ import { useDeleteParentCategoryMutation } from "@/graphql/ParentCategory/genera
 import { GetAllParentCategoriesDocument, GetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import ParentCategoryDeleteModal from "../modal/ParentCategoryDeleteModal";
 import ParentCategoryUpdateModal from "../modal/ParentCategoryUpdateModal";
+import { GetAllCategoriesQuery } from "@/graphql/Category/generated/GetAllCategories.generated";
+import { Category } from "../types";
 
-export default function ParentCategoryTableBody({ data }: TableBodyProps) {
+export default function ParentCategoryTableBody({ data, refetch }: TableBodyProps) {
   const { t } = useTranslation("ParentCategoryTableBody");
 
   const [deleteParentCategory] = useDeleteParentCategoryMutation();
@@ -37,6 +39,7 @@ export default function ParentCategoryTableBody({ data }: TableBodyProps) {
           getAllParentCategories: data.filter((parentCategory: ParentCategory) => parentCategory.id !== id),
         },
       });
+      refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen)
     } catch (e) {
       console.error(e);

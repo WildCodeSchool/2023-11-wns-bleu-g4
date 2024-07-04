@@ -47,7 +47,7 @@ export default function Categories() {
                                 refetch={refetchParentCategories}
                             />
                         )}
-                        <ParentCategoryTableBody data={parentCategories} />
+                        <ParentCategoryTableBody data={parentCategories} refetch={refetchCategories}/>
                     </TabPanel>
                     <TabPanel className="flex flex-col items-end gap-4">
                         <button
