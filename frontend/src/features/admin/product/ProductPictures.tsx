@@ -49,7 +49,7 @@ export default function ProductPictures({ product }: { product: Product }) {
                 }
                 {product?.pictures.map((picture: Product_Picture) => (
                     <div key={picture.id} className="relative h-36 max-w-52 rounded aspect-auto">
-                        <img src={picture.thumbnail} alt={picture.alt} className="h-full w-full object-cover rounded object-center" />
+                        <img src={picture.thumbnail} alt={picture.alt} className="h-full w-full min-w-32 object-cover rounded object-center" />
                         <button
                             type="button"
                             className="absolute top-1 right-1 bg-[#D23732]/50 rounded-md p-1"
