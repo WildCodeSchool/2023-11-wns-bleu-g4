@@ -10,6 +10,12 @@ const baseStyle = defineStyle({
   },
 });
 
+const neutralOverlayStyle = defineStyle({
+  overlay: {
+    bg: "blackAlpha.500",
+  },
+});
+
 const darkOverlayStyle = defineStyle({
   overlay: {
     bg: "blackAlpha.700",
@@ -19,6 +25,7 @@ const darkOverlayStyle = defineStyle({
 export const modalTheme = defineStyleConfig({
   variants: {
     baseStyle,
+    neutralOverlayStyle,
     darkOverlayStyle,
   },
 });
