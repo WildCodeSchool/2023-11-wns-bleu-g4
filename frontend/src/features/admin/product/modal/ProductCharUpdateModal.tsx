@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../types";
+import { Characteristic, ProductModalProps } from "../types";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
@@ -22,11 +22,11 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product, varia
   const [formData, setFormData] = useState({
     characteristics: product.characteristics,
   });
-  const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
+  const [selectedCharacteristics, setSelectedCharacteristics] = useState<Characteristic[]>([]);
   const { data: characteristicsData } = useGetAllProductCharacteristicsQuery();
   const characteristics = characteristicsData?.getAllProductCharacteristics ?? [];
 
-  const productId = product.id;
+  const productId = product.id!;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,10 +45,10 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product, varia
   };
 
   useEffect(() => {
-    setSelectedCharacteristics(product.characteristics.map((c: any) => ({
+    setSelectedCharacteristics(product.characteristics.map((c: Characteristic) => ({
       id: c.id,
       label: c.characteristic,
-      value: c.id.toString(),
+      value: c.id?.toString(),
     })));
   }, [product.characteristics]);
 
@@ -74,8 +74,8 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product, varia
                 value={selectedCharacteristics}
                 closeMenuOnSelect={false}
                 onChange={(characteristics) => {
-                  setSelectedCharacteristics(characteristics as any);
-                  setFormData({ ...formData, characteristics: characteristics.map((c: any) => ({ id: c.id })) });
+                  setSelectedCharacteristics(characteristics as Characteristic[]);
+                  setFormData({ ...formData, characteristics: characteristics.map((c: Characteristic) => ({ id: c.id })) });
                 }}
               />
             </FormControl>

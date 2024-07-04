@@ -21,7 +21,7 @@ import {
   Select,
   Textarea,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../types";
+import { Brand, Category, ProductModalProps } from "../types";
 import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCategories.generated";
 import { useCreateProductMutation } from "@/graphql/Product/generated/createProduct.generated";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -126,7 +126,7 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
                     value={formData.brand.id}
                     onChange={handleSelectChange}
                   >
-                    {brands.map((brand: any) => (
+                    {brands.map((brand: Brand) => (
                       <option key={brand.id} value={brand.id}>
                         {brand.name}
                       </option>
@@ -182,7 +182,7 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
                     value={formData.category.id}
                     onChange={handleSelectChange}
                   >
-                    {categories.map((category: any) => (
+                    {categories.map((category: Category) => (
                       <option key={category.id} value={category.id}>
                         {category.name}
                       </option>

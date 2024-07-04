@@ -5,8 +5,9 @@ import ProductPictureAddModal from "./modal/ProductPictureAddModal";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDeleteProduct_PictureMutation } from "@/graphql/ProductPicture/generated/DeleteProduct_picture.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
+import { Product } from "./types";
 
-export default function ProductPictures({ product }: { product: any }) {
+export default function ProductPictures({ product }: { product: Product }) {
     const [deletePicture] = useDeleteProduct_PictureMutation();
     const [productPictureModal, setProductPictureModal] = useState(false);
     const toggleAddPictureModal = () => setProductPictureModal(!productPictureModal);

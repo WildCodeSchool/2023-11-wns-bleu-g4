@@ -5,8 +5,9 @@ import ProductUpdateModal from "./modal/ProductUpdateModal";
 import { useDeleteProductMutation } from "@/graphql/Product/generated/deleteProduct.generated";
 import { useRouter } from "next/router";
 import ProductCharUpdateModal from "./modal/ProductCharUpdateModal";
+import { Product } from "./types";
 
-export default function ProductDetails({ product }: { product: any }) {
+export default function ProductDetails({ product }: { product: Product }) {
   const router = useRouter();
   const [deleteProduct] = useDeleteProductMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
