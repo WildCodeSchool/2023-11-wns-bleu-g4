@@ -84,8 +84,7 @@ export default function SearchBar({ onSearch, placeholder, variant = "desktop" }
               <XMarkIcon className="dark h-4 w-4" />
             </div>
           )}
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer"
-            onClick={handleIconClick}>
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer" onClick={handleIconClick}>
             <MagnifyingGlassIcon className="dark h-4 w-4" />
           </div>
         </div>

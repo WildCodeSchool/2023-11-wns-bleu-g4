@@ -17,12 +17,12 @@ import {
 } from "@chakra-ui/react";
 import { ProductModalProps } from "../types";
 
-export default function ProductStockModal({ isOpen, onClose, product, variant }: ProductModalProps) {
+export default function ProductStockModal({ isOpen, onClose, product }: ProductModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add stock quantity for {product}</ModalHeader>
+        <ModalHeader>Add stock quantity for {product.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl>

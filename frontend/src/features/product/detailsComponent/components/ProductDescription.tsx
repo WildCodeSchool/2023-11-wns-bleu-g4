@@ -10,7 +10,9 @@ export default function ProductDescription() {
 
   return (
     <Flex flexDirection="column" gap="10px">
-      <Text fontSize="2xl" fontWeight="700" fontFamily="Poppins">{selectedProduct.name}</Text>
+      <Text fontSize="2xl" fontWeight="700" fontFamily="Poppins">
+        {selectedProduct.name}
+      </Text>
       <Text fontWeight="600">{selectedProduct.description}</Text>
       <Select
         placeholder="Sélectionner une agence"

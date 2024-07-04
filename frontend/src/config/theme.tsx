@@ -16,7 +16,7 @@ export const theme = extendTheme({
     Card: cardTheme,
     Drawer: drawerTheme,
     Modal: modalTheme,
-    Accordion: accordionTheme
+    Accordion: accordionTheme,
   },
   fonts: {
     heading: "Poppins, sans-serif",

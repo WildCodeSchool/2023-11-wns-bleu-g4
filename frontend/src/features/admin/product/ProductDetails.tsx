@@ -1,12 +1,13 @@
 import { BanknotesIcon, CubeIcon, DocumentTextIcon, Squares2X2Icon, TagIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import ProductDeleteModal from "../modal/productDeleteModal";
-import ProductUpdateModal from "../modal/productUpdateModal";
+import ProductDeleteModal from "./modal/ProductDeleteModal";
+import ProductUpdateModal from "./modal/ProductUpdateModal";
 import { useDeleteProductMutation } from "@/graphql/Product/generated/deleteProduct.generated";
 import { useRouter } from "next/router";
-import ProductCharUpdateModal from "../modal/productCharUpdateModal";
+import ProductCharUpdateModal from "./modal/ProductCharUpdateModal";
+import { Product } from "./types";
 
-export default function ProductDetails({ product }: { product: any }) {
+export default function ProductDetails({ product }: { product: Product }) {
   const router = useRouter();
   const [deleteProduct] = useDeleteProductMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
@@ -30,9 +31,9 @@ export default function ProductDetails({ product }: { product: any }) {
     <div className="bg-[#F5F5F5] rounded flex flex-col gap-12 p-4 justify-between w-full max-w-96 2xl:max-w-md">
       <div className="flex flex-col gap-8">
         <div className="flex gap-4">
-          {product?.thumbnail &&
+          {product?.thumbnail && (
             <img src={product.thumbnail} alt={product.name} className="h-40 w-40 rounded object-cover object-center" />
-          }
+          )}
           <div className="mt-4">
             <h3>{product?.name}</h3>
             <span>Reference: {product?.id}</span>
@@ -81,9 +82,7 @@ export default function ProductDetails({ product }: { product: any }) {
               />
             )}
           </div>
-          {product?.characteristics.length === 0 && (
-            <span className="col-span-2 italic">No characteristics</span>
-          )}
+          {product?.characteristics.length === 0 && <span className="col-span-2 italic">No characteristics</span>}
           {product?.characteristics.map((characteristic: any) => (
             <div key={characteristic.id} className="flex flex-col">
               <span>- {characteristic.characteristic}</span>
@@ -92,11 +91,7 @@ export default function ProductDetails({ product }: { product: any }) {
         </div>
       </div>
       <div className="flex gap-2 justify-end flex-grow">
-        <button
-          type="button"
-          className="bg-cactus-400 rounded px-3 py-1 text-white"
-          onClick={toggleUpdateProductModal}
-        >
+        <button type="button" className="bg-cactus-400 rounded px-3 py-1 text-white" onClick={toggleUpdateProductModal}>
           Edit Product
         </button>
         {isUpdateModalOpen && (
@@ -107,11 +102,7 @@ export default function ProductDetails({ product }: { product: any }) {
             variant="darkOverlayStyle"
           />
         )}
-        <button
-          type="button"
-          className="bg-[#D23732] rounded px-3 py-1 text-white"
-          onClick={toggleDeleteProductModal}
-        >
+        <button type="button" className="bg-[#D23732] rounded px-3 py-1 text-white" onClick={toggleDeleteProductModal}>
           Delete Product
         </button>
         {isDeleteModalOpen && (

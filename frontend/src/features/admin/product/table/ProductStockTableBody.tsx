@@ -1,5 +1,5 @@
 import { TableBodyProps } from "../types";
-import { productStockTableHeaders } from "../helpers/tableHeaders";
+import { productStockTableHeaders } from "../../helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
@@ -22,7 +22,8 @@ export default function ProductStockTableBody({ data }: TableBodyProps) {
         <tr>
           {productStockTableHeaders.map(menu => (
             <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
+              border-b border-gray-200"
               key={menu.id}
             >
               {menu.name}
@@ -56,7 +57,6 @@ export default function ProductStockTableBody({ data }: TableBodyProps) {
                     isOpen={isAddStockModalOpen}
                     onClose={() => toggleAddProductStockModal(selectedAgency)}
                     product={selectedAgency}
-                    variant="baseStyle"
                   />
                 )}
               </td>

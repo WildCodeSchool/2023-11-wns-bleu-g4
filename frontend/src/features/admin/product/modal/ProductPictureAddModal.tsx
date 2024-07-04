@@ -11,25 +11,20 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../types";
+import { Product_Picture, ProductModalProps } from "../types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
-import uploadFile from "../helpers/uploadFile";
+import uploadFile from "../../helpers/uploadFile";
 import { useCreateProduct_PictureMutation } from "@/graphql/ProductPicture/generated/CreateProduct_picture.generated";
 
-interface Product_Picture {
-  thumbnail: string;
-  alt: string;
-}
-
-export default function ProductPictureAddModal({ isOpen, onClose, product, variant }: ProductModalProps) {
-  const productId = product.id;
+export default function ProductPictureAddModal({ isOpen, onClose, product }: ProductModalProps) {
+  const productId = product?.id!;
   const [addProductPicture] = useCreateProduct_PictureMutation();
-  const [newPicture, setNewPicture] = useState<Product_Picture>({ thumbnail: '', alt: '' });
+  const [newPicture, setNewPicture] = useState<Product_Picture>({ thumbnail: "", alt: "" });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setNewPicture((prev) => ({
+    setNewPicture(prev => ({
       ...prev,
       [name]: value,
     }));
@@ -38,7 +33,7 @@ export default function ProductPictureAddModal({ isOpen, onClose, product, varia
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       const newImageUrl = await uploadFile(e.target.files[0]);
-      setNewPicture((prev) => ({
+      setNewPicture(prev => ({
         ...prev,
         thumbnail: newImageUrl,
       }));
@@ -50,7 +45,7 @@ export default function ProductPictureAddModal({ isOpen, onClose, product, varia
 
     const pictureData = {
       ...newPicture,
-      productId: { id: product.id },
+      productId: { id: productId },
     };
 
     addProductPicture({
@@ -62,7 +57,7 @@ export default function ProductPictureAddModal({ isOpen, onClose, product, varia
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Update {product.name}</ModalHeader>
@@ -73,24 +68,13 @@ export default function ProductPictureAddModal({ isOpen, onClose, product, varia
               <FormLabel mb={1} htmlFor="alt">
                 Picture Alt
               </FormLabel>
-              <Input
-                type="text"
-                id="alt"
-                name="alt"
-                value={newPicture.alt}
-                onChange={handleInputChange}
-              />
+              <Input type="text" id="alt" name="alt" value={newPicture.alt} onChange={handleInputChange} />
             </FormControl>
             <FormControl>
               <FormLabel mb={1} htmlFor="pictures">
                 Picture
               </FormLabel>
-              <input
-                id="pictures"
-                name="pictures"
-                type="file"
-                onChange={handleFileChange}
-              />
+              <input id="pictures" name="pictures" type="file" onChange={handleFileChange} />
             </FormControl>
             <ModalFooter paddingInline={0} pb={0} pt={8}>
               <Button onClick={onClose}>Cancel</Button>
@@ -101,6 +85,6 @@ export default function ProductPictureAddModal({ isOpen, onClose, product, varia
           </form>
         </ModalBody>
       </ModalContent>
-    </Modal >
+    </Modal>
   );
 }

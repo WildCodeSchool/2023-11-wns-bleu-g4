@@ -1,4 +1,4 @@
-import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/GetAllParentCategory.generated";
+import { useGetAllParentCategoryQuery } from "@/graphql/ParentCategory/generated/GetAllParentCategory.generated";
 import {
   Button,
   Flex,
@@ -44,7 +44,7 @@ export default function SubNavbar() {
       ? "0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1)"
       : "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)";
 
-  const { data: categoriesData } = useGetAllParentCategoriesQuery();
+  const { data: categoriesData } = useGetAllParentCategoryQuery();
 
   const [search, setSearch] = useState("");
 
@@ -76,8 +76,9 @@ export default function SubNavbar() {
               onMouseLeave={handleMouseLeave}
               rightIcon={
                 <div
-                  className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-custom" : ""
-                    }`}
+                  className={`transform transition-transform duration-300 ${
+                    activeIndex === index ? "rotate-custom" : ""
+                  }`}
                   style={{
                     transform: activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
                   }}
@@ -89,12 +90,8 @@ export default function SubNavbar() {
             >
               {t(category.name)}
             </MenuButton>
-            <MenuList
-              zIndex={100}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-            >
-              {category.categories.map((subCat) => {
+            <MenuList zIndex={100} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
+              {category.categories.map(subCat => {
                 const [firstLetter, ...restOfSubCatName] = subCat.name.split("");
                 const subCatName = firstLetter.toUpperCase() + restOfSubCatName.join("");
                 const isActive = router.query.categoryId === subCat.id.toString();
@@ -106,7 +103,7 @@ export default function SubNavbar() {
                         `/products?${qs.stringify({
                           ...searchParams,
                           categoryId: subCat.id,
-                        })}`
+                        })}`,
                       );
                     }}
                     key={subCat.id}

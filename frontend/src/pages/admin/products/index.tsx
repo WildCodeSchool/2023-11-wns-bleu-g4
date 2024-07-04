@@ -1,13 +1,13 @@
 import { useState } from "react";
 import TableFooter from "@/features/admin/table/TableFooter";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
-import ProductTableBody from "@/features/admin/table/ProductTableBody";
+import ProductTableBody from "@/features/admin/product/table/ProductTableBody";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllNamespaces } from "../../../../i18nUtils";
 import { GetStaticProps } from "next";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useDisclosure } from "@chakra-ui/react";
-import ProductCreateModal from "@/features/admin/modal/productCreateModal";
+import ProductCreateModal from "@/features/admin/product/modal/ProductCreateModal";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 
 export default function Products() {

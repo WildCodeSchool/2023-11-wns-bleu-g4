@@ -1,7 +1,11 @@
 query GetAllCategories {
   getAllCategories {
-    name
     id
+    name
     thumbnail
+    parentCategory {
+      id
+      name
+    }
   }
 }

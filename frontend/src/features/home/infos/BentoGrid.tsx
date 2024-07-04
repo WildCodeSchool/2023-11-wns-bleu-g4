@@ -204,6 +204,6 @@ export default function BentoGrid() {
           </Box>
         </Flex>
       </GridItem>
-    </Grid >
+    </Grid>
   );
 }

@@ -96,8 +96,10 @@ export default function Footer() {
         </ul>
 
         {/**Logo */}
-        <div className="flex w-full flex-col items-center py-3 md:w-1/3 md:items-start 
-        md:justify-between md:border-l-2 md:border-l-slate-300 md:px-12">
+        <div
+          className="flex w-full flex-col items-center py-3 md:w-1/3 md:items-start 
+        md:justify-between md:border-l-2 md:border-l-slate-300 md:px-12"
+        >
           <Link href="/" className="flex w-full justify-center md:justify-start">
             <ThemedLogo />
           </Link>

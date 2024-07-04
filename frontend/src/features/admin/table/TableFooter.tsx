@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { TableFooterProps } from "../types";
+import { TableFooterProps } from "../product/types";
 import { useTranslation } from "react-i18next";
 
 export default function TableFooter({

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { TableBodyProps } from "../types";
-import { productTableHeaders } from "../helpers/tableHeaders";
+import { productTableHeaders } from "../../helpers/tableHeaders";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
-import ProductDeleteModal from "../modal/productDeleteModal";
-import ProductUpdateModal from "../modal/productUpdateModal";
+import ProductDeleteModal from "../modal/ProductDeleteModal";
+import ProductUpdateModal from "../modal/ProductUpdateModal";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { Product } from "@/graphql/generated/schema";
@@ -40,7 +40,7 @@ export default function ProductTableBody({ data }: TableBodyProps) {
           getAllProducts: data.filter((product: Product) => product.id !== id),
         },
       });
-      setIsDeleteModalOpen(!isDeleteModalOpen)
+      setIsDeleteModalOpen(!isDeleteModalOpen);
     } catch (e) {
       console.error(e);
     }
@@ -52,7 +52,8 @@ export default function ProductTableBody({ data }: TableBodyProps) {
         <tr>
           {productTableHeaders.map(menu => (
             <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200"
+              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
+              border-b border-gray-200"
               key={menu.id}
             >
               {menu.name}
@@ -90,10 +91,9 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                     </button>
                     {isUpdateModalOpen && (
                       <ProductUpdateModal
-                        product={selectedProduct}
+                        product={selectedProduct!}
                         isOpen={isUpdateModalOpen}
                         onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
-                        variant="baseStyle"
                       />
                     )}
                     <button
@@ -106,10 +106,9 @@ export default function ProductTableBody({ data }: TableBodyProps) {
                     </button>
                     {isDeleteModalOpen && (
                       <ProductDeleteModal
-                        product={selectedProduct}
+                        product={selectedProduct!}
                         isOpen={isDeleteModalOpen}
                         onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-                        variant="baseStyle"
                         handleDeleteProduct={handleDeleteProduct}
                       />
                     )}

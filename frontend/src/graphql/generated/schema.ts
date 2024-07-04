@@ -86,7 +86,7 @@ export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
-  parentCategories: Array<ParentCategory>;
+  parentCategory: ParentCategory;
   products: Array<Product>;
   thumbnail: Scalars['String']['output'];
 };
@@ -356,7 +356,7 @@ export type NewBrandInput = {
 
 export type NewCategoryInput = {
   name: Scalars['String']['input'];
-  parentCategories?: InputMaybe<ParentCategoryId>;
+  parentCategory?: InputMaybe<ParentCategoryId>;
   thumbnail: Scalars['String']['input'];
 };
 
@@ -498,8 +498,8 @@ export type QueryGetAllBookingArgs = {
 
 export type QueryGetAllCategoriesArgs = {
   name?: InputMaybe<Scalars['String']['input']>;
+  parentCategoryId?: InputMaybe<Scalars['Int']['input']>;
   productId?: InputMaybe<Scalars['Int']['input']>;
-  subCategoryId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -648,7 +648,8 @@ export type UpdateBrandInput = {
 
 export type UpdateCategoryInput = {
   name?: InputMaybe<Scalars['String']['input']>;
-  parentCategories?: InputMaybe<ParentCategoryId>;
+  parentCategory?: InputMaybe<ParentCategoryId>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateParentCategoryInput = {

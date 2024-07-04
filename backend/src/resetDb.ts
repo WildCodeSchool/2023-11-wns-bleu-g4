@@ -14,6 +14,7 @@ import User, { UserRole } from "./entities/User"
 import { BookingItemStatus } from "./enum/BookingItemStatus"
 import { StatusBooking } from "./enum/StatusBooking"
 import { Status } from "./enum/StatusProductCode"
+import { ParentCategoryId } from "./types"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -83,11 +84,7 @@ async function main() {
 	})
 	await brand.save()
 
-	const parentCategoriesData = [
-		{ name: "Sea" },
-		{ name: "Mountain" },
-		{ name: "Outdoor" },
-	]
+	const parentCategoriesData = [{ name: "Sea" }, { name: "Mountain" }, { name: "Outdoor" }]
 
 	const parentCategories: ParentCategory[] = []
 	for (const data of parentCategoriesData) {
@@ -101,53 +98,69 @@ async function main() {
 		{
 			name: "Ski",
 			thumbnail: "https://th.bing.com/th/id/OIG4..XH1mFIzcBtwc7Q9D0QB?pid=ImgGn",
-			parentCategoryName: "Mountain"
+			parentCategory: {
+				id: 2,
+			},
 		},
 		{
 			name: "Hiking",
 			thumbnail: "https://th.bing.com/th/id/OIG2.l7kj9Z2mTO5_Gz3v9Iwh?pid=ImgGn",
-			parentCategoryName: "Mountain"
+			parentCategory: {
+				id: 2,
+			},
 		},
 		{
 			name: "Surf",
 			thumbnail: "https://th.bing.com/th/id/OIG4.uYJ5dzA5QRNUQpKs2M6C?pid=ImgGn",
-			parentCategoryName: "Sea"
+			parentCategory: {
+				id: 1,
+			},
 		},
 		{
 			name: "Kayak",
 			thumbnail: "https://th.bing.com/th/id/OIG1.18PiGgR1RV5M8MGIZQwL?w=1024&h=1024&rs=1&pid=ImgDetMain",
-			parentCategoryName: "Outdoor"
+			parentCategory: {
+				id: 3,
+			},
 		},
 		{
 			name: "Bike",
 			thumbnail: "https://th.bing.com/th/id/OIG1.sjNZrtr0ej1zIZYg8Qfj?w=1024&h=1024&rs=1&pid=ImgDetMain",
-			parentCategoryName: "Outdoor"
+			parentCategory: {
+				id: 3,
+			},
 		},
 		{
 			name: "Climb",
 			thumbnail: "https://th.bing.com/th/id/OIG4.u..X.ZYjB97pShHvNpd1?w=1024&h=1024&rs=1&pid=ImgDetMain",
-			parentCategoryName: "Outdoor"
+			parentCategory: {
+				id: 3,
+			},
 		},
 		{
 			name: "Diving",
 			thumbnail: "https://th.bing.com/th/id/OIG1._6LtzzEAl9bYoHop6oGn?w=1024&h=1024&rs=1&pid=ImgDetMain",
-			parentCategoryName: "Sea"
+			parentCategory: {
+				id: 1,
+			},
 		},
 		{
 			name: "Snow",
 			thumbnail: "https://th.bing.com/th/id/OIG2.QO30WghDKzBT0YcvaovI?pid=ImgGn",
-			parentCategoryName: "Mountain"
+			parentCategory: {
+				id: 2,
+			},
 		},
 	]
 
 	const categories: Category[] = []
 	for (const data of categoriesData) {
 		const category = new Category()
-		const parentCategory = parentCategories.find(pc => pc.name === data.parentCategoryName)
+		const parentCategory = parentCategories.find((pc) => pc.id === data.parentCategory.id)
 		Object.assign(category, {
 			name: data.name,
 			thumbnail: data.thumbnail,
-			parentCategories: parentCategory ? [parentCategory] : []
+			parentCategory: parentCategory,
 		})
 		await category.save()
 		categories.push(category)
@@ -211,19 +224,20 @@ async function main() {
 			alt: "",
 		},
 		{
-			thumbnail: "https://www.allterraincycles.co.uk/cdn/shop/files/Marlin4-24-41613-C-Portrait.webp?v=1702563590&width=1445",
+			thumbnail:
+				"https://www.allterraincycles.co.uk/cdn/shop/files/Marlin4-24-41613-C-Portrait.webp?v=1702563590&width=1445",
 			alt: "",
-		}
-	];
+		},
+	]
 
 	for (const { thumbnail, alt } of productPictures) {
-		const productPicture = new Product_picture();
+		const productPicture = new Product_picture()
 		Object.assign(productPicture, {
 			thumbnail,
 			alt,
 			product,
-		});
-		await productPicture.save();
+		})
+		await productPicture.save()
 	}
 
 	const booking = new Booking()
@@ -248,15 +262,14 @@ async function main() {
 	})
 	await bookingItem.save()
 
-	const review = new Review();
+	const review = new Review()
 	Object.assign(review, {
 		rate: 4,
 		comment: "Good product, I recommend it!",
 		product,
 		user: customer,
-	});
-	await review.save();
-
+	})
+	await review.save()
 
 	await db.destroy()
 	console.log("Done!")
