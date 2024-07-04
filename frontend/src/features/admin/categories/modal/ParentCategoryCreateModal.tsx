@@ -47,7 +47,7 @@ export default function ParentCategoryCreateModal({ isOpen, onClose, refetch }: 
     <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add a new product</ModalHeader>
+        <ModalHeader>Add a new parent category</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit}>

@@ -10,9 +10,9 @@ import {
 } from "@chakra-ui/react";
 import { CategoryModalProps } from "../types";
 
-export default function CategoryDeleteModal({ isOpen, onClose, category, variant, handleDelete }: CategoryModalProps) {
+export default function CategoryDeleteModal({ isOpen, onClose, category, handleDelete }: CategoryModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant={variant} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Delete {category?.name}</ModalHeader>
