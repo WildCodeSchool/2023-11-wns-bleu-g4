@@ -22,7 +22,7 @@ export default function ProductStockModal({ isOpen, onClose, product }: ProductM
     <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add stock quantity for {product.name}</ModalHeader>
+        <ModalHeader>Add stock quantity for {product?.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl>

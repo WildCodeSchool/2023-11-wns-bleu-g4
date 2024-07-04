@@ -17,7 +17,7 @@ import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductBy
 import {
   useGetAllProductCharacteristicsQuery
 } from "@/graphql/ProductCharacteristic/generated/GetAllProductCharasteristics.generated";
-import Select from "react-select";
+import Select, {MultiValue} from "react-select";
 
 export default function ProductCharUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
   const [updateProduct] = useUpdateProductMutation();
@@ -78,7 +78,7 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product }: Pro
                 isMulti
                 value={selectedCharacteristics}
                 closeMenuOnSelect={false}
-                onChange={characteristics => {
+                onChange={(characteristics: MultiValue<Characteristic>) => {
                   setSelectedCharacteristics(characteristics as Characteristic[]);
                   setFormData({
                     ...formData,
