@@ -22,7 +22,6 @@ import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import React, { FormEvent } from "react";
 import { toast } from "react-toastify";
-import { useLoginMutation } from "../../../graphql/User/generated/Login.generated";
 
 export default function LoginForm() {
   const { t } = useTranslation("LoginForm");
