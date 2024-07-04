@@ -8,8 +8,6 @@ export default function ProductCharacteristic() {
     const { selectedProduct } = useProductContext();
     const colorScheme = useColorModeValue('#000', '#fff');
 
-    console.log(selectedProduct);
-
     return (
         <Flex direction="column" mt={19}>
             <Text fontSize="xl" fontWeight="700" fontFamily="Poppins">{t("Characteristics")}</Text>
