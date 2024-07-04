@@ -6,8 +6,7 @@ RUN mkdir files && chmod ugo+w files
 
 COPY package.json bun.lockb ./
 
-RUN bun i
-# RUN bun i --frozen-lockfile
+RUN bun i --frozen-lockfile
 
 COPY ./src ./src
 
