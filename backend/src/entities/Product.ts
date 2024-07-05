@@ -55,7 +55,7 @@ export class Product extends BaseEntity {
 	brand: Brand
 
 	/** ONE TO MANY */
-	@OneToMany(() => Review, (reviews) => reviews.product,)
+	@OneToMany(() => Review, (reviews) => reviews.product)
 	@Field(() => [Review], { nullable: true })
 	reviews: Review[]
 
@@ -71,7 +71,7 @@ export class Product extends BaseEntity {
 	@Field(() => [BookingItem])
 	bookingItem: BookingItem[]
 
-	@ManyToMany(() => ProductCharacteristic, (productCharacteristic) => productCharacteristic.product, { cascade: true })
+	@ManyToMany(() => ProductCharacteristic, (productCharacteristic) => productCharacteristic.product)
 	@JoinTable()
 	@Field(() => [ProductCharacteristic])
 	characteristics: ProductCharacteristic[]
