@@ -25,21 +25,15 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    build:
-      context: backend
-      dockerfile: Dockerfile.production
-    volumes:
-      - ./backend/src:/app/src/
+    image: chambrin80/gear-go-server
+
 
   frontend:
     stop_grace_period: 0s
     env_file: frontend/.env
-    build:
-      context: frontend
-      dockerfile: Dockerfile.production
-    volumes:
-      - ./frontend/src:/app/src/
-      - ./frontend/public:/app/public/
+    environment:
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
+    image: chambrin80/gear-go-client
 
   upload-service:
     stop_grace_period: 0s
