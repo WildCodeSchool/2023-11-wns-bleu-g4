@@ -38,6 +38,7 @@ services:
     stop_grace_period: 0s
     environment:
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
+      NEXT_PUBLIC_GRAPHQL_API_URL: ${NEXT_PUBLIC_GRAPHQL_API_URL}
     image: chambrin80/gear-go-client
 
   upload-service:
