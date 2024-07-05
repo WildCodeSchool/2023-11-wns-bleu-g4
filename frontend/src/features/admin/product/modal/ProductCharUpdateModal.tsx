@@ -10,15 +10,15 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { Characteristic, ProductModalProps } from "../types";
+import { ProductModalProps } from "../types";
+import { Characteristic } from "../../characteristic/types";
 import { FormEvent, useEffect, useState } from "react";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 import {
   useGetAllProductCharacteristicsQuery
-} from "@/graphql/ProductCharacteristic/generated/GetAllProductCharasteristics.generated";
-import Select, {MultiValue} from "react-select";
-
+} from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import Select, { MultiValue } from "react-select";
 
 export default function ProductCharUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
   const [updateProduct] = useUpdateProductMutation();
