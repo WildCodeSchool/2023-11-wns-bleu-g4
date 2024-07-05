@@ -14,7 +14,7 @@ export default function Characteristics() {
     const toggleCreateCharacteristicModal = () => setCreateCharacteristicModalOpen(!createCharacteristicModalOpen);
 
     return (
-        <LayoutAdmin>
+        <LayoutAdmin pageTitle="Characteristics">
             <div className="flex justify-between items-center">
                 <h1>Characteristics</h1>
                 <button
