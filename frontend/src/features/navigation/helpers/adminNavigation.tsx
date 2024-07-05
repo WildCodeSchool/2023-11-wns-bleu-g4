@@ -1,5 +1,6 @@
 import {
   ChartBarSquareIcon,
+  ClipboardDocumentListIcon,
   CubeIcon,
   ShoppingBagIcon,
   UserGroupIcon,
@@ -41,6 +42,12 @@ export const adminNavigation: Navigation[] = [
   },
   {
     id: 5,
+    title: "Characteristics",
+    icon: <ClipboardDocumentListIcon className="h-6 w-6" />,
+    path: "/admin/characteristics",
+  },
+  {
+    id: 6,
     title: "Customers",
     icon: <UserGroupIcon className="h-6 w-6" />,
     path: "/admin/customers",
