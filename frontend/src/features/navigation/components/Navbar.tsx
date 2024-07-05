@@ -79,6 +79,9 @@ function DesktopNavbar() {
                 </MenuButton>
                 <MenuList>
                   <MenuItem>{t("My Account")}</MenuItem>
+                  {profileData?.profile.role === "admin" &&
+                    <MenuItem onClick={() => router.push('/admin')}>{t("Admin Panel")}</MenuItem>
+                  }
                   <MenuItem>{t("Payments")} </MenuItem>
                   <MenuDivider />
                   <MenuItem icon={<ArrowLeftStartOnRectangleIcon width={24} />} onClick={handleLogout}>
