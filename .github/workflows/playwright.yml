@@ -5,6 +5,11 @@ on:
   pull_request:
     branches: [main, master, dev]
   workflow_call:
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
 
 jobs:
   test:
