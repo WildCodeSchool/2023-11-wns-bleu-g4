@@ -60,7 +60,7 @@ export default function ProductPictureAddModal({ isOpen, onClose, product }: Pro
     <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Update {product.name}</ModalHeader>
+        <ModalHeader>Update {product?.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
