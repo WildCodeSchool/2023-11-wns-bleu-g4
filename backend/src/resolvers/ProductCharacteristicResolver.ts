@@ -19,17 +19,14 @@ class ProductCharacteristicResolver {
 		}
 	}
 
-	@Query(() => [ProductCharacteristic])
-	async getProductCharacteristicsById(@Arg("id", () => Int) id: number) {
-		try {
-			return await ProductCharacteristic.find({
-				where: { id },
-				relations: ["product"],
-			})
-		} catch (error) {
-			console.error(`Error fetching product characteristics with id ${id}:`, error)
-			throw new Error("Could not fetch product characteristics by id")
-		}
+	@Query(() => ProductCharacteristic)
+	async getProductCharacteristicById(@Arg("productCharacteristicId", () => Int) id: number) {
+		const productCharacteristic = await ProductCharacteristic.findOne({
+			where: { id },
+			relations: { product: true },
+		})
+		if (!productCharacteristic) throw new GraphQLError("Not found")
+		return productCharacteristic
 	}
 
 	@Query(() => [ProductCharacteristic])
@@ -67,7 +64,7 @@ class ProductCharacteristicResolver {
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => ProductCharacteristic)
 	async updateProductCharacteristic(
-		@Arg("id") id: number,
+		@Arg("productCharacteristicId") id: number,
 		@Arg("data", { validate: true }) data: UpdateProductCharacteristicInput,
 		@Ctx() ctx: Context
 	) {
