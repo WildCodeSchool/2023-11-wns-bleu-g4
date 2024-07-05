@@ -16,7 +16,7 @@ import {
   Divider,
   Heading,
 } from "@chakra-ui/react";
-import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/generated/schema";
+import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
 import Link from "next/link";
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { toast } from "react-toastify";

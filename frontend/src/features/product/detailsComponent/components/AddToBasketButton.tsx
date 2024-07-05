@@ -1,21 +1,14 @@
-import { BookingData, useBookingData } from '@/context/BookingDataContext';
-import { useProductContext } from '@/context/ProductPageContext';
-import { Button, Flex } from '@chakra-ui/react';
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-import { useTranslation } from 'react-i18next';
+import { BookingData, useBookingData } from "@/context/BookingDataContext";
+import { useProductContext } from "@/context/ProductPageContext";
+import { Button, Flex } from "@chakra-ui/react";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 
 export default function AddToBasketButton() {
   const { t } = useTranslation("AddToBasketButton");
   const { updateBookingData } = useBookingData();
-  const {
-    selectedProduct,
-    selectedAgency,
-    startDate,
-    endDate,
-    quantity,
-    selectedSize,
-    totalPrice
-  } = useProductContext();
+  const { selectedProduct, selectedAgency, startDate, endDate, quantity, selectedSize, totalPrice } =
+    useProductContext();
 
   const handleAddToBasket = () => {
     if (!selectedProduct || !selectedAgency || !startDate || !endDate || !quantity || !selectedSize) {
@@ -23,14 +16,14 @@ export default function AddToBasketButton() {
     }
 
     const newBookingData: BookingData = {
-      profileData: { name: '', email: '' },
+      profileData: { name: "", email: "" },
       selectedAgency,
       startDate,
       endDate,
       product: selectedProduct,
       quantity,
       selectedSize,
-      totalPrice
+      totalPrice,
     };
 
     updateBookingData(newBookingData);
@@ -42,7 +35,7 @@ export default function AddToBasketButton() {
         onClick={handleAddToBasket}
         h={54}
         rightIcon={<ShoppingCartIcon width={24} />}
-        variant={'accentButton'}
+        variant={"accentButton"}
         size="lg"
         width="100%"
       >

@@ -1,12 +1,6 @@
 import { Length } from "class-validator"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	ManyToMany,
-	PrimaryGeneratedColumn,
-} from "typeorm"
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import Category from "./Category"
 
 @Entity()
@@ -21,8 +15,7 @@ export class ParentCategory extends BaseEntity {
 	@Field()
 	name: string
 
-	/** MANY TO MANY */
-	@ManyToMany(() => Category, category => category.parentCategories)
+	@OneToMany(() => Category, (categories) => categories.parentCategory)
 	@Field(() => [Category])
 	categories: Category[]
 }

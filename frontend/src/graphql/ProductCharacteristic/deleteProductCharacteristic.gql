@@ -1,0 +1,3 @@
+mutation DeleteProductCharacteristic($productCharacteristicId: Float!) {
+  deleteProductCharacteristic(productCharacteristicId: $productCharacteristicId)
+}

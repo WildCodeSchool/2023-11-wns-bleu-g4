@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type ProfileQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type ProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, name: string, email: string, address: string, avatar: string, city: string, country: string, phone: string, firstname: string, postcode: string } };
+export type ProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, name: string, email: string, address: string, avatar: string, city: string, country: string, phone: string, firstname: string, postcode: string, role: string } };
 
 
 export const ProfileDocument = gql`
@@ -22,6 +22,7 @@ export const ProfileDocument = gql`
     phone
     firstname
     postcode
+    role
   }
 }
     `;

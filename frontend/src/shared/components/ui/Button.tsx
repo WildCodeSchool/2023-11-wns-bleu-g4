@@ -103,6 +103,6 @@ export const buttonTheme = defineStyleConfig({
     sizeButton,
     selectorButton,
     accentButton,
-    primaryButton
+    primaryButton,
   },
 });

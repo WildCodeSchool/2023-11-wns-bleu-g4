@@ -1,14 +1,6 @@
 import { Length } from "class-validator"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	JoinTable,
-	ManyToMany,
-	OneToMany,
-	PrimaryGeneratedColumn,
-} from "typeorm"
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { ParentCategoryId } from "../types"
 import ParentCategory from "./ParentCategory"
 import Product from "./Product"
@@ -24,7 +16,7 @@ export class Category extends BaseEntity {
 	@Field()
 	name: string
 
-	@Column({ default: 'default_thumbnail.jpg' })
+	@Column({ default: "default_thumbnail.jpg" })
 	@Field()
 	thumbnail: string
 
@@ -32,10 +24,12 @@ export class Category extends BaseEntity {
 	@Field(() => [Product])
 	products: Product[]
 
-	@ManyToMany(() => ParentCategory, (parentCategory) => parentCategory.categories)
-	@JoinTable()
-	@Field(() => [ParentCategory])
-	parentCategories: ParentCategory[]
+	@ManyToOne(() => ParentCategory, (parentCategory) => parentCategory.categories, {
+		cascade: true,
+		onDelete: "CASCADE",
+	})
+	@Field(() => ParentCategory)
+	parentCategory: ParentCategory
 }
 
 @InputType()
@@ -48,7 +42,7 @@ export class NewCategoryInput {
 	thumbnail: string
 
 	@Field(() => ParentCategoryId, { nullable: true })
-	parentCategories?: ParentCategoryId
+	parentCategory?: ParentCategoryId
 }
 
 @InputType()
@@ -57,8 +51,11 @@ export class UpdateCategoryInput {
 	@Length(3, 50, { message: "Le nom doit contenir entre 3 et 50 caractères" })
 	name?: string
 
+	@Field({ nullable: true })
+	thumbnail?: string
+
 	@Field(() => ParentCategoryId, { nullable: true })
-	parentCategories?: ParentCategoryId
+	parentCategory?: ParentCategoryId
 }
 
 export default Category

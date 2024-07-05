@@ -1,7 +1,0 @@
-query GetAllCategories {
-  getAllCategories {
-    name
-    id
-    thumbnail
-  }
-}

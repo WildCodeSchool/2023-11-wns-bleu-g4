@@ -1,7 +1,7 @@
 import * as Types from '../../generated/schema';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetProductsDetailsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
@@ -58,17 +58,17 @@ export const GetProductsDetailsDocument = gql`
  * });
  */
 export function useGetProductsDetailsQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
+}
 export function useGetProductsDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
+}
 export function useGetProductsDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
+}
 export type GetProductsDetailsQueryHookResult = ReturnType<typeof useGetProductsDetailsQuery>;
 export type GetProductsDetailsLazyQueryHookResult = ReturnType<typeof useGetProductsDetailsLazyQuery>;
 export type GetProductsDetailsSuspenseQueryHookResult = ReturnType<typeof useGetProductsDetailsSuspenseQuery>;

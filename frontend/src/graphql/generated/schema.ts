@@ -82,7 +82,7 @@ export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
-  parentCategories: Array<ParentCategory>;
+  parentCategory: ParentCategory;
   products: Array<Product>;
   thumbnail: Scalars['String']['output'];
 };
@@ -113,6 +113,7 @@ export type Mutation = {
   deleteCategory: Scalars['String']['output'];
   deleteParentCategory: Scalars['String']['output'];
   deleteProduct: Scalars['String']['output'];
+  deleteProductCharacteristic: Scalars['String']['output'];
   deleteProduct_picture: Scalars['Boolean']['output'];
   deleteReview: Scalars['String']['output'];
   login: Scalars['String']['output'];
@@ -226,6 +227,11 @@ export type MutationDeleteProductArgs = {
 };
 
 
+export type MutationDeleteProductCharacteristicArgs = {
+  productCharacteristicId: Scalars['Float']['input'];
+};
+
+
 export type MutationDeleteProduct_PictureArgs = {
   id: Scalars['Int']['input'];
 };
@@ -284,7 +290,7 @@ export type MutationUpdateProductArgs = {
 
 
 export type MutationUpdateProductCharacteristicArgs = {
-  data: NewProductCharacteristicInput;
+  data: UpdateProductCharacteristicInput;
   id: Scalars['Float']['input'];
 };
 
@@ -344,11 +350,15 @@ export type NewBrandInput = {
 
 export type NewCategoryInput = {
   name: Scalars['String']['input'];
-  parentCategories?: InputMaybe<ParentCategoryId>;
+  parentCategory?: InputMaybe<ParentCategoryId>;
   thumbnail: Scalars['String']['input'];
 };
 
 export type NewParentCategoryInput = {
+  name: Scalars['String']['input'];
+};
+
+export type NewProductCharacteristicInput = {
   name: Scalars['String']['input'];
 };
 
@@ -414,8 +424,8 @@ export type Product = {
 
 export type ProductCharacteristic = {
   __typename?: 'ProductCharacteristic';
-  characteristic: Scalars['String']['output'];
   id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
   product: Product;
 };
 
@@ -493,8 +503,8 @@ export type QueryGetAllBookingArgs = {
 
 export type QueryGetAllCategoriesArgs = {
   name?: InputMaybe<Scalars['String']['input']>;
+  parentCategoryId?: InputMaybe<Scalars['Int']['input']>;
   productId?: InputMaybe<Scalars['Int']['input']>;
-  subCategoryId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -651,10 +661,15 @@ export type UpdateBrandInput = {
 
 export type UpdateCategoryInput = {
   name?: InputMaybe<Scalars['String']['input']>;
-  parentCategories?: InputMaybe<ParentCategoryId>;
+  parentCategory?: InputMaybe<ParentCategoryId>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateParentCategoryInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateProductCharacteristicInput = {
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -709,9 +724,4 @@ export type User = {
 
 export type UserId = {
   id: Scalars['Int']['input'];
-};
-
-export type NewProductCharacteristicInput = {
-  characteristic: Scalars['String']['input'];
-  productId: ProductId;
 };

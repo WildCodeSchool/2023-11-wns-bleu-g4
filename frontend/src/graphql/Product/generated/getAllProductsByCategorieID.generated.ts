@@ -1,7 +1,7 @@
 import * as Types from '../../generated/schema';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetAllProductsByCategoryIdQueryVariables = Types.Exact<{
   categoryId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
@@ -80,17 +80,17 @@ export const GetAllProductsByCategoryIdDocument = gql`
  * });
  */
 export function useGetAllProductsByCategoryIdQuery(baseOptions?: Apollo.QueryHookOptions<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
+}
 export function useGetAllProductsByCategoryIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
+}
 export function useGetAllProductsByCategoryIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
+}
 export type GetAllProductsByCategoryIdQueryHookResult = ReturnType<typeof useGetAllProductsByCategoryIdQuery>;
 export type GetAllProductsByCategoryIdLazyQueryHookResult = ReturnType<typeof useGetAllProductsByCategoryIdLazyQuery>;
 export type GetAllProductsByCategoryIdSuspenseQueryHookResult = ReturnType<typeof useGetAllProductsByCategoryIdSuspenseQuery>;
