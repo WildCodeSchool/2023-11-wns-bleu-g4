@@ -15,13 +15,21 @@ services:
 
   backend:
     stop_grace_period: 0s
+    env_file: backend/.env
     environment:
       DB_HOST: db
       DB_USER: ${DB_USER:-postgres}
-      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_PASSWORD: ${DB_PASS:-postgres}
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
       NODE_ENV: ${NODE_ENV:-production}
       CORS-ALLOWED-ORIGINS: ${CORS_ALLOWED_ORIGINS:-changeme} 
+      FRONTEND_URL: ${FRONTEND_URL:-localhost:3000}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-localhost:3000}
+      SMTP_HOST: ${SMTP_HOST:-smtp}
+      SMTP_PORT: ${SMTP_PORT:-400}
+      SMTP_USER: ${SMTP_USER:-yourId}
+      SMTP_PASS: ${SMTP_PASS:-yourPassword}
+      EMAIL_FROM: ${EMAIL_FROM:-yourEmail}
     depends_on:
       db:
         condition: service_healthy
@@ -39,9 +47,10 @@ services:
     stop_grace_period: 0s
     environment:
       - HOST=/
-    build: 
-      context: upload
-      dockerfile: Dockerfile
+    image: scrip/file-upload-service
+    # build: 
+    #   context: upload
+    #   dockerfile: Dockerfile
     volumes:
       - prodUpload:/app/files/
 
