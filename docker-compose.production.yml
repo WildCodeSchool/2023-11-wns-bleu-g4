@@ -15,14 +15,12 @@ services:
 
   backend:
     stop_grace_period: 0s
-    env_file: backend/.env
     environment:
       DB_HOST: db
       DB_USER: ${DB_USER:-postgres}
       DB_PASSWORD: ${DB_PASS:-postgres}
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
       NODE_ENV: ${NODE_ENV:-production}
-      CORS-ALLOWED-ORIGINS: ${CORS_ALLOWED_ORIGINS:-changeme} 
       FRONTEND_URL: ${FRONTEND_URL:-localhost:3000}
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-localhost:3000}
       SMTP_HOST: ${SMTP_HOST:-smtp}
@@ -38,7 +36,6 @@ services:
 
   frontend:
     stop_grace_period: 0s
-    env_file: frontend/.env
     environment:
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
     image: chambrin80/gear-go-client
