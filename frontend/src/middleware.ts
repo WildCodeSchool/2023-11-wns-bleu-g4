@@ -7,7 +7,6 @@ console.log(JWT_PRIVATE_KEY);
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
-  console.log(token);
 
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
@@ -24,7 +23,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   } catch (error) {
     console.error("JWT verification failed:", error);
-    return NextResponse.redirect(new URL("/products", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 }
 
