@@ -24,16 +24,21 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Card
             variant="productCard"
             p="4"
-            borderColor="gray"
             bg="white"
-            borderWidth="1px"
             borderRadius="lg"
+            boxShadow='lg'
             overflow="hidden"
             onClick={handleCardClick}
             cursor="pointer"
             w="221px"
             h="344px"
             padding="20px"
+            justifyContent="space-around"
+            _hover={{
+                boxShadow: 'dark-lg',
+                border: 'none',
+                transition: '0.6s'
+            }}
         >
             <Flex justifyContent="center" alignItems="center">
                 <Image src={product.thumbnail} alt={product.name} width="100%" />

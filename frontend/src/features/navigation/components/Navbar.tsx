@@ -88,7 +88,7 @@ function DesktopNavbar() {
               </Menu>
             ) : (
               <Button
-                variant="profilButton"
+                variant="primaryButton"
                 size="sm"
                 leftIcon={<UserCircleIcon width={20} />}
                 onClick={() => router.push("/login")}

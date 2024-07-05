@@ -1,6 +1,7 @@
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Card, CardFooter, Image, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import qs from "query-string";
 
 interface CardItemProps {
   text: string;
@@ -12,11 +13,13 @@ export default function CardItem({ text, image, id }: CardItemProps) {
   const color = useColorModeValue("transparent", "transparent");
 
   const router = useRouter();
-  const navigateToCategory = (categoryId: number) => {
-    router.push(`/productsByCategory/${categoryId}`);
-  };
 
-  console.log("text:", navigateToCategory);
+  const navigateToCategory = (categoryId: number) => {
+    router.push({
+      pathname: "/products",
+      search: qs.stringify({ categoryId }),
+    });
+  };
 
   return (
     <Card
@@ -27,7 +30,9 @@ export default function CardItem({ text, image, id }: CardItemProps) {
       bg={color}
       borderRadius="16px"
       onClick={() => navigateToCategory(id)}
-
+      _hover={{
+        cursor: "pointer",
+      }}
     >
       <Image
         objectFit="cover"

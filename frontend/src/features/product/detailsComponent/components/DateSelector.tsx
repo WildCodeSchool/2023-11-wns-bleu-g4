@@ -25,7 +25,7 @@ export default function DateSelector() {
 
   return (
     <Flex flexDirection="column" gap="30px" p="19px 0">
-      <DateRangePicker onDateChange={handleDateChange} buttonSize="lg" />
+      <DateRangePicker onDateChange={handleDateChange} buttonSize="lg" position="up" />
     </Flex>
   );
 }

@@ -1,5 +1,5 @@
+import { Checkbox, CheckboxGroup, Flex, Stack, Text } from "@chakra-ui/react";
 import React, { useState } from 'react';
-import { Flex, Text, CheckboxGroup, Checkbox, Stack } from "@chakra-ui/react";
 
 const ProductFilter: React.FC = () => {
     // Liste des catégories
@@ -14,8 +14,21 @@ const ProductFilter: React.FC = () => {
     return (
         <Flex direction="column" justifyContent="space-between" alignItems="start" padding="1rem">
             <Flex justifyContent="space-between" alignItems="center" width="100%">
-                <Text fontSize={{ base: "1xl", md: "lg" }} fontWeight="bold">Filter</Text>
-                <Text  fontSize={{ base: "1xl", md: "lg" }} colorScheme="teal" cursor="pointer" onClick={clearFilter}>Clear Filter</Text>
+                <Text
+                    fontSize={{ base: "1xl", md: "lg" }}
+                    fontWeight="bold"
+                >
+                    Filter
+                </Text>
+                <Text
+                    fontSize={{ base: "1xl", md: "lg" }}
+                    color="accent" cursor="pointer"
+                    onClick={clearFilter}
+                    textDecoration="underline"
+                    fontWeight="400"
+                >
+                    Clear Filter
+                </Text>
             </Flex>
             <Text fontSize={{ base: "1xl", md: "lg" }} fontWeight="bold" mt="6">Categories</Text>
             <CheckboxGroup colorScheme="teal" value={checkedItems} onChange={setCheckedItems}>

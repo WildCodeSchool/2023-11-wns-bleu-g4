@@ -78,10 +78,6 @@ export type Brand = {
   product: Array<Product>;
 };
 
-export type BrandId = {
-  id: Scalars['Int']['input'];
-};
-
 export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
@@ -89,14 +85,6 @@ export type Category = {
   parentCategories: Array<ParentCategory>;
   products: Array<Product>;
   thumbnail: Scalars['String']['output'];
-};
-
-export type CategoryId = {
-  id: Scalars['Int']['input'];
-};
-
-export type CharacteristicId = {
-  id: Scalars['Int']['input'];
 };
 
 export type LoginInput = {
@@ -365,9 +353,9 @@ export type NewParentCategoryInput = {
 };
 
 export type NewProductInput = {
-  brand: BrandId;
-  category?: InputMaybe<CategoryId>;
-  characteristics?: InputMaybe<CharacteristicId>;
+  brand: ObjectId;
+  category?: InputMaybe<ObjectId>;
+  characteristics?: InputMaybe<Array<ObjectId>>;
   description: Scalars['String']['input'];
   name: Scalars['String']['input'];
   price: Scalars['Float']['input'];
@@ -421,6 +409,7 @@ export type Product = {
   productCodes: Array<ProductCode>;
   reviews?: Maybe<Array<Review>>;
   thumbnail: Scalars['String']['output'];
+  total: Scalars['Int']['output'];
 };
 
 export type ProductCharacteristic = {
@@ -445,6 +434,12 @@ export type ProductId = {
   id: Scalars['Int']['input'];
 };
 
+export type ProductList = {
+  __typename?: 'ProductList';
+  products: Array<Product>;
+  total: Scalars['Int']['output'];
+};
+
 export type Product_Picture = {
   __typename?: 'Product_picture';
   alt: Scalars['String']['output'];
@@ -464,7 +459,7 @@ export type Query = {
   getAllProductCharacteristics: Array<ProductCharacteristic>;
   getAllProduct_codes: Array<ProductCode>;
   getAllProduct_pictures: Array<Product_Picture>;
-  getAllProducts: Array<Product>;
+  getAllProducts: ProductList;
   getAllReviews: Array<Review>;
   getAllUsers: Array<User>;
   getBookingById: Booking;
@@ -511,7 +506,10 @@ export type QueryGetAllParentCategoriesArgs = {
 
 export type QueryGetAllProductsArgs = {
   categoryId?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sortOrder?: InputMaybe<SortProduct>;
 };
 
 
@@ -597,6 +595,11 @@ export type Review = {
   rate: Scalars['Int']['output'];
   user: User;
 };
+
+export enum SortProduct {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
 
 /** Check if the product is available. */
 export enum Status {

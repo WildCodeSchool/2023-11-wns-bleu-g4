@@ -1,6 +1,7 @@
-import { InputType, Field, Int } from "type-graphql";
-import { User } from "./entities/User"
-import express from "express"
+import express from "express";
+import { Field, InputType, Int, ObjectType } from "type-graphql";
+import Product from "./entities/Product";
+import { User } from "./entities/User";
 
 export interface ContextType {
 	req: express.Request
@@ -59,4 +60,13 @@ export class ParentCategoryId {
 export class BrandId {
 	@Field(() => Int)
 	id!: number;
+}
+
+@ObjectType()
+export class ProductList {
+	@Field(() => [Product])
+	products: Product[];
+
+	@Field(() => Int)
+	total: number;
 }

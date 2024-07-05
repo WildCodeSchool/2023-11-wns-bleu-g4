@@ -1,0 +1,35 @@
+query getAllProductsByCategoryID($categoryId: Int, $name: String, $sortOrder: SortProduct, $limit: Int, $offset: Int) {
+  getAllProducts(categoryId: $categoryId, name: $name, sortOrder: $sortOrder, limit: $limit, offset: $offset) {
+    products {
+      id
+      name
+      price
+      description
+      thumbnail
+      brand {
+        id
+        name
+        logo
+      }
+      category {
+        id
+        name
+      }
+      characteristics {
+        id
+        characteristic
+      }
+      pictures {
+        id
+        alt
+        thumbnail
+      }
+      reviews {
+        id
+        rate
+        comment
+      }
+    }
+    total
+  }
+}

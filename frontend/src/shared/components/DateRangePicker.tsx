@@ -11,9 +11,10 @@ import { useTranslation } from "react-i18next";
 interface DateRangePickerProps {
   onDateChange: (startDate: Date | null, endDate: Date | null) => void;
   buttonSize?: ButtonProps["size"];
+  position?: 'up' | 'down';
 }
 
-export default function DateRangePicker({ onDateChange, buttonSize = "md" }: DateRangePickerProps) {
+export default function DateRangePicker({ onDateChange, buttonSize = "md", position = 'down' }: DateRangePickerProps) {
   const [range, setRange] = useState<DateRange | undefined>();
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const datePickerRef = useRef<HTMLDivElement>(null);
@@ -54,6 +55,8 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
     return false;
   };
 
+  const positionStyle = position === 'down' ? { top: "calc(100% + 10px)" } : { bottom: "calc(100% + 10px)" };
+
   return (
     <div style={{ position: "relative", display: "inline-block" }} ref={datePickerRef}>
       <Button
@@ -61,8 +64,8 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
         rightIcon={<CalendarDaysIcon width={24} />}
         size={buttonSize}
         onClick={() => setShowDatePicker(!showDatePicker)}
-        w="373px" // Ajustez la largeur du bouton ici
-        h="54px" // Ajustez la hauteur du bouton ici
+        w="373px"
+        h="54px"
       >
         {range?.from && range?.to ? (
           <Text as="span">
@@ -86,9 +89,9 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md" }: Dat
         <div
           style={{
             position: "absolute",
-            bottom: "calc(100% + 10px)",
             left: 0,
             zIndex: 1000,
+            ...positionStyle,
           }}
         >
           <DayPicker

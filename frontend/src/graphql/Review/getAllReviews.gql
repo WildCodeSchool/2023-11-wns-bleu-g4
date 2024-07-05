@@ -1,0 +1,13 @@
+query GetAllReviews($productId: Float) {
+  getAllReviews(productId: $productId) {
+    comment
+    id
+    rate
+    user {
+      id
+      avatar
+      firstname
+      name
+    }
+  }
+}
