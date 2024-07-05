@@ -13,7 +13,6 @@ export async function middleware(request: NextRequest) {
 
   try {
     const { payload } = await jwtVerify(token, JWT_PRIVATE_KEY);
-    console.log("JWT verified successfully:", payload);
 
     // Check if the request is for an admin route
     if (request.nextUrl.pathname.startsWith("/admin") && payload.role === "admin") {
