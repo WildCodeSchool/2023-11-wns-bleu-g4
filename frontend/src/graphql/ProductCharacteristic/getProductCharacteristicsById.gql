@@ -1,5 +1,5 @@
-query GetProductCharacteristicsById($getProductCharacteristicsByIdId: Int!) {
-  getProductCharacteristicsById(id: $getProductCharacteristicsByIdId) {
+query GetProductCharacteristicById($productCharacteristicId: Int!) {
+  getProductCharacteristicById(productCharacteristicId: $productCharacteristicId) {
     id
     name
   }
