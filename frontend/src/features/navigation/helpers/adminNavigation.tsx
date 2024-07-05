@@ -24,32 +24,32 @@ export const adminNavigation: Navigation[] = [
   },
   {
     id: 2,
-    title: "Orders",
-    icon: <CubeIcon className="h-6 w-6" />,
-    path: "/admin/orders",
-  },
-  {
-    id: 3,
-    title: "Products",
-    icon: <ShoppingBagIcon className="h-6 w-6" />,
-    path: "/admin/products",
-  },
-  {
-    id: 4,
     title: "Categories",
     icon: <Squares2X2Icon className="h-6 w-6" />,
     path: "/admin/categories",
   },
   {
-    id: 5,
+    id: 3,
     title: "Characteristics",
     icon: <ClipboardDocumentListIcon className="h-6 w-6" />,
     path: "/admin/characteristics",
   },
   {
-    id: 6,
+    id: 4,
     title: "Customers",
     icon: <UserGroupIcon className="h-6 w-6" />,
     path: "/admin/customers",
+  },
+  {
+    id: 5,
+    title: "Orders",
+    icon: <CubeIcon className="h-6 w-6" />,
+    path: "/admin/orders",
+  },
+  {
+    id: 6,
+    title: "Products",
+    icon: <ShoppingBagIcon className="h-6 w-6" />,
+    path: "/admin/products",
   },
 ];
