@@ -33,7 +33,7 @@ class UserResolver {
 		if (!passwordValid) throw new GraphQLError("INVALID_CREDENTIALS")
 		if (!existingUser.emailVerified) throw new GraphQLError("EMAIL_NOT_VERIFIED")
 
-		const token = jwt.sign({ userId: existingUser.id }, env.JWT_PRIVATE_KEY)
+		const token = jwt.sign({ userId: existingUser.id, role: existingUser.role }, env.JWT_PRIVATE_KEY)
 
 		ctx.res.cookie("token", token, { httpOnly: true })
 		return token

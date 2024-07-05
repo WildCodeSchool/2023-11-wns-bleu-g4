@@ -1,10 +1,11 @@
 {
+  "Admin Panel": "Panneau Admin",
   "Back to website": "Retourner sur le site",
   "Login": "Se connecter",
   "Logout": "Se déconnecter",
   "My Account": "Mon compte",
+  "Password": "Mot de passe",
   "Payments": "Paiments",
   "Search": "Rechercher",
-  "Search a product": "Rechercher un produit",
-  "Password": "Mot de passe"
+  "Search a product": "Rechercher un produit"
 }

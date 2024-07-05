@@ -1,10 +1,11 @@
 {
+  "Admin Panel": "Admin Panel",
   "Back to website": "Back to website",
   "Login": "Login",
   "Logout": "Logout",
   "My Account": "My Account",
+  "Password": "Password",
   "Payments": "Payments",
   "Search": "Search",
-  "Search a product": "Search a product",
-  "Password": "Password"
+  "Search a product": "Search a product"
 }

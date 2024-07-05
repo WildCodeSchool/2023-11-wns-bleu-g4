@@ -19,6 +19,7 @@ import {
 } from "@/graphql/ProductCharacteristic/generated/GetAllProductCharasteristics.generated";
 import Select, {MultiValue} from "react-select";
 
+
 export default function ProductCharUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
   const [updateProduct] = useUpdateProductMutation();
   const [formData, setFormData] = useState({
