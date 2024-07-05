@@ -1,0 +1,4 @@
+.env.production
+.idea
+.vscode
+node_modules

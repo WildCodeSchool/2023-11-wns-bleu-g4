@@ -1,0 +1,17 @@
+{
+  "name": "next-template",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "docker compose up --build",
+    "prod": "docker compose -f docker-compose.production.yml up --build"
+  },
+  "author": "Jeremy Dohin",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  }
+}

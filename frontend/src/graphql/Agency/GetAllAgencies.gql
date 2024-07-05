@@ -1,0 +1,24 @@
+query GetAllAgencies {
+  getAllAgencies {
+    id
+    name
+    address
+    city
+    country
+    email
+    phone
+    postcode
+    productCodes {
+      id
+      isSizeable
+      size
+      status
+    }
+    bookings {
+      id
+      status
+      startDate
+      endDate
+    }
+  }
+}

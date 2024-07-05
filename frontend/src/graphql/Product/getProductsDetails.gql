@@ -1,0 +1,28 @@
+query GetProductsDetails {
+  getAllProducts {
+    brand {
+      id
+      logo
+      name
+    }
+    description
+    id
+    name
+    price
+    thumbnail
+    characteristics {
+      characteristic
+      id
+    }
+    pictures {
+      alt
+      id
+      thumbnail
+    }
+    reviews {
+      comment
+      id
+      rate
+    }
+  }
+}

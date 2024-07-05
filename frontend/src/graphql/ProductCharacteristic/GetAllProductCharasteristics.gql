@@ -1,0 +1,6 @@
+query GetAllProductCharacteristics {
+  getAllProductCharacteristics {
+    id
+    characteristic
+  }
+}

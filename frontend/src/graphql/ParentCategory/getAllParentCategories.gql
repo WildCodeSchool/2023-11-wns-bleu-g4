@@ -1,0 +1,6 @@
+query GetAllParentCategories {
+  getAllParentCategories {
+    id
+    name
+  }
+}

@@ -1,0 +1,6 @@
+node_modules
+
+# Next.js & Vercel Directories
+.next
+build
+graphql

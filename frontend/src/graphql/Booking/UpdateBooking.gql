@@ -1,0 +1,15 @@
+mutation UpdateBooking($data: UpdateBookingInput!, $bookingId: Float!) {
+  updateBooking(data: $data, bookingId: $bookingId) {
+    id
+    status
+    bookingDate
+    startDate
+    endDate
+    agency {
+      id
+    }
+    user {
+      id
+    }
+  }
+}

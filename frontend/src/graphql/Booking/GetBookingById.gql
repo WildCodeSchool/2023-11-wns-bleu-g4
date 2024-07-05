@@ -1,0 +1,10 @@
+query GetBookingById($bookingId: Int!) {
+  getBookingById(bookingId: $bookingId) {
+    id
+    status
+    invoice
+    bookingDate
+    startDate
+    endDate
+  }
+}

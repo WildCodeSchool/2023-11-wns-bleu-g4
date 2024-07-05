@@ -1,0 +1,12 @@
+mutation UpdateAgency($data: UpdateAgencyInput!, $agencyId: Float!) {
+  updateAgency(data: $data, agencyId: $agencyId) {
+    id
+    name
+    address
+    postcode
+    city
+    country
+    phone
+    email
+  }
+}
