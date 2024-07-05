@@ -44,15 +44,12 @@ services:
     image: chambrin80/gear-go-client
 
   upload-service:
-    stop_grace_period: 0s
     environment:
       - HOST=/
+    stop_grace_period: 0s
     image: scrip/file-upload-service
-    # build: 
-    #   context: upload
-    #   dockerfile: Dockerfile
     volumes:
-      - prodUpload:/app/files/
+      - prodUploads:/app/files
 
   gateway:
     restart: always
@@ -65,4 +62,4 @@ services:
     
 volumes:
   prodDB:
-  prodUpload:
+  prodUploads:
