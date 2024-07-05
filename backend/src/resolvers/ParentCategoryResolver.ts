@@ -9,10 +9,10 @@ import ParentCategory, { NewParentCategoryInput, UpdateParentCategoryInput } fro
 class ParentCategoryResolver {
 	@Query(() => [ParentCategory])
 	async getAllParentCategories(
-		@Arg("name", { nullable: true }) name?: string
+		@Arg("name", { nullable: true }) name?: string,
+		@Arg("categoryId", { nullable: true }) categoryId?: number
 	) {
 		return ParentCategory.find({
-			relations: {category : true},
 			where: {
 				name: name ? ILike(`'%${name}%'`) : undefined,
 				categories: { id: categoryId },
