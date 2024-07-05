@@ -11,8 +11,8 @@ query getAllProductsByCategoryID($categoryId: Int) {
     price
     thumbnail
     characteristics {
-      characteristic
       id
+      name
     }
     pictures {
       alt

@@ -11,8 +11,8 @@ query GetProductsDetails {
     price
     thumbnail
     characteristics {
-      characteristic
       id
+      name
     }
     pictures {
       alt
