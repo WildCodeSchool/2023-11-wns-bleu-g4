@@ -15,7 +15,7 @@ export interface Category {
 
 export interface Characteristic {
   id?: number;
-  characteristic?: string;
+  name?: string;
   value?: string;
 }
 
