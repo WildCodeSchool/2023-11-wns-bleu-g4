@@ -4,7 +4,7 @@ import TableFooter from "@/features/admin/table/TableFooter";
 import CustomerTableBody from "@/features/admin/table/CustomerTableBody";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../../../../i18nUtils";
+import { getAllNamespaces } from "@root/i18nUtils";
 import { useGetAllUsersQuery } from "@/graphql/User/generated/GetAllUsers.generated";
 
 export default function Customers() {
