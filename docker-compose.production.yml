@@ -18,7 +18,8 @@ services:
     environment:
       DB_HOST: db
       DB_USER: ${DB_USER:-postgres}
-      DB_PASSWORD: ${DB_PASS:-postgres}
+      DB_PASS: ${DB_PASS:-postgres}
+      DB_NAME: ${DB_NAME:-postgres}
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
       NODE_ENV: ${NODE_ENV:-production}
       FRONTEND_URL: ${FRONTEND_URL:-localhost:3000}
@@ -28,6 +29,8 @@ services:
       SMTP_USER: ${SMTP_USER:-yourId}
       SMTP_PASS: ${SMTP_PASS:-yourPassword}
       EMAIL_FROM: ${EMAIL_FROM:-yourEmail}
+      DB_PORT: ${DB_PORT:-5432}
+      SERVER_PORT: ${SERVER_PORT:-4000}
     depends_on:
       db:
         condition: service_healthy
