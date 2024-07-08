@@ -39,7 +39,7 @@ export default function DateRangePicker({ onDateChange, buttonSize = "md", posit
     if (range) {
       onDateChange(range.from ?? null, range.to ?? null);
     }
-  }, [range, onDateChange]);
+  }, [range]);
 
   const handleSelectRange: SelectRangeEventHandler = selectedRange => {
     setRange(selectedRange);
