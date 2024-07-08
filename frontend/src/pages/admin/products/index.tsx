@@ -1,5 +1,5 @@
-import ProductCreateModal from "@/features/admin/modal/productCreateModal";
-import ProductTableBody from "@/features/admin/table/ProductTableBody";
+import ProductCreateModal from "@/features/admin/product/modal/ProductCreateModal";
+import ProductTableBody from "@/features/admin/product/table/ProductTableBody";
 import TableFooter from "@/features/admin/table/TableFooter";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
