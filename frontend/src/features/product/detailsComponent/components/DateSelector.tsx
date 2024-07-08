@@ -5,15 +5,17 @@ import { useEffect } from "react";
 
 export default function DateSelector() {
   const { state, setState } = useProductContext();
-  const { selectedProduct } = state;
+  const { selectedProduct, startDate, endDate } = state;
 
-  const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
+  const handleDateChange = (newStartDate: Date | null, newEndDate: Date | null) => {
     setState(prevState => ({
       ...prevState,
-      startDate,
-      endDate,
+      startDate: newStartDate,
+      endDate: newEndDate,
     }));
+  };
 
+  useEffect(() => {
     if (startDate && endDate && selectedProduct) {
       const durationInDays = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
       const totalPrice = selectedProduct.price * durationInDays;
@@ -27,16 +29,8 @@ export default function DateSelector() {
         totalPrice: 0,
       }));
     }
-  };
 
-  useEffect(() => {
-    if (!state.startDate || !state.endDate) {
-      setState(prevState => ({
-        ...prevState,
-        totalPrice: 0,
-      }));
-    }
-  }, [state.startDate, state.endDate, setState]);
+  }, [startDate, endDate, selectedProduct]);
 
   return (
     <Flex flexDirection="column" gap="30px" p="19px 0">

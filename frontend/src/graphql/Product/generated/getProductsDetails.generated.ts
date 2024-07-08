@@ -1,12 +1,12 @@
 import * as Types from '../../generated/schema';
 
-import * as Apollo from '@apollo/client';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetProductsDetailsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetProductsDetailsQuery = { __typename?: 'Query', getAllProducts: { __typename?: 'ProductList', products: Array<{ __typename?: 'Product', description: string, id: number, name: string, price: number, thumbnail: string, brand: { __typename?: 'Brand', id: number, logo: string, name: string }, characteristics: Array<{ __typename?: 'ProductCharacteristic', characteristic: string, id: number }>, pictures: Array<{ __typename?: 'Product_picture', alt: string, id: number, thumbnail: string }>, reviews?: Array<{ __typename?: 'Review', comment: string, id: number, rate: number }> | null }> } };
+export type GetProductsDetailsQuery = { __typename?: 'Query', getAllProducts: { __typename?: 'ProductList', products: Array<{ __typename?: 'Product', description: string, id: number, name: string, price: number, thumbnail: string, brand: { __typename?: 'Brand', id: number, logo: string, name: string }, characteristics: Array<{ __typename?: 'ProductCharacteristic', name: string, id: number }>, pictures: Array<{ __typename?: 'Product_picture', alt: string, id: number, thumbnail: string }>, reviews?: Array<{ __typename?: 'Review', comment: string, id: number, rate: number }> | null }> } };
 
 
 export const GetProductsDetailsDocument = gql`
@@ -24,7 +24,7 @@ export const GetProductsDetailsDocument = gql`
       price
       thumbnail
       characteristics {
-        characteristic
+        name
         id
       }
       pictures {
@@ -58,17 +58,17 @@ export const GetProductsDetailsDocument = gql`
  * });
  */
 export function useGetProductsDetailsQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
+      }
 export function useGetProductsDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
+        }
 export function useGetProductsDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetProductsDetailsQuery, GetProductsDetailsQueryVariables>(GetProductsDetailsDocument, options);
+        }
 export type GetProductsDetailsQueryHookResult = ReturnType<typeof useGetProductsDetailsQuery>;
 export type GetProductsDetailsLazyQueryHookResult = ReturnType<typeof useGetProductsDetailsLazyQuery>;
 export type GetProductsDetailsSuspenseQueryHookResult = ReturnType<typeof useGetProductsDetailsSuspenseQuery>;

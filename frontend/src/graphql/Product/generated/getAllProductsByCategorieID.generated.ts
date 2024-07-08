@@ -1,7 +1,7 @@
 import * as Types from '../../generated/schema';
 
-import * as Apollo from '@apollo/client';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetAllProductsByCategoryIdQueryVariables = Types.Exact<{
   categoryId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
@@ -12,7 +12,7 @@ export type GetAllProductsByCategoryIdQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetAllProductsByCategoryIdQuery = { __typename?: 'Query', getAllProducts: { __typename?: 'ProductList', total: number, products: Array<{ __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, brand: { __typename?: 'Brand', id: number, name: string, logo: string }, category: { __typename?: 'Category', id: number, name: string }, characteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, characteristic: string }>, pictures: Array<{ __typename?: 'Product_picture', id: number, alt: string, thumbnail: string }>, reviews?: Array<{ __typename?: 'Review', id: number, rate: number, comment: string }> | null }> } };
+export type GetAllProductsByCategoryIdQuery = { __typename?: 'Query', getAllProducts: { __typename?: 'ProductList', total: number, products: Array<{ __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, brand: { __typename?: 'Brand', id: number, name: string, logo: string }, category: { __typename?: 'Category', id: number, name: string }, characteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, name: string }>, pictures: Array<{ __typename?: 'Product_picture', id: number, alt: string, thumbnail: string }>, reviews?: Array<{ __typename?: 'Review', id: number, rate: number, comment: string }> | null }> } };
 
 
 export const GetAllProductsByCategoryIdDocument = gql`
@@ -41,7 +41,7 @@ export const GetAllProductsByCategoryIdDocument = gql`
       }
       characteristics {
         id
-        characteristic
+        name
       }
       pictures {
         id
@@ -80,17 +80,17 @@ export const GetAllProductsByCategoryIdDocument = gql`
  * });
  */
 export function useGetAllProductsByCategoryIdQuery(baseOptions?: Apollo.QueryHookOptions<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
+      }
 export function useGetAllProductsByCategoryIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
+        }
 export function useGetAllProductsByCategoryIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllProductsByCategoryIdQuery, GetAllProductsByCategoryIdQueryVariables>(GetAllProductsByCategoryIdDocument, options);
+        }
 export type GetAllProductsByCategoryIdQueryHookResult = ReturnType<typeof useGetAllProductsByCategoryIdQuery>;
 export type GetAllProductsByCategoryIdLazyQueryHookResult = ReturnType<typeof useGetAllProductsByCategoryIdLazyQuery>;
 export type GetAllProductsByCategoryIdSuspenseQueryHookResult = ReturnType<typeof useGetAllProductsByCategoryIdSuspenseQuery>;

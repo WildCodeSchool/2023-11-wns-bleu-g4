@@ -51,6 +51,18 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
     totalPrice: 0,
   });
 
+  const filterAvailableSizes = useCallback((agencyId: number | null): string[] => {
+    if (agencyId !== null) {
+      const selectedAgencyData = state.agencies.find(agency => agency.id === agencyId);
+      const sizes = selectedAgencyData?.productCodes
+        ?.map((productCode: ProductCode) => productCode.size)
+        .filter((size: null | undefined | string): size is string => typeof size === "string")
+        .map((size: string) => size.toUpperCase());
+      return sizes || [];
+    }
+    return [];
+  }, [state.agencies]);
+
   useEffect(() => {
     if (!productLoading && !productError && productData) {
       const productId = router.query.id as string;
@@ -64,18 +76,6 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setState(prevState => ({ ...prevState, agencies: agencyData.getAllAgencies as Agency[] }));
     }
   }, [agencyData]);
-
-  const filterAvailableSizes = useCallback((agencyId: number | null): string[] => {
-    if (agencyId !== null) {
-      const selectedAgencyData = state.agencies.find(agency => agency.id === agencyId);
-      const sizes = selectedAgencyData?.productCodes
-        ?.map((productCode: ProductCode) => productCode.size)
-        .filter((size: null | undefined | string): size is string => typeof size === "string")
-        .map((size: string) => size.toUpperCase());
-      return sizes || [];
-    }
-    return [];
-  }, [state.agencies]);
 
   useEffect(() => {
     if (state.selectedAgency !== null) {
@@ -93,8 +93,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setState,
         filterAvailableSizes,
         setSelectedSize: (size: string | null) => setState(prevState => ({ ...prevState, selectedSize: size })),
-        setSelectedAgency:
-          (agencyId: number | null) => setState(prevState => ({ ...prevState, selectedAgency: agencyId })),
+        setSelectedAgency: (agencyId: number | null) => setState(prevState => ({ ...prevState, selectedAgency: agencyId })),
       }}
     >
       {children}
