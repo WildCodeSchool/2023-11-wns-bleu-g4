@@ -4,24 +4,39 @@ import { Flex } from "@chakra-ui/react";
 import { useEffect } from "react";
 
 export default function DateSelector() {
-  const { setStartDate, setEndDate, selectedProduct, setTotalPrice } = useProductContext();
+  const { state, setState } = useProductContext();
+  const { selectedProduct } = state;
 
   const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
-    setStartDate(startDate);
-    setEndDate(endDate);
+    setState(prevState => ({
+      ...prevState,
+      startDate,
+      endDate,
+    }));
 
     if (startDate && endDate && selectedProduct) {
       const durationInDays = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
       const totalPrice = selectedProduct.price * durationInDays;
-      setTotalPrice(totalPrice);
+      setState(prevState => ({
+        ...prevState,
+        totalPrice,
+      }));
+    } else {
+      setState(prevState => ({
+        ...prevState,
+        totalPrice: 0,
+      }));
     }
   };
 
   useEffect(() => {
-    if (!setStartDate || !setEndDate) {
-      setTotalPrice(0);
+    if (!state.startDate || !state.endDate) {
+      setState(prevState => ({
+        ...prevState,
+        totalPrice: 0,
+      }));
     }
-  }, [setStartDate, setEndDate, setTotalPrice]);
+  }, [state.startDate, state.endDate, setState]);
 
   return (
     <Flex flexDirection="column" gap="30px" p="19px 0">

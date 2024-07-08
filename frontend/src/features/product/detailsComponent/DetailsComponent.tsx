@@ -9,7 +9,8 @@ import ProductPricing from "./components/ProductPricing";
 import SizeSelector from "./components/SizeSelector";
 
 export default function DetailsComponent() {
-  const { selectedProduct, agencies } = useProductContext();
+  const { state } = useProductContext();
+  const { selectedProduct, agencies } = state;
 
   if (!selectedProduct || !agencies) {
     return <p>Loading...</p>;

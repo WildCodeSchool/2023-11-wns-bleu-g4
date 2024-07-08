@@ -4,9 +4,12 @@ import { useTranslation } from "react-i18next";
 
 export default function ProductCharacteristic() {
   const { t } = useTranslation("ProductCharacteristic");
+  const { state: { selectedProduct } } = useProductContext();
+  const colorScheme = useColorModeValue("gray.600", "gray.300");
 
-  const { selectedProduct } = useProductContext();
-  const colorScheme = useColorModeValue("#000", "#fff");
+  console.log("Selected Product Characteristics:", selectedProduct?.characteristics);
+
+  if (!selectedProduct) return null;
 
   return (
     <Flex direction="column" mt={19}>
@@ -15,10 +18,10 @@ export default function ProductCharacteristic() {
       </Text>
       <Divider borderColor={colorScheme} borderWidth={1} m="20px 0" />
       <UnorderedList spacing={3}>
-        {selectedProduct?.characteristics?.map((characteristic, index) => (
+        {selectedProduct.characteristics.map((characteristic, index) => (
           <ListItem key={index}>
-            <Text fontSize={18} fontWeight={500}>
-              {characteristic.characteristic}
+            <Text fontSize={18} fontWeight={500} color="black">
+              {characteristic.name}
             </Text>
           </ListItem>
         ))}

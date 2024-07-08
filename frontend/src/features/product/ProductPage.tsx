@@ -6,7 +6,7 @@ import Rating from './rating/Rating';
 
 
 const ProductPage: React.FC = () => {
-  const { selectedProduct, agencies } = useProductContext();
+  const { state: { selectedProduct, agencies } } = useProductContext();
 
   return (
     <Box

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export default function ProductDescription() {
   const { t } = useTranslation("productDetails");
-  const { selectedProduct, agencies, setSelectedAgency, setSelectedSize } = useProductContext();
+  const { state: { selectedProduct, agencies }, setSelectedAgency, setSelectedSize } = useProductContext();
 
   if (!selectedProduct) return null;
 

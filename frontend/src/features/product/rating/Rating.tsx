@@ -8,7 +8,7 @@ import { toNumber } from "lodash";
 export default function Rating() {
     const colorScheme = useColorModeValue('#000', '#fff');
     const colorScheme2 = useColorModeValue('#000', '#000');
-    const { selectedProduct } = useProductContext();
+    const { state: { selectedProduct } } = useProductContext();
     const productId = selectedProduct?.id;
 
     const { data, loading, error } = useGetAllReviewsQuery({
