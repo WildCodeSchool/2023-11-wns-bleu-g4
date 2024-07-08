@@ -1,48 +1,45 @@
 import React, { useState } from "react";
 import client from "@/graphql/client";
-import { TableBodyProps } from "../../product/types";
-import { parentCategoryTableHeaders } from "../../helpers/tableHeaders";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import { ParentCategory } from "@/graphql/generated/schema";
+import { characteristicTableHeaders } from "../helpers/tableHeaders";
+import { TableBodyProps } from "../product/types";
 import {
-  useDeleteParentCategoryMutation
-} from "@/graphql/ParentCategory/generated/deleteParentCategory.generated";
-import {
-  GetAllParentCategoriesDocument,
-  GetAllParentCategoriesQuery,
-} from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
-import ParentCategoryDeleteModal from "../modal/ParentCategoryDeleteModal";
-import ParentCategoryUpdateModal from "../modal/ParentCategoryUpdateModal";
+  useDeleteProductCharacteristicMutation
+} from "@/graphql/ProductCharacteristic/generated/deleteProductCharacteristic.generated";
+import { Characteristic } from "./types";
+import { GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import CharacteristicUpdateModal from "./CharacteristicUpdateModal";
+import CharacteristicDeleteModal from "./CharacteristicDeleteModal";
 
-export default function ParentCategoryTableBody({ data, refetch }: TableBodyProps) {
-  const { t } = useTranslation("ParentCategoryTableBody");
+export default function CharacteristicTableBody({ data }: TableBodyProps) {
+  const { t } = useTranslation("CharacteristicTableBody");
 
-  const [deleteParentCategory] = useDeleteParentCategoryMutation();
+  const [deleteCharacteristic] = useDeleteProductCharacteristicMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedParentCategory, setSelectedParentCategory] = useState<ParentCategory | null>(null);
+  const [selectedCharacteristic, setSelectedCharacteristic] = useState<Characteristic | null>(null);
 
-  const toggleUpdateParentCategoryModal = (parentCategory: ParentCategory) => {
-    setSelectedParentCategory(parentCategory);
+  const toggleUpdateParentCategoryModal = (characteristic: Characteristic) => {
+    setSelectedCharacteristic(characteristic);
     setIsUpdateModalOpen(!isUpdateModalOpen);
   };
 
-  const toggleDeleteParentCategoryModal = (parentCategory: ParentCategory) => {
-    setSelectedParentCategory(parentCategory);
+  const toggleDeleteParentCategoryModal = (characteristic: Characteristic) => {
+    setSelectedCharacteristic(characteristic);
     setIsDeleteModalOpen(!isDeleteModalOpen);
   };
 
-  const handleDeleteCategory = async (id: number) => {
+  const handleDeleteCharacteristic = async (id: number) => {
     try {
-      await deleteParentCategory({ variables: { parentCategoryId: id } });
-      client.writeQuery<GetAllParentCategoriesQuery>({
-        query: GetAllParentCategoriesDocument,
+      await deleteCharacteristic({ variables: { productCharacteristicId: id } });
+      client.writeQuery<GetAllProductCharacteristicsQuery>({
+        query: GetAllProductCharacteristicsDocument,
         data: {
-          getAllParentCategories: data.filter((parentCategory: ParentCategory) => parentCategory.id !== id),
+          getAllProductCharacteristics: data.filter((characteristic: Characteristic) => characteristic.id !== id),
         },
       });
-      refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
     } catch (e) {
       console.error(e);
@@ -53,7 +50,7 @@ export default function ParentCategoryTableBody({ data, refetch }: TableBodyProp
     <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
       <thead>
         <tr>
-          {parentCategoryTableHeaders.map(menu => (
+          {characteristicTableHeaders.map(menu => (
             <th
               className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
               border-b border-gray-200"
@@ -81,8 +78,8 @@ export default function ParentCategoryTableBody({ data, refetch }: TableBodyProp
                       <PencilSquareIcon className="h-5 w-5 text-white" />
                     </button>
                     {isUpdateModalOpen && (
-                      <ParentCategoryUpdateModal
-                        parentCategory={selectedParentCategory!}
+                      <CharacteristicUpdateModal
+                        characteristic={selectedCharacteristic!}
                         isOpen={isUpdateModalOpen}
                         onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
                       />
@@ -96,11 +93,11 @@ export default function ParentCategoryTableBody({ data, refetch }: TableBodyProp
                       <TrashIcon className="h-5 w-5 text-white" />
                     </button>
                     {isDeleteModalOpen && (
-                      <ParentCategoryDeleteModal
-                        parentCategory={selectedParentCategory!}
+                      <CharacteristicDeleteModal
+                        characteristic={selectedCharacteristic!}
                         isOpen={isDeleteModalOpen}
                         onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-                        handleDelete={handleDeleteCategory}
+                        handleDelete={handleDeleteCharacteristic}
                       />
                     )}
                   </div>

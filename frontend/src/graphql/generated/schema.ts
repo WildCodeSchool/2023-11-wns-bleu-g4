@@ -303,7 +303,7 @@ export type MutationUpdateProductArgs = {
 
 export type MutationUpdateProductCharacteristicArgs = {
   data: UpdateProductCharacteristicInput;
-  id: Scalars['Float']['input'];
+  productCharacteristicId: Scalars['Float']['input'];
 };
 
 
@@ -485,7 +485,7 @@ export type Query = {
   getCategoryById: Category;
   getParentCategoryById: ParentCategory;
   getProductById: Product;
-  getProductCharacteristicsById: Array<ProductCharacteristic>;
+  getProductCharacteristicById: ProductCharacteristic;
   getProductCharacteristicsByProductId: Array<ProductCharacteristic>;
   getProductCodesByStatus: Array<ProductCode>;
   getReviewById: Review;
@@ -566,8 +566,8 @@ export type QueryGetProductByIdArgs = {
 };
 
 
-export type QueryGetProductCharacteristicsByIdArgs = {
-  id: Scalars['Int']['input'];
+export type QueryGetProductCharacteristicByIdArgs = {
+  productCharacteristicId: Scalars['Int']['input'];
 };
 
 

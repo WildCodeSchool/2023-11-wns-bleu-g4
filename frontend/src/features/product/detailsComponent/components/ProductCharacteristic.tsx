@@ -18,7 +18,7 @@ export default function ProductCharacteristic() {
         {selectedProduct?.characteristics?.map((characteristic, index) => (
           <ListItem key={index}>
             <Text fontSize={18} fontWeight={500}>
-              {characteristic.characteristic}
+              {characteristic.name}
             </Text>
           </ListItem>
         ))}
