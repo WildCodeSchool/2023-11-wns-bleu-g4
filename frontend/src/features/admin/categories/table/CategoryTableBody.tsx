@@ -70,8 +70,8 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
           data.map((category: Category, index: number) => (
             <React.Fragment key={category.id}>
               <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
-                <td className="whitespace-nowrap p-3 pl-8 w-1/4 min-w-max">{category.name}</td>
-                <td className="whitespace-nowrap p-3 w-1/4 min-w-max">
+                <td className="whitespace-nowrap p-3 pl-8 w-1/3 min-w-max">{category.name}</td>
+                <td className="whitespace-nowrap p-3 w-1/3 min-w-max">
                   <button
                     type="button"
                     className="inline-block bg-cactus-400 rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
@@ -89,8 +89,8 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
                   )}
                 </td>
 
-                <td className="whitespace-nowrap p-3 w-1/4 min-w-max">{category.parentCategory?.name}</td>
-                <td className="whitespace-nowrap p-3 pr-8 w-1/4 min-w-max text-left align-middle">
+                <td className="whitespace-nowrap p-3 w-1/3 min-w-max">{category.parentCategory?.name}</td>
+                <td className="whitespace-nowrap p-3 pr-8 w-1/5 min-w-max text-left align-middle">
                   <div className="inline-block">
                     <button
                       type="button"

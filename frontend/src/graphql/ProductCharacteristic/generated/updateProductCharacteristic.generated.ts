@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdateProductCharacteristicMutationVariables = Types.Exact<{
   data: Types.UpdateProductCharacteristicInput;
-  updateProductCharacteristicId: Types.Scalars['Float']['input'];
+  productCharacteristicId: Types.Scalars['Float']['input'];
 }>;
 
 
@@ -13,8 +13,11 @@ export type UpdateProductCharacteristicMutation = { __typename?: 'Mutation', upd
 
 
 export const UpdateProductCharacteristicDocument = gql`
-    mutation UpdateProductCharacteristic($data: UpdateProductCharacteristicInput!, $updateProductCharacteristicId: Float!) {
-  updateProductCharacteristic(data: $data, id: $updateProductCharacteristicId) {
+    mutation UpdateProductCharacteristic($data: UpdateProductCharacteristicInput!, $productCharacteristicId: Float!) {
+  updateProductCharacteristic(
+    data: $data
+    productCharacteristicId: $productCharacteristicId
+  ) {
     name
   }
 }
@@ -35,7 +38,7 @@ export type UpdateProductCharacteristicMutationFn = Apollo.MutationFunction<Upda
  * const [updateProductCharacteristicMutation, { data, loading, error }] = useUpdateProductCharacteristicMutation({
  *   variables: {
  *      data: // value for 'data'
- *      updateProductCharacteristicId: // value for 'updateProductCharacteristicId'
+ *      productCharacteristicId: // value for 'productCharacteristicId'
  *   },
  * });
  */

@@ -20,7 +20,7 @@ export default function ProductCharacteristic() {
       <UnorderedList spacing={3}>
         {selectedProduct.characteristics.map((characteristic, index) => (
           <ListItem key={index}>
-            <Text fontSize={18} fontWeight={500} color="black">
+            <Text fontSize={18} fontWeight={500}>
               {characteristic.name}
             </Text>
           </ListItem>

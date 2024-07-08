@@ -28,7 +28,10 @@ export class Product_picture extends BaseEntity {
 
 	/** RELATIONS *********************/
 	/** MANY TO ONE */
-	@ManyToOne(() => Product, (product) => product.pictures)
+	@ManyToOne(() => Product, (product) => product.pictures, {
+		cascade: true,
+		onDelete: "CASCADE",
+	})
 	@Field(() => Product)
 	product: Product
 }
