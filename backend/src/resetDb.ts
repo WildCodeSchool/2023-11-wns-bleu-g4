@@ -68,20 +68,20 @@ async function main() {
 
 	const agency = new Agency()
 	Object.assign(agency, {
-		name: "GearGo Capitol",
-		address: "31, rue de la Chocolatine",
-		postcode: "31330",
-		city: "Toulouse",
+		name: "GearGo Agency",
+		address: "456 Rue de GearGo",
+		postcode: "75001",
+		city: "Paris",
 		country: "France",
-		phone: "+33512345678",
-		email: "capitol@geargo.fr",
+		phone: "+33687654321",
+		email: "agency@geargo.fr",
 	})
 	await agency.save()
 
 	const brand = new Brand()
 	Object.assign(brand, {
-		name: "Trek",
-		logo: "https://example.com/logo-trek.jpg", // Ajoutez une valeur pour le logo
+		name: "GearGo Brand",
+		logo: "https://example.com/logo.jpg",
 	})
 	await brand.save()
 
