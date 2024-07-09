@@ -43,7 +43,7 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
   const { data: categoriesData } = useGetAllCategoriesQuery();
   const categories = categoriesData?.getAllCategories ?? [];
   const { data: brandsData } = useGetAllBrandsQuery();
-  const brands = brandsData?.getAllBrands ?? [];
+  const brands = brandsData?.getAllBrands.brands ?? [];
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>,
