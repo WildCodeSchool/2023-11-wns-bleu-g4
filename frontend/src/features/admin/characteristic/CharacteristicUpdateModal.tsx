@@ -47,7 +47,7 @@ export default function CharacteristicUpdateModal({ isOpen, onClose, characteris
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add a new characteristic</ModalHeader>
