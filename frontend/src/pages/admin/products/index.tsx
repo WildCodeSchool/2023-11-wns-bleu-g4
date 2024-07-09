@@ -62,7 +62,7 @@ export default function Products() {
         />
       }
       <div className="overflow-x-auto">
-        <ProductTableBody data={products} />
+        <ProductTableBody data={products} refetch={refetch} />
       </div>
       <TableFooter
         data={totalProducts}
