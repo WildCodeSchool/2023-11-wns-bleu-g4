@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import client from "@/graphql/client";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import { ParentCategory } from "@/graphql/generated/schema";
@@ -9,11 +8,10 @@ import {
   useDeleteProductCharacteristicMutation
 } from "@/graphql/ProductCharacteristic/generated/deleteProductCharacteristic.generated";
 import { Characteristic } from "./types";
-import { GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 import CharacteristicUpdateModal from "./CharacteristicUpdateModal";
 import CharacteristicDeleteModal from "./CharacteristicDeleteModal";
 
-export default function CharacteristicTableBody({ data }: TableBodyProps) {
+export default function CharacteristicTableBody({ data, refetch }: TableBodyProps) {
   const { t } = useTranslation("CharacteristicTableBody");
 
   const [deleteCharacteristic] = useDeleteProductCharacteristicMutation();
@@ -34,12 +32,7 @@ export default function CharacteristicTableBody({ data }: TableBodyProps) {
   const handleDeleteCharacteristic = async (id: number) => {
     try {
       await deleteCharacteristic({ variables: { productCharacteristicId: id } });
-      client.writeQuery<GetAllProductCharacteristicsQuery>({
-        query: GetAllProductCharacteristicsDocument,
-        data: {
-          getAllProductCharacteristics: data.filter((characteristic: Characteristic) => characteristic.id !== id),
-        },
-      });
+      refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
     } catch (e) {
       console.error(e);
@@ -77,7 +70,6 @@ export default function CharacteristicTableBody({ data }: TableBodyProps) {
                     >
                       <PencilSquareIcon className="h-5 w-5 text-white" />
                     </button>
-
                     <button
                       type="button"
                       className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle"
