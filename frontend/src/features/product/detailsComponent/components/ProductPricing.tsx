@@ -4,14 +4,20 @@ import { useTranslation } from "react-i18next";
 
 export default function ProductPricing() {
   const { t } = useTranslation("productDetails");
-  const { selectedProduct, quantity, setQuantity, totalPrice } = useProductContext();
+  const { state, setState } = useProductContext();
+  const { selectedProduct } = state;
+  const { quantity, totalPrice } = state;
 
   const { getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
     value: quantity,
     min: 0,
     max: 10,
     step: 1,
-    onChange: (valueAsString, valueAsNumber) => setQuantity(valueAsNumber),
+    onChange: (valueAsString, valueAsNumber) => setState(prevState => ({
+      ...prevState,
+      quantity: valueAsNumber,
+      totalPrice: valueAsNumber * (selectedProduct?.price || 0),
+    })),
   });
 
   const inc = getIncrementButtonProps();

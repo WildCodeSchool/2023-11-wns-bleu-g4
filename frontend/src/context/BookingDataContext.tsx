@@ -71,7 +71,31 @@ export const BookingDataContextProvider = ({ children }: BookingDataContextProvi
   }, [bookingData]);
 
   const updateBookingData = (data: BookingData) => {
-    setBookingData(prevBookingData => [...prevBookingData, data]);
+    const existingIndex = bookingData.findIndex(item =>
+      item.profileData?.email === data.profileData?.email &&
+      item.product?.id === data.product?.id &&
+      item.startDate === data.startDate &&
+      item.endDate === data.endDate
+    );
+
+    if (existingIndex !== -1) {
+      const updatedBookingData = [...bookingData];
+      updatedBookingData[existingIndex] = {
+        ...data,
+        startDate: data.startDate ? new Date(data.startDate) : null,
+        endDate: data.endDate ? new Date(data.endDate) : null,
+      };
+      setBookingData(updatedBookingData);
+    } else {
+      setBookingData(prevBookingData => [
+        ...prevBookingData,
+        {
+          ...data,
+          startDate: data.startDate ? new Date(data.startDate) : null,
+          endDate: data.endDate ? new Date(data.endDate) : null,
+        }
+      ]);
+    }
   };
 
   const removeBookingData = (index: number) => {

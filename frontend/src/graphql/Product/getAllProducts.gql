@@ -1,17 +1,19 @@
 query GetAllProducts {
   getAllProducts {
-    id
-    name
-    price
-    description
-    thumbnail
-    brand {
+    products {
       id
       name
-    }
-    category {
-      id
-      name
+      price
+      description
+      thumbnail
+      brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+      }
     }
   }
 }

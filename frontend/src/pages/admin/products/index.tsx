@@ -1,18 +1,18 @@
-import { useState } from "react";
-import TableFooter from "@/features/admin/table/TableFooter";
-import LayoutAdmin from "@/layouts/LayoutAdmin";
-import ProductTableBody from "@/features/admin/product/table/ProductTableBody";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../../../../i18nUtils";
-import { GetStaticProps } from "next";
-import { PlusIcon } from "@heroicons/react/24/solid";
-import { useDisclosure } from "@chakra-ui/react";
 import ProductCreateModal from "@/features/admin/product/modal/ProductCreateModal";
+import ProductTableBody from "@/features/admin/product/table/ProductTableBody";
+import TableFooter from "@/features/admin/table/TableFooter";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
+import LayoutAdmin from "@/layouts/LayoutAdmin";
+import { useDisclosure } from "@chakra-ui/react";
+import { PlusIcon } from "@heroicons/react/24/solid";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useState } from "react";
+import { getAllNamespaces } from "../../../../i18nUtils";
 
 export default function Products() {
   const { data, refetch } = useGetAllProductsQuery();
-  const products = data?.getAllProducts ?? [];
+  const products = data?.getAllProducts.products ?? [];
   const [currentPage, setCurrentPage] = useState(1);
   const { isOpen, onClose, onOpen } = useDisclosure();
 

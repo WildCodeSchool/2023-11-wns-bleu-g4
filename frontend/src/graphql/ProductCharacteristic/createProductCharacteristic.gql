@@ -1,0 +1,5 @@
+mutation CreateProductCharacteristic($data: NewProductCharacteristicInput!) {
+  createProductCharacteristic(data: $data) {
+    name
+  }
+}

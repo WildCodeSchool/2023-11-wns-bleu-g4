@@ -41,70 +41,64 @@ export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onCl
         <DrawerHeader>{t("Your basket")}</DrawerHeader>
         <Divider />
 
-        <DrawerBody>
+        <DrawerBody >
           {bookingData && bookingData.length > 0 ? (
             bookingData.map((data, index) => {
-              const product = productData?.getAllProducts.find(p => p.id === data.product?.id);
+              const product = productData?.getAllProducts.products.find(p => p.id === data.product?.id);
               return (
                 <Flex key={index} flexDirection="column" gap={10}>
                   <Flex justifyContent="space-around" mt={10}>
                     {product && <Image w="20%" h="20%" src={product.thumbnail} alt={product.name} />}
                     <Flex justifyContent="center" flexDirection="column" gap={2}>
-                      {product && (
-                        <Text display="flex">
+                      {product &&
+                        <Text display="flex" >
                           <Text fontWeight="bold" mr={2}>
                             {t("Product :")}
                           </Text>
                           {product.name}
-                        </Text>
-                      )}
-                      {data.quantity && (
-                        <Text display="flex">
+                        </Text>}
+                      {data.quantity &&
+                        <Text display="flex" >
                           <Text fontWeight="bold" mr={2}>
                             {t("Quantity :")}
                           </Text>
                           {data.quantity}
-                        </Text>
-                      )}
-                      {data.selectedSize && (
-                        <Text display="flex">
+                        </Text>}
+                      {data.selectedSize &&
+                        <Text display="flex" >
                           <Text fontWeight="bold" mr={2}>
                             {t("Size :")}
                           </Text>
                           {data.selectedSize}
-                        </Text>
-                      )}
-                      {data.startDate && (
-                        <Text display="flex">
+                        </Text>}
+                      {data.startDate &&
+                        <Text display="flex" >
                           <Text fontWeight="bold" mr={2}>
                             {t("Start date :")}
                           </Text>
                           {data.startDate.toLocaleDateString()}
-                        </Text>
-                      )}
-                      {data.endDate && (
-                        <Text display="flex">
+                        </Text>}
+                      {data.endDate &&
+                        <Text display="flex" >
                           <Text fontWeight="bold" mr={2}>
                             {t("End date :")}
                           </Text>
                           {data.endDate.toLocaleDateString()}
-                        </Text>
-                      )}
-                      {data.totalPrice && (
-                        <Text display="flex">
+                        </Text>}
+                      {data.totalPrice &&
+                        <Text display="flex" >
                           <Text fontWeight="bold" mr={2}>
-                            {"Total price :"}
+                            {("Total price :")}
                           </Text>
                           {parseFloat(data.totalPrice.toFixed(2))} €
-                        </Text>
-                      )}
+                        </Text>}
                     </Flex>
                   </Flex>
                   <Flex justifyContent="space-between" gap={5}>
                     <Button
                       variant="primaryButton"
                       // onClick={() => removeBookingData(index)}
-                      aria-label="Edit"
+                      aria-label='Edit'
                       leftIcon={<PencilSquareIcon width={24} />}
                       w="100%"
                     >

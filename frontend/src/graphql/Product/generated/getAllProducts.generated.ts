@@ -6,24 +6,26 @@ const defaultOptions = {} as const;
 export type GetAllProductsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetAllProductsQuery = { __typename?: 'Query', getAllProducts: Array<{ __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, brand: { __typename?: 'Brand', id: number, name: string }, category: { __typename?: 'Category', id: number, name: string } }> };
+export type GetAllProductsQuery = { __typename?: 'Query', getAllProducts: { __typename?: 'ProductList', products: Array<{ __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, brand: { __typename?: 'Brand', id: number, name: string }, category: { __typename?: 'Category', id: number, name: string } }> } };
 
 
 export const GetAllProductsDocument = gql`
     query GetAllProducts {
   getAllProducts {
-    id
-    name
-    price
-    description
-    thumbnail
-    brand {
+    products {
       id
       name
-    }
-    category {
-      id
-      name
+      price
+      description
+      thumbnail
+      brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+      }
     }
   }
 }

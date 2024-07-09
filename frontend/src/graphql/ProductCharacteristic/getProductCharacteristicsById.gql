@@ -1,0 +1,6 @@
+query GetProductCharacteristicById($productCharacteristicId: Int!) {
+  getProductCharacteristicById(productCharacteristicId: $productCharacteristicId) {
+    id
+    name
+  }
+}

@@ -6,6 +6,7 @@ import { useDeleteProductMutation } from "@/graphql/Product/generated/deleteProd
 import { useRouter } from "next/router";
 import ProductCharUpdateModal from "./modal/ProductCharUpdateModal";
 import { Product } from "./types";
+import { Characteristic } from "../characteristic/types";
 
 export default function ProductDetails({ product }: { product: Product }) {
   const router = useRouter();
@@ -82,9 +83,9 @@ export default function ProductDetails({ product }: { product: Product }) {
             )}
           </div>
           {product?.characteristics.length === 0 && <span className="col-span-2 italic">No characteristics</span>}
-          {product?.characteristics.map((characteristic: any) => (
+          {product?.characteristics.map((characteristic: Characteristic) => (
             <div key={characteristic.id} className="flex flex-col">
-              <span>- {characteristic.characteristic}</span>
+              <span>- {characteristic.name}</span>
             </div>
           ))}
         </div>

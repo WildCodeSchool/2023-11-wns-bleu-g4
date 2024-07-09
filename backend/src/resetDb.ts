@@ -193,7 +193,7 @@ async function main() {
 
 	for (const characteristic of characteristics) {
 		const productCharacteristic = new ProductCharacteristic()
-		productCharacteristic.characteristic = characteristic
+		productCharacteristic.name = characteristic
 		await productCharacteristic.save()
 		product.characteristics.push(productCharacteristic)
 	}
