@@ -45,7 +45,7 @@ export interface TableBodyProps {
 }
 
 export interface TableFooterProps {
-  data: any;
+  data: number;
   startIndex: number;
   endIndex: number;
   currentPage: number;
