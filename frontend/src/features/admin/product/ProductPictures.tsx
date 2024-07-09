@@ -36,10 +36,10 @@ export default function ProductPictures({ product }: { product: Product }) {
           <ProductPictureAddModal isOpen={productPictureModal} onClose={toggleAddPictureModal} product={product} />
         )}
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap">
         {product?.pictures.length === 0 && <span className="italic">No pictures available</span>}
         {product?.pictures.map((picture: Product_Picture) => (
-          <div key={picture.id} className="relative h-36 max-w-52 rounded aspect-auto">
+          <div key={picture.id} className="relative h-36 rounded aspect-square">
             <img
               src={picture.thumbnail}
               alt={picture.alt}
