@@ -9,4 +9,5 @@ export interface BrandModalProps {
   onClose: () => void;
   brand: Brand | undefined;
   handleDelete: (id: number) => void;
+  refetch?: () => void;
 }
