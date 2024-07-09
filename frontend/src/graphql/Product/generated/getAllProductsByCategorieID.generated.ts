@@ -5,42 +5,56 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetAllProductsByCategoryIdQueryVariables = Types.Exact<{
   categoryId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  name?: Types.InputMaybe<Types.Scalars['String']['input']>;
+  sortOrder?: Types.InputMaybe<Types.SortProduct>;
+  limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
 }>;
 
 
-export type GetAllProductsByCategoryIdQuery = { __typename?: 'Query', getAllProducts: Array<{ __typename?: 'Product', description: string, id: number, name: string, price: number, thumbnail: string, brand: { __typename?: 'Brand', id: number, logo: string, name: string }, characteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, name: string }>, pictures: Array<{ __typename?: 'Product_picture', alt: string, id: number, thumbnail: string }>, reviews?: Array<{ __typename?: 'Review', comment: string, id: number, rate: number }> | null, category: { __typename?: 'Category', id: number } }> };
+export type GetAllProductsByCategoryIdQuery = { __typename?: 'Query', getAllProducts: { __typename?: 'ProductList', total: number, products: Array<{ __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, brand: { __typename?: 'Brand', id: number, name: string, logo: string }, category: { __typename?: 'Category', id: number, name: string }, characteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, name: string }>, pictures: Array<{ __typename?: 'Product_picture', id: number, alt: string, thumbnail: string }>, reviews?: Array<{ __typename?: 'Review', id: number, rate: number, comment: string }> | null }> } };
 
 
 export const GetAllProductsByCategoryIdDocument = gql`
-    query getAllProductsByCategoryID($categoryId: Int) {
-  getAllProducts(categoryId: $categoryId) {
-    brand {
-      id
-      logo
-      name
-    }
-    description
-    id
-    name
-    price
-    thumbnail
-    characteristics {
+    query getAllProductsByCategoryID($categoryId: Int, $name: String, $sortOrder: SortProduct, $limit: Int, $offset: Int) {
+  getAllProducts(
+    categoryId: $categoryId
+    name: $name
+    sortOrder: $sortOrder
+    limit: $limit
+    offset: $offset
+  ) {
+    products {
       id
       name
-    }
-    pictures {
-      alt
-      id
+      price
+      description
       thumbnail
+      brand {
+        id
+        name
+        logo
+      }
+      category {
+        id
+        name
+      }
+      characteristics {
+        id
+        name
+      }
+      pictures {
+        id
+        alt
+        thumbnail
+      }
+      reviews {
+        id
+        rate
+        comment
+      }
     }
-    reviews {
-      comment
-      id
-      rate
-    }
-    category {
-      id
-    }
+    total
   }
 }
     `;
@@ -58,6 +72,10 @@ export const GetAllProductsByCategoryIdDocument = gql`
  * const { data, loading, error } = useGetAllProductsByCategoryIdQuery({
  *   variables: {
  *      categoryId: // value for 'categoryId'
+ *      name: // value for 'name'
+ *      sortOrder: // value for 'sortOrder'
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
  *   },
  * });
  */

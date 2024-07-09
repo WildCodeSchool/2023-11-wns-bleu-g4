@@ -1,14 +1,29 @@
-import { BookingData, useBookingData } from "@/context/BookingDataContext";
+import { useBookingData } from "@/context/BookingDataContext";
 import { useProductContext } from "@/context/ProductPageContext";
+import { Product } from "@/graphql/generated/schema";
 import { Button, Flex } from "@chakra-ui/react";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 
+interface BookingData {
+  profileData: {
+    name: string;
+    email: string;
+  };
+  selectedAgency: number | null;
+  startDate: Date | null;
+  endDate: Date | null;
+  product: Product | undefined;
+  quantity: number;
+  selectedSize: string | null;
+  totalPrice: number;
+}
+
 export default function AddToBasketButton() {
   const { t } = useTranslation("AddToBasketButton");
   const { updateBookingData } = useBookingData();
-  const { selectedProduct, selectedAgency, startDate, endDate, quantity, selectedSize, totalPrice } =
-    useProductContext();
+  const { state: { selectedProduct, selectedAgency, startDate, endDate, quantity, selectedSize, totalPrice } }
+    = useProductContext();
 
   const handleAddToBasket = () => {
     if (!selectedProduct || !selectedAgency || !startDate || !endDate || !quantity || !selectedSize) {
