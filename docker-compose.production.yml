@@ -34,10 +34,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    # image: chambrin80/gear-go-server
-    build:
-      context: backend
-      dockerfile: Dockerfile.production
+    image: chambrin80/gear-go-server
+    # build:
+    #   context: backend
+    #   dockerfile: Dockerfile.production
 
   frontend:
     stop_grace_period: 0s
