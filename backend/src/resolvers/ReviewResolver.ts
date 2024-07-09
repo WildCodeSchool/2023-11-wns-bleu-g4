@@ -1,21 +1,30 @@
-import { Resolver, Mutation, Arg, Ctx, Authorized, Query, Int } from "type-graphql"
-import { Review } from "../entities/Review"
-import { NewReviewInput, UpdateReviewInput } from "../entities/Review"
-import { Context } from "vm"
 import { GraphQLError } from "graphql"
+import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
+import { Context } from "vm"
+import { NewReviewInput, Review, UpdateReviewInput } from "../entities/Review"
 import { UserRole } from "../entities/User"
 
 @Resolver()
 export class ReviewResolver {
-
 	@Query(() => [Review])
 	async getAllReviews(
 		@Arg("userId", { nullable: true }) userId?: number,
 		@Arg("productId", { nullable: true }) productId?: number,
 	) {
+		const where: any = {};
+
+		if (userId !== undefined) {
+			where.user = { id: userId };
+		}
+
+		if (productId !== undefined) {
+			where.product = { id: productId };
+		}
+
 		return await Review.find({
-			relations: { user: true, product: true }
-		})
+			where,
+			relations: ["user", "product"],
+		});
 	}
 
 	@Query(() => Review)
@@ -79,7 +88,7 @@ export class ReviewResolver {
 
 		const { id } = await newReview.save()
 		return Review.findOne({
-			where: { id},
+			where: { id },
 			relations: { product: true, user: true },
 		})
 	}

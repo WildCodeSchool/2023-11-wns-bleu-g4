@@ -1,3 +1,4 @@
+import { Length, Max, Min } from "class-validator"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
 import {
 	BaseEntity,
@@ -6,10 +7,9 @@ import {
 	ManyToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm"
+import { ProductId, UserId } from "../types"
 import Product from "./Product"
 import User from "./User"
-import { Length, Max, Min } from "class-validator"
-import { ProductId, UserId } from "../types"
 
 @Entity()
 @ObjectType()

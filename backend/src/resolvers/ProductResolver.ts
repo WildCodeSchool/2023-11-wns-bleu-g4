@@ -3,24 +3,53 @@ import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graph
 import { ILike } from "typeorm"
 import { NewProductInput, Product, UpdateProductInput } from "../entities/Product"
 import { UserRole } from "../entities/User"
+import { SortProduct } from "../enum/SortProduct"
+import { ProductList } from "../types"
 import { Context } from "../utils"
 
 @Resolver(Product)
-class ProductResolver {
-	@Query(() => [Product])
+export class ProductResolver {
+	@Query(() => ProductList)
 	async getAllProducts(
 		@Arg("categoryId", () => Int, { nullable: true }) categoryId?: number,
-		@Arg("name", { nullable: true }) name?: string
-	) {
-		return Product.find({
-			relations: { category: true, pictures: true, brand: true, characteristics: true, reviews: true },
-			where: {
-				name: name ? ILike(`%${name}%`) : undefined,
-				category: {
-					id: categoryId,
-				},
+		@Arg("name", { nullable: true }) name?: string,
+		@Arg("sortOrder", () => SortProduct, { nullable: true }) sortProduct?: SortProduct,
+		@Arg("limit", () => Int, { nullable: true }) limit?: number,
+		@Arg("offset", () => Int, { nullable: true }) offset?: number
+	): Promise<ProductList> {
+		const whereOptions: any = {
+			category: {
+				id: categoryId,
 			},
-		})
+		};
+
+		if (name) {
+			whereOptions.name = ILike(`%${name}%`);
+		}
+
+		let orderOptions: any = {};
+
+		if (sortProduct === SortProduct.ASC || sortProduct === SortProduct.DESC) {
+			orderOptions.price = sortProduct;
+		} else {
+			orderOptions.id = "ASC";
+		}
+
+		const [products, total] = await Product.findAndCount({
+			relations: {
+				category: true,
+				pictures: true,
+				brand: true,
+				characteristics: true,
+				reviews: true,
+			},
+			where: whereOptions,
+			order: orderOptions,
+			take: limit,
+			skip: offset,
+		});
+
+		return { products, total };
 	}
 
 	@Query(() => Product)
