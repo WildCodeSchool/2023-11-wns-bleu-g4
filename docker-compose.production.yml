@@ -34,21 +34,29 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    image: chambrin80/gear-go-server
-
+    # image: chambrin80/gear-go-server
+    build:
+      context: backend
+      dockerfile: Dockerfile.production
 
   frontend:
     stop_grace_period: 0s
     environment:
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
       NEXT_PUBLIC_GRAPHQL_API_URL: ${NEXT_PUBLIC_GRAPHQL_API_URL}
-    image: chambrin80/gear-go-client
+    # image: chambrin80/gear-go-client
+    build:
+      context: frontend
+      dockerfile: Dockerfile.production
 
   upload-service:
     environment:
       - HOST=/
     stop_grace_period: 0s
     image: scrip/file-upload-service
+    # build:
+    #   context: upload
+    #   dockerfile: Dockerfile
     volumes:
       - prodUploads:/app/files
 
@@ -60,7 +68,7 @@ services:
       dockerfile: Dockerfile.production
     ports:
       - ${GATEWAY_PORT:-80}:80
-    
+
 volumes:
   prodDB:
   prodUploads:
