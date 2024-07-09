@@ -6,29 +6,16 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-import { useGetAllProduct_PicturesQuery } from "@/graphql/ProductPicture/generated/GetAllProduct_pictures.generated";
 import { Flex } from "@chakra-ui/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Swiper as SwiperClass } from "swiper/types";
 
-export default function GaleryComponent() {
+interface GaleryComponentProps {
+  images: string[];
+}
+
+export default function GaleryComponent({ images }: GaleryComponentProps) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
-  const [images, setImages] = useState<string[]>([]);
-  const { data, error, loading } = useGetAllProduct_PicturesQuery();
-
-  useEffect(() => {
-    if (data) {
-      setImages(data.getAllProduct_pictures.map(picture => picture.thumbnail));
-    }
-  }, [data]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
     <Flex w="55%" flexDirection="column" gap="10px" className="galeryComponent">

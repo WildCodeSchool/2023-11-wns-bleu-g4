@@ -4,7 +4,6 @@ import DetailsComponent from './detailsComponent/DetailsComponent';
 import GaleryComponent from './galeryComponent/GaleryComponent';
 import Rating from './rating/Rating';
 
-
 const ProductPage: React.FC = () => {
   const { state: { selectedProduct, agencies } } = useProductContext();
 
@@ -16,14 +15,18 @@ const ProductPage: React.FC = () => {
       justifyContent="space-between"
       className="p-5 lg:px-24 lg:pb-24">
       <Flex flexDirection="row" justifyContent="space-between">
-        <GaleryComponent />
+        {selectedProduct ? (
+          <GaleryComponent images={selectedProduct.pictures.map(picture => picture.thumbnail)} />
+        ) : (
+          <p>Chargement en cours...</p>
+        )}
         {selectedProduct && agencies.length > 0 ? (
           <DetailsComponent />
         ) : (
-          <p>Loading...</p>
+          <p>Chargement en cours...</p>
         )}
       </Flex>
-      <Flex >
+      <Flex>
         <Rating />
       </Flex>
     </Box>
