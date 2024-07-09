@@ -429,6 +429,12 @@ export type ProductCharacteristic = {
   product: Product;
 };
 
+export type ProductCharacteristicList = {
+  __typename?: 'ProductCharacteristicList';
+  productCharacteristics: Array<ProductCharacteristic>;
+  total: Scalars['Int']['output'];
+};
+
 export type ProductCode = {
   __typename?: 'ProductCode';
   agency?: Maybe<Agency>;
@@ -466,7 +472,7 @@ export type Query = {
   getAllBrands: Array<Brand>;
   getAllCategories: Array<Category>;
   getAllParentCategories: Array<ParentCategory>;
-  getAllProductCharacteristics: Array<ProductCharacteristic>;
+  getAllProductCharacteristics: ProductCharacteristicList;
   getAllProduct_codes: Array<ProductCode>;
   getAllProduct_pictures: Array<Product_Picture>;
   getAllProducts: ProductList;
@@ -511,6 +517,12 @@ export type QueryGetAllCategoriesArgs = {
 export type QueryGetAllParentCategoriesArgs = {
   categoryId?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryGetAllProductCharacteristicsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
