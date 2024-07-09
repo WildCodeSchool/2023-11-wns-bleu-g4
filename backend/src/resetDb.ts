@@ -135,8 +135,8 @@ async function main() {
 		Object.assign(product, {
 			name: productData.name,
 			price: productData.price,
-			description: productData.description,
-			thumbnail: productData.imageUrls[0], // Utiliser la première image comme miniature
+			description: "Produit de qualité supérieure pour répondre à tous vos besoins.",
+			thumbnail: productData.imageUrls[0],
 			category: categories[1],
 			brand,
 			characteristics: [],
@@ -163,8 +163,8 @@ async function main() {
 
 		await product.save()
 
-		 // Ajouter toutes les images du produit
-		for (const imageUrl of productData.imageUrls) {
+		// Ajouter un maximum de 5 images par produit
+		for (const imageUrl of productData.imageUrls.slice(0, 5)) {
 			const productPicture = new Product_picture()
 			Object.assign(productPicture, {
 				thumbnail: imageUrl,
@@ -178,7 +178,7 @@ async function main() {
 		Object.assign(productCode, {
 			status: Status.AVAILABLE,
 			product,
-			 agency,
+			agency,
 			isSizeable: true,
 			size: "M",
 		})
