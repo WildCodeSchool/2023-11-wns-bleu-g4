@@ -1,4 +1,4 @@
-import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql"
+import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
 import { User, NewUserInput, LoginInput, UpdateUserInput, UserRole } from "../entities/User"
 import { GraphQLError } from "graphql"
 import { verify } from "argon2"
@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken"
 import env from "../env"
 import { Context } from "../utils"
 import crypto from "crypto"
+import { UserList } from "../types"
 
 @Resolver(User)
 class UserResolver {
@@ -83,9 +84,17 @@ class UserResolver {
 	}
 
 	@Authorized([UserRole.ADMIN])
-	@Query(() => [User])
-	async getAllUsers() {
-		return User.find({ where: { role: UserRole.CUSTOMER } })
+	@Query(() => UserList)
+	async getAllUsers(
+		@Arg("limit", () => Int, { nullable: true }) limit?: number,
+		@Arg("offset", () => Int, { nullable: true }) offset?: number
+	) {
+		const [users, total] = await User.findAndCount({
+			where: { role: UserRole.CUSTOMER },
+			take: limit,
+			skip: offset,
+		})
+		return { users, total }
 	}
 }
 
