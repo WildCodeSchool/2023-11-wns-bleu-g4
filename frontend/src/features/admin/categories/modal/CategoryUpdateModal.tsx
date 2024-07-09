@@ -71,7 +71,7 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
     <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add a new category</ModalHeader>
+        <ModalHeader>Update {category?.name} category</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
               </FormLabel>
               <Input
                 type="text"
-                id=""
+                id="name"
                 name="name"
                 placeholder="Name"
                 value={formData.name}
