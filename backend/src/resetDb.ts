@@ -86,14 +86,9 @@ async function main() {
 	await brand.save()
 
 	const parentCategoriesData = [
-		{
-			id: ParentCategoryId.BIKES,
-			name: "Bikes",
-		},
-		{
-			id: ParentCategoryId.ACCESSORIES,
-			name: "Accessories",
-		},
+		{ name: "Sea" },
+		{ name: "Mountain" },
+		{ name: "Outdoor" },
 	]
 
 	const parentCategories: ParentCategory[] = []
@@ -106,14 +101,60 @@ async function main() {
 
 	const categoriesData = [
 		{
-			name: "Mountain Bikes",
-			thumbnail: "https://example.com/mountain-bikes.jpg",
-			parentCategory: parentCategories[0],
+			name: "Ski",
+			thumbnail: "https://th.bing.com/th/id/OIG4..XH1mFIzcBtwc7Q9D0QB?pid=ImgGn",
+			parentCategory: {
+				id: 2,
+			},
 		},
 		{
-			name: "Road Bikes",
-			thumbnail: "https://example.com/road-bikes.jpg",
-			parentCategory: parentCategories[0],
+			name: "Hiking",
+			thumbnail: "https://th.bing.com/th/id/OIG2.l7kj9Z2mTO5_Gz3v9Iwh?pid=ImgGn",
+			parentCategory: {
+				id: 2,
+			},
+		},
+		{
+			name: "Surf",
+			thumbnail: "https://th.bing.com/th/id/OIG4.uYJ5dzA5QRNUQpKs2M6C?pid=ImgGn",
+			parentCategory: {
+				id: 1,
+			},
+		},
+		{
+			name: "Kayak",
+			thumbnail: "https://th.bing.com/th/id/OIG1.18PiGgR1RV5M8MGIZQwL?w=1024&h=1024&rs=1&pid=ImgDetMain",
+			parentCategory: {
+				id: 3,
+			},
+		},
+		{
+			name: "Bike",
+			thumbnail: "https://th.bing.com/th/id/OIG1.sjNZrtr0ej1zIZYg8Qfj?w=1024&h=1024&rs=1&pid=ImgDetMain",
+			parentCategory: {
+				id: 3,
+			},
+		},
+		{
+			name: "Climb",
+			thumbnail: "https://th.bing.com/th/id/OIG4.u..X.ZYjB97pShHvNpd1?w=1024&h=1024&rs=1&pid=ImgDetMain",
+			parentCategory: {
+				id: 3,
+			},
+		},
+		{
+			name: "Diving",
+			thumbnail: "https://th.bing.com/th/id/OIG1._6LtzzEAl9bYoHop6oGn?w=1024&h=1024&rs=1&pid=ImgDetMain",
+			parentCategory: {
+				id: 1,
+			},
+		},
+		{
+			name: "Snow",
+			thumbnail: "https://th.bing.com/th/id/OIG2.QO30WghDKzBT0YcvaovI?pid=ImgGn",
+			parentCategory: {
+				id: 2,
+			},
 		},
 	]
 
@@ -130,18 +171,31 @@ async function main() {
 		categories.push(category)
 	}
 
-	for (const productData of allProducts.slice(0, 40)) {
+	const categoryMapping: Record<string, string> = {
+		"Hiking backpack": "Hiking",
+		"Bivouac tent": "Hiking",
+		"Board shorts": "Surf",
+		"Cross-country ski set": "Ski",
+		"Running jacket": "Hiking",
+		"Trail running jacket": "Hiking",
+		"Low-rise hiking boots": "Hiking",
+		"Mid-rise hiking boots": "Hiking",
+		"Trail running pole": "Hiking",
+	}
+
+	for (const productData of allProducts) { 
 		const product = new Product()
+		const mappedCategoryName = categoryMapping[productData.category] || productData.category
+		const category = categories.find((cat) => cat.name === mappedCategoryName) 
 		Object.assign(product, {
 			name: productData.name,
-			price: productData.price,
+			price: productData.price / 10,
 			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
 			thumbnail: productData.imageUrls[0],
-			category: await getOrCreateCategory(productData.category, parentCategories[0]), // Added parent category
+			category: category, 
 			brand: await getOrCreateBrand(productData.brand),
 			characteristics: [],
 		})
-
 		const characteristics = [
 			"Suspension hydraulique",
 			"Moteur 10W",
@@ -224,7 +278,7 @@ async function getOrCreateCategory(categoryName: string, parentCategory: ParentC
 	if (!category) {
 		category = new Category()
 		category.name = categoryName
-		category.parentCategory = parentCategory // Assign parent category
+		category.parentCategory = parentCategory 
 		await category.save()
 	}
 	return category

@@ -29,6 +29,7 @@ const ProductPage: React.FC = () => {
       <Flex>
         <Rating />
       </Flex>
+
     </Box>
   );
 };
