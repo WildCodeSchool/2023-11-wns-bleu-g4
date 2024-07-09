@@ -16,6 +16,7 @@ import qs from "query-string";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BasketDrawer } from "./BasketDrawer";
+import { useBookingData } from "@/context/BookingDataContext";
 
 export default function SubNavbar() {
   const router = useRouter();
@@ -40,9 +41,9 @@ export default function SubNavbar() {
 
   const { colorMode } = useColorMode();
   const shadowColor =
-    colorMode === "dark"
-      ? "0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1)"
-      : "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)";
+      colorMode === "dark"
+          ? "0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1)"
+          : "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)";
 
   const { data: categoriesData } = useGetAllParentCategoryQuery();
 
@@ -56,78 +57,81 @@ export default function SubNavbar() {
 
   const searchParams = qs.parse(window.location.search);
 
-  return (
-    <Flex
-      className="h-8 w-full justify-between px-5 py-8"
-      display={{ base: "none", md: "none", xl: "flex" }}
-      align={"center"}
-      style={{ boxShadow: shadowColor }}
-    >
-      <Flex gap={2}>
-        {categoriesData?.getAllParentCategories.map((category, index) => (
-          <Menu key={index} isOpen={activeIndex === index} closeOnBlur>
-            <MenuButton
-              as={Button}
-              size="sm"
-              variant="subNavButton"
-              borderRadius="md"
-              borderWidth="1px"
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-              rightIcon={
-                <div
-                  className={`transform transition-transform duration-300 ${
-                    activeIndex === index ? "rotate-custom" : ""
-                  }`}
-                  style={{
-                    transform: activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
-                  }}
-                >
-                  <ChevronDownIcon width={24} />
-                </div>
-              }
-              py={4}
-            >
-              {t(category.name)}
-            </MenuButton>
-            <MenuList zIndex={100} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
-              {category.categories.map(subCat => {
-                const [firstLetter, ...restOfSubCatName] = subCat.name.split("");
-                const subCatName = firstLetter.toUpperCase() + restOfSubCatName.join("");
-                const isActive = router.query.categoryId === subCat.id.toString();
+  const { bookingData } = useBookingData();
+  const itemCount = bookingData ? bookingData.length : 0;
 
-                return (
-                  <MenuItem
-                    onClick={() => {
-                      router.push(
-                        `/products?${qs.stringify({
-                          ...searchParams,
-                          categoryId: subCat.id,
-                        })}`,
-                      );
-                    }}
-                    key={subCat.id}
-                  >
-                    {subCatName}
-                  </MenuItem>
-                );
-              })}
-            </MenuList>
-          </Menu>
-        ))}
-      </Flex>
-      <Spacer />
-      <Button
-        size="sm"
-        onClick={onOpen}
-        borderRadius="md"
-        borderWidth="1px"
-        variant="accentButton"
-        leftIcon={<ShoppingCartIcon width={18} />}
+  return (
+      <Flex
+          className="h-8 w-full justify-between px-5 py-8"
+          display={{ base: "none", md: "none", xl: "flex" }}
+          align={"center"}
+          style={{ boxShadow: shadowColor }}
       >
-        {t("My basket")}
-      </Button>
-      <BasketDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
-    </Flex>
+        <Flex gap={2}>
+          {categoriesData?.getAllParentCategories.map((category, index) => (
+              <Menu key={index} isOpen={activeIndex === index} closeOnBlur>
+                <MenuButton
+                    as={Button}
+                    size="sm"
+                    variant="subNavButton"
+                    borderRadius="md"
+                    borderWidth="1px"
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={handleMouseLeave}
+                    rightIcon={
+                      <div
+                          className={`transform transition-transform duration-300 ${
+                              activeIndex === index ? "rotate-custom" : ""
+                          }`}
+                          style={{
+                            transform: activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
+                          }}
+                      >
+                        <ChevronDownIcon width={24} />
+                      </div>
+                    }
+                    py={4}
+                >
+                  {t(category.name)}
+                </MenuButton>
+                <MenuList zIndex={100} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
+                  {category.categories.map(subCat => {
+                    const [firstLetter, ...restOfSubCatName] = subCat.name.split("");
+                    const subCatName = firstLetter.toUpperCase() + restOfSubCatName.join("");
+                    const isActive = router.query.categoryId === subCat.id.toString();
+
+                    return (
+                        <MenuItem
+                            onClick={() => {
+                              router.push(
+                                  `/products?${qs.stringify({
+                                    ...searchParams,
+                                    categoryId: subCat.id,
+                                  })}`,
+                              );
+                            }}
+                            key={subCat.id}
+                        >
+                          {subCatName}
+                        </MenuItem>
+                    );
+                  })}
+                </MenuList>
+              </Menu>
+          ))}
+        </Flex>
+        <Spacer />
+        <Button
+            size="sm"
+            onClick={onOpen}
+            borderRadius="md"
+            borderWidth="1px"
+            variant="accentButton"
+            leftIcon={<ShoppingCartIcon width={18} />}
+        >
+          {t("My basket")} {itemCount > 0 && `(${itemCount})`}
+        </Button>
+        <BasketDrawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+      </Flex>
   );
 }

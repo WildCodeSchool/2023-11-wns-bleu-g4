@@ -1,40 +1,54 @@
-import { useProductContext } from "@/context/ProductPageContext";
+import {useProductContext} from "@/context/ProductPageContext";
 import DateRangePicker from "@/shared/components/DateRangePicker";
-import { Flex } from "@chakra-ui/react";
-import { useEffect } from "react";
+import {Flex} from "@chakra-ui/react";
+import {useEffect} from "react";
 
 export default function DateSelector() {
-  const { state, setState } = useProductContext();
-  const { selectedProduct, startDate, endDate } = state;
+    const {state, setState} = useProductContext();
+    const {selectedProduct, startDate, endDate, quantity} = state;
 
-  const handleDateChange = (newStartDate: Date | null, newEndDate: Date | null) => {
-    setState(prevState => ({
-      ...prevState,
-      startDate: newStartDate,
-      endDate: newEndDate,
-    }));
-  };
+    useEffect(() => {
+        console.log("Contexte produit mis à jour :", state);
+    }, [state]);
 
-  useEffect(() => {
-    if (startDate && endDate && selectedProduct) {
-      const durationInDays = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
-      const totalPrice = selectedProduct.price * durationInDays;
-      setState(prevState => ({
-        ...prevState,
-        totalPrice,
-      }));
-    } else {
-      setState(prevState => ({
-        ...prevState,
-        totalPrice: 0,
-      }));
-    }
+    const handleDateChange = (newStartDate: Date | null, newEndDate: Date | null) => {
+        setState(prevState => ({
+            ...prevState,
+            startDate: newStartDate,
+            endDate: newEndDate,
+        }));
+    };
 
-  }, [startDate, endDate, selectedProduct]);
+    useEffect(() => {
+        if (startDate && endDate && selectedProduct) {
+            const durationInDays = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
+            const totalPrice = selectedProduct.price * durationInDays * quantity;
+            setState(prevState => ({
+                ...prevState,
+                totalPrice,
+            }));
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                totalPrice: 0,
+            }));
+        }
 
-  return (
-    <Flex flexDirection="column" gap="30px" p="19px 0">
-      <DateRangePicker onDateChange={handleDateChange} buttonSize="lg" position="up" />
-    </Flex>
-  );
+    }, [startDate, endDate, selectedProduct, quantity]);
+
+    return (
+        <Flex flexDirection="column" gap="30px" p="19px 0">
+            <DateRangePicker
+                onDateChange={handleDateChange}
+                buttonSize="lg"
+                position="up"
+                showFooter={true}
+                footerTexts={{
+                    currentDayText: "Current day",
+                    availableDatesText: "Available dates",
+                    bookedDatesText: "Booked dates"
+                }}
+            />
+        </Flex>
+    );
 }

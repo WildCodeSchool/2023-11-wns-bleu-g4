@@ -1,0 +1,6 @@
+query GetBookingItemDatesByProductCodeId($productCodeId: Int!, $agencyId: Float) {
+  getBookingItemDatesByProductCodeId(productCodeId: $productCodeId, agencyId: $agencyId) {
+    startDate
+    endDate
+  }
+}

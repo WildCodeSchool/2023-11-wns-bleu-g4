@@ -1,4 +1,4 @@
-import { GraphQLError } from "graphql";
+import {GraphQLError} from "graphql";
 import {
     Arg,
     Authorized,
@@ -8,26 +8,26 @@ import {
     Query,
     Resolver,
 } from "type-graphql";
-import { Booking, NewBookingInput, UpdateBookingInput } from "../entities/Booking";
-import { BookingItem } from "../entities/BookingItem";
+import {Booking, NewBookingInput, UpdateBookingInput} from "../entities/Booking";
+import {BookingItem} from "../entities/BookingItem";
 import Product from "../entities/Product";
 import ProductCode from "../entities/ProductCode";
-import { BookingItemStatus } from "../enum/BookingItemStatus";
-import { StatusBooking } from "../enum/StatusBooking";
-import { Context } from "../utils";
+import {BookingItemStatus} from "../enum/BookingItemStatus";
+import {StatusBooking} from "../enum/StatusBooking";
+import {Context} from "../utils";
 
 @Resolver()
 class BookingResolver {
     @Query(() => [Booking])
     async getAllBooking(
-        @Arg("agencyId", { nullable: true }) agencyId?: number,
-        @Arg("userId", { nullable: true }) userId?: number
+        @Arg("agencyId", {nullable: true}) agencyId?: number,
+        @Arg("userId", {nullable: true}) userId?: number
     ) {
         return Booking.find({
-            relations: { user: true, agency: true },
+            relations: {user: true, agency: true},
             where: {
-                ...(agencyId && { agency: { id: agencyId } }),
-                ...(userId && { user: { id: userId } })
+                ...(agencyId && {agency: {id: agencyId}}),
+                ...(userId && {user: {id: userId}})
             }
         });
     }
@@ -37,8 +37,8 @@ class BookingResolver {
         @Arg("bookingId", () => Int) id: number
     ) {
         const booking = await Booking.findOne({
-            relations: { user: true, agency: true },
-            where: { id }
+            relations: {user: true, agency: true},
+            where: {id}
         });
 
         if (!booking) throw new GraphQLError("Booking Not found");
@@ -51,7 +51,7 @@ class BookingResolver {
         @Arg("userId", () => Int) userId: number
     ) {
         const bookings = await Booking.find({
-            relations: { user: true, agency: true },
+            relations: {user: true, agency: true},
             where: {
                 user: {
                     id: userId
@@ -62,6 +62,31 @@ class BookingResolver {
         if (!bookings) throw new GraphQLError("Booking Not found");
 
         return bookings;
+    }
+
+    @Query(() => [BookingItem])
+    async getBookingItemDatesByProductCodeId(
+        @Arg("agencyId", {nullable: true}) agencyId: number,
+        @Arg("productCodeId", () => Int) productCodeId: number,
+    ) {
+        const queryOptions: any = {
+            relations: ["productCode"],
+            where: {
+                productCode: {id: productCodeId}
+            }
+        };
+
+        if (agencyId) {
+            queryOptions.relations.push("booking");
+            queryOptions.where.booking = {agency: {id: agencyId}};
+        }
+
+        const items = await BookingItem.find(queryOptions);
+        return items.map(item => ({
+            startDate: item.startDate,
+            endDate: item.endDate,
+            productCodeId: item.productCode.id
+        }));
     }
 
     @Authorized()
@@ -75,7 +100,7 @@ class BookingResolver {
         const startDate = new Date(data.startDate);
         const endDate = new Date(data.endDate);
 
-        const product = await Product.findOne({ where: { id: data.productId } });
+        const product = await Product.findOne({where: {id: data.productId}});
         if (!product) throw new GraphQLError("Product not found");
 
         // Vérification de la disponibilité pour la quantité et la taille demandées
@@ -113,8 +138,8 @@ class BookingResolver {
         await newBooking.save();
 
         return Booking.findOne({
-            where: { id: newBooking.id },
-            relations: { user: true, agency: true, bookingItem: true },
+            where: {id: newBooking.id},
+            relations: {user: true, agency: true, bookingItem: true},
         });
     }
 
@@ -122,12 +147,12 @@ class BookingResolver {
     @Mutation(() => Booking)
     async updateBooking(
         @Arg("bookingId") id: number,
-        @Arg("data", { validate: true }) data: UpdateBookingInput,
+        @Arg("data", {validate: true}) data: UpdateBookingInput,
         @Ctx() ctx: Context
     ) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
 
-        const bookingToUpdate = await Booking.findOne({ where: { id }, relations: ["bookingItem"] });
+        const bookingToUpdate = await Booking.findOne({where: {id}, relations: ["bookingItem"]});
         if (!bookingToUpdate) throw new GraphQLError("Booking not found");
 
         Object.assign(bookingToUpdate, data);
@@ -142,8 +167,8 @@ class BookingResolver {
 
         await bookingToUpdate.save();
         return Booking.findOne({
-            where: { id },
-            relations: { user: true, agency: true },
+            where: {id},
+            relations: {user: true, agency: true},
         });
     }
 
@@ -156,7 +181,7 @@ class BookingResolver {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
 
         const bookingToCancel = await Booking.findOne({
-            where: { id },
+            where: {id},
             relations: ["bookingItem"]
         });
 

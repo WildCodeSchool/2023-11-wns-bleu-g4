@@ -473,6 +473,7 @@ export type Query = {
   getAllReviews: Array<Review>;
   getAllUsers: Array<User>;
   getBookingById: Booking;
+  getBookingItemDatesByProductCodeId: Array<BookingItem>;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
   getBookingsByUser: Array<Booking>;
@@ -531,6 +532,12 @@ export type QueryGetAllReviewsArgs = {
 
 export type QueryGetBookingByIdArgs = {
   bookingId: Scalars['Int']['input'];
+};
+
+
+export type QueryGetBookingItemDatesByProductCodeIdArgs = {
+  agencyId?: InputMaybe<Scalars['Float']['input']>;
+  productCodeId: Scalars['Int']['input'];
 };
 
 
