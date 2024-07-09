@@ -130,15 +130,15 @@ async function main() {
 		categories.push(category)
 	}
 
-	for (const productData of allProducts.slice(0, 20)) {
+	for (const productData of allProducts.slice(0, 40)) {
 		const product = new Product()
 		Object.assign(product, {
 			name: productData.name,
 			price: productData.price,
-			description: "Produit de qualité supérieure pour répondre à tous vos besoins.",
+			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
 			thumbnail: productData.imageUrls[0],
-			category: categories[1],
-			brand,
+			category: await getOrCreateCategory(productData.category),
+			brand: await getOrCreateBrand(productData.brand),
 			characteristics: [],
 		})
 
@@ -163,7 +163,6 @@ async function main() {
 
 		await product.save()
 
-		// Ajouter un maximum de 5 images par produit
 		for (const imageUrl of productData.imageUrls.slice(0, 5)) {
 			const productPicture = new Product_picture()
 			Object.assign(productPicture, {
@@ -218,6 +217,27 @@ async function main() {
 
 	await db.destroy()
 	console.log("Done!")
+}
+
+async function getOrCreateCategory(categoryName: string): Promise<Category> {
+	let category = await Category.findOne({ where: { name: categoryName } })
+	if (!category) {
+		category = new Category()
+		category.name = categoryName
+		await category.save()
+	}
+	return category
+}
+
+async function getOrCreateBrand(brandName: string): Promise<Brand> {
+    let brand = await Brand.findOne({ where: { name: brandName } })
+    if (!brand) {
+        brand = new Brand()
+        brand.name = brandName
+        brand.logo = "https://example.com/default-logo.jpg"
+        await brand.save()
+    }
+    return brand
 }
 
 main()

@@ -6,7 +6,9 @@
     "description": "",
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--H7u2_PVn--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-98142/views/9-98142_adv-charge-warm-jacket-m-black_co1911444-999000_01"
-    ]
+    ],
+    "brand": "CRAFT",
+    "category": "Running jacket"
   },
   {
     "name": "RAIDSHELL MP+ JACKET BLACK",
@@ -16,7 +18,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--3ZyDAQ2_--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-98116/views/9-98116_raidshell-mp-jacket-black_glkmj01-21r_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--K-Mz0hhq--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-98116/views/9-98116_raidshell-mp-jacket-black_glkmj01-21r_02"
-    ]
+    ],
+    "brand": "RAIDLIGHT",
+    "category": "Trail running jacket"
   },
   {
     "name": "ZEROWEIGHT WARM VEST BLACK",
@@ -26,7 +30,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--7GkoS359--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-95342/views/9-95342_zeroweight-warm-vest-black_313652-15000_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--j4VTCJed--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-95342/views/9-95342_zeroweight-warm-vest-black_313652-15000_02"
-    ]
+    ],
+    "brand": "ODLO",
+    "category": "Running jacket"
   },
   {
     "name": "ZEROWEIGHT WARM VEST W BLACK",
@@ -36,7 +42,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--lHxDFXoN--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-95341/views/9-95341_zeroweight-warm-vest-w-black_313651-15000_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--fATqygo0--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-95341/views/9-95341_zeroweight-warm-vest-w-black_313651-15000_02"
-    ]
+    ],
+    "brand": "ODLO",
+    "category": "Running jacket"
   },
   {
     "name": "VERT WIND M VST 49 BLACK OUT",
@@ -45,7 +53,9 @@
     "description": "",
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--j07PoKBM--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-83920/views/9-83920_vert-wind-m-vst-49-black-out_08-0000071004-0911_01"
-    ]
+    ],
+    "brand": "DYNAFIT",
+    "category": "Trail running jacket"
   },
   {
     "name": "ULTRALIGHT WP W LIGHT BLUE LIGHT BLUE",
@@ -58,7 +68,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--r2RzJALU--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-155753/views/9-155753__glkwj28-l71_03",
       "https://res.cloudinary.com/ekoweb/image/upload/s--2Vnjzk3c--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-155753/views/9-155753__glkwj28-l71_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--EL6DpqvC--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-155753/views/9-155753__glkwj28-l71_05"
-    ]
+    ],
+    "brand": "RAIDLIGHT",
+    "category": "Running jacket"
   },
   {
     "name": "WEATHER JACKET M WHITE/BLACK",
@@ -74,7 +86,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--kkmiI3ta--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-155371/views/9-155371__1me10310462_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--vCTFMZrU--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-155371/views/9-155371__1me10310462_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--XiHCh4c8--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-155371/views/9-155371__1me10310462_08"
-    ]
+    ],
+    "brand": "ON RUNNING",
+    "category": "Running jacket"
   },
   {
     "name": "EXPLORE MP+ JKT W FUSCHIA",
@@ -86,7 +100,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--F4OutwsF--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154632/views/9-154632__glmwj16-m38_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--yf2GpzTL--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154632/views/9-154632__glmwj16-m38_03",
       "https://res.cloudinary.com/ekoweb/image/upload/s--acJba0Pi--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154632/views/9-154632__glmwj16-m38_04"
-    ]
+    ],
+    "brand": "RAIDLIGHT",
+    "category": "Trail running jacket"
   },
   {
     "name": "ULTRA JACKET M RUBY",
@@ -101,7 +117,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--i0563kyA--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154504/views/9-154504__1me11551939_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--PwL1mjCz--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154504/views/9-154504__1me11551939_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--WcExIug6--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154504/views/9-154504__1me11551939_07"
-    ]
+    ],
+    "brand": "ON RUNNING",
+    "category": "Trail running jacket"
   },
   {
     "name": "CLIMATE ZIP HOODIE M AUBURN",
@@ -117,7 +135,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--puF68LCy--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154501/views/9-154501__1me10250565_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--keIoVX1P--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154501/views/9-154501__1me10250565_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--HotwMlqp--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154501/views/9-154501__1me10250565_08"
-    ]
+    ],
+    "brand": "ON RUNNING",
+    "category": "Running jacket"
   },
   {
     "name": "CLIMATE ZIP HOODIE WOMEN COBBLE",
@@ -126,7 +146,9 @@
     "description": "",
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--3hz07UxY--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154496/views/9-154496__1we10331922_01"
-    ]
+    ],
+    "brand": "ON RUNNING",
+    "category": "Running jacket"
   },
   {
     "name": "NORA 2.0 JACKET DUSTY MIDTONE BLUE",
@@ -138,7 +160,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--MyCEX67A--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154338/views/9-154338__623202-moon_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--4uT2gfNZ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154338/views/9-154338__623202-moon_03",
       "https://res.cloudinary.com/ekoweb/image/upload/s--dcarJUsn--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154338/views/9-154338__623202-moon_04"
-    ]
+    ],
+    "brand": "KARI TRAA",
+    "category": "Running jacket"
   },
   {
     "name": "VILDE RUNNING JACKET DARK NAVY BLUE",
@@ -150,7 +174,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--VM8NRazz--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154334/views/9-154334__623197-roya_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--fCvr6gxk--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154334/views/9-154334__623197-roya_03",
       "https://res.cloudinary.com/ekoweb/image/upload/s--5aRUGIcY--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154334/views/9-154334__623197-roya_04"
-    ]
+    ],
+    "brand": "KARI TRAA",
+    "category": "Running jacket"
   },
   {
     "name": "JACKET RUN 2.0 W ELEMENTAL BLUE",
@@ -160,7 +186,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--h8U1QBMt--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154319/views/9-154319__333851-23950_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--BiWDYJ2F--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154319/views/9-154319__333851-23950_02"
-    ]
+    ],
+    "brand": "DAEHLIE",
+    "category": "Running jacket"
   },
   {
     "name": "JACKET RUN 2.0 DARK FOREST",
@@ -172,7 +200,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--TsIwfjOe--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154318/views/9-154318__333850-53750_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--acKB_ROa--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154318/views/9-154318__333850-53750_03",
       "https://res.cloudinary.com/ekoweb/image/upload/s--d7EQe1vR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154318/views/9-154318__333850-53750_04"
-    ]
+    ],
+    "brand": "DAEHLIE",
+    "category": "Running jacket"
   },
   {
     "name": "L.I.M TEMPO TRAIL PROOF JACKET W FRESH PINK",
@@ -190,7 +220,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--EUsR0ULw--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154222/views/9-154222__607191-5q0_08",
       "https://res.cloudinary.com/ekoweb/image/upload/s--ltR5XFV7--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154222/views/9-154222__607191-5q0_09",
       "https://res.cloudinary.com/ekoweb/image/upload/s--XjWNEEPx--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154222/views/9-154222__607191-5q0_10"
-    ]
+    ],
+    "brand": "HAGLÖFS",
+    "category": "Trail running jacket"
   },
   {
     "name": "L.I.M TEMPO TRAIL PROOF JACKET M MAGNETITE",
@@ -208,7 +240,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--89HTN2Dw--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154221/views/9-154221__607250-2at_08",
       "https://res.cloudinary.com/ekoweb/image/upload/s--RyLKMP_b--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154221/views/9-154221__607250-2at_09",
       "https://res.cloudinary.com/ekoweb/image/upload/s--f9sHpUGo--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-154221/views/9-154221__607250-2at_10"
-    ]
+    ],
+    "brand": "HAGLÖFS",
+    "category": "Trail running jacket"
   },
   {
     "name": "JACKET W'S EXPLORAIR LIGHT WINDBREAKER SOFT SOFT YELLOW/MELON ORANGE",
@@ -218,7 +252,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--6zVwG2Cz--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153774/views/9-153774__419412-symo_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--5gmxfX6e--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153774/views/9-153774__419412-symo_02"
-    ]
+    ],
+    "brand": "SCOTT",
+    "category": "Trail running jacket"
   },
   {
     "name": "WATERPROOF 20K ER JACKET W LILAC CHIFFON",
@@ -228,7 +264,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--0wITnlG8--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153752/views/9-153752__j2ge2700-66_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--JvCE4eSU--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153752/views/9-153752__j2ge2700-66_02"
-    ]
+    ],
+    "brand": "MIZUNO",
+    "category": "Running jacket"
   },
   {
     "name": "JACKET M'S RC RUN WB WHITE/BLACK",
@@ -238,7 +276,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--ZF8CXD8S--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153706/views/9-153706__280247-whbk_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--ZEju3Jzv--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153706/views/9-153706__280247-whbk_02"
-    ]
+    ],
+    "brand": "SCOTT",
+    "category": "Running jacket"
   },
   {
     "name": "WATERPROOF 20K ER JACKET NASTURTIUM",
@@ -248,7 +288,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--5MHHYOVq--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153705/views/9-153705__j2ge2540-54_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--RweUXpa---/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153705/views/9-153705__j2ge2540-54_02"
-    ]
+    ],
+    "brand": "MIZUNO",
+    "category": "Running jacket"
   },
   {
     "name": "PURE PURSUIT MESH HOODIE W PEACH FUZZ",
@@ -260,7 +302,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--VvVyAz14--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153460/views/9-153460__erjkt04133-net0_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--9Brga5jB--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153460/views/9-153460__erjkt04133-net0_03",
       "https://res.cloudinary.com/ekoweb/image/upload/s--IC2Jtyqn--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-153460/views/9-153460__erjkt04133-net0_04"
-    ]
+    ],
+    "brand": "ROXY",
+    "category": "Trail running jacket"
   },
   {
     "name": "PRO TRAIL 2L LIGHT WEIGHT FLEX",
@@ -277,7 +321,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--DPzrQzlg--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-152949/views/9-152949__co1913151-932000_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--eJxpwie0--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-152949/views/9-152949__co1913151-932000_08",
       "https://res.cloudinary.com/ekoweb/image/upload/s--gzbYoBf3--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-152949/views/9-152949__co1913151-932000_09"
-    ]
+    ],
+    "brand": "CRAFT",
+    "category": "Running jacket"
   },
   {
     "name": "PRO TRAIL 2L LIGHT WEIGHT W PEACH-DESERT",
@@ -291,7 +337,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--pGeiIzPK--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-152944/views/9-152944__co1913140-582574_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--jiZEYQGs--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-152944/views/9-152944__co1913140-582574_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--GkIkBu6z--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-152944/views/9-152944__co1913140-582574_06"
-    ]
+    ],
+    "brand": "CRAFT",
+    "category": "Running jacket"
   },
   {
     "name": "ULTRA RAPTOR II MID LEATHER GORE-TEX BLACK CEDAR",
@@ -304,7 +352,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--Wa_mACKd--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-99762/views/9-99762__34j999811_03",
       "https://res.cloudinary.com/ekoweb/image/upload/s--IP2SjmX_--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-99762/views/9-99762__34j999811_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--NIlP2pAn--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-99762/views/9-99762__34j999811_05"
-    ]
+    ],
+    "brand": "LA SPORTIVA",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "X ULTRA 4 GORE-TEX MGNT/BLACK PANTONE",
@@ -318,7 +368,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--HvgyXtav--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101422/views/9-101422_4-gtx-mgnt-black-pantone_l41385100_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--20xSrWh---/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101422/views/9-101422_4-gtx-mgnt-black-pantone_l41385100_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--fUihr_gt--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101422/views/9-101422_4-gtx-mgnt-black-pantone_l41385100_06"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Low-rise hiking boot"
   },
   {
     "name": "X ULTRA 4 GORE-TEX W ALLO/QUSH/BURNT SI",
@@ -333,7 +385,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--szFQoGm---/f_auto,h_600,q_auto:eco,w_600/v1/products/9-100682/views/9-100682__l41623100_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--Wnp8RCl5--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-100682/views/9-100682__l41623100_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--iCvpYDqU--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-100682/views/9-100682__l41623100_07"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Low-rise hiking boot"
   },
   {
     "name": "X ULTRA 4 MID GORE-TEX BLACK PANTONE",
@@ -348,7 +402,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--A6rkkeJg--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101418/views/9-101418_x-ultra-4-mid-gtx-black-pantone_l41383400_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--PT-SCyy9--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101418/views/9-101418_x-ultra-4-mid-gtx-black-pantone_l41383400_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--epJYh4MF--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101418/views/9-101418_x-ultra-4-mid-gtx-black-pantone_l41383400_07"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "X WARD LEATHER MID GORE-TEX",
@@ -362,7 +418,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--ZSqkHopR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-126195/views/9-126195__l47181700_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--CSLbJw6T--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-126195/views/9-126195__l47181700_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--0YCO1cm4--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-126195/views/9-126195__l47181700_06"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "X ULTRA 4 GORE-TEX W",
@@ -378,7 +436,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--VV2fqRy1--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-147824/views/9-147824__l47454000_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--diIGNEk_--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-147824/views/9-147824__l47454000_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--RkWvnhdJ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-147824/views/9-147824__l47454000_08"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Low-rise hiking boot"
   },
   {
     "name": "MS ALP MATE MID WP BLACK OUT/FLUO ORANGE",
@@ -388,7 +448,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--POUulU9V--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-84377/views/9-84377__00-0000061384-0996_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--i-AoNvxJ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-84377/views/9-84377_ms-alp-mate-mid-wp-black-out-fluo-orange_00-0000061384-0996_02"
-    ]
+    ],
+    "brand": "SALEWA",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "RENEGADE GORE-TEX MID ESPRESSO",
@@ -398,7 +460,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--ALjrSbzo--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-58450/views/9-58450_renegade-gtx-mid-espresso_310945-0442_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--9XGQaZ1r--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-58450/views/9-58450_renegade-gtx-mid-espresso_310945-0442_02"
-    ]
+    ],
+    "brand": "LOWA",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "QUEST 4 GORE-TEX W",
@@ -414,7 +478,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--6_AQamjo--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-147823/views/9-147823_quest-4-gore-tex-w-shopping-bag-black-cork_l47453300_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--s2hoHzRw--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-147823/views/9-147823_quest-4-gore-tex-w-shopping-bag-black-cork_l47453300_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--F-8EP0a4--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-147823/views/9-147823_quest-4-gore-tex-w-shopping-bag-black-cork_l47453300_08"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "High-rise hiking boot"
   },
   {
     "name": "MOAB 3 MID GORE-TEX BELUGA",
@@ -430,7 +496,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--NuztOQ7---/f_auto,h_600,q_auto:eco,w_600/v1/products/9-102533/views/9-102533_moab-3-mid-gtx-beluga_j035785_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--alP3h4T7--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-102533/views/9-102533_moab-3-mid-gtx-beluga_j035785_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--I_V830J3--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-102533/views/9-102533_moab-3-mid-gtx-beluga_j035785_08"
-    ]
+    ],
+    "brand": "MERRELL",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "X ULTRA 4 MID GORE-TEX W MAGNET BLACK ZEN BLUE",
@@ -445,7 +513,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--AAKfuSz4--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101481/views/9-101481_x-ultra-4-mid-gtx-w-mgnt-black-ze_l41625000_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--r3RN4RB1--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101481/views/9-101481_x-ultra-4-mid-gtx-w-mgnt-black-ze_l41625000_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--swONG1VL--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-101481/views/9-101481_x-ultra-4-mid-gtx-w-mgnt-black-ze_l41625000_07"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "W ALVERSTONE 2 GORE-TEX ALUMINIUM",
@@ -459,7 +529,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--UUhcmYAC--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-125081/views/9-125081__j037034_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--aCE2F4Ww--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-125081/views/9-125081__j037034_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--LT2iSI50--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-125081/views/9-125081__j037034_06"
-    ]
+    ],
+    "brand": "MERRELL",
+    "category": "Low-rise hiking boot"
   },
   {
     "name": "X WARD LEATHER MID GORE-TEX W",
@@ -473,7 +545,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--u5dlltWd--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-126203/views/9-126203__l47182000_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--d0oqas3O--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-126203/views/9-126203__l47182000_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--Plvtc8gY--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-126203/views/9-126203__l47182000_06"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "ANACAPA 2 MID GORE-TEX BLACK / BLACK",
@@ -487,7 +561,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--UVbP7uYZ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-139163/views/9-139163_anacapa-2-mid-gore-tex-black-black_1141633-bblc_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--GBY-Zy3F--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-139163/views/9-139163_anacapa-2-mid-gore-tex-black-black_1141633-bblc_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--lDZ1t7KF--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-139163/views/9-139163_anacapa-2-mid-gore-tex-black-black_1141633-bblc_06"
-    ]
+    ],
+    "brand": "HOKA ONE ONE",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "MS MTN TRAINER 2 GORE-TEX BLACK/CARROT",
@@ -501,7 +577,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--9IGcv5J_--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-84371/views/9-84371__00-0000061356-0933_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--95M5BqlP--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-84371/views/9-84371__00-0000061356-0933_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--hNqzySWs--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-84371/views/9-84371__00-0000061356-0933_06"
-    ]
+    ],
+    "brand": "SALEWA",
+    "category": "Low-rise hiking boot"
   },
   {
     "name": "RENEGADE EVO GORE-TEX MID ESPRESSO/SEAWEED",
@@ -515,7 +593,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--tfGAqKTT--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-146722/views/9-146722__l3109164324_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--tAGg_d80--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-146722/views/9-146722__l3109164324_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--W5zKfNtp--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-146722/views/9-146722__l3109164324_06"
-    ]
+    ],
+    "brand": "LOWA",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "RENEGADE EVO GORE-TEX MID WS STEELBLUE/OLD ROSE",
@@ -529,7 +609,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--QeKwXmNs--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-146736/views/9-146736__l3209169327_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--BnE0xtmj--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-146736/views/9-146736__l3209169327_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--VKTrUSuR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-146736/views/9-146736__l3209169327_06"
-    ]
+    ],
+    "brand": "LOWA",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "X ULTRA 360 MID GORE-TEX W",
@@ -539,7 +621,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--RzEpev-t--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-147774/views/9-147774__l47448700_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--HMO31yP1--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-147774/views/9-147774__l47448700_02"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Mid-rise hiking boot"
   },
   {
     "name": "MOAB 3 ALTITUDE",
@@ -555,7 +639,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--OoVMx1jB--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-102540/views/9-102540_moab-3-altitude_j036344_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--yludrL9Z--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-102540/views/9-102540_moab-3-altitude_j036344_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--kjE3-JYB--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-102540/views/9-102540_moab-3-altitude_j036344_08"
-    ]
+    ],
+    "brand": "MERRELL",
+    "category": "Low-rise hiking boot"
   },
   {
     "name": "XA PRO V8 CWSP JR BLACK/BLACK/EBONY",
@@ -569,7 +655,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--CV5HCnjH--/f_auto,h_600,q_auto:eco,w_600/products/9-90560/views/9-90560_xa-pro-v8-cwsp-jr-black-black-ebony_l41433900_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--gXIM2Qha--/f_auto,h_600,q_auto:eco,w_600/products/9-90560/views/9-90560_xa-pro-v8-cwsp-jr-black-black-ebony_l41433900_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--vmeO1wOp--/f_auto,h_600,q_auto:eco,w_600/products/9-90560/views/9-90560_xa-pro-v8-cwsp-jr-black-black-ebony_l41433900_06"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Trail running shoes"
   },
   {
     "name": "XA PRO V8 CSWP J EARTH RED/BLACK/ALMOND CREAM",
@@ -583,7 +671,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--zxsBljx1--/f_auto,h_600,q_auto:eco,w_600/products/9-100409/views/9-100409_xa-pro-v8-cswp-j-earth-red-black-almond-cream_l41614400_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--gOoh05AW--/f_auto,h_600,q_auto:eco,w_600/products/9-100409/views/9-100409_xa-pro-v8-cswp-j-earth-red-black-almond-cream_l41614400_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--sMDY-l2T--/f_auto,h_600,q_auto:eco,w_600/products/9-100409/views/9-100409_xa-pro-v8-cswp-j-earth-red-black-almond-cream_l41614400_06"
-    ]
+    ],
+    "brand": "SALOMON",
+    "category": "Trail running shoes"
   },
   {
     "name": "ALPHA NUBUCK W'S GORE-TEX CARIBOU",
@@ -593,7 +683,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--MEyum83b--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97737/views/9-97737_alpha-nubuck-w-s-gtx-caribou_018020525_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--or7YVtFr--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97737/views/9-97737_alpha-nubuck-w-s-gtx-caribou_018020525_02"
-    ]
+    ],
+    "brand": "KAYLAND",
+    "category": "Low-rise hiking boot"
   },
   {
     "name": "MOAB SPEED THERMO MID WP BLACK",
@@ -609,7 +701,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--Mp-FxyZt--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-94096/views/9-94096_moab-speed-thermo-mid-wp-black_j066911_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SmHu12mV--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-94096/views/9-94096_moab-speed-thermo-mid-wp-black_j066911_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--JmjCMCBy--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-94096/views/9-94096_moab-speed-thermo-mid-wp-black_j066911_08"
-    ]
+    ],
+    "brand": "MERRELL",
+    "category": "Winter boot"
   },
   {
     "name": "SUPERALP GORE-TEX ANTHRACITE",
@@ -622,7 +716,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--vLKPaGvv--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-94070/views/9-94070_superalp-gtx-anthracite_cod593-170_03",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SggTLjID--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-94070/views/9-94070_superalp-gtx-anthracite_cod593-170_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--wULbF2X2--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-94070/views/9-94070_superalp-gtx-anthracite_cod593-170_05"
-    ]
+    ],
+    "brand": "AKU",
+    "category": "High-rise hiking boot"
   },
   {
     "name": "VARSITY HELMET SEAFOAM",
@@ -632,7 +728,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--QomenuxZ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-146830/views/9-146830__30h4100.1.4_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--P64SH8Vw--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-146830/views/9-146830__30h4100.1.4_02"
-    ]
+    ],
+    "brand": "K2",
+    "category": "Helmet inline skating"
   },
   {
     "name": "VARSITY HELMET WHITE",
@@ -642,7 +740,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--gmSFPYBk--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-138555/views/9-138555_varsity-helmet-white_30h4100.1.2_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--qhWboTXr--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-138555/views/9-138555_varsity-helmet-white_30h4100.1.2_02"
-    ]
+    ],
+    "brand": "K2",
+    "category": "Helmet inline skating"
   },
   {
     "name": "VARSITY HELMET BLACK",
@@ -652,7 +752,9 @@
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--8d35uBSi--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-138554/views/9-138554_varsity-helmet-black_30h4100.1.1_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--BjI5NpF2--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-138554/views/9-138554_varsity-helmet-black_30h4100.1.1_02"
-    ]
+    ],
+    "brand": "K2",
+    "category": "Helmet inline skating"
   },
   {
     "name": "DOWNTOWN HELMET WHITE/BLACK",
@@ -668,7 +770,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--9v4JAhdt--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112293/views/9-112293__067h0300-849_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--HRyYMi_p--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112293/views/9-112293__067h0300-849_07",
       "https://res.cloudinary.com/ekoweb/image/upload/s--qJTyzO_O--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112293/views/9-112293__067h0300-849_08"
-    ]
+    ],
+    "brand": "ROLLERBLADE",
+    "category": "Helmet inline skating"
   },
   {
     "name": "RB JR HELMET MIDNIGHT BLUE/ORANGE",
@@ -682,7 +786,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--umYaN8ww--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112292/views/9-112292__060h0100-847_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--eTCXXTBX--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112292/views/9-112292__060h0100-847_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--Z7d_W_N7--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112292/views/9-112292__060h0100-847_06"
-    ]
+    ],
+    "brand": "ROLLERBLADE",
+    "category": "Helmet inline skating"
   },
   {
     "name": "RB JR HELMET PINK",
@@ -696,21 +802,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--pYZ_CmRs--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112290/views/9-112290__060h0100-110_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--zhjqyLj8--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112290/views/9-112290__060h0100-110_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--PipPbN2f--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112290/views/9-112290__060h0100-110_06"
-    ]
-  },
-  {
-    "name": "BACKPACK LT 20 ECO BLACK",
-    "url": "https://www.ekosport.co.uk/rollerblade-backpack-lt-20-eco-p-9-112274",
-    "price": 39,
-    "description": "",
-    "imageUrls": [
-      "https://res.cloudinary.com/ekoweb/image/upload/s--0Suy9Jit--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112274/views/9-112274__06r20000-100_01",
-      "https://res.cloudinary.com/ekoweb/image/upload/s--HdYmEk41--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112274/views/9-112274__06r20000-100_02",
-      "https://res.cloudinary.com/ekoweb/image/upload/s--pGTO4VSe--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112274/views/9-112274__06r20000-100_03",
-      "https://res.cloudinary.com/ekoweb/image/upload/s--8l_zbiHl--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112274/views/9-112274__06r20000-100_04",
-      "https://res.cloudinary.com/ekoweb/image/upload/s--5Uqrc8XB--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112274/views/9-112274__06r20000-100_05",
-      "https://res.cloudinary.com/ekoweb/image/upload/s--vhZ2rdjz--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112274/views/9-112274__06r20000-100_06"
-    ]
+    ],
+    "brand": "ROLLERBLADE",
+    "category": "Helmet inline skating"
   },
   {
     "name": "DOWNTOWN HELMET BLACK/YELLOW",
@@ -719,7 +813,9 @@
     "description": "",
     "imageUrls": [
       "https://res.cloudinary.com/ekoweb/image/upload/s--YVke2W58--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-112268/views/9-112268__067h0300-800_01"
-    ]
+    ],
+    "brand": "ROLLERBLADE",
+    "category": "Helmet inline skating"
   },
   {
     "name": "BACKLAND 85 + Fix",
@@ -735,7 +831,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--wfJu62uP--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129087/views/9-129087_n-backland-85_aa0029848_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--KbNSWjuI--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129087/views/9-129087_n-backland-85_aa0029848_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--HO9bETSy--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129087/views/9-129087_n-backland-85_aa0029848_06"
-    ]
+    ],
+    "brand": "ATOMIC",
+    "category": "Ski touring set"
   },
   {
     "name": "WAYBACK 88 + Fix",
@@ -751,7 +849,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--8HvBVuoQ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-120251/views/9-120251_wayback-88_10g0202.101.1_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--GRkMeEke--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-120251/views/9-120251_wayback-88_10g0202.101.1_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--S1nXoc1p--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-120251/views/9-120251_wayback-88_10g0202.101.1_06"
-    ]
+    ],
+    "brand": "K2",
+    "category": "Ski touring set"
   },
   {
     "name": "ZERO G 095 + Fix",
@@ -764,7 +864,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--BFVoLkzZ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-103960/views/9-103960_zero-g-095-flat-orange_8a228000-001_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--oFtBCR8U--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-103960/views/9-103960_zero-g-095-flat-orange_8a228000-001_03"
-    ]
+    ],
+    "brand": "BLIZZARD",
+    "category": "Ski touring set"
   },
   {
     "name": "MAESTRO.2 + Fix",
@@ -775,7 +877,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--pg9TovXA--/h_600,q_auto:eco,w_600/f_auto,fl_relative,g_east,h_1.0,l_products:9-92671:pack:9-92671_speed-turn-blue_08-0000048950-3502_pack,y_0/v1/products/9-99462/pack/9-99462_maestro.2_st13178_pack",
       "https://res.cloudinary.com/ekoweb/image/upload/s--hDrUICVU--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-99462/views/9-99462_maestro.2_st13178_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01"
-    ]
+    ],
+    "brand": "SKI TRAB",
+    "category": "Ski touring set"
   },
   {
     "name": "BACKLAND 85 W + Fix",
@@ -791,7 +895,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--b9zALAOZ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129094/views/9-129094_n-backland-85-w_aa0030020_04",
       "https://res.cloudinary.com/ekoweb/image/upload/s--5TPTkwjE--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129094/views/9-129094_n-backland-85-w_aa0030020_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--d1ipl8Tm--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129094/views/9-129094_n-backland-85-w_aa0030020_06"
-    ]
+    ],
+    "brand": "ATOMIC",
+    "category": "Ski touring set"
   },
   {
     "name": "RISE ABOVE 88 + Fix",
@@ -802,7 +908,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--FsWoqB75--/h_600,q_auto:eco,w_600/f_auto,fl_relative,g_east,h_1.0,l_products:9-92671:pack:9-92671_speed-turn-blue_08-0000048950-3502_pack,y_0/v1/products/9-106815/pack/9-106815__122374_pack",
       "https://res.cloudinary.com/ekoweb/image/upload/s--L0iklamg--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-106815/views/9-106815__122374_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01"
-    ]
+    ],
+    "brand": "VOLKL",
+    "category": "Ski touring set"
   },
   {
     "name": "WAYBACK 88 W + Fix",
@@ -819,7 +927,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--k3Htnecb--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-120257/views/9-120257_wayback-88-w_10g0601.101.1_05",
       "https://res.cloudinary.com/ekoweb/image/upload/s--W8B2OElJ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-120257/views/9-120257_wayback-88-w_10g0601.101.1_06",
       "https://res.cloudinary.com/ekoweb/image/upload/s--9vSbb8wm--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-120257/views/9-120257_wayback-88-w_10g0601.101.1_07"
-    ]
+    ],
+    "brand": "K2",
+    "category": "Ski touring set"
   },
   {
     "name": "ULTRA 87 + Fix",
@@ -831,7 +941,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--0q2eVJ4y--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97919/views/9-97919_ultra-87_shul87-21_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--AX6gOr5k--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97919/views/9-97919_ultra-87_shul87-21_02"
-    ]
+    ],
+    "brand": "HAGAN",
+    "category": "Ski touring set"
   },
   {
     "name": "APPLE 80 + Fix",
@@ -843,7 +955,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--vPcOXSXQ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-81416/views/9-81416_apple-80_mov-a-20040_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--r0JNefk2--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-81416/views/9-81416_apple-80_mov-a-20040_02"
-    ]
+    ],
+    "brand": "MOVEMENT",
+    "category": "Ski touring set"
   },
   {
     "name": "RISE ABOVE 88 W + Fix",
@@ -854,7 +968,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--go7fV75c--/h_600,q_auto:eco,w_600/f_auto,fl_relative,g_east,h_1.0,l_products:9-92671:pack:9-92671_speed-turn-blue_08-0000048950-3502_pack,y_0/v1/products/9-106817/pack/9-106817__122376_pack",
       "https://res.cloudinary.com/ekoweb/image/upload/s--G4Hjypjj--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-106817/views/9-106817__122376_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01"
-    ]
+    ],
+    "brand": "VOLKL",
+    "category": "Ski touring set"
   },
   {
     "name": "CORE 89 + Fix",
@@ -866,7 +982,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--JA9Dq3z2--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97916/views/9-97916_core-89_shco89-21_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--W9oxvDJr--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97916/views/9-97916_core-89_shco89-21_02"
-    ]
+    ],
+    "brand": "HAGAN",
+    "category": "Ski touring set"
   },
   {
     "name": "UBAC 95 + Fix",
@@ -879,7 +997,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--l5bfQ5dI--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129960/views/9-129960_skis-ubac-95_sk24u95_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--lY_vqhUr--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129960/views/9-129960_skis-ubac-95_sk24u95_03"
-    ]
+    ],
+    "brand": "ZAG",
+    "category": "Ski touring set"
   },
   {
     "name": "UBAC 95 LADY + Fix",
@@ -892,7 +1012,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--QtbukI1J--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129965/views/9-129965_skis-ubac-95-lady_sk24u95l_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--_eVZ3V5t--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-129965/views/9-129965_skis-ubac-95-lady_sk24u95l_03"
-    ]
+    ],
+    "brand": "ZAG",
+    "category": "Ski touring set"
   },
   {
     "name": "CORE 84 LITE + Fix",
@@ -904,7 +1026,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--CYpMJGvz--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97915/views/9-97915_core-84-lite_shcol84-21_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--bMq1UBDZ--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97915/views/9-97915_core-84-lite_shcol84-21_02"
-    ]
+    ],
+    "brand": "HAGAN",
+    "category": "Ski touring set"
   },
   {
     "name": "CORE 84 + Fix",
@@ -916,7 +1040,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--TaqM5ErR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97914/views/9-97914_core-84_shco84-21_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--Jv-_Fy03--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97914/views/9-97914_core-84_shco84-21_02"
-    ]
+    ],
+    "brand": "HAGAN",
+    "category": "Ski touring set"
   },
   {
     "name": "SEEKR 100 + Fix",
@@ -927,7 +1053,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--rg5eRMQ5--/h_600,q_auto:eco,w_600/f_auto,fl_relative,g_east,h_1.0,l_products:9-92671:pack:9-92671_speed-turn-blue_08-0000048950-3502_pack,y_0/v1/products/9-97889/pack/9-97889_seekr-100_g0081-60-63_pack",
       "https://res.cloudinary.com/ekoweb/image/upload/s--EDYuKpwT--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97889/views/9-97889_seekr-100_g0081-60-63_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01"
-    ]
+    ],
+    "brand": "G3",
+    "category": "Ski touring set"
   },
   {
     "name": "FINDR 94 RED + Fix",
@@ -938,7 +1066,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--8NF90MLw--/h_600,q_auto:eco,w_600/f_auto,fl_relative,g_east,h_1.0,l_products:9-92671:pack:9-92671_speed-turn-blue_08-0000048950-3502_pack,y_0/v1/products/9-97886/pack/9-97886_findr-94-red_g0077-47-50_pack",
       "https://res.cloudinary.com/ekoweb/image/upload/s--hlSDSenD--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97886/views/9-97886_findr-94-red_g0077-47-50_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01"
-    ]
+    ],
+    "brand": "G3",
+    "category": "Ski touring set"
   },
   {
     "name": "MAGICO.2 + Fix",
@@ -949,7 +1079,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--z_RNLQnU--/h_600,q_auto:eco,w_600/f_auto,fl_relative,g_east,h_1.0,l_products:9-92671:pack:9-92671_speed-turn-blue_08-0000048950-3502_pack,y_0/v1/products/9-97881/pack/9-97881_magico.2_st13179_pack",
       "https://res.cloudinary.com/ekoweb/image/upload/s--kTKJVsCp--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97881/views/9-97881_magico.2_st13179_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01"
-    ]
+    ],
+    "brand": "SKI TRAB",
+    "category": "Ski touring set"
   },
   {
     "name": "FX106 TI + Fix",
@@ -961,7 +1093,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--xa-U0_si--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97826/views/9-97826_fx106-ti_af106t21_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--nTilonb---/f_auto,h_600,q_auto:eco,w_600/v1/products/9-110687/views/9-110687_f12-tour-epf_7816w1.sls_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--_AhYKhjo--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97826/views/9-97826_fx106-ti_af106t21_02"
-    ]
+    ],
+    "brand": "KÄSTLE",
+    "category": "Ski touring set"
   },
   {
     "name": "FX96 TI + Fix",
@@ -973,7 +1107,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--Y3dE40lm--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97825/views/9-97825_fx96-ti_af96t21_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--LxhWoU7R--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97825/views/9-97825_fx96-ti_af96t21_02"
-    ]
+    ],
+    "brand": "KÄSTLE",
+    "category": "Ski touring set"
   },
   {
     "name": "RELIANCE 88 C + Fix",
@@ -986,7 +1122,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--HI4ZKCa6--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97251/views/9-97251_reliance-88-c_ra0000360_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--FoY7Eepa--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97251/views/9-97251_reliance-88-c_ra0000360_03"
-    ]
+    ],
+    "brand": "ARMADA",
+    "category": "Ski touring set"
   },
   {
     "name": "TX93 UP + Fix",
@@ -998,7 +1136,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--1-JxRMiH--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97091/views/9-97091_tx93-up_at93u21_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--VP4CK1np--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97091/views/9-97091_tx93-up_at93u21_02"
-    ]
+    ],
+    "brand": "KÄSTLE",
+    "category": "Ski touring set"
   },
   {
     "name": "TX87 UP + Fix",
@@ -1010,7 +1150,9 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--JS7NShr---/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97029/views/9-97029_tx87-up_at87u21_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--GGsku0l4--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-97029/views/9-97029_tx87-up_at87u21_02"
-    ]
+    ],
+    "brand": "KÄSTLE",
+    "category": "Ski touring set"
   },
   {
     "name": "RIPSTICK TOUR 94 W + Fix",
@@ -1023,6 +1165,8 @@
       "https://res.cloudinary.com/ekoweb/image/upload/s--SOrl5rfR--/f_auto,h_600,q_auto:eco,w_600/v1/products/9-92671/views/9-92671_speed-turn-blue_08-0000048950-3502_01",
       "https://res.cloudinary.com/ekoweb/image/upload/s--Ugg63Cuk--/f_auto,h_600,q_auto:eco,w_600/products/9-96967/views/9-96967_ripstick-tour-94-w_adhjmv21_02",
       "https://res.cloudinary.com/ekoweb/image/upload/s--yilEMApl--/f_auto,h_600,q_auto:eco,w_600/products/9-96967/views/9-96967_ripstick-tour-94-w_adhjmv21_03"
-    ]
+    ],
+    "brand": "ELAN",
+    "category": "Ski touring set"
   }
 ]
