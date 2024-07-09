@@ -137,7 +137,7 @@ async function main() {
 			price: productData.price,
 			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
 			thumbnail: productData.imageUrls[0],
-			category: await getOrCreateCategory(productData.category),
+			category: await getOrCreateCategory(productData.category, parentCategories[0]), // Added parent category
 			brand: await getOrCreateBrand(productData.brand),
 			characteristics: [],
 		})
@@ -219,11 +219,12 @@ async function main() {
 	console.log("Done!")
 }
 
-async function getOrCreateCategory(categoryName: string): Promise<Category> {
+async function getOrCreateCategory(categoryName: string, parentCategory: ParentCategory): Promise<Category> {
 	let category = await Category.findOne({ where: { name: categoryName } })
 	if (!category) {
 		category = new Category()
 		category.name = categoryName
+		category.parentCategory = parentCategory // Assign parent category
 		await category.save()
 	}
 	return category
