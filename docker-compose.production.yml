@@ -44,6 +44,7 @@ services:
     environment:
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
       NEXT_PUBLIC_GRAPHQL_API_URL: ${NEXT_PUBLIC_GRAPHQL_API_URL}
+      NEXT_PUBLIC_UPLOAD_API_ENDPOINT: ${NEXT_PUBLIC_UPLOAD_API_ENDPOINT}
     # image: chambrin80/gear-go-client
     build:
       context: frontend
