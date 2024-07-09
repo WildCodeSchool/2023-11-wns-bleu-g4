@@ -78,6 +78,12 @@ export type Brand = {
   product: Array<Product>;
 };
 
+export type BrandList = {
+  __typename?: 'BrandList';
+  brands: Array<Brand>;
+  total: Scalars['Int']['output'];
+};
+
 export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
@@ -469,7 +475,7 @@ export type Query = {
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
   getAllBooking: Array<Booking>;
-  getAllBrands: Array<Brand>;
+  getAllBrands: BrandList;
   getAllCategories: Array<Category>;
   getAllParentCategories: Array<ParentCategory>;
   getAllProductCharacteristics: ProductCharacteristicList;
@@ -504,6 +510,12 @@ export type QueryGetAgencyByIdArgs = {
 export type QueryGetAllBookingArgs = {
   agencyId?: InputMaybe<Scalars['Float']['input']>;
   userId?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryGetAllBrandsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 

@@ -1,0 +1,7 @@
+mutation UpdateBrand($data: UpdateBrandInput!, $brandId: Int!) {
+  updateBrand(data: $data, brandId: $brandId) {
+    id
+    name
+    logo
+  }
+}
