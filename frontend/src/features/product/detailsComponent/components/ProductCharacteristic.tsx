@@ -7,8 +7,6 @@ export default function ProductCharacteristic() {
   const { state: { selectedProduct } } = useProductContext();
   const colorScheme = useColorModeValue("gray.600", "gray.300");
 
-  console.log("Selected Product Characteristics:", selectedProduct?.characteristics);
-
   if (!selectedProduct) return null;
 
   return (
