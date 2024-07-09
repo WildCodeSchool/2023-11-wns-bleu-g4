@@ -471,7 +471,7 @@ export type Query = {
   getAllProduct_pictures: Array<Product_Picture>;
   getAllProducts: ProductList;
   getAllReviews: Array<Review>;
-  getAllUsers: Array<User>;
+  getAllUsers: UserList;
   getBookingById: Booking;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
@@ -526,6 +526,12 @@ export type QueryGetAllProductsArgs = {
 export type QueryGetAllReviewsArgs = {
   productId?: InputMaybe<Scalars['Float']['input']>;
   userId?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryGetAllUsersArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -724,4 +730,10 @@ export type User = {
 
 export type UserId = {
   id: Scalars['Int']['input'];
+};
+
+export type UserList = {
+  __typename?: 'UserList';
+  total: Scalars['Int']['output'];
+  users: Array<User>;
 };
