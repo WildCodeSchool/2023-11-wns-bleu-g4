@@ -18,7 +18,7 @@ import uploadFile from "../../helpers/uploadFile";
 import { CategoryModalProps, ParentCategory } from "../types";
 import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import { useUpdateCategoryMutation } from "@/graphql/Category/generated/updateCategory.generated";
-import { GetCategoryByIdDocument } from "@/graphql/Category/generated/GetCategoryById.generated";
+import { GetCategoryByIdDocument } from "@/graphql/Category/generated/getCategoryById.generated";
 
 export default function CategoryUpdateModal({ isOpen, onClose, category }: CategoryModalProps) {
   const [updateCategory] = useUpdateCategoryMutation();
