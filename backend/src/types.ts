@@ -70,3 +70,12 @@ export class ProductList {
 	@Field(() => Int)
 	total: number;
 }
+
+@ObjectType()
+export class UserList {
+	@Field(() => [User])
+	users: User[];
+
+	@Field(() => Int)
+	total: number;
+}
