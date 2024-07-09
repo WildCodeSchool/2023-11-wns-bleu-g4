@@ -136,10 +136,10 @@ async function main() {
 			name: productData.name,
 			price: productData.price,
 			description: productData.description,
-			thumbnail: productData.imageUrl,
-			category: categories[1], // Assigner à une catégorie par défaut
+			thumbnail: productData.imageUrls[0], // Utiliser la première image comme miniature
+			category: categories[1],
 			brand,
-			characteristics: [], // Initialiser les caractéristiques comme un tableau
+			characteristics: [],
 		})
 
 		const characteristics = [
@@ -163,45 +163,26 @@ async function main() {
 
 		await product.save()
 
-		const productCode = new ProductCode()
-		Object.assign(productCode, {
-			status: Status.AVAILABLE,
-			product,
-			agency,
-			isSizeable: true,
-			size: "M",
-		})
-		await productCode.save()
-
-		const productPictures = [
-			{
-				thumbnail: "https://media.trekbikes.com/image/upload/w_1200/Rail5Deore_23_36791_A_Portrait",
-				alt: "",
-			},
-			{
-				thumbnail: "https://www.materiel-velo.com/92859-large_default/vtt-cross-country-trek-marlin-8-gen-3-crimson.jpg",
-				alt: "",
-			},
-			{
-				thumbnail: "https://www.revedevelo.com/287-large_default/vtt-29-trek-marlin-4-alpine-blue.jpg",
-				alt: "",
-			},
-			{
-				thumbnail:
-					"https://www.allterraincycles.co.uk/cdn/shop/files/Marlin4-24-41613-C-Portrait.webp?v=1702563590&width=1445",
-				alt: "",
-			},
-		]
-
-		for (const { thumbnail, alt } of productPictures) {
+		 // Ajouter toutes les images du produit
+		for (const imageUrl of productData.imageUrls) {
 			const productPicture = new Product_picture()
 			Object.assign(productPicture, {
-				thumbnail,
-				alt,
+				thumbnail: imageUrl,
+				alt: "",
 				product,
 			})
 			await productPicture.save()
 		}
+
+		const productCode = new ProductCode()
+		Object.assign(productCode, {
+			status: Status.AVAILABLE,
+			product,
+			 agency,
+			isSizeable: true,
+			size: "M",
+		})
+		await productCode.save()
 
 		const booking = new Booking()
 		Object.assign(booking, {
