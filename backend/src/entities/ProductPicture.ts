@@ -44,7 +44,7 @@ export class NewProduct_pictureInput {
 
 	@Length(1, 255)
 	@Field()
-	alt: string
+	alt?: string
 
 	@Field(() => ProductId)
 	productId: ProductId
