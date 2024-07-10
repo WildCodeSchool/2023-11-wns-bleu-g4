@@ -68,7 +68,7 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Update {category?.name} category</ModalHeader>

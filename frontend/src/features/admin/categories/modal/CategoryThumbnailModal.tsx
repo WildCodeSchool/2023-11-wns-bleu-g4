@@ -3,7 +3,7 @@ import { CategoryModalProps } from "../types";
 
 export default function CategoryThumbnailModal({ isOpen, onClose, category }: CategoryModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{category?.name} category thumbnail</ModalHeader>
