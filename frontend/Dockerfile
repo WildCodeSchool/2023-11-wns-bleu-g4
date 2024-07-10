@@ -2,7 +2,8 @@ FROM node:20.9.0-alpine3.17
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm i
+# TODO ! Ne pas commit, rempalcer par npm i avant push 
+COPY node_modules ./node_modules 
 COPY src ./src
 COPY public ./public
 COPY .env ./.env
