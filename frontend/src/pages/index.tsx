@@ -4,7 +4,7 @@ import Layout from "@/layouts/Layout";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import CardItemCarousel from "@/features/home/categories/CardItemCarousel";
-import { getAllNamespaces } from "@root/i18nUtils";
+import  {getAllNamespaces}  from "./../../i18nUtils";
 import FaqSection from "@/features/home/faq/FaqSection";
 
 export default function Home() {

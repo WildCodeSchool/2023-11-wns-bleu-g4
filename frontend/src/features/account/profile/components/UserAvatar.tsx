@@ -2,7 +2,7 @@ import { Heading, Flex, Avatar, Box, Text } from '@chakra-ui/react'
 import { CalendarIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
-import { User } from '../types';
+import { User } from '../../types';
 
 export default function UserAvatar({user} : {user : User}) {
     

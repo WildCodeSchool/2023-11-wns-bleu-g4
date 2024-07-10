@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { HomeIcon, MapPinIcon, MapIcon, GlobeEuropeAfricaIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
-import { User } from "../types";
+import { User } from "../../types";
 import { useState } from "react";
 import UserInfoModal from "../modal/UserInfoModal";
 

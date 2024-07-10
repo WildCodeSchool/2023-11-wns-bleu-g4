@@ -1,7 +1,7 @@
 import Layout from "@/layouts/Layout";
 import UserProfile from "@/features/account/profile/UserProfile";
 import { Flex } from "@chakra-ui/react";
-import UserOrdersTableBody from "@/features/account/table/UserOrdersTableBody";
+import UserOrdersTableBody from "@/features/account/table/UserOrdersTable";
 
 
 export default function UserDetails() {

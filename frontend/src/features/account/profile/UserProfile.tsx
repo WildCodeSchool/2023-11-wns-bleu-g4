@@ -2,7 +2,7 @@ import { Flex, Heading } from "@chakra-ui/react"
 import UserAvatar from "./components/UserAvatar"
 import UserInfos from "./components/UserInfos"
 import UserPassword from "./components/UserPassword"
-import { User } from './types'
+import { User } from '../types'
 import { useProfileQuery } from "@/graphql/User/generated/Profile.generated"
 import { CurrencyEuroIcon } from "@heroicons/react/24/outline"
 

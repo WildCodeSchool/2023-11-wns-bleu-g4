@@ -16,7 +16,7 @@ import {
   Textarea
 } from '@chakra-ui/react'
 import React from 'react'
-import { ProductModalProps } from '../types'
+import { ProductModalProps } from '../../types'
 
 export default function UserMInfoModal({ isOpen, onClose, user }: ProductModalProps) {
 

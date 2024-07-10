@@ -64,5 +64,4 @@ export interface Booking {
   endDate?: string,
   userId?: number,
   agency?: Agency[]
-
 }
