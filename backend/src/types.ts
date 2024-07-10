@@ -68,10 +68,10 @@ export class BrandId {
 @ObjectType()
 export class ProductList {
 	@Field(() => Int)
-	total!: number;
+	total: number;
 
 	@Field(() => [Product])
-	products!: Product[];
+	products: Product[];
 }
 
 @ObjectType()
