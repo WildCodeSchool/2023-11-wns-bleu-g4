@@ -18,12 +18,12 @@ import { useUpdateBrandMutation } from "@/graphql/Brand/generated/updateBrand.ge
 import { GetBrandByIdDocument } from "@/graphql/Brand/generated/getBrandById.generated";
 import uploadFile from "../helpers/uploadFile";
 
-export default function CategoryUpdateModal({ isOpen, onClose, brand }: BrandModalProps) {
+export default function BrandUpdateModal({ isOpen, onClose, brand }: BrandModalProps) {
   const [updateBrand] = useUpdateBrandMutation();
   const [imageURL, setImageURL] = useState(brand?.logo);
   const [formData, setFormData] = useState({
     name: brand?.name,
-    thumbnail: imageURL,
+    logo: imageURL,
   });
 
   const brandId = brand?.id!;
@@ -39,13 +39,13 @@ export default function CategoryUpdateModal({ isOpen, onClose, brand }: BrandMod
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const categoryData = {
+    const brandData = {
       ...formData,
       logo: imageURL,
     };
 
     updateBrand({
-      variables: { data: categoryData, brandId },
+      variables: { data: brandData, brandId },
       refetchQueries: [{ query: GetBrandByIdDocument, variables: { brandId } }],
     })
       .then(onClose)
