@@ -71,7 +71,7 @@ export class ProductList {
 	total!: number;
 
 	@Field(() => [Product])
-	products!: Product[];
+	products: Product[];
 }
 
 @ObjectType()
