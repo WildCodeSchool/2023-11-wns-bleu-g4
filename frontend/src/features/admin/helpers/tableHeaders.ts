@@ -45,6 +45,11 @@ export const parentCategoryTableHeaders: menuItems[] = [
   { id: 3, name: "manage parent category" },
 ];
 
+export const characteristicTableHeaders: menuItems[] = [
+  { id: 1, name: "name" },
+  { id: 2, name: "manage characteristic" },
+];
+
 export const customerTableHeaders: menuItems[] = [
   { id: 1, name: "fullname" },
   { id: 2, name: "address" },

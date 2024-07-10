@@ -1,3 +1,5 @@
+import { Characteristic } from "../characteristic/types";
+
 export interface menuItems {
   id?: number;
   name: string;
@@ -12,13 +14,6 @@ export interface Category {
   id?: number;
   name: string;
 }
-
-export interface Characteristic {
-  id?: number;
-  characteristic?: string;
-  value?: string;
-}
-
 export interface Product_Picture {
   id?: number;
   thumbnail: string;
@@ -50,7 +45,7 @@ export interface TableBodyProps {
 }
 
 export interface TableFooterProps {
-  data: any;
+  data: number;
   startIndex: number;
   endIndex: number;
   currentPage: number;

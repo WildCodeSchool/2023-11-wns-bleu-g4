@@ -1,0 +1,5 @@
+mutation UpdateProductCharacteristic($data: UpdateProductCharacteristicInput!, $productCharacteristicId: Float!) {
+  updateProductCharacteristic(data: $data, productCharacteristicId: $productCharacteristicId) {
+    name
+  }
+}

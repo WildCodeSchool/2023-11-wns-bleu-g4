@@ -4,7 +4,7 @@ import TableFooter from "@/features/admin/table/TableFooter";
 import OrderTableBody from "@/features/admin/table/OrderTableBody";
 import data from "@/features/admin/helpers/dummyOrders";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../../../../i18nUtils";
+import { getAllNamespaces } from "@root/i18nUtils";
 import { GetStaticProps } from "next";
 
 export default function Orders() {

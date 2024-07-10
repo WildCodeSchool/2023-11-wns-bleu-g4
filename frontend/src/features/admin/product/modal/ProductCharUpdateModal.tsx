@@ -10,14 +10,15 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { Characteristic, ProductModalProps } from "../types";
+import { ProductModalProps } from "../types";
+import { Characteristic } from "../../characteristic/types";
 import { FormEvent, useEffect, useState } from "react";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 import {
   useGetAllProductCharacteristicsQuery
-} from "@/graphql/ProductCharacteristic/generated/GetAllProductCharasteristics.generated";
-import Select from "react-select";
+} from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import Select, { MultiValue } from "react-select";
 
 export default function ProductCharUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
   const [updateProduct] = useUpdateProductMutation();
@@ -51,7 +52,7 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product }: Pro
     setSelectedCharacteristics(
       product.characteristics.map((c: Characteristic) => ({
         id: c.id,
-        label: c.characteristic,
+        label: c.name,
         value: c.id?.toString(),
       })),
     );
@@ -74,11 +75,11 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product }: Pro
                 name="characteristics"
                 options={characteristics}
                 getOptionValue={(o: any) => o.value || (o.id.toString() as any)}
-                getOptionLabel={(o: any) => o.label || o.characteristic}
+                getOptionLabel={(o: any) => o.label || o.name}
                 isMulti
                 value={selectedCharacteristics}
                 closeMenuOnSelect={false}
-                onChange={characteristics => {
+                onChange={(characteristics: MultiValue<Characteristic>) => {
                   setSelectedCharacteristics(characteristics as Characteristic[]);
                   setFormData({
                     ...formData,

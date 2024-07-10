@@ -1,17 +1,20 @@
-query GetAllProducts {
-  getAllProducts {
-    id
-    name
-    price
-    description
-    thumbnail
-    brand {
+query GetAllProducts($limit: Int, $offset: Int) {
+  getAllProducts(limit: $limit, offset: $offset) {
+    products {
       id
       name
+      price
+      description
+      thumbnail
+      brand {
+        id
+        name
+      }
+      category {
+        id
+        name
+      }
     }
-    category {
-      id
-      name
-    }
+    total
   }
 }

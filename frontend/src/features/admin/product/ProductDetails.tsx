@@ -6,6 +6,7 @@ import { useDeleteProductMutation } from "@/graphql/Product/generated/deleteProd
 import { useRouter } from "next/router";
 import ProductCharUpdateModal from "./modal/ProductCharUpdateModal";
 import { Product } from "./types";
+import { Characteristic } from "../characteristic/types";
 
 export default function ProductDetails({ product }: { product: Product }) {
   const router = useRouter();
@@ -78,14 +79,13 @@ export default function ProductDetails({ product }: { product: Product }) {
                 product={product}
                 isOpen={isCharacteristicsModalOpen}
                 onClose={() => setIsCharacteristicsModalOpen(!isCharacteristicsModalOpen)}
-                variant="darkOverlayStyle"
               />
             )}
           </div>
           {product?.characteristics.length === 0 && <span className="col-span-2 italic">No characteristics</span>}
-          {product?.characteristics.map((characteristic: any) => (
+          {product?.characteristics.map((characteristic: Characteristic) => (
             <div key={characteristic.id} className="flex flex-col">
-              <span>- {characteristic.characteristic}</span>
+              <span>- {characteristic.name}</span>
             </div>
           ))}
         </div>
@@ -99,7 +99,6 @@ export default function ProductDetails({ product }: { product: Product }) {
             product={product}
             isOpen={isUpdateModalOpen}
             onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
-            variant="darkOverlayStyle"
           />
         )}
         <button type="button" className="bg-[#D23732] rounded px-3 py-1 text-white" onClick={toggleDeleteProductModal}>
@@ -110,7 +109,6 @@ export default function ProductDetails({ product }: { product: Product }) {
             product={product}
             isOpen={isDeleteModalOpen}
             onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-            variant="darkOverlayStyle"
             handleDeleteProduct={handleDeleteProduct}
           />
         )}

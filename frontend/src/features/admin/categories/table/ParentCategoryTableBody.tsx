@@ -69,8 +69,8 @@ export default function ParentCategoryTableBody({ data, refetch }: TableBodyProp
           data.map((parentCategory: ParentCategory, index: number) => (
             <React.Fragment key={parentCategory.id}>
               <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
-                <td className="whitespace-nowrap p-3 pl-8 w-1/2 min-w-max">{parentCategory.name}</td>
-                <td className="whitespace-nowrap p-3 pr-8 w-1/2 min-w-max text-left align-middle">
+                <td className="whitespace-nowrap p-3 pl-8 w-4/5 min-w-max">{parentCategory.name}</td>
+                <td className="whitespace-nowrap p-3 pr-8 w-1/5 min-w-max text-left align-middle">
                   <div className="inline-block">
                     <button
                       type="button"

@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 export default function BasketPage() {
   const { t } = useTranslation("BasketPage");
   const { bookingData, removeBookingData } = useBookingData();
-  const { agencies } = useProductContext();
+  const { state: { agencies } } = useProductContext();
   const { performBookingMutation } = useBookingMutation();
   const { data: profileData } = useProfileQuery();
   const [bookingInProgress, setBookingInProgress] = useState(false);

@@ -20,7 +20,7 @@ query GetProductById($productId: Int!) {
     }
     characteristics {
       id
-      characteristic
+      name
     }
   }
 }

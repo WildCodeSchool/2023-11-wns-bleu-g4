@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout";
 import { Flex } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "../../i18nUtils";
+import { getAllNamespaces } from "@root/i18nUtils";
 
 export default function Login() {
   const urlBg: string =
@@ -18,7 +18,7 @@ export default function Login() {
         bgRepeat="no-repeat"
         bgPosition="center"
         bgSize="cover"
-        borderRadius="10px"
+        className="p-5 lg:px-24 lg:pb-24"
       >
         <LoginForm />
       </Flex>

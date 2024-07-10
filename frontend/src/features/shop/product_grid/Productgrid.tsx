@@ -1,28 +1,22 @@
 import ProductCard from "@/features/shop/product_card/ProductCard";
-import { useGetAllProductsByCategoryIdQuery } from "@/graphql/Product/generated/getAllProductsByCategoryID.generated";
+import { Product } from "@/graphql/generated/schema";
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 
 interface ProductGridProps {
-  categoryId: number;
+  products: any[] | Product[];
 }
 
-export default function ProductGrid({ categoryId }: ProductGridProps) {
-  const gridTemplateColumns = useBreakpointValue({ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" });
-  const {
-    data: productData,
-    error: productError,
-    loading: productLoading,
-  } = useGetAllProductsByCategoryIdQuery({
-    variables: { categoryId },
-    skip: typeof categoryId === "undefined",
+export default function ProductGrid({ products }: ProductGridProps) {
+  const gridTemplateColumns = useBreakpointValue({
+    base: "repeat(auto-fill, minmax(150px, auto))",
+    md: "repeat(auto-fill, minmax(200px, auto))"
   });
 
-  if (productLoading) return <p>Loading...</p>;
-  if (productError) return <p>Error: {productError.message}</p>;
+  if (!products || products.length === 0) return <p>No products found.</p>;
 
   return (
-    <Grid templateColumns={gridTemplateColumns} gap={6} padding="20px">
-      {productData?.getAllProducts.map(product => (
+    <Grid templateColumns={gridTemplateColumns} gap={10}>
+      {products.map((product) => (
         <GridItem key={product.id} colSpan={1} rowSpan={1}>
           <ProductCard product={product} />
         </GridItem>

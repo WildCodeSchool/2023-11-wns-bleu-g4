@@ -78,10 +78,6 @@ export type Brand = {
   product: Array<Product>;
 };
 
-export type BrandId = {
-  id: Scalars['Int']['input'];
-};
-
 export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
@@ -89,14 +85,6 @@ export type Category = {
   parentCategory: ParentCategory;
   products: Array<Product>;
   thumbnail: Scalars['String']['output'];
-};
-
-export type CategoryId = {
-  id: Scalars['Int']['input'];
-};
-
-export type CharacteristicId = {
-  id: Scalars['Int']['input'];
 };
 
 export type LoginInput = {
@@ -125,6 +113,7 @@ export type Mutation = {
   deleteCategory: Scalars['String']['output'];
   deleteParentCategory: Scalars['String']['output'];
   deleteProduct: Scalars['String']['output'];
+  deleteProductCharacteristic: Scalars['String']['output'];
   deleteProduct_picture: Scalars['Boolean']['output'];
   deleteReview: Scalars['String']['output'];
   login: Scalars['String']['output'];
@@ -238,6 +227,11 @@ export type MutationDeleteProductArgs = {
 };
 
 
+export type MutationDeleteProductCharacteristicArgs = {
+  productCharacteristicId: Scalars['Float']['input'];
+};
+
+
 export type MutationDeleteProduct_PictureArgs = {
   id: Scalars['Int']['input'];
 };
@@ -296,8 +290,8 @@ export type MutationUpdateProductArgs = {
 
 
 export type MutationUpdateProductCharacteristicArgs = {
-  data: NewProductCharacteristicInput;
-  id: Scalars['Float']['input'];
+  data: UpdateProductCharacteristicInput;
+  productCharacteristicId: Scalars['Float']['input'];
 };
 
 
@@ -364,10 +358,14 @@ export type NewParentCategoryInput = {
   name: Scalars['String']['input'];
 };
 
+export type NewProductCharacteristicInput = {
+  name: Scalars['String']['input'];
+};
+
 export type NewProductInput = {
-  brand: BrandId;
-  category?: InputMaybe<CategoryId>;
-  characteristics?: InputMaybe<CharacteristicId>;
+  brand: ObjectId;
+  category?: InputMaybe<ObjectId>;
+  characteristics?: InputMaybe<Array<ObjectId>>;
   description: Scalars['String']['input'];
   name: Scalars['String']['input'];
   price: Scalars['Float']['input'];
@@ -421,12 +419,13 @@ export type Product = {
   productCodes: Array<ProductCode>;
   reviews?: Maybe<Array<Review>>;
   thumbnail: Scalars['String']['output'];
+  total: Scalars['Int']['output'];
 };
 
 export type ProductCharacteristic = {
   __typename?: 'ProductCharacteristic';
-  characteristic: Scalars['String']['output'];
   id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
   product: Product;
 };
 
@@ -443,6 +442,12 @@ export type ProductCode = {
 
 export type ProductId = {
   id: Scalars['Int']['input'];
+};
+
+export type ProductList = {
+  __typename?: 'ProductList';
+  products: Array<Product>;
+  total: Scalars['Int']['output'];
 };
 
 export type Product_Picture = {
@@ -464,7 +469,7 @@ export type Query = {
   getAllProductCharacteristics: Array<ProductCharacteristic>;
   getAllProduct_codes: Array<ProductCode>;
   getAllProduct_pictures: Array<Product_Picture>;
-  getAllProducts: Array<Product>;
+  getAllProducts: ProductList;
   getAllReviews: Array<Review>;
   getAllUsers: Array<User>;
   getBookingById: Booking;
@@ -475,7 +480,7 @@ export type Query = {
   getCategoryById: Category;
   getParentCategoryById: ParentCategory;
   getProductById: Product;
-  getProductCharacteristicsById: Array<ProductCharacteristic>;
+  getProductCharacteristicById: ProductCharacteristic;
   getProductCharacteristicsByProductId: Array<ProductCharacteristic>;
   getProductCodesByStatus: Array<ProductCode>;
   getReviewById: Review;
@@ -516,7 +521,10 @@ export type QueryGetAllProductsArgs = {
 
 export type QueryGetAllProductsArgs = {
   categoryId?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sortOrder?: InputMaybe<SortProduct>;
 };
 
 
@@ -561,8 +569,8 @@ export type QueryGetProductByIdArgs = {
 };
 
 
-export type QueryGetProductCharacteristicsByIdArgs = {
-  id: Scalars['Int']['input'];
+export type QueryGetProductCharacteristicByIdArgs = {
+  productCharacteristicId: Scalars['Int']['input'];
 };
 
 
@@ -602,6 +610,11 @@ export type Review = {
   rate: Scalars['Int']['output'];
   user: User;
 };
+
+export enum SortProduct {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
 
 /** Check if the product is available. */
 export enum Status {
@@ -661,6 +674,10 @@ export type UpdateParentCategoryInput = {
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type UpdateProductCharacteristicInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type UpdateProductInput = {
   brand?: InputMaybe<ObjectId>;
   category?: InputMaybe<ObjectId>;
@@ -712,9 +729,4 @@ export type User = {
 
 export type UserId = {
   id: Scalars['Int']['input'];
-};
-
-export type NewProductCharacteristicInput = {
-  characteristic: Scalars['String']['input'];
-  productId: ProductId;
 };
