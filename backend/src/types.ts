@@ -55,6 +55,8 @@ export class CharacteristicID {
 export class ParentCategoryId {
 	@Field(() => Int)
 	id!: number;
+	static BIKES: any;
+	static ACCESSORIES: any;
 }
 
 @InputType()
@@ -65,11 +67,11 @@ export class BrandId {
 
 @ObjectType()
 export class ProductList {
-	@Field(() => [Product])
-	products: Product[];
-
 	@Field(() => Int)
 	total: number;
+
+	@Field(() => [Product])
+	products: Product[];
 }
 
 @ObjectType()
