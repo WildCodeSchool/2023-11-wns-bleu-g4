@@ -7,7 +7,7 @@ export interface Brand {
 export interface BrandModalProps {
   isOpen: boolean;
   onClose: () => void;
-  brand: Brand | undefined;
-  handleDelete: (id: number) => void;
+  brand?: Brand;
+  handleDelete?: (id: number) => void;
   refetch?: () => void;
 }
