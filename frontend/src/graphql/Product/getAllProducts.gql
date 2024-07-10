@@ -1,5 +1,5 @@
-query GetAllProducts {
-  getAllProducts {
+query GetAllProducts($limit: Int, $offset: Int) {
+  getAllProducts(limit: $limit, offset: $offset) {
     products {
       id
       name
@@ -15,5 +15,6 @@ query GetAllProducts {
         name
       }
     }
+    total
   }
 }

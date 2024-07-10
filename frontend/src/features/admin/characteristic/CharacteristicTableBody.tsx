@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import client from "@/graphql/client";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import { ParentCategory } from "@/graphql/generated/schema";
@@ -9,11 +8,10 @@ import {
   useDeleteProductCharacteristicMutation
 } from "@/graphql/ProductCharacteristic/generated/deleteProductCharacteristic.generated";
 import { Characteristic } from "./types";
-import { GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 import CharacteristicUpdateModal from "./CharacteristicUpdateModal";
 import CharacteristicDeleteModal from "./CharacteristicDeleteModal";
 
-export default function CharacteristicTableBody({ data }: TableBodyProps) {
+export default function CharacteristicTableBody({ data, refetch }: TableBodyProps) {
   const { t } = useTranslation("CharacteristicTableBody");
 
   const [deleteCharacteristic] = useDeleteProductCharacteristicMutation();
@@ -34,12 +32,7 @@ export default function CharacteristicTableBody({ data }: TableBodyProps) {
   const handleDeleteCharacteristic = async (id: number) => {
     try {
       await deleteCharacteristic({ variables: { productCharacteristicId: id } });
-      client.writeQuery<GetAllProductCharacteristicsQuery>({
-        query: GetAllProductCharacteristicsDocument,
-        data: {
-          getAllProductCharacteristics: data.filter((characteristic: Characteristic) => characteristic.id !== id),
-        },
-      });
+      refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
     } catch (e) {
       console.error(e);
@@ -47,25 +40,25 @@ export default function CharacteristicTableBody({ data }: TableBodyProps) {
   };
 
   return (
-    <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
-      <thead>
-        <tr>
-          {characteristicTableHeaders.map(menu => (
-            <th
-              className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
+    <>
+      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+        <thead>
+          <tr>
+            {characteristicTableHeaders.map(menu => (
+              <th
+                className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
               border-b border-gray-200"
-              key={menu.id}
-            >
-              {menu.name}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody className="text-sm">
-        {data.length !== 0 ? (
-          data.map((parentCategory: ParentCategory, index: number) => (
-            <React.Fragment key={parentCategory.id}>
-              <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
+                key={menu.id}
+              >
+                {menu.name}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="text-sm">
+          {data.length !== 0 ? (
+            data.map((parentCategory: ParentCategory, index: number) => (
+              <tr key={parentCategory.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-4/5 min-w-max">{parentCategory.name}</td>
                 <td className="whitespace-nowrap p-3 pr-8 w-1/5 min-w-max text-left align-middle">
                   <div className="inline-block">
@@ -77,13 +70,6 @@ export default function CharacteristicTableBody({ data }: TableBodyProps) {
                     >
                       <PencilSquareIcon className="h-5 w-5 text-white" />
                     </button>
-                    {isUpdateModalOpen && (
-                      <CharacteristicUpdateModal
-                        characteristic={selectedCharacteristic!}
-                        isOpen={isUpdateModalOpen}
-                        onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
-                      />
-                    )}
                     <button
                       type="button"
                       className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle"
@@ -92,27 +78,35 @@ export default function CharacteristicTableBody({ data }: TableBodyProps) {
                     >
                       <TrashIcon className="h-5 w-5 text-white" />
                     </button>
-                    {isDeleteModalOpen && (
-                      <CharacteristicDeleteModal
-                        characteristic={selectedCharacteristic!}
-                        isOpen={isDeleteModalOpen}
-                        onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-                        handleDelete={handleDeleteCharacteristic}
-                      />
-                    )}
+
                   </div>
                 </td>
               </tr>
-            </React.Fragment>
-          ))
-        ) : (
-          <tr>
-            <td className="p-4 text-center" colSpan={3}>
-              {t("No categories found")}
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </table>
+            ))
+          ) : (
+            <tr>
+              <td className="p-4 text-center" colSpan={3}>
+                {t("No categories found")}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      {isUpdateModalOpen && (
+        <CharacteristicUpdateModal
+          characteristic={selectedCharacteristic!}
+          isOpen={isUpdateModalOpen}
+          onClose={() => setIsUpdateModalOpen(!isUpdateModalOpen)}
+        />
+      )}
+      {isDeleteModalOpen && (
+        <CharacteristicDeleteModal
+          characteristic={selectedCharacteristic!}
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
+          handleDelete={handleDeleteCharacteristic}
+        />
+      )}
+    </>
   );
 }

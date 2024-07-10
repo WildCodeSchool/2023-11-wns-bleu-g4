@@ -3,28 +3,43 @@ import ProductTableBody from "@/features/admin/product/table/ProductTableBody";
 import TableFooter from "@/features/admin/table/TableFooter";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
-import { useDisclosure } from "@chakra-ui/react";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllNamespaces } from "../../../../i18nUtils";
+import { useRouter } from "next/router";
 
 export default function Products() {
-  const { data, refetch } = useGetAllProductsQuery();
+  const router = useRouter();
+  const { query } = router;
+  const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const { data, refetch } = useGetAllProductsQuery({
+    variables: {
+      limit: 14,
+      offset: currentPage * 14,
+    }
+  });
   const products = data?.getAllProducts.products ?? [];
-  const [currentPage, setCurrentPage] = useState(1);
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const totalProducts = data?.getAllProducts.total ?? 0;
 
   const itemsPerPage = 14;
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + Math.min(itemsPerPage, products?.length ?? 0);
-  const currentProducts = products.slice(startIndex, endIndex);
 
-  const toggleCreateProductModal = () => {
-    onOpen();
-    isOpen ? onClose() : onOpen();
+  const toggleCreateProductModal = () => setIsCreateModalOpen(!isCreateModalOpen);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    const nextPage = pageNumber + 1;
+    router.push(`/admin/products?page=${nextPage}`);
   };
+
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [query.page]);
 
   return (
     <LayoutAdmin pageTitle="Product list">
@@ -39,17 +54,23 @@ export default function Products() {
           Add Product
         </button>
       </div>
-      {isOpen && <ProductCreateModal isOpen={isOpen} onClose={onClose} refetch={refetch} />}
+      {isCreateModalOpen &&
+        <ProductCreateModal
+          isOpen={isCreateModalOpen}
+          onClose={() => setIsCreateModalOpen(!isCreateModalOpen)}
+          refetch={refetch}
+        />
+      }
       <div className="overflow-x-auto">
-        <ProductTableBody data={currentProducts} />
+        <ProductTableBody data={products} refetch={refetch} />
       </div>
       <TableFooter
-        data={products}
+        data={totalProducts}
         startIndex={startIndex}
         endIndex={endIndex}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={handlePageChange}
       />
     </LayoutAdmin>
   );
