@@ -35,7 +35,7 @@ export class Product extends BaseEntity {
 	// Relations
 
 	@ManyToOne(() => Category, (category) => category.products, { cascade: true, onDelete: "CASCADE", nullable: true })
-	@Field(() => Category, { nullable: true })
+	@Field(() => Category)
 	category: Category;
 
 	@ManyToOne(() => Brand, (brand) => brand.product, { cascade: true, onDelete: "CASCADE" })
@@ -106,8 +106,8 @@ export class UpdateProductInput {
 	@Field({ nullable: true })
 	thumbnail?: string;
 
-	@Field(() => ObjectId, { nullable: true })
-	category?: ObjectId;
+	@Field(() => ObjectId,)
+	category: ObjectId;
 
 	@Field(() => ObjectId, { nullable: true })
 	brand?: ObjectId;
