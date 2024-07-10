@@ -13,6 +13,7 @@ export default function ShopPage() {
     const isMobile = useBreakpointValue({ base: true, md: false });
     const router = useRouter();
     const sortOrderFromQuery = router.query.sortOrder as SortProduct | undefined;
+    const searchQuery = router.query.search as string | undefined;
 
     const [sortOrder, setSortOrder] = useState<SortProduct | null>(
         sortOrderFromQuery ?? null
@@ -24,12 +25,13 @@ export default function ShopPage() {
             sortOrder,
             limit: 12,
             offset: page * 12,
+            name: searchQuery,
         },
     });
 
     useEffect(() => {
-        refetch({ sortOrder });
-    }, [sortOrder, refetch]);
+        refetch({ sortOrder, name: searchQuery });
+    }, [sortOrder, searchQuery, refetch]);
 
     useEffect(() => {
         setSortOrder(sortOrderFromQuery ?? null);
@@ -38,7 +40,6 @@ export default function ShopPage() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-    // ? Filtrer les produits sans catégorie
     const products = data?.getAllProducts.products.filter(product => product.category) ?? [];
     const totalProducts = data?.getAllProducts.total ?? 0;
     const maxPages = Math.ceil(totalProducts / 12);
