@@ -186,7 +186,7 @@ async function main() {
 	for (const productData of allProducts) { 
 		const product = new Product()
 		const mappedCategoryName = categoryMapping[productData.category] || productData.category
-		const category = categories.find((cat) => cat.name === mappedCategoryName) 
+		const category = categories.find((cat) => cat.name === mappedCategoryName) || categories.find((cat) => cat.id === 1) 
 		Object.assign(product, {
 			name: productData.name,
 			price: productData.price / 10,

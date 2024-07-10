@@ -3,25 +3,31 @@ import * as Types from '../../generated/schema';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetAllUsersQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetAllUsersQueryVariables = Types.Exact<{
+  limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+}>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: number, name: string, email: string, address: string, avatar: string, city: string, country: string, phone: string, firstname: string, postcode: string }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: { __typename?: 'UserList', total: number, users: Array<{ __typename?: 'User', id: number, name: string, email: string, address: string, avatar: string, city: string, country: string, phone: string, firstname: string, postcode: string }> } };
 
 
 export const GetAllUsersDocument = gql`
-    query GetAllUsers {
-  getAllUsers {
-    id
-    name
-    email
-    address
-    avatar
-    city
-    country
-    phone
-    firstname
-    postcode
+    query GetAllUsers($limit: Int, $offset: Int) {
+  getAllUsers(limit: $limit, offset: $offset) {
+    users {
+      id
+      name
+      email
+      address
+      avatar
+      city
+      country
+      phone
+      firstname
+      postcode
+    }
+    total
   }
 }
     `;
@@ -38,6 +44,8 @@ export const GetAllUsersDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllUsersQuery({
  *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
  *   },
  * });
  */

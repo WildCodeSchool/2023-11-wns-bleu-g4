@@ -1,7 +1,8 @@
-import express from "express";
-import { Field, InputType, Int, ObjectType } from "type-graphql";
-import Product from "./entities/Product";
-import { User } from "./entities/User";
+import express from "express"
+import { Field, InputType, Int, ObjectType } from "type-graphql"
+import Product from "./entities/Product"
+import { User } from "./entities/User"
+import ProductCharacteristic from "./entities/ProductCharacteristic"
 
 export interface ContextType {
 	req: express.Request
@@ -63,6 +64,7 @@ export class BrandId {
 	@Field(() => Int)
 	id!: number;
 }
+
 @ObjectType()
 export class ProductList {
 	@Field(() => Int)
@@ -70,4 +72,22 @@ export class ProductList {
 
 	@Field(() => [Product])
 	products!: Product[];
+}
+
+@ObjectType()
+export class UserList {
+	@Field(() => [User])
+	users: User[];
+
+	@Field(() => Int)
+	total: number;
+}
+
+@ObjectType()
+export class ProductCharacteristicList {
+	@Field(() => [ProductCharacteristic])
+	productCharacteristics: ProductCharacteristic[];
+
+	@Field(() => Int)
+	total: number;
 }

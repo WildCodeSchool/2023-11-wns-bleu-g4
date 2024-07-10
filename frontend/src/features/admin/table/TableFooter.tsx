@@ -13,13 +13,14 @@ export default function TableFooter({
 }: TableFooterProps) {
   const { t } = useTranslation("TableFooter");
 
+  const totalPages = Math.ceil(data / itemsPerPage);
+
   const handlePreviousClick = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
   const handleNextClick = () => {
-    const totalPages = Math.ceil(data.length / itemsPerPage);
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -28,9 +29,9 @@ export default function TableFooter({
         <span className="text-sm">
           Showing{" "}
           <span className="font-bold">
-            {startIndex + 1}-{Math.min(data?.length ?? 0, endIndex)}
+            {startIndex + 1}-{Math.min(data ?? 0, endIndex)}
           </span>{" "}
-          of <span className="font-bold">{data?.length ?? 0}</span>
+          of <span className="font-bold">{data ?? 0}</span>
         </span>
       </div>
       <div className="flex items-center gap-4">

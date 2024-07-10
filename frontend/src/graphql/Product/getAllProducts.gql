@@ -1,5 +1,5 @@
-query GetAllProducts($sortOrder: SortProduct, $limit: Int, $offset: Int) {
   getAllProducts(sortOrder: $sortOrder, limit: $limit, offset: $offset) {
+query GetAllProducts($sortOrder: SortProduct, $limit: Int, $offset: Int) {
     products {
       id
       name

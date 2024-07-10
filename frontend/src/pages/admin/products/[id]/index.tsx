@@ -15,7 +15,7 @@ export default function ProductPage() {
   return (
     <LayoutAdmin pageTitle="Product">
       <h2>Informations</h2>
-      <section className="flex gap-8">
+      <section className="flex flex-col gap-4 lg:flex-row lg:gap-8">
         <ProductDetails product={product!} />
         <ProductPictures product={product!} />
         {/* <ProductStocks product={product} /> */}

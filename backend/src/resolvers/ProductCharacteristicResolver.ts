@@ -6,17 +6,21 @@ import ProductCharacteristic, {
 import { UserRole } from "../entities/User"
 import { Context } from "../utils"
 import { GraphQLError } from "graphql"
+import { ProductCharacteristicList } from "../types"
 
 @Resolver()
 class ProductCharacteristicResolver {
-	@Query(() => [ProductCharacteristic])
-	async getAllProductCharacteristics() {
-		try {
-			return await ProductCharacteristic.find({ relations: ["product"] })
-		} catch (error) {
-			console.error("Error fetching all product characteristics:", error)
-			throw new Error("Could not fetch product characteristics")
-		}
+	@Query(() => ProductCharacteristicList)
+	async getAllProductCharacteristics(
+		@Arg("limit", () => Int, { nullable: true }) limit?: number,
+		@Arg("offset", () => Int, { nullable: true }) offset?: number
+	) {
+		const [productCharacteristics, total] = await ProductCharacteristic.findAndCount({
+			take: limit,
+			skip: offset,
+			relations: ["product"],
+		})
+		return { productCharacteristics, total }
 	}
 
 	@Query(() => ProductCharacteristic)

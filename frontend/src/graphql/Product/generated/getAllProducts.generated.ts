@@ -3,19 +3,19 @@ import * as Types from '../../generated/schema';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetAllProductsQueryVariables = Types.Exact<{
-  sortOrder?: Types.InputMaybe<Types.SortProduct>;
+}>;
   limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
-}>;
+  sortOrder?: Types.InputMaybe<Types.SortProduct>;
+export type GetAllProductsQueryVariables = Types.Exact<{
 
 
 export type GetAllProductsQuery = { __typename?: 'Query', getAllProducts: { __typename?: 'ProductList', total: number, products: Array<{ __typename?: 'Product', id: number, name: string, price: number, description: string, thumbnail: string, brand: { __typename?: 'Brand', id: number, name: string }, category: { __typename?: 'Category', id: number, name: string } }> } };
 
 
 export const GetAllProductsDocument = gql`
-    query GetAllProducts($sortOrder: SortProduct, $limit: Int, $offset: Int) {
   getAllProducts(sortOrder: $sortOrder, limit: $limit, offset: $offset) {
+    query GetAllProducts($sortOrder: SortProduct, $limit: Int, $offset: Int) {
     products {
       id
       name
@@ -48,9 +48,6 @@ export const GetAllProductsDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllProductsQuery({
  *   variables: {
- *      sortOrder: // value for 'sortOrder'
- *      limit: // value for 'limit'
- *      offset: // value for 'offset'
  *   },
  * });
  */
