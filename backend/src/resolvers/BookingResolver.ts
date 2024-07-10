@@ -1,178 +1,167 @@
-import { GraphQLError } from "graphql";
-import {
-    Arg,
-    Authorized,
-    Ctx,
-    Int,
-    Mutation,
-    Query,
-    Resolver,
-} from "type-graphql";
-import { Booking, NewBookingInput, UpdateBookingInput } from "../entities/Booking";
-import { BookingItem } from "../entities/BookingItem";
-import Product from "../entities/Product";
-import ProductCode from "../entities/ProductCode";
-import { BookingItemStatus } from "../enum/BookingItemStatus";
-import { StatusBooking } from "../enum/StatusBooking";
-import { Context } from "../utils";
+import { GraphQLError } from "graphql"
+import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
+import { Booking, NewBookingInput, UpdateBookingInput } from "../entities/Booking"
+import { BookingItem } from "../entities/BookingItem"
+import Product from "../entities/Product"
+import ProductCode from "../entities/ProductCode"
+import { BookingItemStatus } from "../enum/BookingItemStatus"
+import { StatusBooking } from "../enum/StatusBooking"
+import { Context } from "../utils"
+import { BookingList } from "../types"
 
 @Resolver()
 class BookingResolver {
-    @Query(() => [Booking])
-    async getAllBooking(
-        @Arg("agencyId", { nullable: true }) agencyId?: number,
-        @Arg("userId", { nullable: true }) userId?: number
-    ) {
-        return Booking.find({
-            relations: { user: true, agency: true },
-            where: {
-                ...(agencyId && { agency: { id: agencyId } }),
-                ...(userId && { user: { id: userId } })
-            }
-        });
-    }
+	@Query(() => BookingList)
+	async getAllBooking(
+		@Arg("agencyId", { nullable: true }) agencyId?: number,
+		@Arg("userId", { nullable: true }) userId?: number,
+		@Arg("limit", () => Int, { nullable: true }) limit?: number,
+		@Arg("offset", () => Int, { nullable: true }) offset?: number
+	) {
+		const [bookings, total] = await Booking.findAndCount({
+			relations: { user: true, agency: true },
+			where: {
+				...(agencyId && { agency: { id: agencyId } }),
+				...(userId && { user: { id: userId } }),
+			},
+			take: limit,
+			skip: offset,
+		})
 
-    @Query(() => Booking)
-    async getBookingById(
-        @Arg("bookingId", () => Int) id: number
-    ) {
-        const booking = await Booking.findOne({
-            relations: { user: true, agency: true },
-            where: { id }
-        });
+		return { bookings, total }
+	}
 
-        if (!booking) throw new GraphQLError("Booking Not found");
+	@Query(() => Booking)
+	async getBookingById(@Arg("bookingId", () => Int) id: number) {
+		const booking = await Booking.findOne({
+			relations: { user: true, agency: true },
+			where: { id },
+		})
 
-        return booking;
-    }
+		if (!booking) throw new GraphQLError("Booking Not found")
 
-    @Query(() => [Booking])
-    async getBookingsByUser(
-        @Arg("userId", () => Int) userId: number
-    ) {
-        const bookings = await Booking.find({
-            relations: { user: true, agency: true },
-            where: {
-                user: {
-                    id: userId
-                }
-            }
-        });
+		return booking
+	}
 
-        if (!bookings) throw new GraphQLError("Booking Not found");
+	@Query(() => [Booking])
+	async getBookingsByUser(@Arg("userId", () => Int) userId: number) {
+		const bookings = await Booking.find({
+			relations: { user: true, agency: true },
+			where: {
+				user: {
+					id: userId,
+				},
+			},
+		})
 
-        return bookings;
-    }
+		if (!bookings) throw new GraphQLError("Booking Not found")
 
-    @Authorized()
-    @Mutation(() => Booking)
-    async createBooking(
-        @Arg("data") data: NewBookingInput,
-        @Ctx() ctx: Context
-    ) {
-        if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
+		return bookings
+	}
 
-        const startDate = new Date(data.startDate);
-        const endDate = new Date(data.endDate);
+	@Authorized()
+	@Mutation(() => Booking)
+	async createBooking(@Arg("data") data: NewBookingInput, @Ctx() ctx: Context) {
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-        const product = await Product.findOne({ where: { id: data.productId } });
-        if (!product) throw new GraphQLError("Product not found");
+		const startDate = new Date(data.startDate)
+		const endDate = new Date(data.endDate)
 
-        // Vérification de la disponibilité pour la quantité et la taille demandées
-        const availableProductCodes = await ProductCode.checkAvailability(
-            data.productId,
-            startDate,
-            endDate,
-            data.quantity,
-            data.size
-        );
+		const product = await Product.findOne({ where: { id: data.productId } })
+		if (!product) throw new GraphQLError("Product not found")
 
-        if (!availableProductCodes || availableProductCodes.length < data.quantity) {
-            throw new GraphQLError("Not enough available Product Codes found for the specified dates and size");
-        }
+		// Vérification de la disponibilité pour la quantité et la taille demandées
+		const availableProductCodes = await ProductCode.checkAvailability(
+			data.productId,
+			startDate,
+			endDate,
+			data.quantity,
+			data.size
+		)
 
-        const newBooking = new Booking();
-        Object.assign(newBooking, data);
-        newBooking.status = StatusBooking.BOOKED;
-        await newBooking.save();
+		if (!availableProductCodes || availableProductCodes.length < data.quantity) {
+			throw new GraphQLError("Not enough available Product Codes found for the specified dates and size")
+		}
 
-        const bookingItems = [];
-        for (const productCode of availableProductCodes) {
-            const bookingItem = new BookingItem();
-            bookingItem.status = BookingItemStatus.RENTED;
-            bookingItem.booking = newBooking;
-            bookingItem.product = product;
-            bookingItem.productCode = productCode;
-            bookingItem.startDate = startDate;
-            bookingItem.endDate = endDate;
-            await bookingItem.save();
-            bookingItems.push(bookingItem);
-        }
+		const newBooking = new Booking()
+		Object.assign(newBooking, data)
+		newBooking.status = StatusBooking.BOOKED
+		await newBooking.save()
 
-        newBooking.bookingItem = bookingItems;
-        await newBooking.save();
+		const bookingItems = []
+		for (const productCode of availableProductCodes) {
+			const bookingItem = new BookingItem()
+			bookingItem.status = BookingItemStatus.RENTED
+			bookingItem.booking = newBooking
+			bookingItem.product = product
+			bookingItem.productCode = productCode
+			bookingItem.startDate = startDate
+			bookingItem.endDate = endDate
+			await bookingItem.save()
+			bookingItems.push(bookingItem)
+		}
 
-        return Booking.findOne({
-            where: { id: newBooking.id },
-            relations: { user: true, agency: true, bookingItem: true },
-        });
-    }
+		newBooking.bookingItem = bookingItems
+		await newBooking.save()
 
-    @Authorized()
-    @Mutation(() => Booking)
-    async updateBooking(
-        @Arg("bookingId") id: number,
-        @Arg("data", { validate: true }) data: UpdateBookingInput,
-        @Ctx() ctx: Context
-    ) {
-        if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
+		return Booking.findOne({
+			where: { id: newBooking.id },
+			relations: { user: true, agency: true, bookingItem: true },
+		})
+	}
 
-        const bookingToUpdate = await Booking.findOne({ where: { id }, relations: ["bookingItem"] });
-        if (!bookingToUpdate) throw new GraphQLError("Booking not found");
+	@Authorized()
+	@Mutation(() => Booking)
+	async updateBooking(
+		@Arg("bookingId") id: number,
+		@Arg("data", { validate: true }) data: UpdateBookingInput,
+		@Ctx() ctx: Context
+	) {
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-        Object.assign(bookingToUpdate, data);
+		const bookingToUpdate = await Booking.findOne({ where: { id }, relations: ["bookingItem"] })
+		if (!bookingToUpdate) throw new GraphQLError("Booking not found")
 
-        if (data.status === StatusBooking.CANCELED) {
-            bookingToUpdate.status = StatusBooking.CANCELED;
-            for (const item of bookingToUpdate.bookingItem) {
-                item.status = BookingItemStatus.CANCELED;
-                await item.save();
-            }
-        }
+		Object.assign(bookingToUpdate, data)
 
-        await bookingToUpdate.save();
-        return Booking.findOne({
-            where: { id },
-            relations: { user: true, agency: true },
-        });
-    }
+		if (data.status === StatusBooking.CANCELED) {
+			bookingToUpdate.status = StatusBooking.CANCELED
+			for (const item of bookingToUpdate.bookingItem) {
+				item.status = BookingItemStatus.CANCELED
+				await item.save()
+			}
+		}
 
-    @Authorized()
-    @Mutation(() => String)
-    async cancelBooking(
-        @Arg("bookingId") id: number,
-        @Ctx() ctx: Context
-    ) {
-        if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
+		await bookingToUpdate.save()
+		return Booking.findOne({
+			where: { id },
+			relations: { user: true, agency: true },
+		})
+	}
 
-        const bookingToCancel = await Booking.findOne({
-            where: { id },
-            relations: ["bookingItem"]
-        });
+	@Authorized()
+	@Mutation(() => String)
+	async cancelBooking(@Arg("bookingId") id: number, @Ctx() ctx: Context) {
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-        if (!bookingToCancel) throw new GraphQLError("Booking not found");
+		const bookingToCancel = await Booking.findOne({
+			where: { id },
+			relations: ["bookingItem"],
+		})
 
-        bookingToCancel.status = StatusBooking.CANCELED;
+		if (!bookingToCancel) throw new GraphQLError("Booking not found")
 
-        for (const item of bookingToCancel.bookingItem) {
-            item.status = BookingItemStatus.CANCELED;
-            await item.save();
-        }
+		bookingToCancel.status = StatusBooking.CANCELED
 
-        await bookingToCancel.save();
+		for (const item of bookingToCancel.bookingItem) {
+			item.status = BookingItemStatus.CANCELED
+			await item.save()
+		}
 
-        return "Booking cancelled";
-    }
+		await bookingToCancel.save()
+
+		return "Booking cancelled"
+	}
 }
 
-export default BookingResolver;
+export default BookingResolver

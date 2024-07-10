@@ -4,6 +4,7 @@ import Product from "./entities/Product"
 import { User } from "./entities/User"
 import ProductCharacteristic from "./entities/ProductCharacteristic"
 import Brand from "./entities/Brand"
+import Booking from "./entities/Booking"
 
 export interface ContextType {
 	req: express.Request
@@ -94,8 +95,17 @@ export class ProductCharacteristicList {
 @ObjectType()
 export class BrandList {
 	@Field(() => [Brand])
-	brands: Brand[]
+	brands: Brand[];
 
 	@Field(() => Int)
-	total: number
+	total: number;
+}
+
+@ObjectType()
+export class BookingList {
+	@Field(() => [Booking])
+	bookings: Booking[];
+
+	@Field(() => Int)
+	total: number;
 }
