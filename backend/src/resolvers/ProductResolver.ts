@@ -17,11 +17,11 @@ export class ProductResolver {
 		@Arg("limit", () => Int, { nullable: true }) limit?: number,
 		@Arg("offset", () => Int, { nullable: true }) offset?: number
 	): Promise<ProductList> {
-		const whereOptions: any = {
-			category: {
-				id: categoryId,
-			},
-		};
+		const whereOptions: any = {};
+
+		if (categoryId) {
+			whereOptions.category = { id: categoryId };
+		}
 
 		if (name) {
 			whereOptions.name = ILike(`%${name}%`);

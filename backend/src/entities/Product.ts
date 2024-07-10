@@ -34,8 +34,8 @@ export class Product extends BaseEntity {
 
 	// Relations
 
-	@ManyToOne(() => Category, (category) => category.products, { cascade: true, onDelete: "CASCADE" })
-	@Field(() => Category)
+	@ManyToOne(() => Category, (category) => category.products, { cascade: true, onDelete: "CASCADE", nullable: true })
+	@Field(() => Category, { nullable: true })
 	category: Category;
 
 	@ManyToOne(() => Brand, (brand) => brand.product, { cascade: true, onDelete: "CASCADE" })

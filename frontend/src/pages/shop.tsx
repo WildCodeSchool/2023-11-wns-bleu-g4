@@ -38,7 +38,8 @@ export default function ShopPage() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-    const products = data?.getAllProducts.products ?? [];
+    // ? Filtrer les produits sans catégorie
+    const products = data?.getAllProducts.products.filter(product => product.category) ?? [];
     const totalProducts = data?.getAllProducts.total ?? 0;
     const maxPages = Math.ceil(totalProducts / 12);
 
