@@ -70,6 +70,12 @@ export enum BookingItemStatus {
   Returned = 'RETURNED'
 }
 
+export type BookingList = {
+  __typename?: 'BookingList';
+  bookings: Array<Booking>;
+  total: Scalars['Int']['output'];
+};
+
 export type Brand = {
   __typename?: 'Brand';
   id: Scalars['Int']['output'];
@@ -474,7 +480,7 @@ export type Query = {
   __typename?: 'Query';
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
-  getAllBooking: Array<Booking>;
+  getAllBooking: BookingList;
   getAllBrands: BrandList;
   getAllCategories: Array<Category>;
   getAllParentCategories: Array<ParentCategory>;
@@ -509,6 +515,8 @@ export type QueryGetAgencyByIdArgs = {
 
 export type QueryGetAllBookingArgs = {
   agencyId?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   userId?: InputMaybe<Scalars['Float']['input']>;
 };
 
