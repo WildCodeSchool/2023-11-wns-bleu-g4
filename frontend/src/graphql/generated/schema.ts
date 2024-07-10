@@ -429,6 +429,12 @@ export type ProductCharacteristic = {
   product: Product;
 };
 
+export type ProductCharacteristicList = {
+  __typename?: 'ProductCharacteristicList';
+  productCharacteristics: Array<ProductCharacteristic>;
+  total: Scalars['Int']['output'];
+};
+
 export type ProductCode = {
   __typename?: 'ProductCode';
   agency?: Maybe<Agency>;
@@ -466,12 +472,12 @@ export type Query = {
   getAllBrands: Array<Brand>;
   getAllCategories: Array<Category>;
   getAllParentCategories: Array<ParentCategory>;
-  getAllProductCharacteristics: Array<ProductCharacteristic>;
+  getAllProductCharacteristics: ProductCharacteristicList;
   getAllProduct_codes: Array<ProductCode>;
   getAllProduct_pictures: Array<Product_Picture>;
   getAllProducts: ProductList;
   getAllReviews: Array<Review>;
-  getAllUsers: Array<User>;
+  getAllUsers: UserList;
   getBookingById: Booking;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
@@ -514,6 +520,12 @@ export type QueryGetAllParentCategoriesArgs = {
 };
 
 
+export type QueryGetAllProductCharacteristicsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type QueryGetAllProductsArgs = {
   categoryId?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -526,6 +538,12 @@ export type QueryGetAllProductsArgs = {
 export type QueryGetAllReviewsArgs = {
   productId?: InputMaybe<Scalars['Float']['input']>;
   userId?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type QueryGetAllUsersArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -724,4 +742,10 @@ export type User = {
 
 export type UserId = {
   id: Scalars['Int']['input'];
+};
+
+export type UserList = {
+  __typename?: 'UserList';
+  total: Scalars['Int']['output'];
+  users: Array<User>;
 };
