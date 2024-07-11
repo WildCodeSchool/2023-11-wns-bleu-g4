@@ -8,7 +8,7 @@ interface SearchSuggestionsProps {
 
 export default function SearchSuggestions({ suggestions, onSuggestionClick }: SearchSuggestionsProps) {
   return (
-    <Box position="absolute" top="100%" left={0} right={0} zIndex={1} width="100%">
+    <Box width="full">
       {suggestions.length > 0 && (
         <List
           backgroundColor="white"
@@ -17,7 +17,6 @@ export default function SearchSuggestions({ suggestions, onSuggestionClick }: Se
           boxShadow="md"
           maxHeight="300px"
           overflowY="auto"
-          width="100%"
         >
           {suggestions.map((product) => (
             <ListItem

@@ -8,6 +8,7 @@ import {
   IconButton,
   useDisclosure,
   useOutsideClick,
+  Box,
 } from "@chakra-ui/react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
@@ -29,6 +30,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
   const [suggestions, setSuggestions] = useState<GetAllProductsQuery["getAllProducts"]["products"]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionsRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLDivElement>(null);
 
   useOutsideClick({
     ref: suggestionsRef,
@@ -102,7 +104,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
         justify={{ base: "center", md: "end" }}
         width={{ base: "full", md: "50%" }}
       >
-        <div className="relative flex items-center justify-center">
+        <div className="relative flex items-center justify-center" ref={inputRef}>
           <input
             type="search"
             placeholder={placeholder}
@@ -130,9 +132,9 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
           </div>
         </div>
         {showSuggestions && (
-          <div ref={suggestionsRef}>
+          <Box ref={suggestionsRef} position="absolute" top="100%" right={0} zIndex={1} width={inputRef.current?.offsetWidth || "auto"}>
             <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
-          </div>
+          </Box>
         )}
       </Flex>
     );
@@ -207,14 +209,14 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
                   <MagnifyingGlassIcon className="dark h-4 w-4" />
                 </div>
               </div>
+              {showSuggestions && (
+                <Box ref={suggestionsRef} width="full">
+                  <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
+                </Box>
+              )}
             </DrawerBody>
           </DrawerContent>
         </Drawer>
-        {showSuggestions && (
-          <div ref={suggestionsRef}>
-            <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
-          </div>
-        )}
       </Flex>
     );
   }
