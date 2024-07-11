@@ -8,7 +8,7 @@ import { GetStaticProps } from "next";
 import { useGetAllBookingQuery } from "@/graphql/Booking/generated/GetAllBooking.generated";
 
 export default function Orders() {
-  const { data } = useGetAllBookingQuery();
+  const { data, refetch } = useGetAllBookingQuery();
   const orders = data?.getAllBooking.bookings ?? [];
   const totalOrders = data?.getAllBooking.total ?? 0;
   const [sortedData, setSortedData] = useState<any[]>([]);
@@ -61,6 +61,7 @@ export default function Orders() {
       <div className="overflow-x-auto">
         <OrderTableBody
           data={sortedData}
+          refetch={refetch}
           sortOrder={sortOrder}
           sortColumnName={sortColumn}
           handleDateSort={handleDateSort}
