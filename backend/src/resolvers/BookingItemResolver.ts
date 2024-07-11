@@ -3,6 +3,7 @@ import {
     Arg,
     Authorized,
     Ctx,
+    Int,
     Mutation,
     Query,
     Resolver,
@@ -21,7 +22,7 @@ class BookingItemResolver {
 
     @Query(() => [BookingItem])
     async getBookingItemsByBookingId(
-        @Arg("bookingId") bookingId: number,
+        @Arg("bookingId",()=>Int) bookingId: number,
     ) {
         const items = await BookingItem.find({
             where: { booking: { id: bookingId } },
@@ -53,7 +54,7 @@ class BookingItemResolver {
     @Authorized()
     @Mutation(() => BookingItem)
     async updateBookingItem(
-        @Arg("bookingItemId") id: number,
+        @Arg("bookingItemId", () => Int) id: number,
         @Arg("data", { validate: true }) data: UpdateBookingItemInput,
         @Ctx() ctx: Context
     ) {
@@ -70,7 +71,7 @@ class BookingItemResolver {
 
     @Authorized()
     @Mutation(() => String)
-    async deleteBookingItem(@Arg("bookingItemId") id: number, @Ctx() ctx: Context) {
+    async deleteBookingItem(@Arg("bookingItemId", () => Int) id: number, @Ctx() ctx: Context) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
         const itemToDelete = await BookingItem.findOne({ where: { id }, relations: { product: true } })

@@ -8,8 +8,8 @@ import { UserRole } from "../entities/User"
 export class ReviewResolver {
 	@Query(() => [Review])
 	async getAllReviews(
-		@Arg("userId", { nullable: true }) userId?: number,
-		@Arg("productId", { nullable: true }) productId?: number,
+		@Arg("userId", () => Int, { nullable: true }) userId?: number,
+		@Arg("productId", () => Int, { nullable: true }) productId?: number,
 	) {
 		const where: any = {};
 
@@ -30,8 +30,8 @@ export class ReviewResolver {
 	@Query(() => Review)
 	async getReviewById(
 		@Arg("reviewId", () => Int) id: number,
-		@Arg("userId", { nullable: true }) userId?: number,
-		@Arg("productId", { nullable: true }) productId?: number,
+		@Arg("userId", () => Int, { nullable: true }) userId?: number,
+		@Arg("productId", () => Int,{ nullable: true }) productId?: number,
 	) {
 		const review = await Review.findOne({
 			relations: { user: true, product: true },
@@ -45,8 +45,8 @@ export class ReviewResolver {
 
 	@Query(() => [Review])
 	async getReviewsByProductId(
-		@Arg("productId") productId: number,
-		@Arg("userId", { nullable: true }) userId?: number,
+		@Arg("productId", () => Int) productId: number,
+		@Arg("userId",() => Int, { nullable: true }) userId?: number,
 	) {
 		const reviews = await Review.find({
 			relations: { user: true, product: true },
@@ -61,7 +61,7 @@ export class ReviewResolver {
 	@Query(() => [Review])
 	async getReviewsByUserId(
 		@Arg("userId", () => Int) userId: number,
-		@Arg("productId", { nullable: true }) productId?: number,
+		@Arg("productId", () => Int, { nullable: true }) productId?: number,
 	) {
 		const reviews = await Review.find({
 			relations: { user: true, product: true },
@@ -118,7 +118,7 @@ export class ReviewResolver {
 
 	@Authorized([UserRole.CUSTOMER])
 	@Mutation(() => String)
-	async deleteReview(@Arg("reviewId") id: number, @Ctx() ctx: Context) {
+	async deleteReview(@Arg("reviewId", () => Int) id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const reviewToDelete = await Review.findOne({ where: { id } })
 		if (!reviewToDelete) throw new GraphQLError("Review not found")

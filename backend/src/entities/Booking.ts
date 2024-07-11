@@ -133,4 +133,3 @@ export class CancelBookingInput {
 }
 
 export default Booking
-

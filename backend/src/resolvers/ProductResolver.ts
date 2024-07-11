@@ -81,7 +81,7 @@ export class ProductResolver {
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => Product)
 	async updateProduct(
-		@Arg("productId") id: number,
+		@Arg("productId", () => Int) id: number,
 		@Arg("data", { validate: true }) data: UpdateProductInput,
 		@Ctx() ctx: Context
 	) {
@@ -101,7 +101,7 @@ export class ProductResolver {
 
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => String)
-	async deleteProduct(@Arg("productId") id: number, @Ctx() ctx: Context) {
+	async deleteProduct(@Arg("productId", () => Int) id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const productToDelete = await Product.findOne({ where: { id } })
 		if (!productToDelete) throw new GraphQLError("Product not found")

@@ -1,4 +1,4 @@
-query GetAllReviews($productId: Float) {
+query GetAllReviews($productId: Int) {
   getAllReviews(productId: $productId) {
     comment
     id

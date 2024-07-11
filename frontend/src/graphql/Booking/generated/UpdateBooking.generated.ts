@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdateBookingMutationVariables = Types.Exact<{
   data: Types.UpdateBookingInput;
-  bookingId: Types.Scalars['Float']['input'];
+  bookingId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -13,7 +13,7 @@ export type UpdateBookingMutation = { __typename?: 'Mutation', updateBooking: { 
 
 
 export const UpdateBookingDocument = gql`
-    mutation UpdateBooking($data: UpdateBookingInput!, $bookingId: Float!) {
+    mutation UpdateBooking($data: UpdateBookingInput!, $bookingId: Int!) {
   updateBooking(data: $data, bookingId: $bookingId) {
     id
     status

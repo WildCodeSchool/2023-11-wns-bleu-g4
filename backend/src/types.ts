@@ -2,6 +2,7 @@ import express from "express";
 import { Field, InputType, Int, ObjectType } from "type-graphql";
 import Product from "./entities/Product";
 import { User } from "./entities/User";
+import Booking from "./entities/Booking";
 
 export interface ContextType {
 	req: express.Request
@@ -66,6 +67,15 @@ export class BrandId {
 export class ProductList {
 	@Field(() => [Product])
 	products: Product[];
+
+	@Field(() => Int)
+	total: number;
+}
+
+@ObjectType()
+export class BookingList {
+	@Field(() => [Booking])
+	bookings: Booking[];
 
 	@Field(() => Int)
 	total: number;

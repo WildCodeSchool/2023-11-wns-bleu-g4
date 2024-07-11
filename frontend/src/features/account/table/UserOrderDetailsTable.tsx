@@ -1,37 +1,72 @@
-import { Flex, Heading, transform } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { orderTableHeaders } from "../helpers/tableHeaders"
-import { useGetBookingsByUserQuery } from "@/graphql/Booking/generated/GetBookingByUserId.generated";
+import { orderDetailsHeaders } from "../helpers/tableHeaders"
+import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
+import { useRouter } from "next/router";
+import transformToDate from "../helpers/TransformDate";
+import TableFooter from "./TableFooter";
+import { useEffect, useState } from "react";
 
 export default function UserOrdersDetailsTable() {
 
-    const { t } = useTranslation("UserOrders");
+    const { t } = useTranslation("UserOrderDetails");
 
-    const {data} = useGetBookingsByUserQuery({
-        variables : {
-            userId : 1
+    /** Router */
+    const router = useRouter()
+    const { query } = router;
+
+    /** Pagination 1/2 */
+    const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
+    const [currentPage, setCurrentPage] = useState(initialPage);
+    const itemsPerPage = 10;
+    const startIndex = currentPage * itemsPerPage;
+
+    const { data } = useGetBookingItemsByBookingIdQuery({
+        variables: {
+            bookingId: parseInt(query.id as string)
         }
     })
-    const bookings = data?.getAllBooking || []
+    const bookingItems = data?.getBookingItemsByBookingId || []
 
-    const transformToDate = (dateToTransform: string) => {
-        const newDate = new Date(dateToTransform)
-        return newDate.toLocaleDateString() 
+    const goToDetails = (bookingId: number) => {
+        router.push(`/account/orders/${bookingId}`)
     }
 
-    const goToDetails = (bookingId : number) => {
-        return true
-    }
+
+    /** Queries - Mutations */
+    // const { data } = useGetBookingsByUserIdQuery({
+    //     variables: {
+    //         userId: parseInt(query?.id as string),
+    //         limit: itemsPerPage,
+    //         offset: currentPage * itemsPerPage
+    //     }
+    // })
+    // const bookings = data?.getBookingsByUserId.bookings || []
+    // const totalProducts = data?.getBookingsByUserId.total
+
+    /** Pagination 2/2 */
+    // const endIndex = startIndex + Math.min(itemsPerPage, bookings?.length ?? 0);
+    // const handlePageChange = (pageNumber: number) => {
+    //     setCurrentPage(pageNumber);
+    //     const nextPage = pageNumber + 1;
+    //     console.log(query.id)
+    //     router.push(`/account/user/${query.id}?page=${nextPage}`);
+    // };
+
+    useEffect(() => {
+        setCurrentPage(initialPage);
+    }, [query.page]);
+
+    const classTh = "h-14 p-3 text-center uppercase font-bold whitespace-nowrap "
 
     return (
-        <Flex className="w-full lg:w-2/3 xl:w-3/4 2xl:4/5 flex-col px-0 lg:me-12 lg:pb-5" gap={2}>
-            <Heading>Orders</Heading>
-            <table className="min-w-full rounded  bg-cactus-900">
-                <thead>
+        <Flex className="w-full flex flex-col text-center xl:w-fit" gap={2}>
+            <table className="w-full rounded  bg-cactus-700 text-xs">
+                <thead className="bg-cactus-900">
                     <tr>
-                        {orderTableHeaders.map(menu => (
+                        {orderDetailsHeaders.map(menu => (
                             <th
-                                className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap "
+                                className={classTh + " " + menu.thClass}
                                 key={menu.id}
                             >
                                 {menu.name}
@@ -39,30 +74,39 @@ export default function UserOrdersDetailsTable() {
                         ))}
                     </tr>
                 </thead>
-                <tbody className="text-sm">
-                    {bookings ? (
-                        bookings.map((booking: any, index: number) => (
+                <tbody >
+                    {bookingItems ? (
+                        bookingItems.map((item: any, index: number) => (
                             <tr
-                                key={booking.id}
-                                className={`${index % 2 === 0 && "bg-cactus-500"} whitespace-nowrap hover:bg-cactus-400 cursor-pointer`}
-                                onClick={()=>goToDetails(booking.id)}
-                            >
-                                <td className="whitespace-nowrap p-3 w-96 min-w-max">{booking.invoice}</td>
-                                <td className="whitespace-nowrap p-3 w-60 min-w-max">{booking.agency.name}</td>
-                                <td className="whitespace-nowrap p-3 w-96 min-w-max">{transformToDate(booking.startDate)}</td>
-                                <td className="whitespace-nowrap p-3 w-60 min-w-max">{transformToDate(booking.endDate)}</td>
-                                <td className="whitespace-nowrap p-3 w-60 min-w-max">{booking.status}</td>
+                                key={item.id}
+                                className={`${index % 2 === 0 && "bg-cactus-600"} whitespace-nowrap`}>
+                                <td className="w-28 text-center whitespace-nowrap p-3 min-w-25 max-w-40 xl:max-w-60">
+                                    <img src={item.product.thumbnail} alt="" className=" rounded" />
+                                </td>
+                                <td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-48 xl:max-w-60 overflow-hidden text-ellipsis sm:table-cell">{item.product.name}</td>
+                                <td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40 overflow-hidden text-ellipsis lg:table-cell">{transformToDate(item.startDate)}</td>
+                                <td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40 overflow-hidden text-ellipsis lg:table-cell">{transformToDate(item.endDate)}</td>
+                                <td className="text-center whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40">{item.product.price} €</td>
+                                <td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40 overflow-hidden text-ellipsis lg:table-cell">{item.status}</td>
                             </tr>
                         ))
                     ) : (
                         <tr>
                             <td className="p-4 text-center" colSpan={4}>
-                                No booking found
+                                {t("No booking found")}
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
+            {/* <TableFooter
+                data={totalProducts}
+                startIndex={startIndex}
+                endIndex={endIndex}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                setCurrentPage={handlePageChange}
+            /> */}
         </Flex>
     )
 }

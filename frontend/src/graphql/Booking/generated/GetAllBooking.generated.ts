@@ -3,21 +3,27 @@ import * as Types from '../../generated/schema';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetAllBookingQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetAllBookingQueryVariables = Types.Exact<{
+  offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+}>;
 
 
-export type GetAllBookingQuery = { __typename?: 'Query', getAllBooking: Array<{ __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any }> };
+export type GetAllBookingQuery = { __typename?: 'Query', getAllBooking: { __typename?: 'BookingList', total: number, bookings: Array<{ __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any }> } };
 
 
 export const GetAllBookingDocument = gql`
-    query GetAllBooking {
-  getAllBooking {
-    id
-    status
-    invoice
-    bookingDate
-    startDate
-    endDate
+    query GetAllBooking($offset: Int, $limit: Int) {
+  getAllBooking(offset: $offset, limit: $limit) {
+    bookings {
+      id
+      status
+      invoice
+      bookingDate
+      startDate
+      endDate
+    }
+    total
   }
 }
     `;
@@ -34,6 +40,8 @@ export const GetAllBookingDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllBookingQuery({
  *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
  *   },
  * });
  */

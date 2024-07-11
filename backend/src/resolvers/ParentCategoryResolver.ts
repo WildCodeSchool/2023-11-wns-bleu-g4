@@ -10,7 +10,7 @@ class ParentCategoryResolver {
 	@Query(() => [ParentCategory])
 	async getAllParentCategories(
 		@Arg("name", { nullable: true }) name?: string,
-		@Arg("categoryId", { nullable: true }) categoryId?: number
+		@Arg("categoryId", () => Int, { nullable: true }) categoryId?: number
 	) {
 		return ParentCategory.find({
 			where: {
@@ -50,7 +50,7 @@ class ParentCategoryResolver {
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => ParentCategory)
 	async updateParentCategory(
-		@Arg("parentCategoryId") id: number,
+		@Arg("parentCategoryId", () => Int) id: number,
 		@Arg("data", { validate: true }) data: UpdateParentCategoryInput,
 		@Ctx() ctx: Context
 	) {
@@ -70,7 +70,7 @@ class ParentCategoryResolver {
 
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => String)
-	async deleteParentCategory(@Arg("parentCategoryId") id: number, @Ctx() ctx: Context) {
+	async deleteParentCategory(@Arg("parentCategoryId", () => Int) id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const parentCategoryToDelete = await ParentCategory.findOne({ where: { id } })
 		if (!parentCategoryToDelete) throw new GraphQLError("Parent Category not found")

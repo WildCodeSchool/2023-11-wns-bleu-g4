@@ -1,4 +1,4 @@
-mutation UpdateBooking($data: UpdateBookingInput!, $bookingId: Float!) {
+mutation UpdateBooking($data: UpdateBookingInput!, $bookingId: Int!) {
   updateBooking(data: $data, bookingId: $bookingId) {
     id
     status

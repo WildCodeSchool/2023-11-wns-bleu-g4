@@ -70,6 +70,12 @@ export enum BookingItemStatus {
   Returned = 'RETURNED'
 }
 
+export type BookingList = {
+  __typename?: 'BookingList';
+  bookings: Array<Booking>;
+  total: Scalars['Int']['output'];
+};
+
 export type Brand = {
   __typename?: 'Brand';
   id: Scalars['Int']['output'];
@@ -133,7 +139,7 @@ export type Mutation = {
 
 
 export type MutationCancelBookingArgs = {
-  bookingId: Scalars['Float']['input'];
+  bookingId: Scalars['Int']['input'];
 };
 
 
@@ -198,12 +204,12 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationDeleteAgencyArgs = {
-  agencyId: Scalars['Float']['input'];
+  agencyId: Scalars['Int']['input'];
 };
 
 
 export type MutationDeleteBookingItemArgs = {
-  bookingItemId: Scalars['Float']['input'];
+  bookingItemId: Scalars['Int']['input'];
 };
 
 
@@ -213,22 +219,22 @@ export type MutationDeleteBrandArgs = {
 
 
 export type MutationDeleteCategoryArgs = {
-  categoryId: Scalars['Float']['input'];
+  categoryId: Scalars['Int']['input'];
 };
 
 
 export type MutationDeleteParentCategoryArgs = {
-  parentCategoryId: Scalars['Float']['input'];
+  parentCategoryId: Scalars['Int']['input'];
 };
 
 
 export type MutationDeleteProductArgs = {
-  productId: Scalars['Float']['input'];
+  productId: Scalars['Int']['input'];
 };
 
 
 export type MutationDeleteProductCharacteristicArgs = {
-  productCharacteristicId: Scalars['Float']['input'];
+  productCharacteristicId: Scalars['Int']['input'];
 };
 
 
@@ -238,7 +244,7 @@ export type MutationDeleteProduct_PictureArgs = {
 
 
 export type MutationDeleteReviewArgs = {
-  reviewId: Scalars['Float']['input'];
+  reviewId: Scalars['Int']['input'];
 };
 
 
@@ -248,19 +254,19 @@ export type MutationLoginArgs = {
 
 
 export type MutationUpdateAgencyArgs = {
-  agencyId: Scalars['Float']['input'];
+  agencyId: Scalars['Int']['input'];
   data: UpdateAgencyInput;
 };
 
 
 export type MutationUpdateBookingArgs = {
-  bookingId: Scalars['Float']['input'];
+  bookingId: Scalars['Int']['input'];
   data: UpdateBookingInput;
 };
 
 
 export type MutationUpdateBookingItemArgs = {
-  bookingItemId: Scalars['Float']['input'];
+  bookingItemId: Scalars['Int']['input'];
   data: UpdateBookingItemInput;
 };
 
@@ -272,26 +278,26 @@ export type MutationUpdateBrandArgs = {
 
 
 export type MutationUpdateCategoryArgs = {
-  categoryId: Scalars['Float']['input'];
+  categoryId: Scalars['Int']['input'];
   data: UpdateCategoryInput;
 };
 
 
 export type MutationUpdateParentCategoryArgs = {
   data: UpdateParentCategoryInput;
-  parentCategoryId: Scalars['Float']['input'];
+  parentCategoryId: Scalars['Int']['input'];
 };
 
 
 export type MutationUpdateProductArgs = {
   data: UpdateProductInput;
-  productId: Scalars['Float']['input'];
+  productId: Scalars['Int']['input'];
 };
 
 
 export type MutationUpdateProductCharacteristicArgs = {
   data: UpdateProductCharacteristicInput;
-  productCharacteristicId: Scalars['Float']['input'];
+  productCharacteristicId: Scalars['Int']['input'];
 };
 
 
@@ -462,7 +468,7 @@ export type Query = {
   __typename?: 'Query';
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
-  getAllBooking: Array<Booking>;
+  getAllBooking: BookingList;
   getAllBrands: Array<Brand>;
   getAllCategories: Array<Category>;
   getAllParentCategories: Array<ParentCategory>;
@@ -475,7 +481,7 @@ export type Query = {
   getBookingById: Booking;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
-  getBookingsByUser: Array<Booking>;
+  getBookingsByUserId: BookingList;
   getBrandById: Brand;
   getCategoryById: Category;
   getParentCategoryById: ParentCategory;
@@ -497,6 +503,8 @@ export type QueryGetAgencyByIdArgs = {
 
 export type QueryGetAllBookingArgs = {
   agencyId?: InputMaybe<Scalars['Float']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   userId?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -509,11 +517,6 @@ export type QueryGetAllCategoriesArgs = {
 
 
 export type QueryGetAllParentCategoriesArgs = {
-  name?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryGetAllProductsArgs = {
   categoryId?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
 };
@@ -529,8 +532,8 @@ export type QueryGetAllProductsArgs = {
 
 
 export type QueryGetAllReviewsArgs = {
-  productId?: InputMaybe<Scalars['Float']['input']>;
-  userId?: InputMaybe<Scalars['Float']['input']>;
+  productId?: InputMaybe<Scalars['Int']['input']>;
+  userId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -540,11 +543,13 @@ export type QueryGetBookingByIdArgs = {
 
 
 export type QueryGetBookingItemsByBookingIdArgs = {
-  bookingId: Scalars['Float']['input'];
+  bookingId: Scalars['Int']['input'];
 };
 
 
-export type QueryGetBookingsByUserArgs = {
+export type QueryGetBookingsByUserIdArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   userId: Scalars['Int']['input'];
 };
 
@@ -585,20 +590,20 @@ export type QueryGetProductCodesByStatusArgs = {
 
 
 export type QueryGetReviewByIdArgs = {
-  productId?: InputMaybe<Scalars['Float']['input']>;
+  productId?: InputMaybe<Scalars['Int']['input']>;
   reviewId: Scalars['Int']['input'];
-  userId?: InputMaybe<Scalars['Float']['input']>;
+  userId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryGetReviewsByProductIdArgs = {
-  productId: Scalars['Float']['input'];
-  userId?: InputMaybe<Scalars['Float']['input']>;
+  productId: Scalars['Int']['input'];
+  userId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryGetReviewsByUserIdArgs = {
-  productId?: InputMaybe<Scalars['Float']['input']>;
+  productId?: InputMaybe<Scalars['Int']['input']>;
   userId: Scalars['Int']['input'];
 };
 

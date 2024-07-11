@@ -40,7 +40,7 @@ export class BookingItem extends BaseEntity {
 	@Field(() => Booking)
 	booking: Booking;
 
-	@ManyToOne(() => Product, (product) => product.bookingItem, { nullable: false })
+	@ManyToOne(() => Product, (product) => product.bookingItem, { nullable: true, cascade:true })
 	@Field(() => Product)
 	product: Product;
 

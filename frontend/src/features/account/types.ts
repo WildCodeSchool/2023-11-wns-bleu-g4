@@ -3,6 +3,13 @@ export interface menuItems {
   name: string;
 }
 
+export interface menuItemsth {
+  id: number;
+  name: string;
+  thClass: string
+}
+
+
 export interface OrderTableBodyProps {
   data: any;
   sortColumnName: string | null;

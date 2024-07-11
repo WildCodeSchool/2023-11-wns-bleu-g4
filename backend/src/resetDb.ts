@@ -240,6 +240,7 @@ async function main() {
 		await productPicture.save()
 	}
 
+
 	const booking = new Booking()
 	Object.assign(booking, {
 		status: StatusBooking.BOOKED,

@@ -61,7 +61,7 @@ class AgencyResolver {
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => Agency)
 	async updateAgency(
-		@Arg("agencyId") id: number,
+		@Arg("agencyId",() => Int) id: number,
 		@Arg("data", { validate: true }) data: UpdateAgencyInput,
 		@Ctx() ctx: Context
 	) {
@@ -83,7 +83,7 @@ class AgencyResolver {
 
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => String)
-	async deleteAgency(@Arg("agencyId") id: number, @Ctx() ctx: Context) {
+	async deleteAgency(@Arg("agencyId", () => Int) id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
 		const agencyToDelete = await Agency.findOne({ where: { id } });
 		if (!agencyToDelete) throw new GraphQLError("Agency not found");
