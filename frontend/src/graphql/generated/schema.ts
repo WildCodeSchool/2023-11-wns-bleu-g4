@@ -705,7 +705,7 @@ export type UpdateProductCharacteristicInput = {
 
 export type UpdateProductInput = {
   brand?: InputMaybe<ObjectId>;
-  category?: InputMaybe<ObjectId>;
+  category: ObjectId;
   characteristics?: InputMaybe<Array<ObjectId>>;
   description?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
