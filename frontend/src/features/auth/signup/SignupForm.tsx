@@ -69,7 +69,8 @@ export default function SignupForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target as HTMLFormElement);
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
     let formJSON: any = Object.fromEntries(formData.entries());
 
     if (validatePassword(formJSON.password, formJSON.repeatPassword)) {
@@ -77,11 +78,9 @@ export default function SignupForm() {
         delete formJSON.repeatPassword;
 
         const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
-        const toastInfo: string = `Account created`;
-        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 3000 });
-        setTimeout(() => {
-          window.location.replace("/account/" + res.data?.createUser.id);
-        }, 3000);
+        const toastInfo: string = `Account created. Please check your email to verify your account.`;
+        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 5000 });
+        form.reset();
       } catch (e: any) {
         const errArr = e.message.replaceAll("_", " ");
         toast.error(errArr, ToastConfigLogin);
