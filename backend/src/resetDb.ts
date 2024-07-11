@@ -255,10 +255,10 @@ async function main() {
 	Object.assign(bookingItem, {
 		status: BookingItemStatus.RENTED,
 		booking,
-		productCode,
+		productCode: productCode.id,
 		startDate: new Date("2024-06-10T08:00:00.000Z"),
 		endDate: new Date("2024-06-15T19:00:00.000Z"),
-		product,
+		product: product.id,
 	})
 	await bookingItem.save()
 

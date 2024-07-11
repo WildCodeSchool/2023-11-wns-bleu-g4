@@ -36,6 +36,12 @@ export class ProductId {
 }
 
 @InputType()
+export class ProductCodeId {
+	@Field(() => Int)
+	id!: number;
+}
+
+@InputType()
 export class BookingId {
 	@Field(() => Int)
 	id!: number;

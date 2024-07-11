@@ -65,7 +65,7 @@ export class ProductCode extends BaseEntity {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-	@Field(() => [BookingItem], { nullable: true })
+	@Field(() => [BookingItem])
 	bookingItems: BookingItem[]
 
 	/** METHODS *********************/
@@ -80,7 +80,7 @@ export class ProductCode extends BaseEntity {
 		const availableProductCodes = [];
 
 		const productCodes = await this.find({
-			where: { product: { id: productId }, status: Status.AVAILABLE, ...(size ? { size: size.toString() } : {}) }
+			where: { product: { id: productId }, status: Status.AVAILABLE, ...(size ? { size: size.toString() } : {}) },
 		});
 
 		for (const productCode of productCodes) {
@@ -89,15 +89,13 @@ export class ProductCode extends BaseEntity {
 					productCode: { id: productCode.id },
 					startDate: LessThanOrEqual(endDate),
 					endDate: MoreThanOrEqual(startDate),
-					status: Not(BookingItemStatus.CANCELED)
-				}
+					status: Not(BookingItemStatus.CANCELED),
+				},
 			});
 
 			if (overlappingBookings.length === 0) {
-				availableProductCodes.push(productCode);
-				if (availableProductCodes.length === quantity) {
-					return availableProductCodes;
-				}
+				availableProductCodes.push(productCode)
+				if (availableProductCodes.length === quantity) return availableProductCodes;
 			}
 		}
 
@@ -111,10 +109,10 @@ export class NewProductCodeInput {
 	status: Status
 
 	@Field(() => Int)
-	productId: number
+	product: number
 
 	@Field(() => Int)
-	agencyId: number
+	agency: number
 
 	@Field(() => Boolean, { defaultValue: false })
 	isSizeable: boolean
