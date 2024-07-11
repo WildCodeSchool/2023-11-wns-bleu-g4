@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CancelBookingMutationVariables = Types.Exact<{
-  bookingId: Types.Scalars['Float']['input'];
+  bookingId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -12,7 +12,7 @@ export type CancelBookingMutation = { __typename?: 'Mutation', cancelBooking: st
 
 
 export const CancelBookingDocument = gql`
-    mutation CancelBooking($bookingId: Float!) {
+    mutation CancelBooking($bookingId: Int!) {
   cancelBooking(bookingId: $bookingId)
 }
     `;
