@@ -8,17 +8,17 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { CategoryModalProps } from "../types";
+import { BrandModalProps } from "./types";
 
-export default function CategoryDeleteModal({ isOpen, onClose, category, handleDelete }: CategoryModalProps) {
+export default function BrandDeleteModal({ isOpen, onClose, brand, handleDelete }: BrandModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Delete {category?.name}</ModalHeader>
+        <ModalHeader>Delete {brand?.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          Are you sure you want to delete <b>{category?.name} category</b>? This action cannot be undone.
+          Are you sure you want to delete <b>{brand?.name} brand</b>? This action cannot be undone.
         </ModalBody>
         <ModalFooter>
           <Button onClick={onClose}>Cancel</Button>
@@ -27,7 +27,7 @@ export default function CategoryDeleteModal({ isOpen, onClose, category, handleD
             ml={3}
             type="submit"
             onClick={() => {
-              handleDelete && handleDelete(category?.id!);
+              handleDelete && handleDelete(brand?.id!);
             }}
           >
             Delete

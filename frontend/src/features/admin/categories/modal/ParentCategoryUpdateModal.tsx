@@ -43,7 +43,7 @@ export default function ParentCategoryUpdateModal({ isOpen, onClose, parentCateg
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="neutralOverlayStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add a new product</ModalHeader>

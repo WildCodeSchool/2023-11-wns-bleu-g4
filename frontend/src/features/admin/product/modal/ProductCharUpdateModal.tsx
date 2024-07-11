@@ -27,7 +27,7 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product }: Pro
   });
   const [selectedCharacteristics, setSelectedCharacteristics] = useState<Characteristic[]>([]);
   const { data: characteristicsData } = useGetAllProductCharacteristicsQuery();
-  const characteristics = characteristicsData?.getAllProductCharacteristics ?? [];
+  const characteristics = characteristicsData?.getAllProductCharacteristics.productCharacteristics ?? [];
 
   const productId = product?.id!;
 
