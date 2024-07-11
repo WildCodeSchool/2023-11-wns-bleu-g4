@@ -12,6 +12,8 @@ import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import SearchSuggestions from "./SearchSuggestions";
+import { useGetAllProductsQuery, GetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 
 interface SearchBarProps {
   variant?: "desktop" | "mobile";
@@ -23,6 +25,18 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
   const [query, setQuery] = useState("");
   const [isInputEmpty, setIsInputEmpty] = useState(true);
   const router = useRouter();
+  const [suggestions, setSuggestions] = useState<GetAllProductsQuery["getAllProducts"]["products"]>([]);
+
+  const { data } = useGetAllProductsQuery({
+    variables: { name: query },
+    skip: query.trim() === "",
+  });
+
+  useEffect(() => {
+    if (data?.getAllProducts?.products) {
+      setSuggestions(data.getAllProducts.products);
+    }
+  }, [data]);
 
   const handleSearch = () => {
     if (query.trim() !== "") {
@@ -41,6 +55,11 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
     setIsInputEmpty(e.target.value === "");
+    if (e.target.value.trim() !== "") {
+      setSuggestions(data?.getAllProducts?.products || []);
+    } else {
+      setSuggestions([]);
+    }
   };
 
   const handleIconClick = () => {
@@ -94,6 +113,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
             <MagnifyingGlassIcon className="dark h-4 w-4" />
           </div>
         </div>
+        <SearchSuggestions suggestions={suggestions} />
       </Flex>
     );
   } else if (variant === "mobile") {
@@ -170,6 +190,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
             </DrawerBody>
           </DrawerContent>
         </Drawer>
+        <SearchSuggestions suggestions={suggestions} />
       </Flex>
     );
   }
