@@ -8,6 +8,8 @@ import { BookingItemStatus } from "../enum/BookingItemStatus"
 import { StatusBooking } from "../enum/StatusBooking"
 import { Context } from "../utils"
 import { BookingList } from "../types"
+import mailer from "../mailer"
+import env from "../env"
 
 @Resolver()
 class BookingResolver {
@@ -154,6 +156,10 @@ class BookingResolver {
 
 		if (!bookingToCancel) throw new GraphQLError("Booking not found")
 
+		if (bookingToCancel.user.id !== ctx.currentUser.id && !ctx.currentUser.role.includes("admin")) {
+			throw new GraphQLError("Not authorized to cancel this booking")
+		}
+
 		bookingToCancel.status = StatusBooking.CANCELED
 
 		for (const item of bookingToCancel.bookingItem) {
@@ -162,6 +168,14 @@ class BookingResolver {
 		}
 
 		await bookingToCancel.save()
+
+		await mailer.sendMail({
+			from: env.EMAIL_FROM,
+			to: bookingToCancel.user.email,
+			subject: "Booking Cancellation Confirmation",
+			text: `Hello ${bookingToCancel.user.name} ${bookingToCancel.user.firstname},\n\nYour booking with ID 
+			${bookingToCancel.id} has been successfully cancelled.\n\nBest regards,\nGear Go`,
+		})
 
 		return "Booking cancelled"
 	}
