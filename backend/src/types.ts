@@ -65,8 +65,6 @@ export class ParentCategoryId {
 	id!: number;
 	static BIKES: any;
 	static ACCESSORIES: any;
-	static BIKES: any;
-	static ACCESSORIES: any;
 }
 
 @InputType()
@@ -117,6 +115,5 @@ export class BookingList {
 	bookings: Booking[];
 
 	@Field(() => Int)
-	total: number;
 	total: number;
 }
