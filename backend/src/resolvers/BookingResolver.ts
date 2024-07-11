@@ -19,7 +19,7 @@ class BookingResolver {
 		@Arg("offset", () => Int, { nullable: true }) offset?: number
 	) {
 		const [bookings, total] = await Booking.findAndCount({
-			relations: { user: true, agency: true },
+			relations: { user: true, agency: true, bookingItem: true },
 			where: {
 				...(agencyId && { agency: { id: agencyId } }),
 				...(userId && { user: { id: userId } }),
@@ -34,7 +34,7 @@ class BookingResolver {
 	@Query(() => Booking)
 	async getBookingById(@Arg("bookingId", () => Int) id: number) {
 		const booking = await Booking.findOne({
-			relations: { user: true, agency: true },
+			relations: { user: true, agency: true, bookingItem: true },
 			where: { id },
 		})
 
@@ -46,7 +46,7 @@ class BookingResolver {
 	@Query(() => [Booking])
 	async getBookingsByUser(@Arg("userId", () => Int) userId: number) {
 		const bookings = await Booking.find({
-			relations: { user: true, agency: true },
+			relations: { user: true, agency: true, bookingItem: true },
 			where: {
 				user: {
 					id: userId,
@@ -119,7 +119,10 @@ class BookingResolver {
 	) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-		const bookingToUpdate = await Booking.findOne({ where: { id }, relations: ["bookingItem"] })
+		const bookingToUpdate = await Booking.findOne({
+			where: { id },
+			relations: { user: true, agency: true, bookingItem: true },
+		})
 		if (!bookingToUpdate) throw new GraphQLError("Booking not found")
 
 		Object.assign(bookingToUpdate, data)
@@ -146,7 +149,7 @@ class BookingResolver {
 
 		const bookingToCancel = await Booking.findOne({
 			where: { id },
-			relations: ["bookingItem"],
+			relations: { user: true, agency: true, bookingItem: true },
 		})
 
 		if (!bookingToCancel) throw new GraphQLError("Booking not found")
