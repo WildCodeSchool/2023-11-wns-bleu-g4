@@ -349,8 +349,8 @@ export type NewBookingInput = {
 export type NewBookingItemInput = {
   booking: BookingId;
   endDate: Scalars['DateTimeISO']['input'];
-  productCodeId: ProductId;
-  productId: ProductId;
+  product: ProductId;
+  productCode: ProductCodeId;
   startDate: Scalars['DateTimeISO']['input'];
   status: BookingItemStatus;
 };
@@ -362,7 +362,7 @@ export type NewBrandInput = {
 
 export type NewCategoryInput = {
   name: Scalars['String']['input'];
-  parentCategory?: InputMaybe<ParentCategoryId>;
+  parentCategory: ParentCategoryId;
   thumbnail: Scalars['String']['input'];
 };
 
@@ -450,12 +450,16 @@ export type ProductCharacteristicList = {
 export type ProductCode = {
   __typename?: 'ProductCode';
   agency?: Maybe<Agency>;
-  bookingItems?: Maybe<Array<BookingItem>>;
+  bookingItems: Array<BookingItem>;
   id: Scalars['Int']['output'];
   isSizeable: Scalars['Boolean']['output'];
   product?: Maybe<Product>;
   size?: Maybe<Scalars['String']['output']>;
   status: Status;
+};
+
+export type ProductCodeId = {
+  id: Scalars['Int']['input'];
 };
 
 export type ProductId = {
@@ -573,7 +577,7 @@ export type QueryGetBookingByIdArgs = {
 
 
 export type QueryGetBookingItemsByBookingIdArgs = {
-  bookingId: Scalars['Float']['input'];
+  bookingId: Scalars['Int']['input'];
 };
 
 
@@ -686,7 +690,7 @@ export type UpdateBookingItemInput = {
   booking?: InputMaybe<BookingId>;
   endDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
   id: Scalars['Int']['input'];
-  productCodeId?: InputMaybe<ProductId>;
+  productCodeId?: InputMaybe<ProductCodeId>;
   productId?: InputMaybe<ProductId>;
   startDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
   status?: InputMaybe<BookingItemStatus>;
