@@ -1,16 +1,25 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import { orderDetailsHeaders } from "../helpers/tableHeaders";
+import { BookingItem, Order } from "./types";
+import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/getBookingItemByBookingId.generated";
 
-export default function OrderDetailsDropdown({ order }: { order: any }) {
+export default function OrderDetailsDropdown({ order }: { order: Order }) {
   const { t } = useTranslation("OrderDetailsDropdown");
+  const { data: BookingItemsData } = useGetBookingItemsByBookingIdQuery({
+    variables: {
+      bookingId: order?.id!
+    }
+  });
+  const bookingItems = BookingItemsData?.getBookingItemsByBookingId;
+
   return (
     <tr className="p-4 min-w-full">
       <td colSpan={8} className="space-y-4 p-3 min-w-full border-y border-y-gray-200">
         <div>
-          <span className="font-bold">{t("Customer address")}:</span> {order.customer.address},{" "}
-          {order.customer.postcode} {order.customer.city}
-          <span className="ml-4 font-bold">{t("Customer phone")}:</span> {order.customer.phone}
+          <span className="font-bold">{t("Customer address")}:</span> {order.user.address},{" "}
+          {order.user.postcode} {order.user.city}
+          <span className="ml-4 font-bold">{t("Customer phone")}:</span> {order.user.phone}
         </div>
         <div>
           <span className="font-bold">{t("Order details")}:</span>
@@ -29,13 +38,12 @@ export default function OrderDetailsDropdown({ order }: { order: any }) {
               </tr>
             </thead>
             <tbody className="text-sm">
-              {order.booking_items?.map((product: any) => (
-                <tr key={product.id} className="border-y border-t-gray-200 border-b-0">
-                  <td className="whitespace-nowrap p-3 pl-8 w-56 min-w-max">{product.id}</td>
-                  <td className="whitespace-nowrap p-3 w-96 min-w-max">{product.name}</td>
-                  <td className="whitespace-nowrap p-3 w-56 min-w-max">{product.quantity}</td>
-                  <td className="whitespace-nowrap p-3 w-56 min-w-max">{product.price}</td>
-                  <td className="whitespace-nowrap p-3 w-40 min-w-max">
+              {bookingItems?.map((bookingItem: BookingItem) => (
+                <tr key={bookingItem.id} className="border-y border-t-gray-200 border-b-0">
+                  <td className="whitespace-nowrap p-3 pl-8 w-1/3 min-w-max">{bookingItem.productCode.id}</td>
+                  <td className="whitespace-nowrap p-3 w-1/3 min-w-max">{bookingItem.product.name}</td>
+                  <td className="whitespace-nowrap p-3 w-1/3 min-w-max">{bookingItem.product.price}</td>
+                  <td className="whitespace-nowrap p-3 w-1/5 min-w-max">
                     <button type="button" className="flex bg-[#D23732] rounded-md px-1.5 py-0.5">
                       <XMarkIcon className="h-5 w-5 text-white" />
                     </button>
