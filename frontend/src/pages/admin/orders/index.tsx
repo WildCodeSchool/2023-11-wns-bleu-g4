@@ -6,15 +6,25 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllNamespaces } from "@root/i18nUtils";
 import { GetStaticProps } from "next";
 import { useGetAllBookingQuery } from "@/graphql/Booking/generated/GetAllBooking.generated";
+import { useRouter } from "next/router";
 
 export default function Orders() {
-  const { data, refetch } = useGetAllBookingQuery();
-  const orders = data?.getAllBooking.bookings ?? [];
-  const totalOrders = data?.getAllBooking.total ?? 0;
+  const router = useRouter();
+  const { query } = router;
+  const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const { data, refetch } = useGetAllBookingQuery({
+    variables: {
+        limit: 14,
+        offset: currentPage * 14,
+    }
+});
   const [sortedData, setSortedData] = useState<any[]>([]);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
-  const [currentPage, setCurrentPage] = useState(0);
+
+  const orders = data?.getAllBooking.bookings ?? [];
+  const totalOrders = data?.getAllBooking.total ?? 0;
 
   const itemsPerPage = 14;
   const startIndex = currentPage * itemsPerPage;
@@ -51,6 +61,16 @@ export default function Orders() {
     setSortedData(dataCopySorted);
   };
 
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    const nextPage = pageNumber + 1;
+    router.push(`/admin/orders?page=${nextPage}`);
+  };
+
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [query.page]);
+
   useEffect(() => {
     setSortedData(orders);
   }, [orders]);
@@ -73,7 +93,7 @@ export default function Orders() {
         endIndex={endIndex}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={handlePageChange}
       />
     </LayoutAdmin>
   );
