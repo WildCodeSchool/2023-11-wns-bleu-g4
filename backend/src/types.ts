@@ -63,6 +63,8 @@ export class CharacteristicID {
 export class ParentCategoryId {
 	@Field(() => Int)
 	id!: number;
+	static BIKES: any;
+	static ACCESSORIES: any;
 }
 
 @InputType()
