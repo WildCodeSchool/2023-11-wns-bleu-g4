@@ -7,6 +7,25 @@ query GetAllBooking($limit: Int, $offset: Int) {
       bookingDate
       startDate
       endDate
+      user {
+        id
+        name
+        firstname
+        address
+        postcode
+        city
+        phone
+      }
+      agency {
+        id
+        name
+      }
+      bookingItem {
+        id
+        endDate
+        startDate
+        status
+      }
     }
     total
   }
