@@ -129,8 +129,8 @@ class BookingResolver {
 
 		Object.assign(bookingToUpdate, data)
 
-		if (data.status === StatusBooking.CANCELED) {
-			bookingToUpdate.status = StatusBooking.CANCELED
+		if (data.status === StatusBooking.CANCELLED) {
+			bookingToUpdate.status = StatusBooking.CANCELLED
 			for (const item of bookingToUpdate.bookingItem) {
 				item.status = BookingItemStatus.CANCELED
 				await item.save()
@@ -160,7 +160,7 @@ class BookingResolver {
 			throw new GraphQLError("Not authorized to cancel this booking")
 		}
 
-		bookingToCancel.status = StatusBooking.CANCELED
+		bookingToCancel.status = StatusBooking.CANCELLED
 
 		for (const item of bookingToCancel.bookingItem) {
 			item.status = BookingItemStatus.CANCELED

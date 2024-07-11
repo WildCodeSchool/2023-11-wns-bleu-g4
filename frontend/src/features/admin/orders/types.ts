@@ -1,11 +1,11 @@
-import { Agency, User } from "@/graphql/generated/schema";
+import { Agency, StatusBooking, User } from "@/graphql/generated/schema";
 
 export interface Order {
   id?: number;
   orderNb: string;
   startDate: string;
   endDate: string;
-  status: string;
+  status: StatusBooking;
   user: User;
   agency: Agency;
   bookingItem: BookingItem[];
