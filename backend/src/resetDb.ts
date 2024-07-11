@@ -74,18 +74,22 @@ async function main() {
 		city: "Paris",
 		country: "France",
 		phone: "+33687654321",
-		email: "geargo.wild@gmail.com",
+		email: "agency@geargo.fr",
 	})
 	await agency.save()
 
 	const brand = new Brand()
 	Object.assign(brand, {
-		name: "Trek",
-		logo: "https://rad-protection.com/wp-content/uploads/2024/02/logo-trek-velo-1024x1024.png",
+		name: "GearGo Brand",
+		logo: "https://example.com/logo.jpg",
 	})
 	await brand.save()
 
-	const parentCategoriesData = [{ name: "Sea" }, { name: "Mountain" }, { name: "Outdoor" }]
+	const parentCategoriesData = [
+		{ name: "Sea" },
+		{ name: "Mountain" },
+		{ name: "Outdoor" },
+	]
 
 	const parentCategories: ParentCategory[] = []
 	for (const data of parentCategoriesData) {
@@ -179,16 +183,16 @@ async function main() {
 		"Trail running pole": "Hiking",
 	}
 
-	for (const productData of allProducts) {
+	for (const productData of allProducts) { 
 		const product = new Product()
 		const mappedCategoryName = categoryMapping[productData.category] || productData.category
-		const category = categories.find((cat) => cat.name === mappedCategoryName) || categories.find((cat) => cat.id === 1)
+		const category = categories.find((cat) => cat.name === mappedCategoryName) || categories.find((cat) => cat.id === 1) 
 		Object.assign(product, {
 			name: productData.name,
 			price: productData.price / 10,
 			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
 			thumbnail: productData.imageUrls[0],
-			category: category,
+			category: category, 
 			brand: await getOrCreateBrand(productData.brand),
 			characteristics: [],
 		})
@@ -248,10 +252,10 @@ async function main() {
 		Object.assign(bookingItem, {
 			status: BookingItemStatus.RENTED,
 			booking,
-			productCode: productCode.id,
+			productCode,
 			startDate: new Date("2024-06-10T08:00:00.000Z"),
 			endDate: new Date("2024-06-15T19:00:00.000Z"),
-			product: product.id,
+			product,
 		})
 		await bookingItem.save()
 
@@ -274,21 +278,21 @@ async function getOrCreateCategory(categoryName: string, parentCategory: ParentC
 	if (!category) {
 		category = new Category()
 		category.name = categoryName
-		category.parentCategory = parentCategory
+		category.parentCategory = parentCategory 
 		await category.save()
 	}
 	return category
 }
 
 async function getOrCreateBrand(brandName: string): Promise<Brand> {
-	let brand = await Brand.findOne({ where: { name: brandName } })
-	if (!brand) {
-		brand = new Brand()
-		brand.name = brandName
-		brand.logo = "https://example.com/default-logo.jpg"
-		await brand.save()
-	}
-	return brand
+    let brand = await Brand.findOne({ where: { name: brandName } })
+    if (!brand) {
+        brand = new Brand()
+        brand.name = brandName
+        brand.logo = "https://example.com/default-logo.jpg"
+        await brand.save()
+    }
+    return brand
 }
 
 main()

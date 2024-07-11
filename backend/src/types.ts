@@ -65,6 +65,8 @@ export class ParentCategoryId {
 	id!: number;
 	static BIKES: any;
 	static ACCESSORIES: any;
+	static BIKES: any;
+	static ACCESSORIES: any;
 }
 
 @InputType()
@@ -75,11 +77,11 @@ export class BrandId {
 
 @ObjectType()
 export class ProductList {
-	@Field(() => [Product])
-	products: Product[];
-
 	@Field(() => Int)
 	total: number;
+
+	@Field(() => [Product])
+	products: Product[];
 }
 
 @ObjectType()
@@ -115,5 +117,6 @@ export class BookingList {
 	bookings: Booking[];
 
 	@Field(() => Int)
+	total: number;
 	total: number;
 }
