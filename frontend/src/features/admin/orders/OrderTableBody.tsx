@@ -6,6 +6,7 @@ import OrderDetailsDropdown from "./OrderDetailsRow";
 import { Order, OrderTableBodyProps } from "./types";
 import OrderCancelModal from "./OrderCancelModal";
 import { useCancelBookingMutation } from "@/graphql/Booking/generated/CancelBooking.generated";
+import { StatusBooking } from "@/graphql/generated/schema";
 
 export default function OrderTableBody({
   data,
@@ -46,6 +47,21 @@ export default function OrderTableBody({
     const year = date.getUTCFullYear();
     return `${day}-${month}-${year}`;
   }
+
+  const setStatusStyle = (status: string) => {
+    switch (status) {
+      case StatusBooking.Late:
+        return "bg-yellow-50 text-yellow-800 border-yellow-800/50";
+      case StatusBooking.Cancelled:
+        return "bg-red-50 text-red-800 border-red-800/50";
+      case StatusBooking.Booked:
+        return "bg-blue-50 text-blue-800 border-blue-800/50";
+      case StatusBooking.Retrieved:
+        return "bg-cactus-100 text-cactus-800 border-cactus-800/50";
+      default:
+        return "";
+    }
+  };
 
   return (
     <>
@@ -89,7 +105,11 @@ export default function OrderTableBody({
                   <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.agency.name}</td>
                   <td className="whitespace-nowrap p-3 w-40 min-w-max">{formatDate(order.startDate)}</td>
                   <td className="whitespace-nowrap p-3 w-40 min-w-max">{formatDate(order.endDate)}</td>
-                  <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.status}</td>
+                  <td className="whitespace-nowrap p-3 w-40 min-w-max">
+                    <span className={`px-3 py-1 rounded border font-bold ${setStatusStyle(order.status)}`}>
+                      {order.status}
+                    </span>
+                  </td>
                   <td className="whitespace-nowrap p-3 pr-8 w-52 min-w-max text-left align-middle">
                     <div className="inline-block">
                       <button
