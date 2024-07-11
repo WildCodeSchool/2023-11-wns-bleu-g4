@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { OrderTableBodyProps } from "../product/types";
 import { orderTableHeaders } from "../helpers/tableHeaders";
-import { ArrowsUpDownIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ArrowsUpDownIcon, ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import OrderDetailsDropdown from "./OrderDetailsRow";
 import { Order } from "./types";
@@ -69,17 +69,23 @@ export default function OrderTableBody({
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{formatDate(order.startDate)}</td>
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{formatDate(order.endDate)}</td>
                 <td className="whitespace-nowrap p-3 w-40 min-w-max">{order.status}</td>
-                <td className="whitespace-nowrap p-3 pr-8 w-52 min-w-max justify-center">
-                  <button
-                    type="button"
-                    className="flex bg-cactus-400 rounded-md px-1.5 py-0.5"
-                    onClick={() => handleOrderDetails(order?.id!)}
-                  >
-                    <ChevronDownIcon
-                      className={`h-5 w-5 text-white ${openOrderId === order.id ?
-                        "transform duration-150 rotate-180" : "transform duration-150 rotate-0"}`}
-                    />
-                  </button>
+                <td className="whitespace-nowrap p-3 pr-8 w-52 min-w-max text-left align-middle">
+                  <div className="inline-block">
+                    <button
+                      type="button"
+                      aria-label="Order details button"
+                      className="inline-block bg-cactus-400 rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
+                      onClick={() => handleOrderDetails(order?.id!)}
+                    >
+                      <ChevronDownIcon
+                        className={`h-5 w-5 text-white ${openOrderId === order.id ?
+                          "transform duration-150 rotate-180" : "transform duration-150 rotate-0"}`}
+                      />
+                    </button>
+                    <button type="button" className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle" aria-label="Cancel button">
+                      <XMarkIcon className="h-5 w-5 text-white" />
+                    </button>
+                  </div>
                 </td>
               </tr>
               {openOrderId === order.id && <OrderDetailsDropdown order={order} />}

@@ -43,11 +43,6 @@ export default function OrderDetailsDropdown({ order }: { order: Order }) {
                   <td className="whitespace-nowrap p-3 pl-8 w-1/3 min-w-max">{bookingItem.productCode.id}</td>
                   <td className="whitespace-nowrap p-3 w-1/3 min-w-max">{bookingItem.product.name}</td>
                   <td className="whitespace-nowrap p-3 w-1/3 min-w-max">{bookingItem.product.price}</td>
-                  <td className="whitespace-nowrap p-3 w-1/5 min-w-max">
-                    <button type="button" className="flex bg-[#D23732] rounded-md px-1.5 py-0.5">
-                      <XMarkIcon className="h-5 w-5 text-white" />
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>
