@@ -64,7 +64,7 @@ export default function ProductPictureAddModal({ isOpen, onClose, product }: Pro
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-            <FormControl isRequired>
+            <FormControl>
               <FormLabel mb={1} htmlFor="alt">
                 Picture Alt
               </FormLabel>

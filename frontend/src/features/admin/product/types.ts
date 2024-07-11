@@ -32,13 +32,6 @@ export interface Product {
   pictures: Product_Picture[];
 }
 
-export interface OrderTableBodyProps {
-  data: any;
-  sortColumnName: string | null;
-  sortOrder: "asc" | "desc" | null;
-  handleDateSort: (columnName: string) => void;
-}
-
 export interface TableBodyProps {
   data: any;
   refetch?: () => void;

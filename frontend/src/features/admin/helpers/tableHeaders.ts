@@ -11,11 +11,9 @@ export const orderTableHeaders: menuItems[] = [
 ];
 
 export const orderDetailsHeaders: menuItems[] = [
-  { id: 1, name: "booking number" },
+  { id: 1, name: "product code" },
   { id: 2, name: "product name" },
-  { id: 3, name: "quantity" },
-  { id: 4, name: "price" },
-  { id: 5, name: "cancel booking" },
+  { id: 3, name: "price (€)" },
 ];
 
 export const productTableHeaders: menuItems[] = [

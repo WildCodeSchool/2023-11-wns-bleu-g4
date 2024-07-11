@@ -4,6 +4,7 @@ import Product from "./entities/Product"
 import { User } from "./entities/User"
 import ProductCharacteristic from "./entities/ProductCharacteristic"
 import Brand from "./entities/Brand"
+import Booking from "./entities/Booking"
 
 export interface ContextType {
 	req: express.Request
@@ -35,6 +36,12 @@ export class ProductId {
 }
 
 @InputType()
+export class ProductCodeId {
+	@Field(() => Int)
+	id!: number;
+}
+
+@InputType()
 export class BookingId {
 	@Field(() => Int)
 	id!: number;
@@ -56,8 +63,6 @@ export class CharacteristicID {
 export class ParentCategoryId {
 	@Field(() => Int)
 	id!: number;
-	static BIKES: any;
-	static ACCESSORIES: any;
 }
 
 @InputType()
@@ -68,11 +73,11 @@ export class BrandId {
 
 @ObjectType()
 export class ProductList {
-	@Field(() => Int)
-	total: number;
-
 	@Field(() => [Product])
 	products: Product[];
+
+	@Field(() => Int)
+	total: number;
 }
 
 @ObjectType()
@@ -97,6 +102,15 @@ export class ProductCharacteristicList {
 export class BrandList {
 	@Field(() => [Brand])
 	brands: Brand[];
+
+	@Field(() => Int)
+	total: number;
+}
+
+@ObjectType()
+export class BookingList {
+	@Field(() => [Booking])
+	bookings: Booking[];
 
 	@Field(() => Int)
 	total: number;
