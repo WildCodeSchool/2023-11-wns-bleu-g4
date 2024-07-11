@@ -31,7 +31,7 @@ export default function Characteristics() {
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
         const nextPage = pageNumber + 1;
-        router.push(`/admin/products?page=${nextPage}`);
+        router.push(`/admin/characteristics?page=${nextPage}`);
     };
 
     useEffect(() => {
