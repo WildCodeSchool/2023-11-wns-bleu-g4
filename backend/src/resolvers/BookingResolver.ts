@@ -146,7 +146,7 @@ class BookingResolver {
 
 	@Authorized()
 	@Mutation(() => String)
-	async cancelBooking(@Arg("bookingId") id: number, @Ctx() ctx: Context) {
+	async cancelBooking(@Arg("bookingId", () => Int) id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
 		const bookingToCancel = await Booking.findOne({
