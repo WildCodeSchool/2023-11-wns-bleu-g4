@@ -1,13 +1,38 @@
+import { Box, List, ListItem } from "@chakra-ui/react";
+import { GetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
+
 interface SearchSuggestionsProps {
-    suggestions: any[]; 
-  }
-  
-  export default function SearchSuggestions({ suggestions }: SearchSuggestionsProps) {
-    return (
-      <div>
-        {suggestions.map(product => (
-          <div key={product.id}>{product.name}</div>
-        ))}
-      </div>
-    );
-  }
+  suggestions: GetAllProductsQuery["getAllProducts"]["products"];
+  onSuggestionClick: (productId: number) => void;
+}
+
+export default function SearchSuggestions({ suggestions, onSuggestionClick }: SearchSuggestionsProps) {
+  return (
+    <Box position="absolute" top="100%" left={0} right={0} zIndex={1} width="100%">
+      {suggestions.length > 0 && (
+        <List
+          backgroundColor="white"
+          borderWidth={1}
+          borderRadius="md"
+          boxShadow="md"
+          maxHeight="300px"
+          overflowY="auto"
+          width="100%"
+        >
+          {suggestions.map((product) => (
+            <ListItem
+              key={product.id}
+              px={4}
+              py={2}
+              _hover={{ backgroundColor: "gray.100" }}
+              cursor="pointer"
+              onClick={() => onSuggestionClick(product.id)}
+            >
+              {product.name}
+            </ListItem>
+          ))}
+        </List>
+      )}
+    </Box>
+  );
+}

@@ -7,6 +7,7 @@ import {
   Flex,
   IconButton,
   useDisclosure,
+  useOutsideClick,
 } from "@chakra-ui/react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
@@ -26,6 +27,13 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
   const [isInputEmpty, setIsInputEmpty] = useState(true);
   const router = useRouter();
   const [suggestions, setSuggestions] = useState<GetAllProductsQuery["getAllProducts"]["products"]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick({
+    ref: suggestionsRef,
+    handler: () => setShowSuggestions(false),
+  });
 
   const { data } = useGetAllProductsQuery({
     variables: { name: query },
@@ -34,7 +42,8 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
 
   useEffect(() => {
     if (data?.getAllProducts?.products) {
-      setSuggestions(data.getAllProducts.products);
+      setSuggestions(data.getAllProducts.products.slice(0, 5));
+      setShowSuggestions(true);
     }
   }, [data]);
 
@@ -44,28 +53,35 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
         pathname: "/shop",
         query: { search: query },
       });
+      setShowSuggestions(false);
     }
   };
 
   const handleClearInput = () => {
     setQuery("");
     setIsInputEmpty(true);
+    setShowSuggestions(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
     setIsInputEmpty(e.target.value === "");
     if (e.target.value.trim() !== "") {
-      setSuggestions(data?.getAllProducts?.products || []);
+      setSuggestions(data?.getAllProducts?.products.slice(0, 5) || []);
+      setShowSuggestions(true);
     } else {
       setSuggestions([]);
+      setShowSuggestions(false);
     }
   };
 
+  const handleSuggestionClick = (productId: number) => {
+    router.push(`/products/${productId}`);
+    setShowSuggestions(false);
+  };
+
   const handleIconClick = () => {
-    if (query.trim() !== "") {
-      handleSearch();
-    }
+    handleSearch();
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -113,7 +129,11 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
             <MagnifyingGlassIcon className="dark h-4 w-4" />
           </div>
         </div>
-        <SearchSuggestions suggestions={suggestions} />
+        {showSuggestions && (
+          <div ref={suggestionsRef}>
+            <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
+          </div>
+        )}
       </Flex>
     );
   } else if (variant === "mobile") {
@@ -190,7 +210,11 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
             </DrawerBody>
           </DrawerContent>
         </Drawer>
-        <SearchSuggestions suggestions={suggestions} />
+        {showSuggestions && (
+          <div ref={suggestionsRef}>
+            <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
+          </div>
+        )}
       </Flex>
     );
   }
