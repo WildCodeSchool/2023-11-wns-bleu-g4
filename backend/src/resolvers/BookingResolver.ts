@@ -173,8 +173,7 @@ class BookingResolver {
 			from: env.EMAIL_FROM,
 			to: bookingToCancel.user.email,
 			subject: "Booking Cancellation Confirmation",
-			text: `Hello ${bookingToCancel.user.name} ${bookingToCancel.user.firstname},\n\nYour booking with ID 
-			${bookingToCancel.id} has been successfully cancelled.\n\nBest regards,\nGear Go`,
+			text: `Hello ${bookingToCancel.user.name} ${bookingToCancel.user.firstname},\n\nYour booking with ID ${bookingToCancel.id} has been successfully cancelled.\n\nBest regards,\nGear Go`,
 		})
 
 		return "Booking cancelled"
