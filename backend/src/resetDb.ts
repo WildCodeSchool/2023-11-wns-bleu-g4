@@ -42,7 +42,7 @@ async function main() {
 		city: "Paris",
 		country: "France",
 		phone: "+33612345678",
-		email: "support@geargo.fr",
+		email: "geargo.wild@gmail.com",
 		password: "4dminAdmin@!",
 		role: UserRole.ADMIN,
 		emailVerified: true,
