@@ -103,6 +103,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
         align="center"
         justify={{ base: "center", md: "end" }}
         width={{ base: "full", md: "50%" }}
+        zIndex={4}
       >
         <div className="relative flex items-center justify-center" ref={inputRef}>
           <input
@@ -160,6 +161,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
           onClose={onClose}
           isOpen={isOpen}
           initialFocusRef={firstField}
+    
         >
           <DrawerOverlay />
           <DrawerContent>
@@ -210,7 +212,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
                 </div>
               </div>
               {showSuggestions && (
-                <Box ref={suggestionsRef} width="full">
+                <Box ref={suggestionsRef} width="full" zIndex={4}>
                   <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
                 </Box>
               )}
