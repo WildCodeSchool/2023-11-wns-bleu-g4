@@ -15,6 +15,7 @@ import { BookingItemStatus } from "./enum/BookingItemStatus"
 import { StatusBooking } from "./enum/StatusBooking"
 import { Status } from "./enum/StatusProductCode"
 import { ParentCategoryId } from "./types"
+import allProducts from "./data/ekosport/allProducts.json"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -166,113 +167,128 @@ async function main() {
 		categories.push(category)
 	}
 
-	const product = new Product()
-	Object.assign(product, {
-		name: "Bike Trek Rail 5 Deore 2024",
-		price: 99.99,
-		description:
-			"A super bike for your daily commute, with a powerful motor and a comfortable saddle. Perfect for long rides in the city or in the countryside.",
-		thumbnail: "https://media.trekbikes.com/image/upload/w_1200/Rail5Deore_23_36791_A_Portrait",
-		category: categories[0],
-		brand,
-		characteristics: [],
-	})
-
-	const characteristics = [
-		"Suspension hydraulique",
-		"Moteur 10W",
-		"Guidon renforcé",
-		"Freins à disque",
-		"Pneus anti-crevaison",
-		"Selle confortable",
-		"Éclairage LED",
-		"Antivol intégré",
-		"Porte-bagages",
-		"Garde-boue",
-	]
-
-	for (const characteristic of characteristics) {
-		const productCharacteristic = new ProductCharacteristic()
-		productCharacteristic.name = characteristic
-		await productCharacteristic.save()
-		product.characteristics.push(productCharacteristic)
+	const categoryMapping: Record<string, string> = {
+		"Hiking backpack": "Hiking",
+		"Bivouac tent": "Hiking",
+		"Board shorts": "Surf",
+		"Cross-country ski set": "Ski",
+		"Running jacket": "Hiking",
+		"Trail running jacket": "Hiking",
+		"Low-rise hiking boots": "Hiking",
+		"Mid-rise hiking boots": "Hiking",
+		"Trail running pole": "Hiking",
 	}
 
-	await product.save()
-
-	const productCode = new ProductCode()
-	Object.assign(productCode, {
-		status: Status.AVAILABLE,
-		product,
-		agency,
-		isSizeable: true,
-		size: "M",
-	})
-	await productCode.save()
-
-	const productPictures = [
-		{
-			thumbnail: "https://media.trekbikes.com/image/upload/w_1200/Rail5Deore_23_36791_A_Portrait",
-			alt: "",
-		},
-		{
-			thumbnail: "https://www.materiel-velo.com/92859-large_default/vtt-cross-country-trek-marlin-8-gen-3-crimson.jpg",
-			alt: "",
-		},
-		{
-			thumbnail: "https://www.revedevelo.com/287-large_default/vtt-29-trek-marlin-4-alpine-blue.jpg",
-			alt: "",
-		},
-		{
-			thumbnail:
-				"https://www.allterraincycles.co.uk/cdn/shop/files/Marlin4-24-41613-C-Portrait.webp?v=1702563590&width=1445",
-			alt: "",
-		},
-	]
-
-	for (const { thumbnail, alt } of productPictures) {
-		const productPicture = new Product_picture()
-		Object.assign(productPicture, {
-			thumbnail,
-			alt,
-			product,
+	for (const productData of allProducts) { 
+		const product = new Product()
+		const mappedCategoryName = categoryMapping[productData.category] || productData.category
+		const category = categories.find((cat) => cat.name === mappedCategoryName) || categories.find((cat) => cat.id === 1) 
+		Object.assign(product, {
+			name: productData.name,
+			price: productData.price / 10,
+			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
+			thumbnail: productData.imageUrls[0],
+			category: category, 
+			brand: await getOrCreateBrand(productData.brand),
+			characteristics: [],
 		})
-		await productPicture.save()
+		const characteristics = [
+			"Suspension hydraulique",
+			"Moteur 10W",
+			"Guidon renforcé",
+			"Freins à disque",
+			"Pneus anti-crevaison",
+			"Selle confortable",
+			"Éclairage LED",
+			"Antivol intégré",
+			"Porte-bagages",
+			"Garde-boue",
+		]
+		for (const characteristic of characteristics) {
+			const productCharacteristic = new ProductCharacteristic()
+			productCharacteristic.name = characteristic
+			await productCharacteristic.save()
+			product.characteristics.push(productCharacteristic)
+		}
+
+		await product.save()
+
+		for (const imageUrl of productData.imageUrls.slice(0, 5)) {
+			const productPicture = new Product_picture()
+			Object.assign(productPicture, {
+				thumbnail: imageUrl,
+				alt: "",
+				product,
+			})
+			await productPicture.save()
+		}
+
+		const productCode = new ProductCode()
+		Object.assign(productCode, {
+			status: Status.AVAILABLE,
+			product,
+			agency,
+			isSizeable: true,
+			size: "M",
+		})
+		await productCode.save()
+
+		const booking = new Booking()
+		Object.assign(booking, {
+			status: StatusBooking.BOOKED,
+			bookingDate: new Date("2024-06-04T10:15:30.000Z"),
+			startDate: new Date("2024-06-10T08:00:00.000Z"),
+			endDate: new Date("2024-06-15T19:00:00.000Z"),
+			user: admin,
+			agency,
+		})
+		await booking.save()
+
+		const bookingItem = new BookingItem()
+		Object.assign(bookingItem, {
+			status: BookingItemStatus.RENTED,
+			booking,
+			productCode: productCode.id,
+			startDate: new Date("2024-06-10T08:00:00.000Z"),
+			endDate: new Date("2024-06-15T19:00:00.000Z"),
+			product: product.id,
+		})
+		await bookingItem.save()
+
+		const review = new Review()
+		Object.assign(review, {
+			rate: 4,
+			comment: "Good product, I recommend it!",
+			product: product.id,
+			user: customer,
+		})
+		await review.save()
 	}
-
-	const booking = new Booking()
-	Object.assign(booking, {
-		status: StatusBooking.BOOKED,
-		bookingDate: new Date("2024-06-04T10:15:30.000Z"),
-		startDate: new Date("2024-06-10T08:00:00.000Z"),
-		endDate: new Date("2024-06-15T19:00:00.000Z"),
-		user: admin,
-		agency,
-	})
-	await booking.save()
-
-	const bookingItem = new BookingItem()
-	Object.assign(bookingItem, {
-		status: BookingItemStatus.RENTED,
-		booking,
-		productCode: productCode.id,
-		startDate: new Date("2024-06-10T08:00:00.000Z"),
-		endDate: new Date("2024-06-15T19:00:00.000Z"),
-		product: product.id,
-	})
-	await bookingItem.save()
-
-	const review = new Review()
-	Object.assign(review, {
-		rate: 4,
-		comment: "Good product, I recommend it!",
-		product: product.id,
-		user: customer,
-	})
-	await review.save()
 
 	await db.destroy()
 	console.log("Done!")
+}
+
+async function getOrCreateCategory(categoryName: string, parentCategory: ParentCategory): Promise<Category> {
+	let category = await Category.findOne({ where: { name: categoryName } })
+	if (!category) {
+		category = new Category()
+		category.name = categoryName
+		category.parentCategory = parentCategory 
+		await category.save()
+	}
+	return category
+}
+
+async function getOrCreateBrand(brandName: string): Promise<Brand> {
+    let brand = await Brand.findOne({ where: { name: brandName } })
+    if (!brand) {
+        brand = new Brand()
+        brand.name = brandName
+        brand.logo = "https://example.com/default-logo.jpg"
+        await brand.save()
+    }
+    return brand
 }
 
 main()
