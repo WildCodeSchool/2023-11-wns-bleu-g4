@@ -1,10 +1,17 @@
-import { useProductContext } from "@/context/ProductPageContext";
-import { Flex, Select, Text } from "@chakra-ui/react";
-import { useTranslation } from "react-i18next";
+import {useProductContext} from "@/context/ProductPageContext";
+import {Flex, Select, Text} from "@chakra-ui/react";
+import {useTranslation} from "react-i18next";
 
 export default function ProductDescription() {
-  const { t } = useTranslation("productDetails");
-  const { state: { selectedProduct, agencies }, setSelectedAgency, setSelectedSize } = useProductContext();
+  const {t} = useTranslation("productDetails");
+  const {
+    state: {
+      selectedProduct,
+      agencies
+    },
+    setSelectedAgency,
+    setSelectedSize
+  } = useProductContext();
 
   if (!selectedProduct) return null;
 
