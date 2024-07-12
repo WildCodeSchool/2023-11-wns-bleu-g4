@@ -7,11 +7,16 @@ import {
   Flex,
   IconButton,
   useDisclosure,
+  useOutsideClick,
+  Box,
 } from "@chakra-ui/react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import SearchSuggestions from "./SearchSuggestions";
+import { useGetAllProductsQuery, GetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
+import SearchSuggestionsMobile from "./mobile/SearchSuggestion.mobile";
 
 interface SearchBarProps {
   variant?: "desktop" | "mobile";
@@ -23,6 +28,27 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
   const [query, setQuery] = useState("");
   const [isInputEmpty, setIsInputEmpty] = useState(true);
   const router = useRouter();
+  const [suggestions, setSuggestions] = useState<GetAllProductsQuery["getAllProducts"]["products"]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick({
+    ref: suggestionsRef,
+    handler: () => setShowSuggestions(false),
+  });
+
+  const { data } = useGetAllProductsQuery({
+    variables: { name: query },
+    skip: query.trim() === "",
+  });
+
+  useEffect(() => {
+    if (data?.getAllProducts?.products) {
+      setSuggestions(data.getAllProducts.products.slice(0, 5));
+      setShowSuggestions(true);
+    }
+  }, [data]);
 
   const handleSearch = () => {
     if (query.trim() !== "") {
@@ -30,23 +56,35 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
         pathname: "/shop",
         query: { search: query },
       });
+      setShowSuggestions(false);
     }
   };
 
   const handleClearInput = () => {
     setQuery("");
     setIsInputEmpty(true);
+    setShowSuggestions(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
     setIsInputEmpty(e.target.value === "");
+    if (e.target.value.trim() !== "") {
+      setSuggestions(data?.getAllProducts?.products.slice(0, 5) || []);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (productId: number) => {
+    router.push(`/products/${productId}`);
+    setShowSuggestions(false);
   };
 
   const handleIconClick = () => {
-    if (query.trim() !== "") {
-      handleSearch();
-    }
+    handleSearch();
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,8 +104,9 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
         align="center"
         justify={{ base: "center", md: "end" }}
         width={{ base: "full", md: "50%" }}
+        zIndex={4}
       >
-        <div className="relative flex items-center justify-center">
+        <div className="relative flex items-center justify-center" ref={inputRef}>
           <input
             type="search"
             placeholder={placeholder}
@@ -94,9 +133,14 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
             <MagnifyingGlassIcon className="dark h-4 w-4" />
           </div>
         </div>
+        {showSuggestions && (
+          <Box ref={suggestionsRef} position="absolute" top="100%" right={0} zIndex={1} width={inputRef.current?.offsetWidth || "auto"}>
+            <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
+          </Box>
+        )}
       </Flex>
     );
-  } else if (variant === "mobile") {
+  }  else if (variant === "mobile") {
     return (
       <Flex
         position="relative"
@@ -167,6 +211,9 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
                   <MagnifyingGlassIcon className="dark h-4 w-4" />
                 </div>
               </div>
+              {showSuggestions && (
+                <SearchSuggestionsMobile suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
+              )}
             </DrawerBody>
           </DrawerContent>
         </Drawer>
