@@ -662,7 +662,7 @@ export enum Status {
 /** Check booking's state. */
 export enum StatusBooking {
   Booked = 'BOOKED',
-  Canceled = 'CANCELED',
+  Cancelled = 'CANCELLED',
   Late = 'LATE',
   Retrieved = 'RETRIEVED'
 }

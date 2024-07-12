@@ -60,10 +60,10 @@ export default function ProductTableBody({ data, refetch }: TableBodyProps) {
             data.map((product: Product, index: number) => (
               <tr key={product.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{product.id}</td>
-                <td className="whitespace-nowrap p-3 w-96 min-w-max">{product.name}</td>
+                <td className="whitespace-nowrap p-3 w-96 min-w-max truncate max-w-96" title={product.name}>{product.name}</td>
                 <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.brand.name}</td>
                 <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.category.name}</td>
-                <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.price}</td>
+                <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.price.toFixed(2)}</td>
                 <td className="whitespace-nowrap p-3 pr-8 w-48 min-w-max text-left align-middle">
                   <div className="inline-block">
                     <button

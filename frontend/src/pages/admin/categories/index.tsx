@@ -1,4 +1,3 @@
-"use client";
 import CategoryCreateModal from "@/features/admin/categories/modal/CategoryCreateModal";
 import ParentCategoryCreateModal from "@/features/admin/categories/modal/ParentCategoryCreateModal";
 import CategoryTableBody from "@/features/admin/categories/table/CategoryTableBody";

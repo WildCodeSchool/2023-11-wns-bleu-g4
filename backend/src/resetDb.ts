@@ -251,25 +251,26 @@ async function main() {
 	})
 	await booking.save()
 
-	const bookingItem = new BookingItem()
-	Object.assign(bookingItem, {
-		status: BookingItemStatus.RENTED,
-		booking,
-		productCode: productCode.id,
-		startDate: new Date("2024-06-10T08:00:00.000Z"),
-		endDate: new Date("2024-06-15T19:00:00.000Z"),
-		product: product.id,
-	})
-	await bookingItem.save()
+  const bookingItem = new BookingItem()
+  Object.assign(bookingItem, {
+    status: BookingItemStatus.RENTED,
+    booking,
+    productCode: productCode.id,
+    startDate: new Date("2024-06-10T08:00:00.000Z"),
+    endDate: new Date("2024-06-15T19:00:00.000Z"),
+    product: product.id,
+  })
+  await bookingItem.save()
 
-	const review = new Review()
-	Object.assign(review, {
-		rate: 4,
-		comment: "Good product, I recommend it!",
-		product,
-		user: customer,
-	})
-	await review.save()
+  const review = new Review()
+  Object.assign(review, {
+    rate: 4,
+    comment: "Good product, I recommend it!",
+    product: product.id,
+    user: customer,
+  })
+  await review.save()
+	}
 
 	await db.destroy()
 	console.log("Done!")
