@@ -10,7 +10,6 @@ import type {AppProps} from "next/app";
 import dynamic from "next/dynamic";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../i18n";
 
 function App({Component, pageProps}: AppProps) {
   return (
