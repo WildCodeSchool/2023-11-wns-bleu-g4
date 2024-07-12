@@ -8,7 +8,7 @@ export default function Order() {
   return (
     <Layout>
       <Heading size='lg' className="text-center pt-5">Order Details</Heading>
-      <Flex className="w-full relative flex flex-col justify-center items-start p-5 gap-5 sm:flex-row">
+      <Flex className="w-full relative flex flex-col justify-center items-start px-5 gap-5 sm:flex-row">
         <OrderInfos />
         <UserOrderDetailsTable />
       </Flex>

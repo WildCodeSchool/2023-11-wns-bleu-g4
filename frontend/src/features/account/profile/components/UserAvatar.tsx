@@ -1,14 +1,21 @@
-import { Heading, Flex, Avatar, Box, Text } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next';
+import { Heading, Flex, Avatar, Box, useColorModeValue } from '@chakra-ui/react'
 import { User } from '../../types';
 
 export default function UserAvatar({ user }: { user: User }) {
 
-    const { t } = useTranslation("UserAvatar");
+    /** DARK / LIGHT MODE */
+    const textColor = useColorModeValue("dark", "light")
+    const bgHeading = useColorModeValue("cactus.50", "cactus.900")
+    const labelColor = useColorModeValue("cactus.500", "cactus.200")
+    const bgTableHeadColor = useColorModeValue("#d0d2d6", "cactus.900")
+    const bgColor = useColorModeValue("footerBgLight", "cactus.600")
+    const bgTableContent = useColorModeValue("lightgrey", "cactus.700")
 
     return (
         <Flex
-            className='text-white bg-cactus-900 
+            color={textColor}
+            bg={bgTableHeadColor}
+            className='
             text-xs 
             py-3 px-5
             h-fit w-full 

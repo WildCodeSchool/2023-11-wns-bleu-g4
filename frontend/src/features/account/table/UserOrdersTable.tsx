@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex, Heading, Table, TableContainer, Tbody, Td, Text, Th, Tr, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { orderTableHeaders } from "../helpers/tableHeaders"
 import { useGetBookingsByUserIdQuery } from "@/graphql/Booking/generated/GetBookingByUserId.generated";
@@ -10,6 +10,14 @@ import { useEffect, useState } from "react";
 export default function UserOrdersTable() {
     /** Translations */
     const { t } = useTranslation("UserOrders");
+
+    /** DARK / LIGHT MODE */
+    const textColor = useColorModeValue("dark", "light")
+    const bgHeading = useColorModeValue("cactus.50", "cactus.900")
+    const labelColor = useColorModeValue("cactus.500", "cactus.200")
+    const bgTableHeadColor = useColorModeValue("#d0d2d6", "cactus.900")
+    const bgColor = useColorModeValue("footerBgLight", "cactus.600")
+    const bgTableContent = useColorModeValue("lightgrey", "cactus.700")
 
     /** Router */
     const router = useRouter()
@@ -51,44 +59,55 @@ export default function UserOrdersTable() {
     const thClass = "h-14 p-3 text-center uppercase font-bold whitespace-nowrap"
     return (
         <Flex className="flex flex-col w-full sm:mx-auto lg:mx-0 sm:max-w-full xl:w-fit" gap={2}>
-            <table className="text-xs rounded bg-cactus-700 max-w-full">
-                <thead className="bg-cactus-900">
-                    <tr>
-                        {orderTableHeaders.map(menu => (
-                            <th
-                                className={thClass + " " + menu.thClass}
-                                key={menu.id}
-                            >
-                                {menu.name}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
+            <Table className="text-xs rounded max-w-full">
+                <Tr bg={bgTableHeadColor}>
+                    {orderTableHeaders.map(menu => (
+                        <Td
+                            className={thClass + " " + menu.thClass}
+                            key={menu.id}
+                        >
+                            <Heading size='xs' className="text-center">{menu.name}</Heading>
+                        </Td>
+                    ))}
+                </Tr>
+                <Tbody>
                     {bookings ? (
                         bookings.map((booking: any, index: number) => (
-                            <tr
+                            <Tr
+                                bg={index % 2 === 0 ? bgColor : bgTableContent}
                                 key={booking.id}
-                                className={`${index % 2 === 0 && "bg-cactus-600"} whitespace-nowrap hover:bg-cactus-400 max-h-14 cursor-pointer`}
+                                className={`whitespace-nowrap hover:bg-cactus-300 max-h-14 cursor-pointer`}
                                 onClick={() => goToDetails(booking.id)}
                             >
-                                <td className="text-center whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72" title={t('invoice number')}>{booking.invoice}</td>
-                                <td className="text-center whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72" title={t('booking date')}>{transformToDate(booking.bookingDate)}</td>
-                                <td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 overflow-hidden text-ellipsis sm:table-cell" title={t('agency name')}>{booking.agency.name}</td>
-                                <td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('start booking date')}>{transformToDate(booking.startDate)}</td>
-                                <td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('end booking date')}>{transformToDate(booking.endDate)}</td>
-                                <td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('booking status')}>{booking.status}</td>
-                            </tr>
+                                <Td className="text-center whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72" title={t('invoice number')}>
+                                    <Text className="text-center">{booking.invoice}</Text>
+                                </Td>
+                                <Td className="text-center whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72" title={t('booking date')}>
+                                    <Text className="text-center">{transformToDate(booking.bookingDate)}</Text>
+                                </Td>
+                                <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 overflow-hidden text-ellipsis sm:table-cell" title={t('agency name')}>
+                                    <Text className="text-center">{booking.agency.name}</Text>
+                                </Td>
+                                <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('start booking date')}>
+                                    <Text className="text-center">{transformToDate(booking.startDate)}</Text>
+                                </Td>
+                                <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('end booking date')}>
+                                    <Text className="text-center">{transformToDate(booking.endDate)}</Text>
+                                </Td>
+                                <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('booking status')}>
+                                    <Text className="text-center">{booking.status}</Text>
+                                </Td>
+                            </Tr>
                         ))
                     ) : (
-                        <tr>
-                            <td className="p-4 text-center" colSpan={4}>
+                        <Tr>
+                            <Td className="p-4 text-center" colSpan={4}>
                                 No booking found
-                            </td>
-                        </tr>
+                            </Td>
+                        </Tr>
                     )}
-                </tbody>
-            </table>
+                </Tbody>
+            </Table>
             <TableFooter
                 data={totalProducts}
                 startIndex={startIndex}

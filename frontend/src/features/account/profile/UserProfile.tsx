@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import UserAvatar from "./components/UserAvatar"
 import UserInfos from "./components/UserInfos"
 import UserPassword from "./components/UserPassword"
@@ -6,8 +6,10 @@ import { User } from '../types'
 import { useProfileQuery } from "@/graphql/User/generated/Profile.generated"
 
 export default function UserProfile() {
-    const { data: currentUser } = useProfileQuery()
 
+
+
+    const { data: currentUser } = useProfileQuery()
     return (
         <Flex
             className="w-full gap-2
@@ -15,7 +17,8 @@ export default function UserProfile() {
             sm:flex-row sm:items-start sm:gap-5 sm:justify-center sm:w-full
             lg:flex-col lg:max-w-56 lg:pb-5 lg:items-start lg:gap-2
             xl:max-w-72 xl:min-w-56
-            ">
+            "
+            >
             <Flex
                 className="
                 min-w-56 w-full

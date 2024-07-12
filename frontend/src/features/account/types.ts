@@ -72,3 +72,18 @@ export interface Booking {
   userId?: number,
   agency?: Agency[]
 }
+
+export interface BookingItem {
+  status: string,
+  startDate: string,
+  endDate: string,
+  product: Product,
+}
+
+export interface Product {
+  name: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  brand: String;
+}
