@@ -392,7 +392,7 @@ export type NewProduct_PictureInput = {
 
 export type NewReviewInput = {
   comment: Scalars['String']['input'];
-  productId: ProductId;
+  product: ProductId;
   rate: Scalars['Int']['input'];
   userId: UserId;
 };
@@ -518,10 +518,10 @@ export type QueryGetAgencyByIdArgs = {
 
 
 export type QueryGetAllBookingArgs = {
-  agencyId?: InputMaybe<Scalars['Float']['input']>;
+  agencyId?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  userId?: InputMaybe<Scalars['Float']['input']>;
+  userId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
