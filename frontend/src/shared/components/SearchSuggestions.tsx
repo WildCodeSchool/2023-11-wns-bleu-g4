@@ -1,4 +1,4 @@
-import { Box, List, ListItem, Image, Text, Flex } from "@chakra-ui/react";
+import { Box, List, ListItem, Image, Text, Flex, Divider } from "@chakra-ui/react";
 import { GetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 
 interface SearchSuggestionsProps {
@@ -38,6 +38,7 @@ export default function SearchSuggestions({ suggestions, onSuggestionClick }: Se
                 />
                 <Text>{product.name.toLowerCase()}</Text>
               </Flex>
+              <Divider m={2} orientation='horizontal' />
             </ListItem>
           ))}
         </List>
