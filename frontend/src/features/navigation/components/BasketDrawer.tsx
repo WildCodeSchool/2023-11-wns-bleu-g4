@@ -1,6 +1,7 @@
-import { useBookingData } from "@/context/BookingDataContext";
-import { useGetProductsDetailsQuery } from "@/graphql/Product/generated/getProductsDetails.generated";
+import {useBookingData} from "@/context/BookingDataContext";
+import {useGetProductsDetailsQuery} from "@/graphql/Product/generated/getProductsDetails.generated";
 import {
+  Box,
   Button,
   Divider,
   Drawer,
@@ -15,10 +16,10 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/router";
+import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import {useRouter} from "next/router";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 interface BasketDrawerProps {
   isOpen: boolean;
@@ -26,72 +27,72 @@ interface BasketDrawerProps {
   onClose: () => void;
 }
 
-export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onClose }) => {
-  const { t } = useTranslation("BasketDrawer");
-  const { bookingData, removeBookingData } = useBookingData();
-  const { data: productData } = useGetProductsDetailsQuery();
+export const BasketDrawer: React.FC<BasketDrawerProps> = ({isOpen, onOpen, onClose}) => {
+  const {t} = useTranslation("BasketDrawer");
+  const {bookingData, removeBookingData} = useBookingData();
+  const {data: productData} = useGetProductsDetailsQuery();
   const router = useRouter();
   const colorScheme = useColorModeValue("#fff", "#0B0F0B");
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} size="md">
-      <DrawerOverlay />
+      <DrawerOverlay/>
       <DrawerContent bg={colorScheme}>
-        <DrawerCloseButton />
+        <DrawerCloseButton/>
         <DrawerHeader>{t("Your basket")}</DrawerHeader>
-        <Divider />
+        <Divider/>
 
-        <DrawerBody >
+        <DrawerBody>
           {bookingData && bookingData.length > 0 ? (
             bookingData.map((data, index) => {
               const product = productData?.getAllProducts.products.find(p => p.id === data.product?.id);
               return (
                 <Flex key={index} flexDirection="column" gap={10}>
                   <Flex justifyContent="space-around" mt={10}>
-                    {product && <Image w="20%" h="20%" src={product.thumbnail} alt={product.name} />}
+                    {product && <Image w="20%" h="20%" src={product.thumbnail} alt={product.name}/>}
                     <Flex justifyContent="center" flexDirection="column" gap={2}>
                       {product &&
-                        <Text display="flex" >
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("Product :")}
                           </Text>
-                          {product.name}
-                        </Text>}
+                          <Text>{product.name}</Text>
+                        </Box>}
                       {data.quantity &&
-                        <Text display="flex" >
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("Quantity :")}
                           </Text>
-                          {data.quantity}
-                        </Text>}
+                          <Text>{data.quantity}</Text>
+                        </Box>}
                       {data.selectedSize &&
-                        <Text display="flex" >
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("Size :")}
                           </Text>
-                          {data.selectedSize}
-                        </Text>}
+                          <Text>{data.selectedSize}</Text>
+                        </Box>}
                       {data.startDate &&
-                        <Text display="flex" >
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("Start date :")}
                           </Text>
-                          {data.startDate.toLocaleDateString()}
-                        </Text>}
+                          <Text>{data.startDate.toLocaleDateString()}</Text>
+                        </Box>}
                       {data.endDate &&
-                        <Text display="flex" >
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("End date :")}
                           </Text>
-                          {data.endDate.toLocaleDateString()}
-                        </Text>}
+                          <Text>{data.endDate.toLocaleDateString()}</Text>
+                        </Box>}
                       {data.totalPrice &&
-                        <Text display="flex" >
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {("Total price :")}
                           </Text>
-                          {parseFloat(data.totalPrice.toFixed(2))} €
-                        </Text>}
+                          <Text>{parseFloat(data.totalPrice.toFixed(2))} €</Text>
+                        </Box>}
                     </Flex>
                   </Flex>
                   <Flex justifyContent="space-between" gap={5}>
@@ -99,7 +100,7 @@ export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onCl
                       variant="primaryButton"
                       // onClick={() => removeBookingData(index)}
                       aria-label='Edit'
-                      leftIcon={<PencilSquareIcon width={24} />}
+                      leftIcon={<PencilSquareIcon width={24}/>}
                       w="100%"
                     >
                       {t("Edit")}
@@ -108,30 +109,27 @@ export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onCl
                       colorScheme="red"
                       onClick={() => removeBookingData(index)}
                       aria-label={t("Delete")}
-                      leftIcon={<TrashIcon width={24} />}
+                      leftIcon={<TrashIcon width={24}/>}
                       w="100%"
                     >
                       {t("Delete")}
                     </Button>
                   </Flex>
-                  <Divider />
+                  <Divider/>
+                  <Button
+                    onClick={() => router.push("/basket")}
+                    isDisabled={!bookingData || bookingData.length === 0}
+                    variant="accentButton"
+                  >
+                    {t("Go to basket")}
+                  </Button>
                 </Flex>
               );
             })
           ) : (
-            <p>{t("Your basket is empty")}</p>
+            <Text>{t("Your basket is empty")}</Text>
           )}
         </DrawerBody>
-        <DrawerFooter>
-          <Button
-            mr={3}
-            onClick={() => router.push("/basket")}
-            isDisabled={!bookingData || bookingData.length === 0}
-            variant="accentButton"
-          >
-            {t("Go to basket")}
-          </Button>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );

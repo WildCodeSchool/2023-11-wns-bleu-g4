@@ -1,0 +1,11 @@
+query getSizeByAgencyId($agencyId: Int!) {
+  getAgencyById(agencyId: $agencyId) {
+    productCodes {
+      isSizeable
+      size
+      product {
+        id
+      }
+    }
+  }
+}

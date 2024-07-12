@@ -1,15 +1,20 @@
-import { Box, Flex, Grid, GridItem, Text, useColorModeValue } from "@chakra-ui/react";
-import { FaceSmileIcon, MagnifyingGlassCircleIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
-import { motion, useAnimation } from "framer-motion";
-import { useTranslation } from "next-i18next";
+import {AccordionItem, Box, Divider, Flex, Grid, GridItem, Text, useColorModeValue} from "@chakra-ui/react";
+import {
+  ArrowLongRightIcon,
+  FaceSmileIcon,
+  MagnifyingGlassCircleIcon,
+  ShoppingCartIcon
+} from "@heroicons/react/24/solid";
+import {motion, useAnimation} from "framer-motion";
+import {useTranslation} from "next-i18next";
 import Image from "next/image";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import {useEffect} from "react";
+import {useInView} from "react-intersection-observer";
 import Facebook from "../../../../public/svg/facebookLight.svg";
 import Instagram from "../../../../public/svg/instagramLight.svg";
 
 export default function BentoGrid() {
-  const { t } = useTranslation("Bento");
+  const {t} = useTranslation("Bento");
 
   const isDark = useColorModeValue(false, true);
 
@@ -21,7 +26,7 @@ export default function BentoGrid() {
   const text2 = useColorModeValue("light", "light");
 
   const controls = useAnimation();
-  const [ref, inView] = useInView({ triggerOnce: true });
+  const [ref, inView] = useInView({triggerOnce: true});
 
   useEffect(() => {
     if (inView) {
@@ -30,21 +35,21 @@ export default function BentoGrid() {
   }, [controls, inView]);
 
   const variants = {
-    hidden: { opacity: 0, y: 300 },
+    hidden: {opacity: 0, y: 300},
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.2, duration: 0.6 },
+      transition: {delay: i * 0.2, duration: 0.6},
     }),
   };
 
   return (
     <Grid
-      templateColumns={{ base: "1fr", lg: "repeat(5, 1fr)" }}
-      templateRows={{ base: "repeat(4, 1fr)", lg: "repeat(2, 1fr)" }}
+      templateColumns={{base: "1fr", xl: "repeat(5, 1fr)"}}
+      templateRows={{base: "repeat(4, 1fr)", xl: "repeat(2, 1fr)"}}
       gap={[2, 4]}
-      px={{ base: 5, lg: 24 }}
-      py={{ base: 8, lg: 0 }}
+      px={{base: 5, xl: 24}}
+      py={{base: 8, xl: 0}}
       templateAreas={{
         base: `
           "item1"
@@ -52,7 +57,7 @@ export default function BentoGrid() {
           "item3"
           "item4"
         `,
-        lg: `
+        xl: `
           "item1 item1 item1 item1 item2"
           "item3 item3 item3 item4 item4"
         `,
@@ -73,11 +78,11 @@ export default function BentoGrid() {
         h="auto"
         bg={item1}
         borderRadius={"2xl"}
-        py={{ base: 1.5, lg: 8 }}
+        py={{base: 1.5, xl: 8}}
         px={2.5}
         gap={[2.5, 7]}
       >
-        <Text fontSize={{ base: "24px", lg: "96px" }} color={text2} align="center">
+        <Text fontSize={{base: "24px", lg: "96px"}} color={text2} align="center">
           {t("Over")} <span className="lg:text-9xl sm:text-3xl font-bold">{t("100+")}</span> {t("gear")}
         </Text>
         <Text color={text2} align="center">
@@ -99,16 +104,16 @@ export default function BentoGrid() {
         bg={item2}
         borderRadius={"2xl"}
         px={2.5}
-        py={{ base: 1.5, lg: 8 }}
+        py={{base: 1.5, lg: 8}}
         gap={[2.5, 2.5, 2.5, 7]}
       >
-        <Text fontSize={{ base: "16px", lg: "24px" }} color={text2} align="center">
+        <Text fontSize={{base: "16px", lg: "24px"}} color={text2} align="center">
           {t("More than")}
         </Text>
-        <Text color={text2} fontSize={{ base: "32px", lg: "64px" }} fontWeight="700">
+        <Text color={text2} fontSize={{base: "32px", lg: "64px"}} fontWeight="700">
           {t("50")}
         </Text>
-        <Text fontSize={{ base: "16px", lg: "24px" }} color={text2}>
+        <Text fontSize={{base: "16px", lg: "24px"}} color={text2}>
           {t("agencies")}
         </Text>
       </GridItem>
@@ -126,49 +131,69 @@ export default function BentoGrid() {
         h="auto"
         bg={item3}
         borderRadius={"2xl"}
-        py={{ base: 1.5, lg: 8 }}
+        py={{base: 1.5, xl: 8}}
         gap={[2.5, 2.5, 2.5, 7]}
       >
-        <Text fontSize={{ base: "14px", md: "16px", lg: "32px" }} color={text1} align="center">
+        <Text fontSize={{base: "14px", md: "16px", lg: "32px"}} color={text1} align="center">
           {t("Renting equipment hase never been easier")}
         </Text>
-        <Flex width={"full"} justifyContent={"space-around"} overflow="hidden">
+        <Flex width={"full"} justifyContent={"space-around"} overflow="hidden" alignItems={"center"}>
           <motion.div
-            initial={{ x: -200, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            initial={{x: "-100%", opacity: 0}}
+            whileInView={{x: 0, opacity: 1}}
+            transition={{duration: 0.5, delay: 0.1}}
             className="flex justify-center items-center flex-col"
           >
             <Box width={["30px", "30px", "50px", "80px"]}>
-              <MagnifyingGlassCircleIcon fill={isDark ? "dark" : "white"} />
+              <MagnifyingGlassCircleIcon fill={isDark ? "dark" : "white"}/>
             </Box>
-            <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
+            <Text fontSize={{base: "16px", lg: "24px"}} color={text1}>
               {t("Search")}
             </Text>
           </motion.div>
           <motion.div
-            initial={{ x: -200, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            initial={{x: "-100%", opacity: 0}}
+            whileInView={{x: 0, opacity: 1}}
+            transition={{duration: 0.5, delay: 0.8}}
             className="flex justify-center items-center flex-col"
           >
             <Box width={["30px", "30px", "50px", "80px"]}>
-              <ShoppingCartIcon fill={isDark ? "dark" : "white"} />
+              <ArrowLongRightIcon fill={isDark ? "dark" : "white"}/>
             </Box>
-            <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
+          </motion.div>
+          <motion.div
+            initial={{x: "-100%", opacity: 0}}
+            whileInView={{x: 0, opacity: 1}}
+            transition={{duration: 0.5, delay: 0.3}}
+            className="flex justify-center items-center flex-col"
+          >
+            <Box width={["30px", "30px", "50px", "80px"]}>
+              <ShoppingCartIcon fill={isDark ? "dark" : "white"}/>
+            </Box>
+            <Text fontSize={{base: "16px", lg: "24px"}} color={text1}>
               {t("Rent")}
             </Text>
           </motion.div>
           <motion.div
-            initial={{ x: -200, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            initial={{x: "-100%", opacity: 0}}
+            whileInView={{x: 0, opacity: 1}}
+            transition={{duration: 0.5, delay: 1.2}}
             className="flex justify-center items-center flex-col"
           >
             <Box width={["30px", "30px", "50px", "80px"]}>
-              <FaceSmileIcon fill={isDark ? "dark" : "white"} />
+              <ArrowLongRightIcon fill={isDark ? "dark" : "white"}/>
             </Box>
-            <Text fontSize={{ base: "16px", lg: "24px" }} color={text1}>
+          </motion.div>
+          <motion.div
+            initial={{x: "-100%", opacity: 0}}
+            whileInView={{x: 0, opacity: 1}}
+            transition={{duration: 0.5, delay: 0.4}}
+            className="flex justify-center items-center flex-col"
+          >
+            <Box width={["30px", "30px", "50px", "80px"]}>
+              <FaceSmileIcon fill={isDark ? "dark" : "white"}/>
+            </Box>
+            <Text fontSize={{base: "16px", lg: "24px"}} color={text1}>
               {t("Enjoy")}
             </Text>
           </motion.div>
@@ -188,19 +213,19 @@ export default function BentoGrid() {
         h="auto"
         bg="accent"
         borderRadius={"2xl"}
-        py={{ base: 1.5, lg: 8 }}
+        py={{base: 1.5, xl: 8}}
         px={2.5}
         gap={[2.5, 2.5, 2.5, 7]}
       >
-        <Text fontSize={{ base: "16px", lg: "32px" }} color={text2} align="center">
+        <Text fontSize={{base: "16px", lg: "32px"}} color={text2} align="center">
           {t("Find us on social media")}
         </Text>
         <Flex gap={8}>
           <Box width={["30px", "40px"]}>
-            <Image src={Instagram} alt="link to instagram" width={100} />
+            <Image src={Instagram} alt="link to instagram" width={100}/>
           </Box>
           <Box width={["30px", "40px"]}>
-            <Image src={Facebook} alt="link to facebook" width={100} />
+            <Image src={Facebook} alt="link to facebook" width={100}/>
           </Box>
         </Flex>
       </GridItem>

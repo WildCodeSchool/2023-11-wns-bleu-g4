@@ -13,6 +13,9 @@ query GetAllAgencies {
       isSizeable
       size
       status
+      product {
+        id
+      }
     }
     bookings {
       id

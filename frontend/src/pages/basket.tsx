@@ -1,18 +1,18 @@
-import { useBookingData } from "@/context/BookingDataContext";
-import { useProductContext } from "@/context/ProductPageContext";
-import { useBookingMutation } from "@/features/product/detailsComponent/useBookingMutation";
-import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
+import {useBookingData} from "@/context/BookingDataContext";
+import {useProductContext} from "@/context/ProductPageContext";
+import {useBookingMutation} from "@/features/product/detailsComponent/useBookingMutation";
+import {useProfileQuery} from "@/graphql/User/generated/Profile.generated";
 import Layout from "@/layouts/Layout";
-import { Box, Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import {Box, Button, Divider, Flex, Image, Text} from "@chakra-ui/react";
+import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 export default function BasketPage() {
-  const { t } = useTranslation("BasketPage");
-  const { bookingData, removeBookingData } = useBookingData();
-  const { state: { agencies } } = useProductContext();
-  const { performBookingMutation } = useBookingMutation();
-  const { data: profileData } = useProfileQuery();
+  const {t} = useTranslation("BasketPage");
+  const {bookingData, removeBookingData} = useBookingData();
+  const {state: {agencies}} = useProductContext();
+  const {performBookingMutation} = useBookingMutation();
+  const {data: profileData} = useProfileQuery();
   const [bookingInProgress, setBookingInProgress] = useState(false);
 
   const handleBooking = async () => {
@@ -62,14 +62,15 @@ export default function BasketPage() {
       {bookingData && bookingData.length > 0 ? (
         <>
           {bookingData.map((data, index) => {
-            const { product, selectedAgency, selectedSize, quantity, startDate, endDate, totalPrice } = data;
+            const {product, selectedAgency, selectedSize, quantity, startDate, endDate, totalPrice} = data;
             const agency = agencies.find(a => a.id === selectedAgency);
 
             return (
               <Box className="px-5 lg:px-24" key={index} mb={4}>
                 <Flex align="center" justifyContent="space-between">
-                  {product && <Image w={100} src={product.thumbnail} alt={product.name} />}
-                  <Flex align="center" justifyContent="space-around" w="100%" fontSize={18} fontWeight={500}>
+                  {product && <Image w={100} src={product.thumbnail} alt={product.name}/>}
+                  <Flex align="center" justifyContent="space-around" w="100%" fontSize={18}
+                        fontWeight={500}>
                     <Flex flexDirection="column">
                       {product && (
                         <Text>
@@ -117,7 +118,7 @@ export default function BasketPage() {
                     </Flex>
                   </Flex>
                 </Flex>
-                <Divider mt={4} />
+                <Divider mt={4}/>
               </Box>
             );
           })}
@@ -133,3 +134,5 @@ export default function BasketPage() {
     </Layout>
   );
 }
+
+

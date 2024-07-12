@@ -1,3 +1,13 @@
 {
-  "Add to basket": "Add to basket"
+  "Add to basket": "Add to basket",
+  "Agency need to be selected": "",
+  "End date need to be selected": "",
+  "Please make sure all fields are filled out :": "",
+  "Product added to basket successfully!": "",
+  "Product need to be selected": "",
+  "Quantity need to be selected": "",
+  "Size need to be selected": "",
+  "Start date need to be selected": "",
+  "The product is already booked for the selected dates.": "",
+  "This product is already in your basket with the selected options.": ""
 }

@@ -1,13 +1,13 @@
-import { Box, Card, Flex, IconButton, Image, Text } from "@chakra-ui/react";
-import { ChatBubbleLeftEllipsisIcon, StarIcon as OutlineStarIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { StarIcon as SolidStarIcon } from "@heroicons/react/24/solid";
-import { useRouter } from "next/router";
+import {Box, Card, Flex, IconButton, Image, Text} from "@chakra-ui/react";
+import {ChatBubbleLeftEllipsisIcon, StarIcon as OutlineStarIcon, ShoppingCartIcon} from "@heroicons/react/24/outline";
+import {StarIcon as SolidStarIcon} from "@heroicons/react/24/solid";
+import {useRouter} from "next/router";
 
 interface ProductCardProps {
   product: any;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({product}: ProductCardProps) {
   const router = useRouter();
 
   const handleCardClick = () => {
@@ -30,9 +30,9 @@ export default function ProductCard({ product }: ProductCardProps) {
       overflow="hidden"
       onClick={handleCardClick}
       cursor="pointer"
-      w="221px"
-      h="344px"
-      padding="20px"
+      w="250px"
+      h="380px"
+      padding="40px"
       justifyContent="space-around"
       _hover={{
         boxShadow: 'dark-lg',
@@ -41,7 +41,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       }}
     >
       <Flex justifyContent="center" alignItems="center">
-        <Image src={product.thumbnail} alt={product.name} width="100%" />
+        <Image src={product.thumbnail} alt={product.name} width="100%"/>
       </Flex>
       <Box>
         <Box alignItems="baseline">
@@ -63,26 +63,26 @@ export default function ProductCard({ product }: ProductCardProps) {
             .map((_, i) => (
               <div key={i}>
                 {i < averageRating ? (
-                  <SolidStarIcon className="h-5 w-5 text-yellow-500" />
+                  <SolidStarIcon className="h-5 w-5 text-yellow-500"/>
                 ) : (
-                  <OutlineStarIcon className="h-5 w-5 text-gray-300" />
+                  <OutlineStarIcon className="h-5 w-5 text-gray-300"/>
                 )}
               </div>
             ))}
           <Flex as="span" ml="2" fontSize="sm" alignItems="center">
-            <ChatBubbleLeftEllipsisIcon className="h-5 w-5 mr-2" />
+            <ChatBubbleLeftEllipsisIcon className="h-5 w-5 mr-2"/>
             {totalReviews}
           </Flex>
         </Flex>
 
         <Flex mt="3" alignItems="center" justifyContent="space-between">
           <Box fontSize="xl">
-            {product.price}€
+            {product.price.toFixed(2)}€
             <Box as="span" fontSize="xl">
               / Day
             </Box>
           </Box>
-          <IconButton variant="accentButton" aria-label="shopping cart" icon={<ShoppingCartIcon width="24" />} />
+          <IconButton variant="accentButton" aria-label="shopping cart" icon={<ShoppingCartIcon width="24"/>}/>
         </Flex>
       </Box>
     </Card>

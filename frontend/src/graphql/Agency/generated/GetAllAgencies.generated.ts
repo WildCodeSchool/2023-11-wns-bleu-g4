@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type GetAllAgenciesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetAllAgenciesQuery = { __typename?: 'Query', getAllAgencies: Array<{ __typename?: 'Agency', id: number, name: string, address: string, city: string, country: string, email: string, phone: string, postcode: string, productCodes: Array<{ __typename?: 'ProductCode', id: number, isSizeable: boolean, size?: string | null, status: Types.Status }>, bookings: Array<{ __typename?: 'Booking', id: number, status: Types.StatusBooking, startDate: any, endDate: any }> }> };
+export type GetAllAgenciesQuery = { __typename?: 'Query', getAllAgencies: Array<{ __typename?: 'Agency', id: number, name: string, address: string, city: string, country: string, email: string, phone: string, postcode: string, productCodes: Array<{ __typename?: 'ProductCode', id: number, isSizeable: boolean, size?: string | null, status: Types.Status, product?: { __typename?: 'Product', id: number } | null }>, bookings: Array<{ __typename?: 'Booking', id: number, status: Types.StatusBooking, startDate: any, endDate: any }> }> };
 
 
 export const GetAllAgenciesDocument = gql`
@@ -25,6 +25,9 @@ export const GetAllAgenciesDocument = gql`
       isSizeable
       size
       status
+      product {
+        id
+      }
     }
     bookings {
       id

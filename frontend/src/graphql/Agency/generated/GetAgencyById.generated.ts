@@ -8,20 +8,31 @@ export type GetAgencyByIdQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetAgencyByIdQuery = { __typename?: 'Query', getAgencyById: { __typename?: 'Agency', id: number, name: string, address: string, postcode: string, city: string, country: string, phone: string, email: string } };
+export type GetAgencyByIdQuery = { __typename?: 'Query', getAgencyById: { __typename?: 'Agency', address: string, city: string, country: string, email: string, id: number, name: string, phone: string, postcode: string, productCodes: Array<{ __typename?: 'ProductCode', id: number, size?: string | null, bookingItems?: Array<{ __typename?: 'BookingItem', endDate: any, startDate: any }> | null, product?: { __typename?: 'Product', id: number } | null }> } };
 
 
 export const GetAgencyByIdDocument = gql`
     query GetAgencyById($agencyId: Int!) {
   getAgencyById(agencyId: $agencyId) {
-    id
-    name
     address
-    postcode
     city
     country
-    phone
     email
+    id
+    name
+    phone
+    postcode
+    productCodes {
+      id
+      bookingItems {
+        endDate
+        startDate
+      }
+      size
+      product {
+        id
+      }
+    }
   }
 }
     `;

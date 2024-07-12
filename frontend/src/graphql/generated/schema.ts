@@ -482,6 +482,7 @@ export type Product_Picture = {
 
 export type Query = {
   __typename?: 'Query';
+  checkProductAvailability: Scalars['Boolean']['output'];
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
   getAllBooking: BookingList;
@@ -509,6 +510,16 @@ export type Query = {
   getReviewsByProductId: Array<Review>;
   getReviewsByUserId: Array<Review>;
   profile: User;
+};
+
+
+export type QueryCheckProductAvailabilityArgs = {
+  agencyId: Scalars['Int']['input'];
+  endDate: Scalars['DateTimeISO']['input'];
+  productId: Scalars['Int']['input'];
+  quantity: Scalars['Int']['input'];
+  size?: InputMaybe<Scalars['String']['input']>;
+  startDate: Scalars['DateTimeISO']['input'];
 };
 
 

@@ -1,0 +1,3 @@
+query checkProductAvailability($agencyId: Int!, $productId: Int!, $startDate: DateTimeISO!, $endDate: DateTimeISO!, $quantity: Int!, $size: String) {
+  checkProductAvailability(agencyId: $agencyId, productId: $productId, startDate: $startDate, endDate: $endDate, quantity: $quantity, size: $size)
+}
