@@ -16,6 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import SearchSuggestions from "./SearchSuggestions";
 import { useGetAllProductsQuery, GetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
+import SearchSuggestionsMobile from "./mobile/SearchSuggestion.mobile";
 
 interface SearchBarProps {
   variant?: "desktop" | "mobile";
@@ -139,7 +140,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
         )}
       </Flex>
     );
-  } else if (variant === "mobile") {
+  }  else if (variant === "mobile") {
     return (
       <Flex
         position="relative"
@@ -161,7 +162,6 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
           onClose={onClose}
           isOpen={isOpen}
           initialFocusRef={firstField}
-    
         >
           <DrawerOverlay />
           <DrawerContent>
@@ -212,9 +212,7 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
                 </div>
               </div>
               {showSuggestions && (
-                <Box ref={suggestionsRef} width="full" zIndex={4}>
-                  <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
-                </Box>
+                <SearchSuggestionsMobile suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
               )}
             </DrawerBody>
           </DrawerContent>
