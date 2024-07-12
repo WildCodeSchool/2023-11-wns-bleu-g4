@@ -15,8 +15,8 @@ import env from "../env"
 class BookingResolver {
 	@Query(() => BookingList)
 	async getAllBooking(
-		@Arg("agencyId", { nullable: true }) agencyId?: number,
-		@Arg("userId", { nullable: true }) userId?: number,
+		@Arg("agencyId", () => Int, { nullable: true }) agencyId?: number,
+		@Arg("userId", () => Int, { nullable: true }) userId?: number,
 		@Arg("limit", () => Int, { nullable: true }) limit?: number,
 		@Arg("offset", () => Int, { nullable: true }) offset?: number
 	) {
