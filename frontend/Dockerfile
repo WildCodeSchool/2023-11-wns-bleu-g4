@@ -12,7 +12,6 @@ COPY next.config.js ./next.config.js
 COPY i18next-parser.config.js ./i18next-parser.config.js
 COPY next-i18next.config.js ./next-i18next.config.js
 COPY i18nUtils.js ./i18nUtils.js
-COPY i18n.js ./i18n.js
 COPY postcss.config.js ./postcss.config.js
 COPY tailwind.config.ts ./tailwind.config.ts
 

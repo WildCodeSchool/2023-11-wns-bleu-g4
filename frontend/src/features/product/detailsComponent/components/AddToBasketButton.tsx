@@ -58,7 +58,6 @@ export default function AddToBasketButton({triggerReload}: AddToBasketButtonProp
     if (!quantity) missingFields.push(t("Quantity need to be selected"));
     if (!startDate) missingFields.push(t("Start date need to be selected"));
     if (!endDate) missingFields.push(t("End date need to be selected"));
-
     if (isSizeable && !selectedSize) {
       missingFields.push(t("Size need to be selected"));
     }

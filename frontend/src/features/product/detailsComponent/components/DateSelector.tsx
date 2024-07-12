@@ -1,5 +1,5 @@
 import {useProductContext} from "@/context/ProductPageContext";
-import DateRangePicker from "@/shared/components/DateRangePicker";
+import DateRangePicker from "@/shared/components/dateRangePicker/DateRangePicker";
 import {Flex} from "@chakra-ui/react";
 import {useEffect} from "react";
 
