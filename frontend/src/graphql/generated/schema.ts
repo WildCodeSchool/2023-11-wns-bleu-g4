@@ -84,6 +84,12 @@ export type Brand = {
   product: Array<Product>;
 };
 
+export type BrandList = {
+  __typename?: 'BrandList';
+  brands: Array<Brand>;
+  total: Scalars['Int']['output'];
+};
+
 export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
@@ -343,8 +349,8 @@ export type NewBookingInput = {
 export type NewBookingItemInput = {
   booking: BookingId;
   endDate: Scalars['DateTimeISO']['input'];
-  productCodeId: ProductId;
-  productId: ProductId;
+  product: ProductId;
+  productCode: ProductCodeId;
   startDate: Scalars['DateTimeISO']['input'];
   status: BookingItemStatus;
 };
@@ -356,7 +362,7 @@ export type NewBrandInput = {
 
 export type NewCategoryInput = {
   name: Scalars['String']['input'];
-  parentCategory?: InputMaybe<ParentCategoryId>;
+  parentCategory: ParentCategoryId;
   thumbnail: Scalars['String']['input'];
 };
 
@@ -435,15 +441,25 @@ export type ProductCharacteristic = {
   product: Product;
 };
 
+export type ProductCharacteristicList = {
+  __typename?: 'ProductCharacteristicList';
+  productCharacteristics: Array<ProductCharacteristic>;
+  total: Scalars['Int']['output'];
+};
+
 export type ProductCode = {
   __typename?: 'ProductCode';
   agency?: Maybe<Agency>;
-  bookingItems?: Maybe<Array<BookingItem>>;
+  bookingItems: Array<BookingItem>;
   id: Scalars['Int']['output'];
   isSizeable: Scalars['Boolean']['output'];
   product?: Maybe<Product>;
   size?: Maybe<Scalars['String']['output']>;
   status: Status;
+};
+
+export type ProductCodeId = {
+  id: Scalars['Int']['input'];
 };
 
 export type ProductId = {
@@ -468,16 +484,16 @@ export type Query = {
   __typename?: 'Query';
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
-  getAllBooking: BookingList;
+  getAllBooking: Array<Booking>;
   getAllBrands: Array<Brand>;
   getAllCategories: Array<Category>;
   getAllParentCategories: Array<ParentCategory>;
-  getAllProductCharacteristics: Array<ProductCharacteristic>;
+  getAllProductCharacteristics: ProductCharacteristicList;
   getAllProduct_codes: Array<ProductCode>;
   getAllProduct_pictures: Array<Product_Picture>;
   getAllProducts: ProductList;
   getAllReviews: Array<Review>;
-  getAllUsers: Array<User>;
+  getAllUsers: UserList;
   getBookingById: Booking;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
@@ -509,6 +525,12 @@ export type QueryGetAllBookingArgs = {
 };
 
 
+export type QueryGetAllBrandsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type QueryGetAllCategoriesArgs = {
   name?: InputMaybe<Scalars['String']['input']>;
   parentCategoryId?: InputMaybe<Scalars['Int']['input']>;
@@ -519,6 +541,12 @@ export type QueryGetAllCategoriesArgs = {
 export type QueryGetAllParentCategoriesArgs = {
   categoryId?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryGetAllProductCharacteristicsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -534,6 +562,12 @@ export type QueryGetAllProductsArgs = {
 export type QueryGetAllReviewsArgs = {
   productId?: InputMaybe<Scalars['Int']['input']>;
   userId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryGetAllUsersArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -630,7 +664,7 @@ export enum Status {
 /** Check booking's state. */
 export enum StatusBooking {
   Booked = 'BOOKED',
-  Canceled = 'CANCELED',
+  Cancelled = 'CANCELLED',
   Late = 'LATE',
   Retrieved = 'RETRIEVED'
 }
@@ -658,8 +692,8 @@ export type UpdateBookingItemInput = {
   booking?: InputMaybe<BookingId>;
   endDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
   id: Scalars['Int']['input'];
-  productCodeId?: InputMaybe<ProductId>;
-  productId?: InputMaybe<ProductId>;
+  product?: InputMaybe<ProductId>;
+  productCode?: InputMaybe<ProductCodeId>;
   startDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
   status?: InputMaybe<BookingItemStatus>;
 };
@@ -685,7 +719,7 @@ export type UpdateProductCharacteristicInput = {
 
 export type UpdateProductInput = {
   brand?: InputMaybe<ObjectId>;
-  category?: InputMaybe<ObjectId>;
+  category: ObjectId;
   characteristics?: InputMaybe<Array<ObjectId>>;
   description?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -734,4 +768,10 @@ export type User = {
 
 export type UserId = {
   id: Scalars['Int']['input'];
+};
+
+export type UserList = {
+  __typename?: 'UserList';
+  total: Scalars['Int']['output'];
+  users: Array<User>;
 };

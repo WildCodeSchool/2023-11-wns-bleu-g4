@@ -11,20 +11,26 @@ import {
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 interface SearchBarProps {
-  onSearch: (query: string) => void;
   variant?: "desktop" | "mobile";
   placeholder: string;
 }
 
-export default function SearchBar({ onSearch, placeholder, variant = "desktop" }: SearchBarProps) {
+export default function SearchBar({ placeholder, variant = "desktop" }: SearchBarProps) {
   const { t } = useTranslation("Navbar");
   const [query, setQuery] = useState("");
   const [isInputEmpty, setIsInputEmpty] = useState(true);
+  const router = useRouter();
 
   const handleSearch = () => {
-    onSearch(query);
+    if (query.trim() !== "") {
+      router.push({
+        pathname: "/shop",
+        query: { search: query },
+      });
+    }
   };
 
   const handleClearInput = () => {

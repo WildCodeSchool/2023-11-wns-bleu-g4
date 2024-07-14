@@ -1,0 +1,7 @@
+query GetBrandById($brandId: Int!) {
+  getBrandById(brandId: $brandId) {
+    id
+    name
+    logo
+  }
+}

@@ -1,14 +1,17 @@
-query GetAllUsers {
-  getAllUsers {
-    id
-    name
-    email
-    address
-    avatar
-    city
-    country
-    phone
-    firstname
-    postcode
+query GetAllUsers($limit: Int, $offset: Int) {
+  getAllUsers(limit: $limit, offset: $offset) {
+    users {
+      id
+      name
+      email
+      address
+      avatar
+      city
+      country
+      phone
+      firstname
+      postcode
+    }
+    total
   }
 }

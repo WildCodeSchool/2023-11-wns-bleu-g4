@@ -17,7 +17,7 @@ export default function ParentCategoryDeleteModal({
   handleDelete,
 }: CategoryModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="neutralOverlayStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Delete {parentCategory?.name}</ModalHeader>

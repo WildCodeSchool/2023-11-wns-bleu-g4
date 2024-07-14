@@ -42,6 +42,8 @@ export class ProductResolver {
 				brand: true,
 				characteristics: true,
 				reviews: true,
+				bookingItem: true,
+				productCodes: true,
 			},
 			where: whereOptions,
 			order: orderOptions,
@@ -56,7 +58,15 @@ export class ProductResolver {
 	async getProductById(@Arg("productId", () => Int) id: number) {
 		const product = await Product.findOne({
 			where: { id },
-			relations: { category: true, reviews: true, pictures: true, brand: true, characteristics: true },
+			relations: {
+				category: true,
+				reviews: true,
+				pictures: true,
+				brand: true,
+				characteristics: true,
+				bookingItem: true,
+				productCodes: true,
+			},
 		})
 		if (!product) throw new GraphQLError("Not found")
 		return product
@@ -74,7 +84,15 @@ export class ProductResolver {
 		const { id } = await newProduct.save()
 		return Product.findOne({
 			where: { id },
-			relations: { category: true, reviews: true, pictures: true, brand: true, characteristics: true },
+			relations: {
+				category: true,
+				reviews: true,
+				pictures: true,
+				brand: true,
+				characteristics: true,
+				bookingItem: true,
+				productCodes: true,
+			},
 		})
 	}
 
@@ -95,7 +113,15 @@ export class ProductResolver {
 		await productToUpdate.save()
 		return Product.findOne({
 			where: { id },
-			relations: { category: true, reviews: true, pictures: true, brand: true, characteristics: true },
+			relations: {
+				category: true,
+				reviews: true,
+				pictures: true,
+				brand: true,
+				characteristics: true,
+				bookingItem: true,
+				productCodes: true,
+			},
 		})
 	}
 

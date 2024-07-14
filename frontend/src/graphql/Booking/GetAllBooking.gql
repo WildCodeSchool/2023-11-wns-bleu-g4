@@ -1,5 +1,5 @@
-query GetAllBooking($offset: Int, $limit: Int) {
-  getAllBooking(offset: $offset, limit: $limit) {
+query GetAllBooking($limit: Int, $offset: Int) {
+  getAllBooking(limit: $limit, offset: $offset) {
     bookings {
       id
       status
@@ -7,6 +7,25 @@ query GetAllBooking($offset: Int, $limit: Int) {
       bookingDate
       startDate
       endDate
+      user {
+        id
+        name
+        firstname
+        address
+        postcode
+        city
+        phone
+      }
+      agency {
+        id
+        name
+      }
+      bookingItem {
+        id
+        endDate
+        startDate
+        status
+      }
     }
     total
   }

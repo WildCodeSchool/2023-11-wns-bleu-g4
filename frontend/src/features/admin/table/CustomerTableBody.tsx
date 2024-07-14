@@ -1,6 +1,7 @@
 import { TableBodyProps } from "../product/types";
 import { customerTableHeaders } from "../helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
+import { User } from "@/graphql/generated/schema";
 
 export default function CustomerTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("CustomerTableBody");
@@ -22,7 +23,7 @@ export default function CustomerTableBody({ data }: TableBodyProps) {
       </thead>
       <tbody className="text-sm">
         {data.length !== 0 ? (
-          data.map((customer: any, index: number) => (
+          data.map((customer: User, index: number) => (
             <tr
               key={customer.id}
               className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap hover:bg-cactus-300`}

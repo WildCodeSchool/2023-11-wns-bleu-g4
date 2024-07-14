@@ -4,7 +4,7 @@ export enum StatusBooking {
 	BOOKED = "booked",
 	RETRIEVED = "retrieved",
 	LATE = "late",
-	CANCELED = "canceled",
+	CANCELLED = "cancelled",
 }
 
 registerEnumType(StatusBooking, {

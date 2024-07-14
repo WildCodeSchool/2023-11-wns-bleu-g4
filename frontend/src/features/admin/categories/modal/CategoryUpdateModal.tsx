@@ -1,4 +1,3 @@
-"use client";
 import {
   Button,
   FormControl,
@@ -18,7 +17,7 @@ import uploadFile from "../../helpers/uploadFile";
 import { CategoryModalProps, ParentCategory } from "../types";
 import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import { useUpdateCategoryMutation } from "@/graphql/Category/generated/updateCategory.generated";
-import { GetCategoryByIdDocument } from "@/graphql/Category/generated/GetCategoryById.generated";
+import { GetCategoryByIdDocument } from "@/graphql/Category/generated/getCategoryById.generated";
 
 export default function CategoryUpdateModal({ isOpen, onClose, category }: CategoryModalProps) {
   const [updateCategory] = useUpdateCategoryMutation();
@@ -68,10 +67,10 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add a new category</ModalHeader>
+        <ModalHeader>Update {category?.name} category</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit}>
@@ -81,7 +80,7 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
               </FormLabel>
               <Input
                 type="text"
-                id=""
+                id="name"
                 name="name"
                 placeholder="Name"
                 value={formData.name}
