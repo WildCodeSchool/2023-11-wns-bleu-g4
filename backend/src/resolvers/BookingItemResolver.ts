@@ -41,7 +41,7 @@ class BookingItemResolver {
 	@Authorized()
 	@Mutation(() => BookingItem)
 	async updateBookingItem(
-		@Arg("bookingItemId") id: number,
+		@Arg("bookingItemId", () => Int) id: number,
 		@Arg("data", { validate: true }) data: UpdateBookingItemInput,
 		@Ctx() ctx: Context
 	) {
@@ -61,7 +61,7 @@ class BookingItemResolver {
 
 	@Authorized()
 	@Mutation(() => String)
-	async deleteBookingItem(@Arg("bookingItemId") id: number, @Ctx() ctx: Context) {
+	async deleteBookingItem(@Arg("bookingItemId", () => Int) id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
 		const itemToDelete = await BookingItem.findOne({ where: { id } })

@@ -1,4 +1,4 @@
-import { useGetAllAgenciesQuery } from "@/graphql/Agency/generated/getAllAgency.generated";
+import { useGetAllAgenciesQuery } from "@/graphql/Agency/generated/GetAllAgencies.generated";
 import { useGetProductsDetailsQuery } from "@/graphql/Product/generated/getProductsDetails.generated";
 import { Agency, Product, ProductCode } from "@/graphql/generated/schema";
 import { useRouter } from "next/router";

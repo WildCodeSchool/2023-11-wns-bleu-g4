@@ -54,6 +54,10 @@ function DesktopNavbar() {
     router.push("/login");
   };
 
+  const goToAccount = () => {
+    router.push(`/account/user/${profileData?.profile.id}`)
+  }
+
   return (
     <Flex display={{ base: "none", md: "none", xl: "flex" }}>
       <nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
@@ -78,7 +82,7 @@ function DesktopNavbar() {
                   {profileData?.profile.firstname}
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>{t("My Account")}</MenuItem>
+                  <MenuItem onClick={goToAccount}>{t("My Account")}</MenuItem>
                   {profileData?.profile.role === "admin" &&
                     <MenuItem onClick={() => router.push('/admin')}>{t("Admin Panel")}</MenuItem>
                   }

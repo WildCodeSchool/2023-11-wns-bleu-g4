@@ -18,12 +18,14 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header>
-        <Navbar />
-        <SubNavbar />
-      </header>
-      <main className="pb-5 lg:pt-5 flex flex-col lg:gap-8 ">{children}</main>
-      <Footer />
+      <body className="h-screen flex flex-col">
+        <header>
+          <Navbar />
+          <SubNavbar />
+        </header>
+        <main className="pb-5 lg:pt-5 2xl:pt-10 flex flex-col lg:gap-8 grow ">{children}</main>
+        <Footer />
+      </body>
     </>
   );
 }

@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdateParentCategoryMutationVariables = Types.Exact<{
   data: Types.UpdateParentCategoryInput;
-  parentCategoryId: Types.Scalars['Float']['input'];
+  parentCategoryId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -13,7 +13,7 @@ export type UpdateParentCategoryMutation = { __typename?: 'Mutation', updatePare
 
 
 export const UpdateParentCategoryDocument = gql`
-    mutation UpdateParentCategory($data: UpdateParentCategoryInput!, $parentCategoryId: Float!) {
+    mutation UpdateParentCategory($data: UpdateParentCategoryInput!, $parentCategoryId: Int!) {
   updateParentCategory(data: $data, parentCategoryId: $parentCategoryId) {
     id
     name

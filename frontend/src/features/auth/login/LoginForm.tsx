@@ -1,5 +1,6 @@
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { useLoginMutation } from "@/graphql/User/generated/Login.generated";
+import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import {
   Box,
   Button,
@@ -35,6 +36,7 @@ export default function LoginForm() {
 
     const formData = new FormData(e.target as HTMLFormElement);
     const formJSON: any = Object.fromEntries(formData.entries());
+    // const profile = useProfileQuery()
 
     try {
       await login({ variables: { data: formJSON } });
@@ -45,6 +47,8 @@ export default function LoginForm() {
       toast.error(errArr, ToastConfigLogin);
       return;
     }
+
+
   };
 
   return (

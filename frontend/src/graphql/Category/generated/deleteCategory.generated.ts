@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type DeleteCategoryMutationVariables = Types.Exact<{
-  categoryId: Types.Scalars['Float']['input'];
+  categoryId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -12,7 +12,7 @@ export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory: 
 
 
 export const DeleteCategoryDocument = gql`
-    mutation DeleteCategory($categoryId: Float!) {
+    mutation DeleteCategory($categoryId: Int!) {
   deleteCategory(categoryId: $categoryId)
 }
     `;

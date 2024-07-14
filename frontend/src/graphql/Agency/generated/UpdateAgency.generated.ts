@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdateAgencyMutationVariables = Types.Exact<{
   data: Types.UpdateAgencyInput;
-  agencyId: Types.Scalars['Float']['input'];
+  agencyId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -13,7 +13,7 @@ export type UpdateAgencyMutation = { __typename?: 'Mutation', updateAgency: { __
 
 
 export const UpdateAgencyDocument = gql`
-    mutation UpdateAgency($data: UpdateAgencyInput!, $agencyId: Float!) {
+    mutation UpdateAgency($data: UpdateAgencyInput!, $agencyId: Int!) {
   updateAgency(data: $data, agencyId: $agencyId) {
     id
     name

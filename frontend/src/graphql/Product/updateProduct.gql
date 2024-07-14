@@ -1,4 +1,4 @@
-mutation UpdateProduct($data: UpdateProductInput!, $productId: Float!) {
+mutation UpdateProduct($data: UpdateProductInput!, $productId: Int!) {
   updateProduct(data: $data, productId: $productId) {
     name
     price
