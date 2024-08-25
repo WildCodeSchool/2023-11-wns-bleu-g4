@@ -1,4 +1,3 @@
-"use client";
 import {
   Button,
   FormControl,
@@ -47,10 +46,10 @@ export default function CharacteristicUpdateModal({ isOpen, onClose, characteris
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add a new characteristic</ModalHeader>
+        <ModalHeader>Update {characteristic?.name} characteristic</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit}>

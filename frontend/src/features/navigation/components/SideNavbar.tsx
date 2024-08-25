@@ -1,4 +1,3 @@
-"use client";
 import { BackspaceIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";

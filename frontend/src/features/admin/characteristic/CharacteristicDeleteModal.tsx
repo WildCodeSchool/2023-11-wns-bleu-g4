@@ -17,7 +17,7 @@ export default function CharacteristicDeleteModal({
   handleDelete,
 }: CharacteristicModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Delete {characteristic?.name}</ModalHeader>

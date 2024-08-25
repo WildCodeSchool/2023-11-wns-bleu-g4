@@ -4,17 +4,17 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetAllBookingQueryVariables = Types.Exact<{
-  offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
 }>;
 
 
-export type GetAllBookingQuery = { __typename?: 'Query', getAllBooking: { __typename?: 'BookingList', total: number, bookings: Array<{ __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any }> } };
+export type GetAllBookingQuery = { __typename?: 'Query', getAllBooking: { __typename?: 'BookingList', total: number, bookings: Array<{ __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any, user: { __typename?: 'User', id: number, name: string, firstname: string, address: string, postcode: string, city: string, phone: string }, agency: { __typename?: 'Agency', id: number, name: string }, bookingItem: Array<{ __typename?: 'BookingItem', id: number, endDate: any, startDate: any, status: Types.BookingItemStatus }> }> } };
 
 
 export const GetAllBookingDocument = gql`
-    query GetAllBooking($offset: Int, $limit: Int) {
-  getAllBooking(offset: $offset, limit: $limit) {
+    query GetAllBooking($limit: Int, $offset: Int) {
+  getAllBooking(limit: $limit, offset: $offset) {
     bookings {
       id
       status
@@ -22,6 +22,25 @@ export const GetAllBookingDocument = gql`
       bookingDate
       startDate
       endDate
+      user {
+        id
+        name
+        firstname
+        address
+        postcode
+        city
+        phone
+      }
+      agency {
+        id
+        name
+      }
+      bookingItem {
+        id
+        endDate
+        startDate
+        status
+      }
     }
     total
   }
@@ -40,8 +59,8 @@ export const GetAllBookingDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllBookingQuery({
  *   variables: {
- *      offset: // value for 'offset'
  *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
  *   },
  * });
  */

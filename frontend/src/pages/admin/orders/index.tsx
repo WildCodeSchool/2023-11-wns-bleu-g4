@@ -1,22 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 import TableFooter from "@/features/admin/table/TableFooter";
-import OrderTableBody from "@/features/admin/table/OrderTableBody";
-import data from "@/features/admin/helpers/dummyOrders";
+import OrderTableBody from "@/features/admin/orders/OrderTableBody";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllNamespaces } from "../../../../i18nUtils";
 import { GetStaticProps } from "next";
+import { useGetAllBookingQuery } from "@/graphql/Booking/generated/GetAllBooking.generated";
+import { useRouter } from "next/router";
 
 export default function Orders() {
+  const router = useRouter();
+  const { query } = router;
+  const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const { data, refetch } = useGetAllBookingQuery({
+    variables: {
+        limit: 14,
+        offset: currentPage * 14,
+    }
+});
+  const [sortedData, setSortedData] = useState<any[]>([]);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
-  const [sortedData, setSortedData] = useState<any[]>(data);
-  const [currentPage, setCurrentPage] = useState(1);
+
+  const orders = data?.getAllBooking.bookings ?? [];
+  const totalOrders = data?.getAllBooking.total ?? 0;
 
   const itemsPerPage = 14;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + Math.min(itemsPerPage, data?.length ?? 0);
-  const currentOrders = sortedData.slice(startIndex, endIndex);
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + Math.min(itemsPerPage, orders?.length ?? 0);
 
   const toggleSortOrder = (
     columnName: string,
@@ -42,31 +54,46 @@ export default function Orders() {
     setSortColumn(newSortColumn);
     setSortOrder(newSortOrder);
 
-    const dataCopySorted = data.slice().sort((a: any, b: any) => {
+    const dataCopySorted = orders.slice().sort((a: any, b: any) => {
       if (newSortOrder === "asc") return newSortColumn ? (a[newSortColumn] > b[newSortColumn] ? 1 : -1) : 0;
       return newSortColumn ? (a[newSortColumn] < b[newSortColumn] ? 1 : -1) : 0;
     });
     setSortedData(dataCopySorted);
   };
 
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    const nextPage = pageNumber + 1;
+    router.push(`/admin/orders?page=${nextPage}`);
+  };
+
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [query.page]);
+
+  useEffect(() => {
+    setSortedData(orders);
+  }, [orders]);
+
   return (
     <LayoutAdmin pageTitle="Order list">
       <h1>Order list</h1>
       <div className="overflow-x-auto">
         <OrderTableBody
-          data={currentOrders}
+          data={sortedData}
+          refetch={refetch}
           sortOrder={sortOrder}
           sortColumnName={sortColumn}
           handleDateSort={handleDateSort}
         />
       </div>
       <TableFooter
-        data={sortedData}
+        data={totalOrders}
         startIndex={startIndex}
         endIndex={endIndex}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={handlePageChange}
       />
     </LayoutAdmin>
   );

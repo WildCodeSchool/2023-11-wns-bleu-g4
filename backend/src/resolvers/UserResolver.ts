@@ -1,4 +1,4 @@
-import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql"
+import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
 import { User, NewUserInput, LoginInput, UpdateUserInput, UserRole } from "../entities/User"
 import { GraphQLError } from "graphql"
 import { verify } from "argon2"
@@ -6,6 +6,8 @@ import jwt from "jsonwebtoken"
 import env from "../env"
 import { Context } from "../utils"
 import crypto from "crypto"
+import { UserList } from "../types"
+import mailer from "../mailer"
 
 @Resolver(User)
 class UserResolver {
@@ -21,8 +23,26 @@ class UserResolver {
 
 		newUser.emailConfirmationToken = token
 
+		await mailer.sendMail({
+			from: env.EMAIL_FROM,
+			to: newUser.email,
+			subject: "Welcome to GearGo",
+			text: `Welcome aboard ! To verify your email, please click on the link : ${env.FRONTEND_URL}/confirmEmail?token=${token}`,
+		})
+
 		const newUserWithId = await newUser.save()
 		return newUserWithId
+	}
+
+	@Mutation(() => String)
+	async confirmEmail(@Arg("token") token: string) {
+		const user = await User.findOneBy({ emailConfirmationToken: token })
+		if (user === null) throw new GraphQLError("INVALID_TOKEN")
+		user.emailVerified = true
+		user.emailConfirmationToken = null
+
+		user.save()
+		return "EMAIL_CONFIRMED"
 	}
 
 	@Mutation(() => String)
@@ -62,17 +82,6 @@ class UserResolver {
 		return ctx.currentUser.save()
 	}
 
-	@Mutation(() => String)
-	async confirmEmail(@Arg("token") token: string) {
-		const user = await User.findOneBy({ emailConfirmationToken: token })
-		if (user === null) throw new GraphQLError("INVALID_TOKEN")
-		user.emailVerified = true
-		user.emailConfirmationToken = null
-
-		user.save()
-		return "EMAIL_CONFIRMED"
-	}
-
 	@Authorized()
 	@Query(() => User)
 	async profile(@Ctx() ctx: Context) {
@@ -83,9 +92,17 @@ class UserResolver {
 	}
 
 	@Authorized([UserRole.ADMIN])
-	@Query(() => [User])
-	async getAllUsers() {
-		return User.find({ where: { role: UserRole.CUSTOMER } })
+	@Query(() => UserList)
+	async getAllUsers(
+		@Arg("limit", () => Int, { nullable: true }) limit?: number,
+		@Arg("offset", () => Int, { nullable: true }) offset?: number
+	) {
+		const [users, total] = await User.findAndCount({
+			where: { role: UserRole.CUSTOMER },
+			take: limit,
+			skip: offset,
+		})
+		return { users, total }
 	}
 }
 
