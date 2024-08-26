@@ -1,6 +1,6 @@
 import CharacteristicCreateModal from "@/features/admin/characteristic/CharacteristicCreateModal";
 import CharacteristicTableBody from "@/features/admin/characteristic/CharacteristicTableBody";
-import TableFooter from "@/features/admin/table/TableFooter";
+import TableFooter from "@/features/admin/shared/TableFooter";
 import { useGetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 import { PlusIcon } from "@heroicons/react/24/solid";

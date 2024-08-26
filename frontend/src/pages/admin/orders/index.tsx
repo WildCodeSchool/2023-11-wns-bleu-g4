@@ -1,24 +1,31 @@
 import { useEffect, useState } from "react";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
-import TableFooter from "@/features/admin/table/TableFooter";
+import TableFooter from "@/features/admin/shared/TableFooter";
 import OrderTableBody from "@/features/admin/orders/OrderTableBody";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllNamespaces } from "@root/i18nUtils";
 import { GetStaticProps } from "next";
 import { useGetAllBookingQuery } from "@/graphql/Booking/generated/GetAllBooking.generated";
 import { useRouter } from "next/router";
+import SearchAdmin from "@/features/admin/shared/SearchAdmin";
 
 export default function Orders() {
   const router = useRouter();
   const { query } = router;
   const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
   const [currentPage, setCurrentPage] = useState(initialPage);
+  const searchTerm = query.search ? query.search as string : '';
+
   const { data, refetch } = useGetAllBookingQuery({
     variables: {
-        limit: 14,
-        offset: currentPage * 14,
+      limit: 14,
+      offset: currentPage * 14,
+      // agencyId: isNaN(parseInt(searchTerm)) ? undefined : parseInt(searchTerm),
+      bookingId: isNaN(parseInt(searchTerm)) ? undefined : parseInt(searchTerm),
+      userFirstname: searchTerm,
+      userName: searchTerm,
     }
-});
+  });
   const [sortedData, setSortedData] = useState<any[]>([]);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
@@ -64,7 +71,8 @@ export default function Orders() {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     const nextPage = pageNumber + 1;
-    router.push(`/admin/orders?page=${nextPage}`);
+    const searchParam = searchTerm ? `&search=${searchTerm}` : '';
+    router.push(`/admin/orders?page=${nextPage}${searchParam}`);
   };
 
   useEffect(() => {
@@ -78,6 +86,7 @@ export default function Orders() {
   return (
     <LayoutAdmin pageTitle="Order list">
       <h1>Order list</h1>
+      <SearchAdmin paramName="search" />
       <div className="overflow-x-auto">
         <OrderTableBody
           data={sortedData}

@@ -4,8 +4,12 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetAllBookingQueryVariables = Types.Exact<{
-  limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  userName?: Types.InputMaybe<Types.Scalars['String']['input']>;
+  userFirstname?: Types.InputMaybe<Types.Scalars['String']['input']>;
+  agencyId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  bookingId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
 }>;
 
 
@@ -13,8 +17,15 @@ export type GetAllBookingQuery = { __typename?: 'Query', getAllBooking: { __type
 
 
 export const GetAllBookingDocument = gql`
-    query GetAllBooking($limit: Int, $offset: Int) {
-  getAllBooking(limit: $limit, offset: $offset) {
+    query GetAllBooking($offset: Int, $limit: Int, $userName: String, $userFirstname: String, $agencyId: Int, $bookingId: Int) {
+  getAllBooking(
+    offset: $offset
+    limit: $limit
+    userName: $userName
+    userFirstname: $userFirstname
+    agencyId: $agencyId
+    bookingId: $bookingId
+  ) {
     bookings {
       id
       status
@@ -59,8 +70,12 @@ export const GetAllBookingDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllBookingQuery({
  *   variables: {
- *      limit: // value for 'limit'
  *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *      userName: // value for 'userName'
+ *      userFirstname: // value for 'userFirstname'
+ *      agencyId: // value for 'agencyId'
+ *      bookingId: // value for 'bookingId'
  *   },
  * });
  */
