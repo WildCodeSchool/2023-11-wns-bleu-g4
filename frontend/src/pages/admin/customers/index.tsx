@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
-import TableFooter from "@/features/admin/table/TableFooter";
+import TableFooter from "@/features/admin/shared/TableFooter";
 import CustomerTableBody from "@/features/admin/table/CustomerTableBody";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";

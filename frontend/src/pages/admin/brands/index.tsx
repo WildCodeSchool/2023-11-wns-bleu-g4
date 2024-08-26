@@ -1,6 +1,6 @@
 import BrandCreateModal from "@/features/admin/brand/BrandCreateModal";
 import BrandTableBody from "@/features/admin/brand/BrandTableBody";
-import TableFooter from "@/features/admin/table/TableFooter";
+import TableFooter from "@/features/admin/shared/TableFooter";
 import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 import { PlusIcon } from "@heroicons/react/24/solid";

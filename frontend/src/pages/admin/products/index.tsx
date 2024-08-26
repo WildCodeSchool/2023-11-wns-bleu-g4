@@ -1,6 +1,6 @@
 import ProductCreateModal from "@/features/admin/product/modal/ProductCreateModal";
 import ProductTableBody from "@/features/admin/product/table/ProductTableBody";
-import TableFooter from "@/features/admin/table/TableFooter";
+import TableFooter from "@/features/admin/shared/TableFooter";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 import { PlusIcon } from "@heroicons/react/24/solid";
