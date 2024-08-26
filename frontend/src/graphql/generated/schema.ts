@@ -429,6 +429,7 @@ export type Product = {
   pictures: Array<Product_Picture>;
   price: Scalars['Float']['output'];
   productCodes: Array<ProductCode>;
+  ref: Scalars['String']['output'];
   reviews?: Maybe<Array<Review>>;
   thumbnail: Scalars['String']['output'];
   total: Scalars['Int']['output'];
@@ -540,6 +541,7 @@ export type QueryGetAllBookingArgs = {
 
 export type QueryGetAllBrandsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -559,6 +561,7 @@ export type QueryGetAllParentCategoriesArgs = {
 
 export type QueryGetAllProductCharacteristicsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -579,7 +582,10 @@ export type QueryGetAllReviewsArgs = {
 
 
 export type QueryGetAllUsersArgs = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  firstname?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 

@@ -6,6 +6,7 @@ const defaultOptions = {} as const;
 export type GetAllBrandsQueryVariables = Types.Exact<{
   limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  name?: Types.InputMaybe<Types.Scalars['String']['input']>;
 }>;
 
 
@@ -13,8 +14,8 @@ export type GetAllBrandsQuery = { __typename?: 'Query', getAllBrands: { __typena
 
 
 export const GetAllBrandsDocument = gql`
-    query GetAllBrands($limit: Int, $offset: Int) {
-  getAllBrands(limit: $limit, offset: $offset) {
+    query GetAllBrands($limit: Int, $offset: Int, $name: String) {
+  getAllBrands(limit: $limit, offset: $offset, name: $name) {
     brands {
       name
       id
@@ -39,6 +40,7 @@ export const GetAllBrandsDocument = gql`
  *   variables: {
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
+ *      name: // value for 'name'
  *   },
  * });
  */
