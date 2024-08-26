@@ -7,18 +7,21 @@ import { UserRole } from "../entities/User"
 import { Context } from "../utils"
 import { GraphQLError } from "graphql"
 import { ProductCharacteristicList } from "../types"
+import { ILike } from "typeorm"
 
 @Resolver()
 class ProductCharacteristicResolver {
 	@Query(() => ProductCharacteristicList)
 	async getAllProductCharacteristics(
 		@Arg("limit", () => Int, { nullable: true }) limit?: number,
-		@Arg("offset", () => Int, { nullable: true }) offset?: number
+		@Arg("offset", () => Int, { nullable: true }) offset?: number,
+		@Arg("name", () => String, { nullable: true }) name?: string
 	) {
 		const [productCharacteristics, total] = await ProductCharacteristic.findAndCount({
 			take: limit,
 			skip: offset,
 			relations: ["product"],
+			where: name ? { name: ILike(`%${name}%`) } : {},
 		})
 		return { productCharacteristics, total }
 	}
