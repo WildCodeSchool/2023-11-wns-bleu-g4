@@ -1,12 +1,23 @@
 query GetAgencyById($agencyId: Int!) {
   getAgencyById(agencyId: $agencyId) {
-    id
-    name
     address
-    postcode
     city
     country
-    phone
     email
+    id
+    name
+    phone
+    postcode
+    productCodes {
+      id
+      bookingItems {
+        endDate
+        startDate
+      }
+      size
+      product {
+        id
+      }
+    }
   }
 }

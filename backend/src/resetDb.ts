@@ -179,16 +179,16 @@ async function main() {
 		"Trail running pole": "Hiking",
 	}
 
-	for (const productData of allProducts) { 
+	for (const productData of allProducts) {
 		const product = new Product()
 		const mappedCategoryName = categoryMapping[productData.category] || productData.category
-		const category = categories.find((cat) => cat.name === mappedCategoryName) || categories.find((cat) => cat.id === 1) 
+		const category = categories.find((cat) => cat.name === mappedCategoryName) || categories.find((cat) => cat.id === 1)
 		Object.assign(product, {
 			name: productData.name,
 			price: productData.price / 10,
 			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
 			thumbnail: productData.imageUrls[0],
-			category: category, 
+			category: category,
 			brand: await getOrCreateBrand(productData.brand),
 			characteristics: [],
 		})
@@ -274,7 +274,7 @@ async function getOrCreateCategory(categoryName: string, parentCategory: ParentC
 	if (!category) {
 		category = new Category()
 		category.name = categoryName
-		category.parentCategory = parentCategory 
+		category.parentCategory = parentCategory
 		await category.save()
 	}
 	return category
