@@ -1,5 +1,19 @@
-query GetAllBooking($offset: Int, $limit: Int, $userId: Int, $agencyId: Int) {
-  getAllBooking(offset: $offset, limit: $limit, userId: $userId, agencyId: $agencyId) {
+query GetAllBooking(
+  $offset: Int
+  $limit: Int
+  $userName: String
+  $userFirstname: String
+  $agencyId: Int
+  $bookingId: Int
+) {
+  getAllBooking(
+    offset: $offset
+    limit: $limit
+    userName: $userName
+    userFirstname: $userFirstname
+    agencyId: $agencyId
+    bookingId: $bookingId
+  ) {
     bookings {
       id
       status

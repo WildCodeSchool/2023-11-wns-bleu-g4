@@ -6,8 +6,10 @@ const defaultOptions = {} as const;
 export type GetAllBookingQueryVariables = Types.Exact<{
   offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
-  userId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  userName?: Types.InputMaybe<Types.Scalars['String']['input']>;
+  userFirstname?: Types.InputMaybe<Types.Scalars['String']['input']>;
   agencyId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  bookingId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
 }>;
 
 
@@ -15,12 +17,14 @@ export type GetAllBookingQuery = { __typename?: 'Query', getAllBooking: { __type
 
 
 export const GetAllBookingDocument = gql`
-    query GetAllBooking($offset: Int, $limit: Int, $userId: Int, $agencyId: Int) {
+    query GetAllBooking($offset: Int, $limit: Int, $userName: String, $userFirstname: String, $agencyId: Int, $bookingId: Int) {
   getAllBooking(
     offset: $offset
     limit: $limit
-    userId: $userId
+    userName: $userName
+    userFirstname: $userFirstname
     agencyId: $agencyId
+    bookingId: $bookingId
   ) {
     bookings {
       id
@@ -68,8 +72,10 @@ export const GetAllBookingDocument = gql`
  *   variables: {
  *      offset: // value for 'offset'
  *      limit: // value for 'limit'
- *      userId: // value for 'userId'
+ *      userName: // value for 'userName'
+ *      userFirstname: // value for 'userFirstname'
  *      agencyId: // value for 'agencyId'
+ *      bookingId: // value for 'bookingId'
  *   },
  * });
  */

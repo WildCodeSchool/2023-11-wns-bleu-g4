@@ -519,9 +519,11 @@ export type QueryGetAgencyByIdArgs = {
 
 export type QueryGetAllBookingArgs = {
   agencyId?: InputMaybe<Scalars['Int']['input']>;
+  bookingId?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  userId?: InputMaybe<Scalars['Int']['input']>;
+  userFirstname?: InputMaybe<Scalars['String']['input']>;
+  userName?: InputMaybe<Scalars['String']['input']>;
 };
 
 
