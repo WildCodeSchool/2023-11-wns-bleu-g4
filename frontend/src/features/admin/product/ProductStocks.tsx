@@ -1,32 +1,61 @@
-import { useState } from "react";
-import TableFooter from "../table/TableFooter";
+import { useEffect, useState } from "react";
 import ProductStockTableBody from "./table/ProductStockTableBody";
+import TableFooter from "../shared/TableFooter";
+import { Product } from "./types";
+import { useGetProductCodesByProductIdQuery } from "@/graphql/ProductCode/generated/GetProductCodesByProductId.generated";
+import { useRouter } from "next/router";
 
-export default function ProductStocks({ product }: { product: any }) {
-  const [sortedData, setSortedData] = useState<any[]>(product.stocks);
-  const [currentPage, setCurrentPage] = useState(1);
+export default function ProductStocks({ product }: { product: Product }) {
+  const router = useRouter();
+  const { query } = router;
+  const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+
+  const { data } = useGetProductCodesByProductIdQuery({
+    variables: {
+      limit: 14,
+      offset: currentPage * 14,
+      productId: product?.id!,
+    }
+  },
+  );
+  const productCodes = data?.getProductCodesByProductId.productCodes ?? [];
+  const totalProductCodes = data?.getProductCodesByProductId.total ?? 0;
 
   const itemsPerPage = 14;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + Math.min(itemsPerPage, product.stocks.length ?? 0);
-  const currentProductStocks = sortedData?.slice(startIndex, endIndex);
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + Math.min(itemsPerPage, productCodes.length ?? 0);
 
-  const totalStocks = product.stocks.reduce((total: any, stock: any) => total + stock.quantity, 0);
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    const nextPage = pageNumber + 1;
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        productCodes: `page=${nextPage}`,
+      },
+    });
+  };
+
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [query.page]);
 
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex gap-2 items-center">
-        <h2>Stocks</h2>
-        <span className="text-xl">({totalStocks})</span>
+        <h3>Stocks</h3>
+        <span className="text-xl">({totalProductCodes})</span>
       </div>
-      <ProductStockTableBody data={currentProductStocks} />
+      <ProductStockTableBody data={productCodes} />
       <TableFooter
-        data={sortedData}
+        data={totalProductCodes}
         startIndex={startIndex}
         endIndex={endIndex}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={handlePageChange}
       />
     </div>
   );
