@@ -28,7 +28,6 @@ export default function OrderDetailsStatus({ order }: { order: Order }) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(formData);
 
         updateOrderStatus({
             variables: { data: formData, bookingId },

@@ -85,8 +85,10 @@ export default function Orders() {
 
   return (
     <LayoutAdmin pageTitle="Order list">
-      <h1>Order list</h1>
-      <SearchAdmin paramName="search" />
+      <div className="flex justify-between items-center">
+        <h1>Order list</h1>
+        <SearchAdmin placeholder="Search..." />
+      </div>
       <div className="overflow-x-auto">
         <OrderTableBody
           data={sortedData}

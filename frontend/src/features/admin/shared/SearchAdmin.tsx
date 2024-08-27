@@ -7,11 +7,6 @@ interface SearchBarProps {
     paramName?: string;
 }
 
-interface SearchBarProps {
-    placeholder?: string;
-    paramName?: string;
-}
-
 export default function SearchAdmin({ placeholder = 'Search...', paramName = 'search' }: SearchBarProps) {
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -62,9 +57,9 @@ export default function SearchAdmin({ placeholder = 'Search...', paramName = 'se
                 placeholder={placeholder}
                 value={searchTerm}
                 onChange={handleChange}
-                className="p-2 border border-gray-200 rounded absolute pl-10 w-96"
+                className="p-2 border border-gray-200 rounded relative pl-10 w-72"
             />
-            <MagnifyingGlassIcon className="h-6 w-6 text-gray-400 ml-2 relative" />
+            <MagnifyingGlassIcon className="h-6 w-6 text-gray-400 ml-2 absolute" />
         </form>
     );
 };
