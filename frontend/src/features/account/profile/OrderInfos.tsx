@@ -3,8 +3,10 @@ import { Button, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react
 import { t } from "i18next";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { jsPDF } from "jspdf";
-import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/getBookingItemsByBookingId.generated";
+import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
+import generatePdf from "./helper/GeneratePDF";
+import { BookingItem, BookingPDF } from "../types";
+import transformToDate from "../helpers/TransformDate";
 
 export default function OrderInfos() {
     /** DARK / LIGHT MODE */
@@ -20,32 +22,7 @@ export default function OrderInfos() {
     const bookingId: number = parseInt(router.query.id as string)
     const { t } = useTranslation("UserOrderInfos");
     const bookingItems = useGetBookingItemsByBookingIdQuery({ variables: { bookingId: bookingId } })
-    const bookingItemsArraylength: number = bookingItems.data?.getBookingItemsByBookingId.length as number
-    console.log(bookingItems.data?.getBookingItemsByBookingId.length)
-
-    const transformToDate = (dateToTransform: string) => {
-        const newDate = new Date(dateToTransform)
-        return newDate.toLocaleDateString()
-    }
-
-    const generatePdf = () => {
-        const doc = new jsPDF();
-
-        doc.setFontSize(16)
-        doc.text("INVOICE N°" + booking?.invoice, 10, 10);
-
-        let yHeight: number = 20
-
-        doc.setFontSize(8)
-        for (let index = 0; index < bookingItemsArraylength; index++) {
-            const productName: string = bookingItems.data?.getBookingItemsByBookingId[index].product.name as string
-            doc.setLineWidth(200)
-            doc.text(productName, 20, yHeight)
-            yHeight += 20
-        }
-
-        doc.save(booking?.invoice + ".pdf");
-    }
+    const bookingItemsArr : BookingItem[] = bookingItems.data?.getBookingItemsByBookingId || []
 
     const bookingInfo = [
         {
@@ -96,7 +73,7 @@ export default function OrderInfos() {
             </Flex>
             <Flex className="w-full p-5 gap-2" bg={bgHeading}>
                 <Button className="w-1/2" size='xs' padding='4'>{t("Download")}</Button>
-                <Button className="w-1/2" size='xs' padding='4' onClick={generatePdf}>{t("Print")}</Button>
+                <Button className="w-1/2" size='xs' padding='4' onClick={()=>generatePdf(booking as BookingPDF, bookingItemsArr)}>{t("Print")}</Button>
             </Flex>
         </Flex>
     )

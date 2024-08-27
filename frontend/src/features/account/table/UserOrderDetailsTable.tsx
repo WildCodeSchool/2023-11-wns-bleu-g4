@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { orderDetailsHeaders } from "../helpers/tableHeaders"
 import { useRouter } from "next/router";
 import transformToDate from "../helpers/TransformDate";
-import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/getBookingItemsByBookingId.generated";
+import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
 
 export default function UserOrdersDetailsTable() {
 
@@ -63,7 +63,7 @@ export default function UserOrdersDetailsTable() {
                                     <Text className="text-center">{transformToDate(item.endDate)}</Text>
                                 </Td>
                                 <Td className="text-center whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40">
-                                    <Text className="text-center">{item.product.price} €</Text>
+                                    <Text className="text-center">{item.product.price.toFixed(2) as number} €</Text>
                                 </Td>
                                 <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40 overflow-hidden text-ellipsis lg:table-cell">
                                     <Text className="text-center">{item.status}</Text>

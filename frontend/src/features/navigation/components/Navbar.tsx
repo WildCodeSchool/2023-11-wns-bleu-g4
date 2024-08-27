@@ -1,3 +1,6 @@
+import SearchBar from "@/shared/components/SearchBar";
+import ThemeToggle from "@/shared/components/ThemeToggle";
+import ThemedLogo from "@/shared/components/ThemedLogo";
 import {
   Box,
   Button,
@@ -20,25 +23,23 @@ import {
   Bars3BottomRightIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
-import {ShoppingCartIcon, XMarkIcon} from "@heroicons/react/24/solid";
+import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
-import {useRouter} from "next/router";
-import {useTranslation, UseTranslationResponse} from "react-i18next";
-import {useEffect, useState} from "react";
-
-import SearchBar from "@/shared/components/SearchBar";
-import ThemeToggle from "@/shared/components/ThemeToggle";
-import ThemedLogo from "@/shared/components/ThemedLogo";
+import { useLogoutMutation } from "@/graphql/User/generated/Logout.generated";
+import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import LanguageSwitcher from "@/shared/components/LanguageSwitcher";
+import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 import TopNavItems from "./TopNavItems";
 
-import {useLogoutMutation} from "@/graphql/User/generated/Logout.generated";
-import {ProfileQuery, useProfileQuery} from "@/graphql/User/generated/Profile.generated";
+import { useEffect, useState } from "react";
 
-// Hook personnalisé pour la gestion de l'utilisateur
-function useUserProfile() {
-  const {data: profileData, refetch, client} = useProfileQuery({errorPolicy: "ignore"});
+function DesktopNavbar() {
+  const [t] = useTranslation("Navbar");
+  const { data: profileData, refetch, client } = useProfileQuery({ errorPolicy: "ignore" });
   const [logout] = useLogoutMutation();
+  const router = useRouter();
+
   const [isLogged, setIsLogged] = useState(Boolean(profileData?.profile));
 
   useEffect(() => {
@@ -50,39 +51,33 @@ function useUserProfile() {
     await client.resetStore();
     await refetch();
     setIsLogged(false);
+    router.push("/login");
   };
 
-  return {profileData, isLogged, handleLogout};
-}
-
-interface NavbarProps {
-  t: UseTranslationResponse<string, any>["t"];
-  profileData: ProfileQuery | undefined;
-  isLogged: boolean;
-  handleLogout: () => void;
-}
-
-function DesktopNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
-  const router = useRouter();
+  const goToAccount = () => {
+    router.push(`/account/user/${profileData?.profile.id}`)
+  }
 
   return (
-    <Flex display={{base: "none", md: "none", xl: "flex"}}>
+    <Flex display={{ base: "none", md: "none", xl: "flex" }}>
       <nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
         <ul className="flex w-full items-center justify-start gap-8">
           <div className="flex grow">
             <Link href="/">
-              <ThemedLogo/>
+              <ThemedLogo />
             </Link>
           </div>
 
-          <SearchBar onSearch={query => console.log(query)} placeholder={t("Search")}/>
+          <SearchBar
+            //  onSearch={query => console.log(query)}
+            placeholder={t("Search")} />
           <li>
             {isLogged ? (
               <Menu>
                 <MenuButton
                   as={Button}
                   size="sm"
-                  leftIcon={<UserCircleIcon width={20}/>}
+                  leftIcon={<UserCircleIcon width={20} />}
                   variant="primaryButton"
                   alignItems={"center"}
                 >
@@ -94,8 +89,8 @@ function DesktopNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
                     <MenuItem onClick={() => router.push('/admin')}>{t("Admin Panel")}</MenuItem>
                   }
                   <MenuItem>{t("Payments")} </MenuItem>
-                  <MenuDivider/>
-                  <MenuItem icon={<ArrowLeftStartOnRectangleIcon width={24}/>} onClick={handleLogout}>
+                  <MenuDivider />
+                  <MenuItem icon={<ArrowLeftStartOnRectangleIcon width={24} />} onClick={handleLogout}>
                     {t("Logout")}
                   </MenuItem>
                 </MenuList>
@@ -104,45 +99,65 @@ function DesktopNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
               <Button
                 variant="primaryButton"
                 size="sm"
-                leftIcon={<UserCircleIcon width={20}/>}
+                leftIcon={<UserCircleIcon width={20} />}
                 onClick={() => router.push("/login")}
               >
                 {t("Login")}
               </Button>
             )}
           </li>
-          <ThemeToggle/>
-          <LanguageSwitcher/>
+          <ThemeToggle />
+          <LanguageSwitcher />
         </ul>
       </nav>
     </Flex>
   );
 }
 
-function MobileNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
-  const {isOpen, onToggle} = useDisclosure();
+function MobileNavbar() {
+  const { isOpen, onToggle } = useDisclosure();
   const bg = useColorModeValue("white", "#3B3B3B");
   const textColor = useColorModeValue("black", "white");
+  const [t] = useTranslation("Navbar");
+  const { data: profileData, refetch, client } = useProfileQuery({ errorPolicy: "ignore" });
+  const [logout] = useLogoutMutation();
+  const router = useRouter();
+
+  const [isLogged, setIsLogged] = useState(Boolean(profileData?.profile));
+
+  useEffect(() => {
+    setIsLogged(Boolean(profileData?.profile));
+  }, [profileData]);
+
+  const handleLogout = async () => {
+    await logout();
+    await client.resetStore();
+    await refetch();
+    setIsLogged(false);
+    router.push("/login");
+  };
 
   return (
     <Box>
       <Flex
-        display={{base: "flex", sm: "flex", md: "flex", lg: "flex", xl: "none"}}
+        display={{ base: "flex", sm: "flex", md: "flex", lg: "flex", xl: "none" }}
         direction="column"
         px={4}
         position="relative"
         borderBottom={"1px solid #E2E8F0"}
       >
         <Flex dir={"row"} align={"center"}>
-          <ThemedLogo/>
-          <Spacer/>
+          <ThemedLogo />
+          <Spacer />
           <Flex gap={2} align={"center"}>
-            <SearchBar variant="mobile" onSearch={query => console.log(query)} placeholder={t("Search")}/>
+            <SearchBar variant="mobile"
+              // onSearch={query => console.log(query)} 
+              placeholder={t("Search")} />
             {isLogged ? (
               <IconButton
                 bg={"transparent"}
                 aria-label="Profil button"
-                icon={<UserCircleIcon width={24}/>}
+                icon={<UserCircleIcon width={24} />}
                 size={"sm"}
               />
             ) : (
@@ -150,7 +165,7 @@ function MobileNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
                 bg={"transparent"}
                 aria-label="Logout button"
                 size="sm"
-                icon={<ArrowRightEndOnRectangleIcon width={24}/>}
+                icon={<ArrowRightEndOnRectangleIcon width={24} />}
               >
                 {t("Login")}
               </IconButton>
@@ -158,13 +173,13 @@ function MobileNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
             <IconButton
               bg={"transparent"}
               aria-label="Cart button"
-              icon={<ShoppingCartIcon width={24}/>}
+              icon={<ShoppingCartIcon width={24} />}
               size={"sm"}
             />
 
             <IconButton
               aria-label="Open Menu"
-              icon={isOpen ? <XMarkIcon width={24}/> : <Bars3BottomRightIcon width={24}/>}
+              icon={isOpen ? <XMarkIcon width={24} /> : <Bars3BottomRightIcon width={24} />}
               onClick={onToggle}
               size={"sm"}
             />
@@ -173,11 +188,11 @@ function MobileNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
       </Flex>
 
       <Collapse in={isOpen} className="absolute left-0 top-[3.8rem] z-10 w-full">
-        <Box width="100%" bg={bg} color={textColor} mt="14px" pt={0} display={{xl: "none"}}>
-          <TopNavItems/>
+        <Box width="100%" bg={bg} color={textColor} mt="14px" pt={0} display={{ xl: "none" }}>
+          <TopNavItems />
           <Flex justifyContent="center" alignItems="center" py={4} gap={8}>
-            <ThemeToggle/>
-            <Button leftIcon={<ArrowLeftStartOnRectangleIcon width={24}/>} onClick={handleLogout}>
+            <ThemeToggle />
+            <Button leftIcon={<ArrowLeftStartOnRectangleIcon width={24} />} onClick={handleLogout}>
               {t("Logout")}
             </Button>
           </Flex>
@@ -188,13 +203,10 @@ function MobileNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
 }
 
 export default function Navbar() {
-  const [t] = useTranslation("Navbar");
-  const {profileData, isLogged, handleLogout} = useUserProfile();
-
   return (
     <>
-      <DesktopNavbar t={t} profileData={profileData} isLogged={isLogged} handleLogout={handleLogout}/>
-      <MobileNavbar t={t} profileData={profileData} isLogged={isLogged} handleLogout={handleLogout}/>
+      <DesktopNavbar />
+      <MobileNavbar />
     </>
   );
 }

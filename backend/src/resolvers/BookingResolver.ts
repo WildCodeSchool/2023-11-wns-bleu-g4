@@ -11,16 +11,11 @@ import { BookingList } from "../types"
 import mailer from "../mailer"
 import env from "../env"
 import { ILike } from "typeorm"
-import { ILike } from "typeorm"
 
 @Resolver()
 class BookingResolver {
 	@Query(() => BookingList)
 	async getAllBooking(
-		@Arg("bookingId", () => Int, { nullable: true }) bookingId?: number,
-		@Arg("agencyId", () => Int, { nullable: true }) agencyId?: number,
-		@Arg("userName", () => String, { nullable: true }) userName?: string,
-		@Arg("userFirstname", () => String, { nullable: true }) userFirstname?: string,
 		@Arg("bookingId", () => Int, { nullable: true }) bookingId?: number,
 		@Arg("agencyId", () => Int, { nullable: true }) agencyId?: number,
 		@Arg("userName", () => String, { nullable: true }) userName?: string,
@@ -35,16 +30,8 @@ class BookingResolver {
 			{ user: { firstname: ILike(`%${userFirstname}%`) } },
 		]
 
-		const whereConditions = [
-			{ id: bookingId },
-			{ agency: { id: agencyId } },
-			{ user: { name: ILike(`%${userName}%`) } },
-			{ user: { firstname: ILike(`%${userFirstname}%`) } },
-		]
-
 		const [bookings, total] = await Booking.findAndCount({
 			relations: { user: true, agency: true, bookingItem: true },
-			where: whereConditions,
 			where: whereConditions,
 			take: limit,
 			skip: offset,

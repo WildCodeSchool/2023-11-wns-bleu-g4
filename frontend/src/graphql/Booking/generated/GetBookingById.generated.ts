@@ -8,7 +8,7 @@ export type GetBookingByIdQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetBookingByIdQuery = { __typename?: 'Query', getBookingById: { __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any } };
+export type GetBookingByIdQuery = { __typename?: 'Query', getBookingById: { __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any, user: { __typename?: 'User', address: string, city: string, country: string, email: string, firstname: string, name: string, phone: string, postcode: string }, agency: { __typename?: 'Agency', address: string, city: string, country: string, email: string, name: string, phone: string, postcode: string } } };
 
 
 export const GetBookingByIdDocument = gql`
@@ -20,6 +20,25 @@ export const GetBookingByIdDocument = gql`
     bookingDate
     startDate
     endDate
+    user {
+      address
+      city
+      country
+      email
+      firstname
+      name
+      phone
+      postcode
+    }
+    agency {
+      address
+      city
+      country
+      email
+      name
+      phone
+      postcode
+    }
   }
 }
     `;

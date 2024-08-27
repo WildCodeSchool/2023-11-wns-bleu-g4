@@ -59,7 +59,13 @@ export interface userInfoProps {
 
 export interface Agency {
   id?: number,
+  address?: string
+  city?: string
+  country?: string
+  email?: string
   name?: string
+  phone?: string
+  postcode?: string
 }
 
 export interface Booking {
@@ -74,10 +80,17 @@ export interface Booking {
 }
 
 export interface BookingItem {
-  status: string,
-  startDate: string,
-  endDate: string,
-  product: Product,
+  id?: number
+  status?: string
+  startDate?: string
+  endDate?: string
+  productCode?: {
+    id: number
+  }
+  product?: {
+    name?: string
+    price?: number
+  }
 }
 
 export interface Product {
@@ -86,4 +99,15 @@ export interface Product {
   price: number;
   thumbnail: string;
   brand: String;
+}
+
+export interface BookingPDF {
+  id: number
+  status: string
+  invoice: string
+  bookingDate: string
+  startDate: Date
+  endDate: Date
+  user: User
+  agency: Agency
 }
