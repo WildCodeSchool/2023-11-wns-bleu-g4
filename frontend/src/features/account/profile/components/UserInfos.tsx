@@ -6,6 +6,7 @@ import { User } from "../../types";
 import { useEffect, useState } from "react";
 import UserInfoModal from "./../modal/UserInfoModal";
 import UserDeleteAccountModal from "../modal/UserDeleteAccountModal";
+import { useDeleteProfileMutation } from "@/graphql/User/generated/DeleteProfile.generated";
 
 export default function UserInfos({ user }: { user?: User }) {
 
@@ -15,16 +16,21 @@ export default function UserInfos({ user }: { user?: User }) {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const toggleDeleteUserModal = () => setIsDeleteModalOpen(!isDeleteModalOpen);
 
+    const transparentBackGround: boolean = window.innerWidth > 640 && window.innerWidth < 1024
+
     /** DARK / LIGHT MODE */
     const textColor = useColorModeValue("dark", "light")
     const bgHeading = useColorModeValue("cactus.50", "cactus.900")
     const labelColor = useColorModeValue("cactus.500", "cactus.200")
-    const bgTableHeadColor = useColorModeValue("#d0d2d6", "cactus.900")
+    let bgTableHeadColor = useColorModeValue(
+        transparentBackGround ? 
+        "transparent" : "#d0d2d6", 
+        transparentBackGround ? 
+        "transparent" : "cactus.900")
     const bgColor = useColorModeValue("footerBgLight", "cactus.600")
     const bgTableContent = useColorModeValue("lightgrey", "cactus.700")
-    const bgActionButton = useColorModeValue("accentLight","accentDark")
-
-
+    const bgActionButton = useColorModeValue("accentLight", "accentDark")
+    
     const userInfos = [
         {
             title: "ADDRESS",
@@ -52,7 +58,7 @@ export default function UserInfos({ user }: { user?: User }) {
             ]
         },
         {
-            title: "Contact",
+            title: "CONTACT",
             data: [
                 {
                     icon: <PhoneIcon className="size-5" color={labelColor} />,
@@ -75,7 +81,7 @@ export default function UserInfos({ user }: { user?: User }) {
             w-full
             flex flex-col 
             sm:h-full sm:max-w-full 
-            lg:min-w-56">
+            lg:min-w-56 bg-orange-300">
                 {/*************************** USER INFOS ***************************/}
                 <Flex className="
                         h-full w-full text-xs 
@@ -90,7 +96,7 @@ export default function UserInfos({ user }: { user?: User }) {
                         return (
                             <Flex key={i} className="flex flex-col w-full sm:h-full sm:flex-row lg:flex-col" >
                                 <Flex className="flex flex-col justify-start w-full">
-                                    <Heading size={"xs"} className="p-3 text-center h-fit" bg={bgTableHeadColor}>
+                                    <Heading size={"xs"} className="p-3 h-fit" bg={bgTableHeadColor}>
                                         {info.title}
                                     </Heading>
                                     <Flex gap='1' direction='column' className="px-5 py-3 h-full w-full">
@@ -118,20 +124,21 @@ export default function UserInfos({ user }: { user?: User }) {
                         )
                     })}
                     {/*************************** BUTTONS ***************************/}
-                    <Flex className="w-full py-3 px-5 justify-between items-start h-fit 
+                    <Flex className="w-full py-3 px-5 gap-4 justify-between items-start h-fit 
                         sm:absolute sm:bottom-3 sm:right-5 sm:p-0 sm:w-fit sm:bg-none
                         lg:static lg:w-full lg:py-3 lg:px-5"
                         bg={bgTableHeadColor}
                         color={textColor}
-                        >
+
+                    >
 
                         {/*************************** UPDATE ***************************/}
-                        <Button size='xs' padding='3' onClick={toggleUpdateUserModal}>Update</Button>
+                        <Button size='xs' padding='4' onClick={toggleUpdateUserModal} variant={"accentButton"}>Update</Button>
                         <UserInfoModal isOpen={isUpdateModalOpen} onClose={toggleUpdateUserModal} user={user} />
 
                         {/*************************** DELETE ***************************/}
-                        <Button size='xs' padding='3' bg={bgActionButton} onClick={toggleDeleteUserModal}>Delete Account</Button>
-                        <UserDeleteAccountModal isOpen={isDeleteModalOpen} onClose={toggleDeleteUserModal}/>
+                        <Button size='xs' padding='4' variant={"warningButton"} onClick={toggleDeleteUserModal}>Delete Account</Button>
+                        <UserDeleteAccountModal isOpen={isDeleteModalOpen} onClose={toggleDeleteUserModal} />
 
                     </Flex>
                 </Flex>

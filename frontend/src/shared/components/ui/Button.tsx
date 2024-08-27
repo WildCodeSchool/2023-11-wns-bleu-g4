@@ -15,6 +15,15 @@ const accentButton = defineStyle({
   },
 });
 
+const warningButton = defineStyle({
+  color: "light", // change the text color,
+  bg: "#D23732",
+
+  _hover: {
+    bg: "#ab1313",
+  },
+});
+
 const primaryButton = defineStyle({
   lineHeight: "0",
   color: "light",
@@ -104,5 +113,6 @@ export const buttonTheme = defineStyleConfig({
     selectorButton,
     accentButton,
     primaryButton,
+    warningButton,
   },
 });

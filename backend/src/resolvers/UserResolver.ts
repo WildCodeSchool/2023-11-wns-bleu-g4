@@ -8,6 +8,7 @@ import { Context } from "../utils"
 import crypto from "crypto"
 import { UserList } from "../types"
 import mailer from "../mailer"
+import { hash } from "argon2"
 
 @Resolver(User)
 class UserResolver {
@@ -33,6 +34,19 @@ class UserResolver {
 		const newUserWithId = await newUser.save()
 		return newUserWithId
 	}
+
+	@Authorized()
+	@Mutation(() => User)
+	async updatePassword(
+		@Arg("password") password: string,
+		@Ctx() ctx: Context) {
+		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
+
+		if (password) ctx.currentUser.hashedPassword = await hash(password)
+
+		return ctx.currentUser.save()
+	}
+
 
 	@Mutation(() => String)
 	async confirmEmail(@Arg("token") token: string) {
@@ -68,7 +82,7 @@ class UserResolver {
 	@Authorized()
 	@Mutation(() => User)
 	async updateProfile(
-		@Ctx() ctx: Context, 
+		@Ctx() ctx: Context,
 		@Arg("data", { validate: true }) data: UpdateUserInput) {
 		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
 

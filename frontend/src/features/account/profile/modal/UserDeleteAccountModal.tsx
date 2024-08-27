@@ -1,14 +1,16 @@
 import { Box, Button, Flex, Modal, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
 import { UserModalProps } from "../../types";
 import { toast } from "react-toastify";
-import { ToastConfigLogin, ToastConfigWarning } from "@/config/ToastConfig";
+import { ToastConfigWarning } from "@/config/ToastConfig";
+import { useDeleteProfileMutation } from "@/graphql/User/generated/DeleteProfile.generated";
 
 export default function UserDeleteAccountModal({ isOpen, onClose }: UserModalProps) {
+    const [deleteProfile] = useDeleteProfileMutation()
 
-    const deleteAccount = (e: any) => {
+    const deleteAccount = async (e: any) => {
         e.preventDefault()
         try {
-            // await deleteProfile();
+            await deleteProfile();
             toast.success("ACCOUNT DELETED SUCCESSFULLY", ToastConfigWarning);
             setTimeout(() => {
                 window.location.replace('/')
@@ -35,7 +37,7 @@ export default function UserDeleteAccountModal({ isOpen, onClose }: UserModalPro
                     <hr />
                     <Flex justifyContent={"space-between"} padding={5}>
                         <Button onClick={onClose}>Cancel</Button>
-                        <Button onClick={deleteAccount} colorScheme="blue" ml={3} type="submit">Delete Account</Button>
+                        <Button onClick={deleteAccount} variant={"warningButton"} ml={3} type="submit">Delete Account</Button>
                     </Flex>
 
                 </form>

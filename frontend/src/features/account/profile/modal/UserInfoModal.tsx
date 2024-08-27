@@ -36,7 +36,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
         <ModalHeader>Update informations</ModalHeader>
         <ModalCloseButton />
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e).then(onClose)}>
           <ModalBody pb={6}>
             <FormControl>
               <Flex justifyContent="space-between" gap={2} mb={4}>

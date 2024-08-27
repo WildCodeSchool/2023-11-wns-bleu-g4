@@ -11,8 +11,7 @@ export default function UserDetails() {
   return (
     <Layout >
       <Heading size='lg' className="text-center py-5" color={textColor}>User Account</Heading>
-      <Flex 
-      className="px-2 w-full flex flex-col justify-center items-start gap-5 lg:flex-row">
+      <Flex className="px-2 w-full flex flex-col justify-center items-start gap-5 lg:flex-row">
         <UserProfile />
         <UserOrdersTableBody />
       </Flex>

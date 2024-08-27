@@ -1,4 +1,4 @@
-import { Flex, Heading, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Heading, Table, TableContainer, Tbody, Td, Text, Tr, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { orderTableHeaders } from "../helpers/tableHeaders"
 import { useGetBookingsByUserIdQuery } from "@/graphql/Booking/generated/GetBookingByUserId.generated";

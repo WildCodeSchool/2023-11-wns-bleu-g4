@@ -10,22 +10,35 @@ import { Context } from "../utils"
 import { BookingList } from "../types"
 import mailer from "../mailer"
 import env from "../env"
+import { ILike } from "typeorm"
 
 @Resolver()
 class BookingResolver {
-    @Query(() => [Booking])
-    async getAllBooking(
-        @Arg("agencyId", { nullable: true }) agencyId?: number,
-        @Arg("userId", { nullable: true }) userId?: number
-    ) {
-        return Booking.find({
-            relations: { user: true, agency: true },
-            where: {
-                ...(agencyId && { agency: { id: agencyId } }),
-                ...(userId && { user: { id: userId } })
-            }
-        });
-    }
+	@Query(() => BookingList)
+	async getAllBooking(
+		@Arg("bookingId", () => Int, { nullable: true }) bookingId?: number,
+		@Arg("agencyId", () => Int, { nullable: true }) agencyId?: number,
+		@Arg("userName", () => String, { nullable: true }) userName?: string,
+		@Arg("userFirstname", () => String, { nullable: true }) userFirstname?: string,
+		@Arg("limit", () => Int, { nullable: true }) limit?: number,
+		@Arg("offset", () => Int, { nullable: true }) offset?: number
+	) {
+		const whereConditions = [
+			{ id: bookingId },
+			{ agency: { id: agencyId } },
+			{ user: { name: ILike(`%${userName}%`) } },
+			{ user: { firstname: ILike(`%${userFirstname}%`) } },
+		]
+
+		const [bookings, total] = await Booking.findAndCount({
+			relations: { user: true, agency: true, bookingItem: true },
+			where: whereConditions,
+			take: limit,
+			skip: offset,
+		})
+
+		return { bookings, total }
+	}
 
     @Query(() => Booking)
     async getBookingById(

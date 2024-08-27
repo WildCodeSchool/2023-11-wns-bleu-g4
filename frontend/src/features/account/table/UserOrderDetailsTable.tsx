@@ -1,10 +1,9 @@
 import { Flex, Heading, Table, Tbody, Td, Text, Th, Tr, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { orderDetailsHeaders } from "../helpers/tableHeaders"
-import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
 import { useRouter } from "next/router";
 import transformToDate from "../helpers/TransformDate";
-import { useEffect, useState } from "react";
+import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/getBookingItemsByBookingId.generated";
 
 export default function UserOrdersDetailsTable() {
 
@@ -12,8 +11,6 @@ export default function UserOrdersDetailsTable() {
 
     /** DARK / LIGHT MODE */
     const textColor = useColorModeValue("dark", "light")
-    const bgHeading = useColorModeValue("cactus.50", "cactus.900")
-    const labelColor = useColorModeValue("cactus.500", "cactus.200")
     const bgTableHeadColor = useColorModeValue("#d0d2d6", "cactus.900")
     const bgColor = useColorModeValue("footerBgLight", "cactus.600")
     const bgTableContent = useColorModeValue("lightgrey", "cactus.700")
@@ -21,8 +18,6 @@ export default function UserOrdersDetailsTable() {
     /** Router */
     const router = useRouter()
     const { query } = router;
-    // console.log(router.query)
-    console.log(parseInt(router.query.id as string))
 
     const { data } = useGetBookingItemsByBookingIdQuery({
         variables: {

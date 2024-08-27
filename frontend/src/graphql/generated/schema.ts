@@ -68,15 +68,13 @@ export enum BookingItemStatus {
   Lost = 'LOST',
   Rented = 'RENTED',
   Returned = 'RETURNED'
-};
-
+}
 
 export type BookingList = {
   __typename?: 'BookingList';
   bookings: Array<Booking>;
   total: Scalars['Int']['output'];
 };
-
 
 export type Brand = {
   __typename?: 'Brand';
@@ -129,6 +127,7 @@ export type Mutation = {
   deleteProduct: Scalars['String']['output'];
   deleteProductCharacteristic: Scalars['String']['output'];
   deleteProduct_picture: Scalars['Boolean']['output'];
+  deleteProfile: Scalars['String']['output'];
   deleteReview: Scalars['String']['output'];
   login: Scalars['String']['output'];
   logout: Scalars['String']['output'];
@@ -138,6 +137,7 @@ export type Mutation = {
   updateBrand: Brand;
   updateCategory: Category;
   updateParentCategory: ParentCategory;
+  updatePassword: User;
   updateProduct: Product;
   updateProductCharacteristic: ProductCharacteristic;
   updateProduct_picture: Product_Picture;
@@ -297,6 +297,11 @@ export type MutationUpdateParentCategoryArgs = {
 };
 
 
+export type MutationUpdatePasswordArgs = {
+  password: Scalars['String']['input'];
+};
+
+
 export type MutationUpdateProductArgs = {
   data: UpdateProductInput;
   productId: Scalars['Int']['input'];
@@ -394,7 +399,7 @@ export type NewProduct_PictureInput = {
 
 export type NewReviewInput = {
   comment: Scalars['String']['input'];
-  productId: ProductId;
+  product: ProductId;
   rate: Scalars['Int']['input'];
   userId: UserId;
 };
@@ -431,6 +436,7 @@ export type Product = {
   pictures: Array<Product_Picture>;
   price: Scalars['Float']['output'];
   productCodes: Array<ProductCode>;
+  ref: Scalars['String']['output'];
   reviews?: Maybe<Array<Review>>;
   thumbnail: Scalars['String']['output'];
   total: Scalars['Int']['output'];
@@ -486,8 +492,8 @@ export type Query = {
   __typename?: 'Query';
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
-  getAllBooking: Array<Booking>;
-  getAllBrands: Array<Brand>;
+  getAllBooking: BookingList;
+  getAllBrands: BrandList;
   getAllCategories: Array<Category>;
   getAllParentCategories: Array<ParentCategory>;
   getAllProductCharacteristics: ProductCharacteristicList;
@@ -499,6 +505,7 @@ export type Query = {
   getBookingById: Booking;
   getBookingItems: Array<BookingItem>;
   getBookingItemsByBookingId: Array<BookingItem>;
+  getBookingsByUser: Array<Booking>;
   getBookingsByUserId: BookingList;
   getBrandById: Brand;
   getCategoryById: Category;
@@ -520,10 +527,12 @@ export type QueryGetAgencyByIdArgs = {
 
 
 export type QueryGetAllBookingArgs = {
-  agencyId?: InputMaybe<Scalars['Float']['input']>;
+  agencyId?: InputMaybe<Scalars['Int']['input']>;
+  bookingId?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  userId?: InputMaybe<Scalars['Float']['input']>;
+  userFirstname?: InputMaybe<Scalars['String']['input']>;
+  userName?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -580,6 +589,11 @@ export type QueryGetBookingByIdArgs = {
 
 export type QueryGetBookingItemsByBookingIdArgs = {
   bookingId: Scalars['Int']['input'];
+};
+
+
+export type QueryGetBookingsByUserArgs = {
+  userId: Scalars['Int']['input'];
 };
 
 
@@ -655,13 +669,13 @@ export type Review = {
 export enum SortProduct {
   Asc = 'ASC',
   Desc = 'DESC'
-};
+}
 
 /** Check if the product is available. */
 export enum Status {
   Available = 'AVAILABLE',
   Broken = 'BROKEN'
-};
+}
 
 /** Check booking's state. */
 export enum StatusBooking {
@@ -669,7 +683,7 @@ export enum StatusBooking {
   Cancelled = 'CANCELLED',
   Late = 'LATE',
   Retrieved = 'RETRIEVED'
-};
+}
 
 export type UpdateAgencyInput = {
   address?: InputMaybe<Scalars['String']['input']>;
@@ -745,6 +759,7 @@ export type UpdateUserInput = {
   avatar?: InputMaybe<Scalars['String']['input']>;
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   firstname?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;

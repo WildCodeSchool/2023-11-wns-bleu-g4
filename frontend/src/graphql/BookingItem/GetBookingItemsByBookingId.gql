@@ -4,10 +4,12 @@ query GetBookingItemsByBookingId($bookingId: Int!) {
     status
     startDate
     endDate
+    productCode {
+      id
+    }
     product {
       name
       price
-      thumbnail
     }
   }
 }

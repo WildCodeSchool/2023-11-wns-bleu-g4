@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Order } from "./types";
 import {
   useGetBookingItemsByBookingIdQuery
-} from "@/graphql/BookingItem/generated/getBookingItemByBookingId.generated";
+} from "@/graphql/BookingItem/generated/getBookingItemsByBookingId.generated";
 import OrderDetailsTable from "./OrderDetailsTable";
 import OrderDetailsStatus from "./OrderDetailsStatus";
 import { StatusBooking } from "@/graphql/generated/schema";

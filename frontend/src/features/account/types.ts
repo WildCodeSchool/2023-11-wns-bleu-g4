@@ -40,15 +40,15 @@ export interface UserModalProps {
 export interface User {
   id: number,
   name: string,
-  email: string,
-  address: string,
-  avatar: string,
-  city: string,
-  country: string,
-  phone: string,
+  email?: string,
+  address?: string,
+  avatar?: string,
+  city?: string,
+  country?: string,
+  phone?: string,
   firstname: string,
-  postcode: string
-  role: string
+  postcode?: string
+  role?: string
 }
 
 export interface userInfoProps {
