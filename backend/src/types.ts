@@ -108,10 +108,15 @@ export class BrandList {
 }
 
 @ObjectType()
+>>>>>>>>> Temporary merge branch 2
 export class BookingList {
 	@Field(() => [Booking])
 	bookings: Booking[];
 
 	@Field(() => Int)
 	total: number;
+<<<<<<<<< Temporary merge branch 1
 }
+=========
+}
+>>>>>>>>> Temporary merge branch 2

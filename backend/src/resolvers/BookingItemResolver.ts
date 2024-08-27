@@ -12,14 +12,12 @@ class BookingItemResolver {
 		})
 	}
 
-    @Query(() => [BookingItem])
-    async getBookingItemsByBookingId(
-        @Arg("bookingId", () => Int) bookingId: number,
-    ) {
-        const items = await BookingItem.find({
-            where: { booking: { id: bookingId } },
-            relations: { booking: true, product: true, productCode: true }
-        })
+	@Query(() => [BookingItem])
+	async getBookingItemsByBookingId(@Arg("bookingId", ()=> Int) bookingId: number) {
+		const items = await BookingItem.find({
+			where: { booking: { id: bookingId } },
+			relations: { booking: true, product: true, productCode: true },
+		})
 
 		return items
 	}
@@ -40,14 +38,14 @@ class BookingItemResolver {
 		})
 	}
 
-    @Authorized()
-    @Mutation(() => BookingItem)
-    async updateBookingItem(
-        @Arg("bookingItemId") id: number,
-        @Arg("data", { validate: true }) data: UpdateBookingItemInput,
-        @Ctx() ctx: Context
-    ) {
-        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+	@Authorized()
+	@Mutation(() => BookingItem)
+	async updateBookingItem(
+		@Arg("bookingItemId", () => Int) id: number,
+		@Arg("data", { validate: true }) data: UpdateBookingItemInput,
+		@Ctx() ctx: Context
+	) {
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
 		const itemToUpdate = await BookingItem.findOne({
 			where: { id },
@@ -61,10 +59,10 @@ class BookingItemResolver {
 		return itemToUpdate
 	}
 
-    @Authorized()
-    @Mutation(() => String)
-    async deleteBookingItem(@Arg("bookingItemId") id: number, @Ctx() ctx: Context) {
-        if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+	@Authorized()
+	@Mutation(() => String)
+	async deleteBookingItem(@Arg("bookingItemId", () => Int) id: number, @Ctx() ctx: Context) {
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
 		const itemToDelete = await BookingItem.findOne({ where: { id } })
 		if (!itemToDelete) throw new GraphQLError("Item not found")

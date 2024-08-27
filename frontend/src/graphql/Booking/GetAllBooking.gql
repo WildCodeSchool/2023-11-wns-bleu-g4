@@ -1,13 +1,12 @@
-query GetAllBooking($limit: Int, $offset: Int)($offset: Int, $limit: Int) {
+query GetAllBooking($limit: Int, $offset: Int) {
   getAllBooking(limit: $limit, offset: $offset) {
-    bookings(offset: $offset, limit: $limit) {
     bookings {
-        id
-        status
-        invoice
-        bookingDate
-        startDate
-        endDate
+      id
+      status
+      invoice
+      bookingDate
+      startDate
+      endDate
       user {
         id
         name
@@ -27,8 +26,6 @@ query GetAllBooking($limit: Int, $offset: Int)($offset: Int, $limit: Int) {
         startDate
         status
       }
-    }
-    total
     }
     total
   }
