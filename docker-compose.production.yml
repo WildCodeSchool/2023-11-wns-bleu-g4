@@ -54,12 +54,12 @@ services:
     environment:
       - HOST=/
     stop_grace_period: 0s
-    image: scrip/file-upload-service
+    # image: scrip/file-upload-service
     volumes:
       - prodUploads:/app/files
-    # build:
-    #   context: upload
-      # dockerfile: Dockerfile
+    build:
+      context: upload
+      dockerfile: Dockerfile
 
   gateway:
     restart: always
