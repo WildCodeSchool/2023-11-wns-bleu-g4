@@ -1,3 +1,4 @@
+import { Agency } from "@/graphql/generated/schema";
 import { Characteristic } from "../characteristic/types";
 
 export interface menuItems {
@@ -51,5 +52,12 @@ export interface ProductModalProps {
   onClose: () => void;
   product?: Product;
   handleDeleteProduct?: (id: number) => Promise<void>;
+  refetch?: () => void;
+}
+
+export interface ProductCodeModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  agency?: Agency;
   refetch?: () => void;
 }
