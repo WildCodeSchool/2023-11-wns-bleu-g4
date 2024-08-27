@@ -5,19 +5,42 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import ProductStockModal from "../modal/ProductStockModal";
-import { Agency, ProductCode } from "@/graphql/generated/schema";
+import { Agency, Product, ProductCode } from "@/graphql/generated/schema";
+
+interface AggregatedDataEntry {
+  agency: Agency;
+  count: number;
+}
+
+const groupByAgency = (productCodes: ProductCode[]): Record<number, AggregatedDataEntry> => {
+  return productCodes.reduce((acc, productCode) => {
+    const agencyId = productCode.agency?.id!;
+    if (!acc[agencyId]) {
+      acc[agencyId] = {
+        agency: productCode.agency!,
+        count: 0,
+      };
+    }
+    acc[agencyId].count += 1;
+    return acc;
+  }, {} as Record<number, AggregatedDataEntry>);
+};
 
 export default function ProductStockTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("ProductStockTableBody");
   const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
-  const [selectedAgency, setSelectedAgency] = useState<Agency>();
+  const [selectedAgency, setSelectedAgency] = useState<Agency | null>(null);
 
   const getProductCodesCountByAgency = (agencyId: number) => {
     return data.filter((productCode: ProductCode) => productCode.agency?.id === agencyId).length;
   };
 
-  const toggleAddProductStockModal = (agency: Agency) => {
-    setSelectedAgency(agency);
+  const product = data[0]?.product;
+  const aggregatedData = groupByAgency(data);
+  const agencies = Object.values(aggregatedData);
+
+  const toggleAddProductStockModal = (agency: Agency, product: Product) => {
+    setSelectedAgency(prev => (prev?.id === agency.id ? null : agency));
     setIsAddStockModalOpen(!isAddStockModalOpen);
   };
 
@@ -37,18 +60,18 @@ export default function ProductStockTableBody({ data }: TableBodyProps) {
         </tr>
       </thead>
       <tbody className="text-sm">
-        {data?.length !== 0 ? (
-          data.map((productCode: ProductCode, index: number) => (
+        {agencies.length !== 0 ? (
+          agencies.map((data: AggregatedDataEntry, index: number) => (
             <tr
-              key={productCode.id}
+              key={data.agency?.id}
               className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}
             >
-              <td className="whitespace-nowrap p-3 pl-8 w-auto min-w-max">{productCode.agency?.name}</td>
+              <td className="whitespace-nowrap p-3 pl-8 w-auto min-w-max">{data.agency?.name}</td>
               <td className="whitespace-nowrap p-3 w-60 min-w-max">
                 <span className="inline-block align-middle mr-2">
-                  {getProductCodesCountByAgency(productCode.agency!.id)}
+                  {getProductCodesCountByAgency(data.agency!.id)}
                 </span>
-                {getProductCodesCountByAgency(productCode.agency!.id) <= 3 && (
+                {getProductCodesCountByAgency(data.agency!.id) <= 3 && (
                   <ExclamationTriangleIcon className="inline-block h-6 w-6 text-[#D23742]" />
                 )}
               </td>
@@ -57,15 +80,16 @@ export default function ProductStockTableBody({ data }: TableBodyProps) {
                   type="button"
                   className="bg-accent rounded-md px-1.5 py-0.5 inline-block align-middle"
                   aria-label="Add stock button"
-                  onClick={() => productCode.agency && toggleAddProductStockModal(productCode.agency)}
+                  onClick={() => data.agency && toggleAddProductStockModal(data.agency, product)}
                 >
                   <PlusIcon className="h-5 w-5 text-white" />
                 </button>
-                {isAddStockModalOpen && (
+                {isAddStockModalOpen && selectedAgency && selectedAgency.id === data.agency.id && (
                   <ProductStockModal
                     isOpen={isAddStockModalOpen}
-                    onClose={() => toggleAddProductStockModal(selectedAgency!)}
+                    onClose={() => toggleAddProductStockModal(data.agency, product)}
                     agency={selectedAgency}
+                    product={product}
                   />
                 )}
               </td>
