@@ -134,7 +134,8 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
           </div>
         </div>
         {showSuggestions && (
-          <Box ref={suggestionsRef} position="absolute" top="100%" right={0} zIndex={1} width={inputRef.current?.offsetWidth || "auto"}>
+          <Box ref={suggestionsRef} position="absolute" top="100%" right={0} zIndex={1}
+               width={inputRef.current?.offsetWidth || "auto"}>
             <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
           </Box>
         )}

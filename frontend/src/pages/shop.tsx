@@ -12,22 +12,27 @@ import { useEffect, useState } from "react";
 export default function ShopPage() {
     const isMobile = useBreakpointValue({ base: true, md: false });
     const router = useRouter();
-    const sortOrderFromQuery = router.query.sortOrder as SortProduct | undefined;
+    const { page: queryPage = '1', sortOrder: querySortOrder } = router.query;
+
+    const sortOrderFromQuery = querySortOrder as SortProduct | undefined;
     const searchQuery = router.query.search as string | undefined;
 
-    const [sortOrder, setSortOrder] = useState<SortProduct | null>(
-        sortOrderFromQuery ?? null
-    );
-    const [page, setPage] = useState(0);
+    const [sortOrder, setSortOrder] = useState<SortProduct | null>(sortOrderFromQuery ?? null);
+    const [page, setPage] = useState<number>(parseInt(queryPage as string, 10) || 1);
 
     const { data, error, loading, refetch } = useGetAllProductsQuery({
         variables: {
             sortOrder,
             limit: 12,
-            offset: page * 12,
+            offset: (page - 1) * 12, // Correction pour l'offset
             name: searchQuery,
         },
     });
+
+    useEffect(() => {
+        // Met à jour la page actuelle lorsque la requête URL change
+        setPage(parseInt(queryPage as string, 10) || 1);
+    }, [queryPage]);
 
     useEffect(() => {
         refetch({ sortOrder, name: searchQuery });
