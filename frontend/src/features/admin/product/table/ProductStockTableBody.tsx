@@ -5,13 +5,18 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import ProductStockModal from "../modal/ProductStockModal";
+import { Agency, ProductCode } from "@/graphql/generated/schema";
 
 export default function ProductStockTableBody({ data }: TableBodyProps) {
   const { t } = useTranslation("ProductStockTableBody");
   const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
-  const [selectedAgency, setSelectedAgency] = useState<any>();
+  const [selectedAgency, setSelectedAgency] = useState<Agency>();
 
-  const toggleAddProductStockModal = (agency: any) => {
+  const getProductCodesCountByAgency = (agencyId: number) => {
+    return data.filter((productCode: ProductCode) => productCode.agency?.id === agencyId).length;
+  };
+
+  const toggleAddProductStockModal = (agency: Agency) => {
     setSelectedAgency(agency);
     setIsAddStockModalOpen(!isAddStockModalOpen);
   };
@@ -33,30 +38,34 @@ export default function ProductStockTableBody({ data }: TableBodyProps) {
       </thead>
       <tbody className="text-sm">
         {data?.length !== 0 ? (
-          data.map((product: any, index: number) => (
+          data.map((productCode: ProductCode, index: number) => (
             <tr
-              key={product.id}
+              key={productCode.id}
               className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}
             >
-              <td className="whitespace-nowrap p-3 pl-8 w-auto min-w-max">{product.agency}</td>
+              <td className="whitespace-nowrap p-3 pl-8 w-auto min-w-max">{productCode.agency?.name}</td>
               <td className="whitespace-nowrap p-3 w-60 min-w-max">
-                <span className="inline-block align-middle mr-2">{product.quantity}</span>
-                {product.quantity <= 3 && <ExclamationTriangleIcon className="inline-block h-6 w-6 text-[#D23742]" />}
+                <span className="inline-block align-middle mr-2">
+                  {getProductCodesCountByAgency(productCode.agency!.id)}
+                </span>
+                {getProductCodesCountByAgency(productCode.agency!.id) <= 3 && (
+                  <ExclamationTriangleIcon className="inline-block h-6 w-6 text-[#D23742]" />
+                )}
               </td>
               <td className="whitespace-nowrap p-3 pr-8 w-40 min-w-max">
                 <button
                   type="button"
                   className="bg-accent rounded-md px-1.5 py-0.5 inline-block align-middle"
                   aria-label="Add stock button"
-                  onClick={() => toggleAddProductStockModal(product.agency)}
+                  onClick={() => productCode.agency && toggleAddProductStockModal(productCode.agency)}
                 >
                   <PlusIcon className="h-5 w-5 text-white" />
                 </button>
                 {isAddStockModalOpen && (
                   <ProductStockModal
                     isOpen={isAddStockModalOpen}
-                    onClose={() => toggleAddProductStockModal(selectedAgency)}
-                    product={selectedAgency}
+                    onClose={() => toggleAddProductStockModal(selectedAgency!)}
+                    agency={selectedAgency}
                   />
                 )}
               </td>
