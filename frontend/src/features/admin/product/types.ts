@@ -1,6 +1,11 @@
 import { Agency } from "@/graphql/generated/schema";
 import { Characteristic } from "../characteristic/types";
 
+export enum Status {
+  AVAILABLE = "available",
+  BROKEN = "broken",
+}
+
 export interface menuItems {
   id?: number;
   name: string;
@@ -59,5 +64,6 @@ export interface ProductCodeModalProps {
   isOpen: boolean;
   onClose: () => void;
   agency?: Agency;
+  product?: Product;
   refetch?: () => void;
 }
