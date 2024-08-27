@@ -24,7 +24,7 @@
     "@parcel/watcher": "2.4.1",
     "@types/node": "^20.11.28",
     "autoprefixer": "10.4.19",
-    "axios": "1.7.2",
+    "axios": "1.7.4",
     "date-fns": "3.6.0",
     "framer-motion": "11.2.12",
     "graphql": "16.9.0",
