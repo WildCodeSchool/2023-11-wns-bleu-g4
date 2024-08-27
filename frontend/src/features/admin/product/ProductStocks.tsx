@@ -26,6 +26,11 @@ export default function ProductStocks({ product }: { product: Product }) {
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + Math.min(itemsPerPage, productCodes.length ?? 0);
 
+  const uniqueAgencies = new Set<number>(
+    productCodes.map((productCode: any) => productCode.agency.id)
+  );
+  const totalProductCodesAgencies = uniqueAgencies.size;
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     const nextPage = pageNumber + 1;
@@ -50,7 +55,7 @@ export default function ProductStocks({ product }: { product: Product }) {
       </div>
       <ProductStockTableBody data={productCodes} />
       <TableFooter
-        data={totalProductCodes}
+        data={totalProductCodesAgencies}
         startIndex={startIndex}
         endIndex={endIndex}
         currentPage={currentPage}
