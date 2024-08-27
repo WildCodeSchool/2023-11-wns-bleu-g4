@@ -1,0 +1,5 @@
+mutation UpdateProductCodeStatus($status: Status!, $productCodeId: Int!) {
+  updateProductCodeStatus(status: $status, productCodeId: $productCodeId) {
+    status
+  }
+}
