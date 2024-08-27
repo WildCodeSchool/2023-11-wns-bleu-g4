@@ -14,7 +14,7 @@ class BookingItemResolver {
 
     @Query(() => [BookingItem])
     async getBookingItemsByBookingId(
-        @Arg("bookingId") bookingId: number,
+        @Arg("bookingId", () => Int) bookingId: number,
     ) {
         const items = await BookingItem.find({
             where: { booking: { id: bookingId } },

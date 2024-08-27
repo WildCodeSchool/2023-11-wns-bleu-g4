@@ -21,6 +21,8 @@ export default function UserOrdersDetailsTable() {
     /** Router */
     const router = useRouter()
     const { query } = router;
+    // console.log(router.query)
+    console.log(parseInt(router.query.id as string))
 
     const { data } = useGetBookingItemsByBookingIdQuery({
         variables: {
@@ -29,7 +31,6 @@ export default function UserOrdersDetailsTable() {
     })
     const bookingItems = data?.getBookingItemsByBookingId || []
 
-    const classTh = ""
 
     return (
         <Flex className="w-full flex flex-col xl:w-fit" gap={2} color={textColor}>

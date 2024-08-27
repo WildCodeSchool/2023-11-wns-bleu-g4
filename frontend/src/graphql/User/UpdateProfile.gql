@@ -1,7 +1,5 @@
 mutation UpdateProfile($data: UpdateUserInput!) {
   updateProfile(data: $data) {
-    id
-    email
     name
     firstname
     address
@@ -10,6 +8,5 @@ mutation UpdateProfile($data: UpdateUserInput!) {
     country
     phone
     avatar
-    role
   }
 }

@@ -68,7 +68,8 @@ export enum BookingItemStatus {
   Lost = 'LOST',
   Rented = 'RENTED',
   Returned = 'RETURNED'
-}
+};
+
 
 export type BookingList = {
   __typename?: 'BookingList';
@@ -76,11 +77,6 @@ export type BookingList = {
   total: Scalars['Int']['output'];
 };
 
-export type BookingList = {
-  __typename?: 'BookingList';
-  bookings: Array<Booking>;
-  total: Scalars['Int']['output'];
-};
 
 export type Brand = {
   __typename?: 'Brand';
@@ -151,7 +147,6 @@ export type Mutation = {
 
 
 export type MutationCancelBookingArgs = {
-  bookingId: Scalars['Int']['input'];
   bookingId: Scalars['Int']['input'];
 };
 
@@ -528,8 +523,6 @@ export type QueryGetAllBookingArgs = {
   agencyId?: InputMaybe<Scalars['Float']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
   userId?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -571,12 +564,6 @@ export type QueryGetAllProductsArgs = {
 export type QueryGetAllReviewsArgs = {
   productId?: InputMaybe<Scalars['Int']['input']>;
   userId?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryGetAllUsersArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -668,13 +655,13 @@ export type Review = {
 export enum SortProduct {
   Asc = 'ASC',
   Desc = 'DESC'
-}
+};
 
 /** Check if the product is available. */
 export enum Status {
   Available = 'AVAILABLE',
   Broken = 'BROKEN'
-}
+};
 
 /** Check booking's state. */
 export enum StatusBooking {
@@ -682,7 +669,7 @@ export enum StatusBooking {
   Cancelled = 'CANCELLED',
   Late = 'LATE',
   Retrieved = 'RETRIEVED'
-}
+};
 
 export type UpdateAgencyInput = {
   address?: InputMaybe<Scalars['String']['input']>;

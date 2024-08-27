@@ -30,11 +30,11 @@ export interface TableFooterProps {
   itemsPerPage: number;
 }
 
-export interface ProductModalProps {
+export interface UserModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user?: any;
-  variant?: string;
+  user?: User;
+  // variant?: string;
 }
 
 export interface User {

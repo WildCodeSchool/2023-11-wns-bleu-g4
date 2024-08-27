@@ -115,12 +115,3 @@ export class BookingList {
 	@Field(() => Int)
 	total: number;
 }
-
-@ObjectType()
-export class BookingList {
-	@Field(() => [Booking])
-	bookings: Booking[];
-
-	@Field(() => Int)
-	total: number;
-}

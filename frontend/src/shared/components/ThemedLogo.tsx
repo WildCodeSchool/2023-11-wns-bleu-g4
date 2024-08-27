@@ -33,5 +33,5 @@ export default function ThemedLogo({ type = "default" }: ThemedLogoProps) {
     selectedLogo = instagram;
   }
 
-  return <Image src={selectedLogo} alt={alt} />;
+  return <Image src={selectedLogo} alt={alt} priority />;
 }

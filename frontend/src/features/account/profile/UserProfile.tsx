@@ -7,9 +7,8 @@ import { useProfileQuery } from "@/graphql/User/generated/Profile.generated"
 
 export default function UserProfile() {
 
-
-
     const { data: currentUser } = useProfileQuery()
+    
     return (
         <Flex
             className="w-full gap-2

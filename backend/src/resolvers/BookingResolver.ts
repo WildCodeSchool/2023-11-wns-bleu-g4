@@ -59,6 +59,24 @@ class BookingResolver {
         return bookings;
     }
 
+    @Query(() => BookingList)
+    async getBookingsByUserId(
+        @Arg("userId", () => Int) id: number,
+        @Arg("limit", () => Int, { nullable: true }) limit?: number,
+        @Arg("offset", () => Int, { nullable: true }) offset?: number) {
+
+        const [bookings, total] = await Booking.findAndCount({
+            relations: { agency: true },
+            where: { user: { id } },
+            take: limit,
+            skip: offset,
+        })
+
+        if (!bookings) throw new GraphQLError("Booking Not found");
+
+        return { bookings, total }
+    }
+
     @Authorized()
     @Mutation(() => Booking)
     async createBooking(
@@ -116,7 +134,7 @@ class BookingResolver {
     @Authorized()
     @Mutation(() => Booking)
     async updateBooking(
-        @Arg("bookingId") id: number,
+        @Arg("bookingId",() => Int) id: number,
         @Arg("data", { validate: true }) data: UpdateBookingInput,
         @Ctx() ctx: Context
     ) {
@@ -127,8 +145,8 @@ class BookingResolver {
 
         Object.assign(bookingToUpdate, data);
 
-        if (data.status === StatusBooking.CANCELED) {
-            bookingToUpdate.status = StatusBooking.CANCELED;
+        if (data.status === StatusBooking.CANCELLED) {
+            bookingToUpdate.status = StatusBooking.CANCELLED;
             for (const item of bookingToUpdate.bookingItem) {
                 item.status = BookingItemStatus.CANCELED;
                 await item.save();
@@ -145,7 +163,7 @@ class BookingResolver {
     @Authorized()
     @Mutation(() => String)
     async cancelBooking(
-        @Arg("bookingId") id: number,
+        @Arg("bookingId",() => Int) id: number,
         @Ctx() ctx: Context
     ) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
@@ -157,7 +175,7 @@ class BookingResolver {
 
         if (!bookingToCancel) throw new GraphQLError("Booking not found");
 
-        bookingToCancel.status = StatusBooking.CANCELED;
+        bookingToCancel.status = StatusBooking.CANCELLED;
 
         for (const item of bookingToCancel.bookingItem) {
             item.status = BookingItemStatus.CANCELED;

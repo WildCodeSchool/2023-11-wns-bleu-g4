@@ -190,6 +190,7 @@ async function main() {
 			thumbnail: productData.imageUrls[0],
 			category: category, 
 			brand: await getOrCreateBrand(productData.brand),
+			ref:"test",
 			characteristics: [],
 		})
 		const characteristics = [

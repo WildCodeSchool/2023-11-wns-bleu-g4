@@ -1,4 +1,4 @@
-import { Flex, Heading, Table, TableContainer, Tbody, Td, Text, Th, Tr, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Heading, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { orderTableHeaders } from "../helpers/tableHeaders"
 import { useGetBookingsByUserIdQuery } from "@/graphql/Booking/generated/GetBookingByUserId.generated";
@@ -42,6 +42,7 @@ export default function UserOrdersTable() {
     const bookings = data?.getBookingsByUserId.bookings || []
     const totalProducts = data?.getBookingsByUserId.total
 
+    console.log(bookings)
     /** Pagination 2/2 */
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + Math.min(itemsPerPage, bookings?.length ?? 0);
@@ -66,6 +67,7 @@ export default function UserOrdersTable() {
                             className={thClass + " " + menu.thClass}
                             key={menu.id}
                         >
+                            {/* <Th className="text-center">{menu.name}</Th> */}
                             <Heading size='xs' className="text-center">{menu.name}</Heading>
                         </Td>
                     ))}

@@ -1,101 +1,103 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Flex,
-  Box,
-  Text,
-  Textarea
-} from '@chakra-ui/react'
-import React from 'react'
-import { ProductModalProps } from '../../types'
 
-export default function UserMInfoModal({ isOpen, onClose, user }: ProductModalProps) {
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Flex, Box, Textarea } from '@chakra-ui/react'
+import { UserModalProps } from '../../types'
+import { useUpdateProfileMutation } from '@/graphql/User/generated/UpdateProfile.generated';
+import { FormEvent, useState } from 'react';
+import uploadFile from '@/features/admin/helpers/uploadFile';
+import { toast } from "react-toastify";
+import { ToastConfigLogin } from '@/config/ToastConfig';
+
+export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps) {
+
+  const [imageURL, setImageURL] = useState("")
+  const [updateProfile] = useUpdateProfileMutation();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const formJSON: any = Object.fromEntries(formData.entries());
+    if (imageURL !== "") formJSON.avatar = imageURL
+
+    try {
+      await updateProfile({ variables: { data: formJSON } });
+      toast.info("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
+    } catch (e: any) {
+      const errArr = e.message.replace("_", " ");
+      toast.error(errArr, ToastConfigLogin);
+      return
+    }
+  };
 
   return (
-      <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Update informations</ModalHeader>
-          <ModalCloseButton />
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
+      <ModalOverlay />
+      <ModalContent>
+
+        <ModalHeader>Update informations</ModalHeader>
+        <ModalCloseButton />
+
+        <form onSubmit={handleSubmit}>
           <ModalBody pb={6}>
             <FormControl>
               <Flex justifyContent="space-between" gap={2} mb={4}>
                 <Box>
-                  <FormLabel mb={1} id="name">
-                    Name
-                  </FormLabel>
-                  <Input type="text" placeholder="Name" defaultValue={user?.name}/>
+                  <FormLabel mb={1} htmlFor="name">Name</FormLabel>
+                  <Input type="text" placeholder="Name" defaultValue={user?.name} name="name" id="name" />
                 </Box>
                 <Box>
-                  <FormLabel mb={1} id="firstname">
-                    Firstname
-                  </FormLabel>
-                  <Input type="text" placeholder="Firstname" defaultValue={user?.firstname}/>
+                  <FormLabel mb={1} htmlFor="firstname">Firstname</FormLabel>
+                  <Input type="text" placeholder="Firstname" defaultValue={user?.firstname} name="firstname" id="firstname" />
                 </Box>
               </Flex>
               <Box mb={4}>
-                <Text mb={1}>Address</Text>
-                <Textarea placeholder="Address" maxHeight={200} defaultValue={user?.address}/>
+                <FormLabel mb={1} htmlFor='address'>Address</FormLabel>
+                <Textarea placeholder="Address" name='address' id="address" maxHeight={200} defaultValue={user?.address} />
               </Box>
               <Flex justifyContent="space-between" gap={2} mb={4}>
                 <Box>
-                  <FormLabel mb={1} id="postcode">
-                    PostCode
-                  </FormLabel>
-                  <Input type="text" placeholder="PostCode" defaultValue={user?.postcode} />
+                  <FormLabel mb={1} htmlFor="postcode">PostCode</FormLabel>
+                  <Input type="text" placeholder="PostCode" defaultValue={user?.postcode} name="postcode" id="postcode" />
                 </Box>
                 <Box>
-                  <FormLabel mb={1} id="city">
-                    City
-                  </FormLabel>
-                  <Input type="text" placeholder="City" defaultValue={user?.city}/>
-                </Box>
-                <Box>
-                  <FormLabel mb={1} id="country">
-                    Country
-                  </FormLabel>
-                  <Input type="text" placeholder="Country" defaultValue={user?.country}/>
+                  <FormLabel mb={1} htmlFor="city">City</FormLabel>
+                  <Input type="text" placeholder="City" defaultValue={user?.city} name="city" id="city" />
                 </Box>
               </Flex>
 
-              <Flex justifyContent="space-between" gap={2} mb={4}>
+              <Flex gap={2} mb={4}>
                 <Box>
-                  <FormLabel mb={1} id="phone">
-                    Phone
-                  </FormLabel>
-                  <Input type="tel" placeholder="Phone number" defaultValue={user?.phone}/>
+                  <FormLabel mb={1} htmlFor="country">Country</FormLabel>
+                  <Input type="text" placeholder="Country" defaultValue={user?.country} name="country" id="country" />
                 </Box>
                 <Box>
-                  <FormLabel mb={1} id="email">
-                    Email
-                  </FormLabel>
-                  <Input type="email" placeholder="Email" defaultValue={user?.email}/>
+                  <FormLabel mb={1} htmlFor="phone">Phone</FormLabel>
+                  <Input type="tel" placeholder="Phone number" defaultValue={user?.phone} name="phone" id="phone" />
                 </Box>
               </Flex>
+              {/* <Box>
+                  <FormLabel mb={1} htmlFor="email">Email</FormLabel>
+                  <Input type="email" placeholder="Email" defaultValue={user?.email} name="email" id="email"/>
+                </Box> */}
 
-              <FormLabel mb={1} id="countInStock">
-                Avatar
-              </FormLabel>
-              <input type="file" defaultValue={user?.avatar}/>
+              <FormLabel mb={1}>Avatar</FormLabel>
+              <input type="file"
+                onChange={e => {
+                  if (e.target.files?.[0]) {
+                    uploadFile(e.target.files?.[0])
+                      .then(setImageURL)
+                  };
+                }}
+              />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
             <Button onClick={onClose}>Cancel</Button>
-            <Button colorScheme="blue" ml={3} type="submit">
-              Update
-            </Button>
+            <Button colorScheme="blue" ml={3} type="submit" >Update</Button>
           </ModalFooter>
-        </ModalContent>
-      </Modal>
+        </form>
+
+      </ModalContent>
+    </Modal >
   )
 }
