@@ -1,0 +1,14 @@
+mutation CreateProductCode($quantity: Int!, $data: NewProductCodeInput!) {
+  createProductCode(quantity: $quantity, data: $data) {
+    id
+    status
+    isSizeable
+    size
+    product {
+      id
+    }
+    agency {
+      id
+    }
+  }
+}

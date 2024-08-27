@@ -116,6 +116,7 @@ export type Mutation = {
   createParentCategory: ParentCategory;
   createProduct: Product;
   createProductCharacteristic: ProductCharacteristic;
+  createProductCode: Array<ProductCode>;
   createProduct_picture: Product_Picture;
   createReview: Review;
   createUser: User;
@@ -191,6 +192,12 @@ export type MutationCreateProductArgs = {
 
 export type MutationCreateProductCharacteristicArgs = {
   data: NewProductCharacteristicInput;
+};
+
+
+export type MutationCreateProductCodeArgs = {
+  data: NewProductCodeInput;
+  quantity: Scalars['Int']['input'];
 };
 
 
@@ -372,6 +379,14 @@ export type NewParentCategoryInput = {
 
 export type NewProductCharacteristicInput = {
   name: Scalars['String']['input'];
+};
+
+export type NewProductCodeInput = {
+  agencyId: Scalars['Int']['input'];
+  isSizeable?: Scalars['Boolean']['input'];
+  productId: Scalars['Int']['input'];
+  size?: InputMaybe<Scalars['String']['input']>;
+  status: Status;
 };
 
 export type NewProductInput = {
