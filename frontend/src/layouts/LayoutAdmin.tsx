@@ -9,8 +9,6 @@ interface LayoutProps {
 }
 
 export default function LayoutAdmin({ children, pageTitle }: LayoutProps) {
-  const { isExpanded } = useSidebar();
-
   return (
     <>
       <Head>

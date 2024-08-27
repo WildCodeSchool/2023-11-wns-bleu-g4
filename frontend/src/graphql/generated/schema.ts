@@ -490,6 +490,7 @@ export type Product_Picture = {
 
 export type Query = {
   __typename?: 'Query';
+  checkProductAvailability: Scalars['Boolean']['output'];
   getAgencyById: Agency;
   getAllAgencies: Array<Agency>;
   getAllBooking: BookingList;
@@ -521,6 +522,16 @@ export type Query = {
 };
 
 
+export type QueryCheckProductAvailabilityArgs = {
+  agencyId: Scalars['Int']['input'];
+  endDate: Scalars['DateTimeISO']['input'];
+  productId: Scalars['Int']['input'];
+  quantity: Scalars['Int']['input'];
+  size?: InputMaybe<Scalars['String']['input']>;
+  startDate: Scalars['DateTimeISO']['input'];
+};
+
+
 export type QueryGetAgencyByIdArgs = {
   agencyId: Scalars['Int']['input'];
 };
@@ -538,6 +549,7 @@ export type QueryGetAllBookingArgs = {
 
 export type QueryGetAllBrandsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -557,6 +569,7 @@ export type QueryGetAllParentCategoriesArgs = {
 
 export type QueryGetAllProductCharacteristicsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -577,7 +590,10 @@ export type QueryGetAllReviewsArgs = {
 
 
 export type QueryGetAllUsersArgs = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  firstname?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 

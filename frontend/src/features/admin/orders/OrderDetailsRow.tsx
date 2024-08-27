@@ -17,8 +17,8 @@ export default function OrderDetailsDropdown({ order }: { order: Order }) {
   const bookingItems = BookingItemsData?.getBookingItemsByBookingId;
 
   return (
-    <tr className="min-w-full space-y-4 border-y border-y-gray-200">
-      <td colSpan={2} className="p-4">
+    <tr className="min-w-full space-y-4">
+      <td colSpan={2} className="p-4 border-y border-gray-200">
         <div className="flex flex-col gap-2 align-top">
           <span className="font-bold">{t("Customer address")}:</span> {order.user.address},{" "}
           {order.user.postcode} {order.user.city}
@@ -28,7 +28,6 @@ export default function OrderDetailsDropdown({ order }: { order: Order }) {
           <OrderDetailsStatus order={order} />
         }
       </td>
-      { }
       <OrderDetailsTable bookingItems={bookingItems} />
     </tr>
   );

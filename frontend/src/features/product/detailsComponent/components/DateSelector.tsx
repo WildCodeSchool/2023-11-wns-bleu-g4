@@ -1,11 +1,11 @@
-import { useProductContext } from "@/context/ProductPageContext";
-import DateRangePicker from "@/shared/components/DateRangePicker";
-import { Flex } from "@chakra-ui/react";
-import { useEffect } from "react";
+import {useProductContext} from "@/context/ProductPageContext";
+import DateRangePicker from "@/shared/components/dateRangePicker/DateRangePicker";
+import {Flex} from "@chakra-ui/react";
+import {useEffect} from "react";
 
 export default function DateSelector() {
-  const { state, setState } = useProductContext();
-  const { selectedProduct, startDate, endDate } = state;
+  const {state, setState} = useProductContext();
+  const {selectedProduct, startDate, endDate} = state;
 
   const handleDateChange = (newStartDate: Date | null, newEndDate: Date | null) => {
     setState(prevState => ({
@@ -34,7 +34,16 @@ export default function DateSelector() {
 
   return (
     <Flex flexDirection="column" gap="30px" p="19px 0">
-      <DateRangePicker onDateChange={handleDateChange} buttonSize="lg" position="up" />
+      <DateRangePicker
+        onDateChange={handleDateChange}
+        buttonSize="lg"
+        position="up"
+        showFooter={true}
+        footerTexts={{
+          currentDayText: "Current day",
+          bookedDatesText: "Booked dates"
+        }}
+      />
     </Flex>
   );
 }

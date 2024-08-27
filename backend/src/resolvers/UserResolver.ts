@@ -8,6 +8,7 @@ import { Context } from "../utils"
 import crypto from "crypto"
 import { UserList } from "../types"
 import mailer from "../mailer"
+import { ILike } from "typeorm"
 import { hash } from "argon2"
 
 @Resolver(User)
@@ -129,13 +130,27 @@ class UserResolver {
 	@Query(() => UserList)
 	async getAllUsers(
 		@Arg("limit", () => Int, { nullable: true }) limit?: number,
-		@Arg("offset", () => Int, { nullable: true }) offset?: number
+		@Arg("offset", () => Int, { nullable: true }) offset?: number,
+		@Arg("email", () => String, { nullable: true }) email?: string,
+		@Arg("name", () => String, { nullable: true }) name?: string,
+		@Arg("firstname", () => String, { nullable: true }) firstname?: string
 	) {
+		const whereConditions = []
+		if (email) whereConditions.push({ email: ILike(`%${email}%`) })
+		if (name) whereConditions.push({ name: ILike(`%${name}%`) })
+		if (firstname) whereConditions.push({ firstname: ILike(`%${firstname}%`) })
+
+		const whereClause =
+			whereConditions.length > 0
+				? whereConditions.map((condition) => ({ role: UserRole.CUSTOMER, ...condition }))
+				: { role: UserRole.CUSTOMER }
+
 		const [users, total] = await User.findAndCount({
-			where: { role: UserRole.CUSTOMER },
+			where: whereClause,
 			take: limit,
 			skip: offset,
 		})
+
 		return { users, total }
 	}
 }

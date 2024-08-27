@@ -6,7 +6,7 @@ export default function OrderDetailsTable({ bookingItems }: { bookingItems: Book
     const { t } = useTranslation("OrderDetailsTable");
 
     return (
-        <td colSpan={7} className="p-4 align-top">
+        <td colSpan={7} className="p-4 align-top border-y border-gray-200">
             <span className="font-bold min-w-full">{t("Order details")}:</span>
             <table className="w-full min-w-full">
                 <thead>

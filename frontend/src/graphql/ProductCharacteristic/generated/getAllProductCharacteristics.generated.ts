@@ -6,6 +6,7 @@ const defaultOptions = {} as const;
 export type GetAllProductCharacteristicsQueryVariables = Types.Exact<{
   limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  name?: Types.InputMaybe<Types.Scalars['String']['input']>;
 }>;
 
 
@@ -13,8 +14,8 @@ export type GetAllProductCharacteristicsQuery = { __typename?: 'Query', getAllPr
 
 
 export const GetAllProductCharacteristicsDocument = gql`
-    query GetAllProductCharacteristics($limit: Int, $offset: Int) {
-  getAllProductCharacteristics(limit: $limit, offset: $offset) {
+    query GetAllProductCharacteristics($limit: Int, $offset: Int, $name: String) {
+  getAllProductCharacteristics(limit: $limit, offset: $offset, name: $name) {
     productCharacteristics {
       id
       name
@@ -38,6 +39,7 @@ export const GetAllProductCharacteristicsDocument = gql`
  *   variables: {
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
+ *      name: // value for 'name'
  *   },
  * });
  */

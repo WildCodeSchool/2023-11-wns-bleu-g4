@@ -1,5 +1,5 @@
-query GetAllBrands($limit: Int, $offset: Int) {
-  getAllBrands(limit: $limit, offset: $offset) {
+query GetAllBrands($limit: Int, $offset: Int, $name: String) {
+  getAllBrands(limit: $limit, offset: $offset, name: $name) {
     brands {
       name
       id

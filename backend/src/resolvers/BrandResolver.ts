@@ -3,18 +3,21 @@ import { Arg, Authorized, Int, Mutation, Query, Resolver } from "type-graphql"
 import Brand, { NewBrandInput, UpdateBrandInput } from "../entities/Brand"
 import { UserRole } from "../entities/User"
 import { BrandList } from "../types"
+import { ILike } from "typeorm"
 
 @Resolver(Brand)
 class BrandResolver {
 	@Query(() => BrandList)
 	async getAllBrands(
 		@Arg("limit", () => Int, { nullable: true }) limit?: number,
-		@Arg("offset", () => Int, { nullable: true }) offset?: number
+		@Arg("offset", () => Int, { nullable: true }) offset?: number,
+		@Arg("name", () => String, { nullable: true }) name?: string
 	) {
 		const [brands, total] = await Brand.findAndCount({
 			take: limit,
 			skip: offset,
 			relations: { product: true },
+			where: name ? { name: ILike(`%${name}%`) } : {},
 		})
 		return { brands, total }
 	}
