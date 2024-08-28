@@ -14,8 +14,9 @@ import {
 } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import ParentCategoryDeleteModal from "../modal/ParentCategoryDeleteModal";
 import ParentCategoryUpdateModal from "../modal/ParentCategoryUpdateModal";
+import Loading from "@/shared/components/Loading";
 
-export default function ParentCategoryTableBody({ data }: TableBodyProps) {
+export default function ParentCategoryTableBody({ data, loading }: TableBodyProps) {
   const { t } = useTranslation("ParentCategoryTableBody");
 
   const [deleteParentCategory] = useDeleteParentCategoryMutation();
@@ -65,7 +66,20 @@ export default function ParentCategoryTableBody({ data }: TableBodyProps) {
           </tr>
         </thead>
         <tbody className="text-sm">
-          {data.length !== 0 ? (
+          {loading && (
+            <tr>
+              <td className="p-4 text-center" colSpan={2}>
+                <Loading loading={loading} />
+              </td>
+            </tr>
+          )}
+          {!loading && data.length === 0 ? (
+            <tr>
+              <td className="p-4 text-center" colSpan={3}>
+                {t("No parent categories found")}
+              </td>
+            </tr>
+          ) : (
             data.map((parentCategory: ParentCategory, index: number) => (
               <tr key={parentCategory.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-4/5 min-w-max">{parentCategory.name}</td>
@@ -91,12 +105,6 @@ export default function ParentCategoryTableBody({ data }: TableBodyProps) {
                 </td>
               </tr>
             ))
-          ) : (
-            <tr>
-              <td className="p-4 text-center" colSpan={3}>
-                {t("No categories found")}
-              </td>
-            </tr>
           )}
         </tbody>
       </table>

@@ -8,8 +8,9 @@ import BrandUpdateModal from "./BrandUpdateModal";
 import { brandTableHeaders } from "../helpers/tableHeaders";
 import BrandDeleteModal from "./BrandDeleteModal";
 import BrandLogoModal from "./BrandLogoModal";
+import Loading from "@/shared/components/Loading";
 
-export default function BrandTableBody({ data, refetch }: TableBodyProps) {
+export default function BrandTableBody({ data, refetch, loading }: TableBodyProps) {
   const { t } = useTranslation("BrandTableBody");
 
   const [deleteBrand] = useDeleteBrandMutation();
@@ -59,7 +60,20 @@ export default function BrandTableBody({ data, refetch }: TableBodyProps) {
           </tr>
         </thead>
         <tbody className="text-sm">
-          {data.length !== 0 ? (
+          {loading && (
+            <tr>
+              <td className="p-4 text-center" colSpan={3}>
+                <Loading loading={loading} />
+              </td>
+            </tr>
+          )}
+          {!loading && data.length === 0 ? (
+            <tr>
+              <td className="p-4 text-center" colSpan={4}>
+                {t("No brands found")}
+              </td>
+            </tr>
+          ) : (
             data.map((brand: Brand, index: number) => (
               <tr key={brand.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-1/2 min-w-max">{brand.name}</td>
@@ -95,12 +109,6 @@ export default function BrandTableBody({ data, refetch }: TableBodyProps) {
                 </td>
               </tr>
             ))
-          ) : (
-            <tr>
-              <td className="p-4 text-center" colSpan={4}>
-                {t("No categories found")}
-              </td>
-            </tr>
           )}
         </tbody>
       </table>
