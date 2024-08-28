@@ -16,7 +16,7 @@ export default function Characteristics() {
     const [currentPage, setCurrentPage] = useState(initialPage);
     const searchTerm = query.search ? query.search as string : '';
 
-    const { data, refetch } = useGetAllProductCharacteristicsQuery({
+    const { data, refetch, loading } = useGetAllProductCharacteristicsQuery({
         variables: {
             limit: 14,
             offset: currentPage * 14,
@@ -67,7 +67,7 @@ export default function Characteristics() {
                 />
             )}
             <div className="overflow-x-auto">
-                <CharacteristicTableBody data={characteristics} refetch={refetch} />
+                <CharacteristicTableBody data={characteristics} refetch={refetch} loading={loading} />
             </div>
             <TableFooter
                 data={totalCharacteristics}
