@@ -9,13 +9,12 @@ interface ProductGridProps {
 
 export default function ProductGrid({ products }: ProductGridProps) {
   const router = useRouter();
-  const { page = 1 } = router.query;
   const gridTemplateColumns = useBreakpointValue({
     base: "repeat(auto-fill, minmax(150px, auto))",
     md: "repeat(auto-fill, minmax(200px, auto))"
   });
 
-  if (!products) return <p>Loading...</p>; // ou votre composant de chargement
+  if (!products) return <p>Loading...</p>;
   if (products.length === 0) return <p>No products found.</p>;
 
   return (

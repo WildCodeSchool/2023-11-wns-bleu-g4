@@ -51,7 +51,6 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage, maxPages }) => {
                     key={pageNum}
                     onClick={() => setPage(pageNum)}
                     isActive={pageNum === page}
-                    variant={pageNum === page ? 'solid' : 'outline'}
                 >
                     {pageNum + 1}
                 </Button>
