@@ -15,6 +15,7 @@ export const orderDetailsHeaders: menuItemsth[] = [
   { id: 2, name: "Name", thClass: "hidden sm:table-cell  min-w-25 max-w-40 xl:max-w-72" },
   { id: 3, name: "From", thClass: "hidden lg:table-cell  max-w-36 xl:min-w-36 xl:max-w-40" },
   { id: 4, name: "To", thClass: "hidden lg:table-cell  max-w-36 xl:min-w-36 xl:max-w-40" },
-  { id: 5, name: "price", thClass: " lg:table-cell  max-w-36 xl:min-w-36 xl:max-w-40" },
-  { id: 6, name: "status", thClass: "hidden lg:table-cell  max-w-36 xl:min-w-36 xl:max-w-40" },
+  { id: 5, name: "Day Price", thClass: " lg:table-cell  max-w-36 xl:min-w-36 xl:max-w-40" },
+  { id: 6, name: "Total Price", thClass: " lg:table-cell  max-w-36 xl:min-w-36 xl:max-w-40" },
+  { id: 7, name: "status", thClass: "hidden lg:table-cell  max-w-36 xl:min-w-36 xl:max-w-40" },
 ];

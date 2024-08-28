@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql"
 import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
-import { Booking, NewBookingInput, UpdateBookingInput } from "../entities/Booking"
+import { Booking, CancelBookingInput, NewBookingInput, UpdateBookingInput } from "../entities/Booking"
 import { BookingItem } from "../entities/BookingItem"
 import Product from "../entities/Product"
 import ProductCode from "../entities/ProductCode"
@@ -158,8 +158,8 @@ class BookingResolver {
 
         Object.assign(bookingToUpdate, data);
 
-        if (data.status === StatusBooking.CANCELLED) {
-            bookingToUpdate.status = StatusBooking.CANCELLED;
+        if (data.status === StatusBooking.CANCELED) {
+            bookingToUpdate.status = StatusBooking.CANCELED;
             for (const item of bookingToUpdate.bookingItem) {
                 item.status = BookingItemStatus.CANCELED;
                 await item.save();
@@ -176,28 +176,30 @@ class BookingResolver {
     @Authorized()
     @Mutation(() => String)
     async cancelBooking(
-        @Arg("bookingId",() => Int) id: number,
+        @Arg("data") data: CancelBookingInput,
         @Ctx() ctx: Context
     ) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
 
         const bookingToCancel = await Booking.findOne({
-            where: { id },
-            relations: ["bookingItem"]
+            where: { id : data.id }
         });
 
         if (!bookingToCancel) throw new GraphQLError("Booking not found");
 
-        bookingToCancel.status = StatusBooking.CANCELLED;
+        bookingToCancel.startDate = data.startDate
+        bookingToCancel.endDate = data.endDate
+        bookingToCancel.status = StatusBooking.CANCELED;
 
-        for (const item of bookingToCancel.bookingItem) {
-            item.status = BookingItemStatus.CANCELED;
-            await item.save();
-        }
+
+        // for (const item of bookingToCancel.bookingItem) {
+        //     item.status = BookingItemStatus.CANCELED;
+        //     await item.save();
+        // }
 
         await bookingToCancel.save();
 
-        return "Booking cancelled";
+        return "Booking canceled";
     }
 }
 

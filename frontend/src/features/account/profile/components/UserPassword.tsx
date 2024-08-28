@@ -23,7 +23,7 @@ export default function UserPassword() {
 
             <Flex gap={4} justify={"space-between"} alignItems={'center'} className="px-5 py-3">
                 <Text color={textColor}>*******</Text>
-                <Button size='xs' padding='4' variant={"accentButton"} onClick={toggleUpdateUserModal}>Modify</Button>
+                <Button className="w-1/2" size='xs' padding='4' variant={"accentButton"} onClick={toggleUpdateUserModal}>Modify</Button>
                 <UserPasswordModal onClose={toggleUpdateUserModal} isOpen={isPasswordModalOpen} />
             </Flex>
         </Flex>

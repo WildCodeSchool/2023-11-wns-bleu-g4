@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import { jsPDF } from "jspdf";
 import { imgBase64 } from "./imgData"
 import { signature } from "./Signature"
-import { BookingPDF, BookingItem } from "../../types";
+import { BookingPDF, BookingItem } from "../types";
+import TimeStampToDayDuration from "./TimeStampToDayDuration";
 
 
 const transformToDate = (dateToTransform: string) => {
@@ -32,6 +33,8 @@ export default function generatePdf(booking: BookingPDF, bookingItems: BookingIt
     /* INVOICE NUMBER */
     doc.setFontSize(16)
     doc.text(booking?.invoice, 200, yInitial, { align: "right" });
+    doc.setFontSize(10)
+    doc.text("BOOKED ON " + transformToDate(booking?.bookingDate), 200, yInitial + 5, { align: "right" })
 
     /* AGENCY  */
     doc.setFontSize(10)
@@ -65,69 +68,72 @@ export default function generatePdf(booking: BookingPDF, bookingItems: BookingIt
         doc.text(client[index]?.toUpperCase() as string, 200, yInitial, { align: 'right' });
         yInitial += 4
     }
-    yInitial += 10
-
-    /* INVOICE */
-    doc.setFont("", "bold")
-    doc.text("BOOKED ON " + transformToDate(booking?.bookingDate), xInitial, yInitial)
     yInitial += 15
 
 
     /* TABLE TITLE */
-    doc.text("BOOKING DETAILS ", 105, yInitial, { align: 'center' })
+    doc.setFontSize(12)
+    doc.setFont("", "bold")
+    doc.text("BOOKING DETAILS ", xInitial, yInitial)
     yInitial += 5
 
 
-    /* Booking Details Headers */
-    const columnFrom = 130
-    const columnTo = 150
+    /* BOOKING DETAILS HEADERS */
+    doc.setFontSize(10)
+    const columnFrom = 110
+    const columnTo = 130
 
     doc.line(xInitial, yInitial, xInitial + 190, yInitial)
     yInitial += 5
     doc.text(bookingItemsArraylength > 1 ? "PRODUCTS" : "PRODUCT", xInitial, yInitial)
     doc.text("FROM", xInitial + columnFrom, yInitial)
     doc.text("TO", xInitial + columnTo, yInitial)
-    doc.text(bookingItemsArraylength > 1 ? "PRICES" : "PRICE", 200, yInitial, { align: "right" })
+    doc.text("DAY PRICE", 180, yInitial, { align: "right" })
+    doc.text("TOTAL", 200, yInitial, { align: "right" })
     yInitial += 2
     doc.line(xInitial, yInitial, xInitial + 190, yInitial)
 
-    /** Booking items */
+    /** BOOKING ITEMS */
     doc.setFont("", "normal")
 
     yInitial += 5
     for (let index = 0; index < bookingItemsArraylength; index++) {
         const productName: string = bookingItems[index].product?.name as string
         let price: number = bookingItems[index].product?.price as number
-        const dateFrom: string = bookingItems[index].startDate || ""
-        const dateTo: string = bookingItems[index].endDate || ""
+        const dateFrom: Date = bookingItems[index].startDate as Date
+        const dateTo: Date = bookingItems[index].endDate as Date
+        // const startDate : Date = Date.parse(bookingItems[index].startDate)
+        // const endDate : Date = new Date(bookingItems[index].endDate)
+        const totalAMount = price * TimeStampToDayDuration(dateFrom, dateTo)
 
         doc.text(productName, xInitial, yInitial, { maxWidth: 125 })
-        doc.text(transformToDate(dateFrom), xInitial + columnFrom, yInitial)
-        doc.text(transformToDate(dateTo), xInitial + columnTo, yInitial)
-        doc.text(price.toFixed(2) + "€", 200, yInitial, { align: "right" })
-        totalTTC += price
+        doc.text(transformToDate(dateFrom.toString()), xInitial + columnFrom, yInitial)
+        doc.text(transformToDate(dateTo.toString()), xInitial + columnTo, yInitial)
+        doc.text(price.toFixed(2) + "€", 180, yInitial, { align: "right" })
+        doc.text(totalAMount.toFixed(2) + "€", 200, yInitial, { align: "right" })
+        totalTTC += totalAMount
         nbProduct++
         yInitial += 6
     }
 
 
-    /* Total */
+    /* TOTAL */
     yInitial -= 3
     doc.line(xInitial, yInitial, xInitial + 190, yInitial)
     yInitial += 5
     doc.setFont("", "bold")
-    doc.text("TVA 20%", xInitial + columnTo, yInitial)
+    doc.text("TAXES (20%)", 180, yInitial, { align: "right" })
     doc.text((totalTTC * 20 / 100).toFixed(2) + "€", 200, yInitial, { align: "right" })
     yInitial += 2
-    doc.line(xInitial + columnTo, yInitial, xInitial + 190, yInitial)
+    // doc.line(xInitial + columnTo + 15, yInitial, xInitial + 190, yInitial)
     yInitial += 5
-    doc.text("TOTAL", xInitial + columnTo, yInitial)
+    doc.text("TOTAL", 180, yInitial, { align: "right" })
     doc.text(totalTTC.toFixed(2) + "€", 200, yInitial, { align: "right" })
     yInitial += 2
-    doc.line(xInitial + columnTo, yInitial, xInitial + 190, yInitial)
+    // doc.line(xInitial + columnTo + 15, yInitial, xInitial + 190, yInitial)
 
 
-    /** Signature */
+    /** SIGNATURE */
     doc.addImage(signature, "JPEG", 155, 255, 35, 20)
     doc.setFont("", "normal")
     doc.text("Signature", 150, 245)
@@ -137,7 +143,7 @@ export default function generatePdf(booking: BookingPDF, bookingItems: BookingIt
     doc.line(200, 250, 200, 280)
 
 
-    /** Footer */
+    /** FOOTER */
     doc.setFont("", "italic")
     doc.setFontSize(8)
     let yEndPage = 285
@@ -145,5 +151,17 @@ export default function generatePdf(booking: BookingPDF, bookingItems: BookingIt
     yEndPage += 5
     doc.text("GearGo SARL au capital de 1.000.000 € - N° Siret 362 521 879 00034", 105, yEndPage, { align: "center" })
 
-    doc.save(booking?.invoice + ".pdf");
+    /* DOWNLOAD PDF */
+    // doc.save(booking?.invoice + ".pdf");
+
+    /* OPEN PDF IN NEW WINDOW */
+    const invoice = doc.output("blob");
+    let url = URL.createObjectURL(invoice);
+    window.open(url);
+
+
+
+    /**
+     * un blob (Binary Large Object) est un objet représentant des données binaires immuables.
+     */
 }

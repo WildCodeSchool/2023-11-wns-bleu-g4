@@ -6,19 +6,28 @@ import { FormEvent, useState } from 'react';
 import uploadFile from '@/features/admin/helpers/uploadFile';
 import { toast } from "react-toastify";
 import { ToastConfigLogin } from '@/config/ToastConfig';
+import { useApolloClient } from '@apollo/client';
+import { ProfileDocument } from '@/graphql/User/generated/Profile.generated';
+import { CreateUserDocument } from '@/graphql/User/generated/CreateUser.generated';
 
 export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps) {
 
   const [imageURL, setImageURL] = useState("")
   const [updateProfile] = useUpdateProfileMutation();
 
+  const client = useApolloClient()
+  const oldProfile = client.readQuery({ query: ProfileDocument })
+  
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const formJSON: any = Object.fromEntries(formData.entries());
     if (imageURL !== "") formJSON.avatar = imageURL
 
+    
     try {
+      client.writeQuery({ query: ProfileDocument, data: { ...oldProfile, formJSON } })
+
       await updateProfile({ variables: { data: formJSON } });
       toast.info("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
     } catch (e: any) {
@@ -35,6 +44,8 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
 
         <ModalHeader>Update informations</ModalHeader>
         <ModalCloseButton />
+
+        <hr />
 
         <form onSubmit={(e) => handleSubmit(e).then(onClose)}>
           <ModalBody pb={6}>

@@ -1,0 +1,3 @@
+mutation CancelBookingItems($data: UpdateBookingItemInput!) {
+  cancelBookingItems(data: $data)
+}

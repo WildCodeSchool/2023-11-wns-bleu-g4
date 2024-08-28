@@ -52,7 +52,7 @@ export default function OrderTableBody({
     switch (status) {
       case StatusBooking.Late:
         return "bg-yellow-50 text-yellow-800 border-yellow-800/50";
-      case StatusBooking.Cancelled:
+      case StatusBooking.Canceled:
         return "bg-red-50 text-red-800 border-red-800/50";
       case StatusBooking.Booked:
         return "bg-blue-50 text-blue-800 border-blue-800/50";

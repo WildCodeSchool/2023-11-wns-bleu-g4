@@ -90,6 +90,13 @@ export type BrandList = {
   total: Scalars['Int']['output'];
 };
 
+export type CancelBookingInput = {
+  endDate: Scalars['DateTimeISO']['input'];
+  id: Scalars['Int']['input'];
+  startDate: Scalars['DateTimeISO']['input'];
+  status?: InputMaybe<StatusBooking>;
+};
+
 export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
@@ -107,6 +114,7 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   cancelBooking: Scalars['String']['output'];
+  cancelBookingItems: Scalars['String']['output'];
   confirmEmail: Scalars['String']['output'];
   createAgency: Agency;
   createBooking: Booking;
@@ -147,7 +155,12 @@ export type Mutation = {
 
 
 export type MutationCancelBookingArgs = {
-  bookingId: Scalars['Int']['input'];
+  data: CancelBookingInput;
+};
+
+
+export type MutationCancelBookingItemsArgs = {
+  data: UpdateBookingItemInput;
 };
 
 
@@ -696,7 +709,7 @@ export enum Status {
 /** Check booking's state. */
 export enum StatusBooking {
   Booked = 'BOOKED',
-  Cancelled = 'CANCELLED',
+  Canceled = 'CANCELED',
   Late = 'LATE',
   Retrieved = 'RETRIEVED'
 }

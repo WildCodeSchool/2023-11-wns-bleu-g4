@@ -1,6 +1,7 @@
-import {Arg, Int, Query, Resolver} from "type-graphql";
+import {Arg, Int, Mutation, Query, Resolver} from "type-graphql";
 import {ProductCode} from "../entities/ProductCode";
 import {Status} from "../enum/StatusProductCode";
+import { GraphQLError } from "graphql";
 
 @Resolver()
 class ProductCodeResolver {

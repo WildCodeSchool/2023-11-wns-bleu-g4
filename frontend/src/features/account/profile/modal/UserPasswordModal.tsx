@@ -62,11 +62,11 @@ export default function UserPasswordModal({ isOpen, onClose }: UserModalProps) {
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        {/* <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered> */}
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Update Password</ModalHeader>
                 <ModalCloseButton />
+                <hr />
                 <ModalBody>
                     <FormControl>
                         <Box gap={2} mb={5}>

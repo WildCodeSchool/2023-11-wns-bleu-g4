@@ -2,6 +2,7 @@ import { GraphQLError } from "graphql"
 import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
 import { BookingItem, NewBookingItemInput, UpdateBookingItemInput } from "../entities/BookingItem"
 import { Context } from "../utils"
+import { BookingItemStatus } from "../enum/BookingItemStatus"
 
 @Resolver()
 class BookingItemResolver {
@@ -13,7 +14,7 @@ class BookingItemResolver {
 	}
 
 	@Query(() => [BookingItem])
-	async getBookingItemsByBookingId(@Arg("bookingId", ()=> Int) bookingId: number) {
+	async getBookingItemsByBookingId(@Arg("bookingId", () => Int) bookingId: number) {
 		const items = await BookingItem.find({
 			where: { booking: { id: bookingId } },
 			relations: { booking: true, product: true, productCode: true },
@@ -69,6 +70,25 @@ class BookingItemResolver {
 
 		await itemToDelete.remove()
 		return `${itemToDelete.product.name} deleted`
+	}
+
+	@Authorized()
+	@Mutation(() => String)
+	async cancelBookingItems(
+		@Arg("data") data: UpdateBookingItemInput,
+		@Ctx() ctx: Context) {
+
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+
+		const itemToCancel = await BookingItem.findOne({ where: { id: data.id } })
+		if (!itemToCancel) throw new GraphQLError("Item not found")
+
+		itemToCancel.startDate = data.startDate as Date
+		itemToCancel.endDate = data.endDate as Date
+		itemToCancel.status = BookingItemStatus.CANCELED
+
+		await itemToCancel.save()
+		return "ok"
 	}
 }
 

@@ -28,19 +28,16 @@ export default function UserDeleteAccountModal({ isOpen, onClose }: UserModalPro
             <ModalContent>
                 <ModalHeader>Delete Account</ModalHeader>
                 <ModalCloseButton />
+                <hr />
+                <Box padding={5}>
+                    <Text>Are you sure you want to delete your account ?</Text>
+                    <Text>This action is irreversible !</Text>
+                </Box>
+                <Flex justifyContent={"space-between"} padding={5}>
+                    <Button onClick={onClose}>Cancel</Button>
+                    <Button onClick={deleteAccount} variant={"warningButton"} ml={3}>Delete Account</Button>
+                </Flex>
 
-                <form onSubmit={deleteAccount}>
-                    <Box padding={5}>
-                        <Text>Are you sure you want to delete your account ?</Text>
-                        <Text>This action is irreversible !</Text>
-                    </Box>
-                    <hr />
-                    <Flex justifyContent={"space-between"} padding={5}>
-                        <Button onClick={onClose}>Cancel</Button>
-                        <Button onClick={deleteAccount} variant={"warningButton"} ml={3} type="submit">Delete Account</Button>
-                    </Flex>
-
-                </form>
             </ModalContent>
         </Modal>
     )

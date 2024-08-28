@@ -37,6 +37,13 @@ export interface UserModalProps {
   // variant?: string;
 }
 
+export interface BookingModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  bookingId: number;
+  bookingItemsId : number[]
+}
+
 export interface User {
   id: number,
   name: string,
@@ -82,8 +89,8 @@ export interface Booking {
 export interface BookingItem {
   id?: number
   status?: string
-  startDate?: string
-  endDate?: string
+  startDate?: Date
+  endDate?: Date
   productCode?: {
     id: number
   }

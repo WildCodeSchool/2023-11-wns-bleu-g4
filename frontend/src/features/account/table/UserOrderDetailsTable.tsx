@@ -4,6 +4,7 @@ import { orderDetailsHeaders } from "../helpers/tableHeaders"
 import { useRouter } from "next/router";
 import transformToDate from "../helpers/TransformDate";
 import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
+import TimeStampToDayDuration from "../helpers/TimeStampToDayDuration";
 
 export default function UserOrdersDetailsTable() {
 
@@ -26,6 +27,11 @@ export default function UserOrdersDetailsTable() {
     })
     const bookingItems = data?.getBookingItemsByBookingId || []
 
+    const totalPrice = (price: number, dayFrom: Date, dayTo: Date) => {
+        let days = TimeStampToDayDuration(dayFrom, dayTo)
+        days = Math.floor(days)
+        return (price * days).toFixed(2)
+    }
 
     return (
         <Flex className="w-full flex flex-col xl:w-fit" gap={2} color={textColor}>
@@ -64,6 +70,9 @@ export default function UserOrdersDetailsTable() {
                                 </Td>
                                 <Td className="text-center whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40">
                                     <Text className="text-center">{item.product.price.toFixed(2) as number} €</Text>
+                                </Td>
+                                <Td className="text-center whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40">
+                                    <Text className="text-center">{totalPrice(item.product.price, item.startDate, item.endDate)} €</Text>
                                 </Td>
                                 <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-36 xl:min-w-36 xl:max-w-40 overflow-hidden text-ellipsis lg:table-cell">
                                     <Text className="text-center">{item.status}</Text>

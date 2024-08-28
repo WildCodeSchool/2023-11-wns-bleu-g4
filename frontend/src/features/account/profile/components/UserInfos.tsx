@@ -23,14 +23,14 @@ export default function UserInfos({ user }: { user?: User }) {
     const bgHeading = useColorModeValue("cactus.50", "cactus.900")
     const labelColor = useColorModeValue("cactus.500", "cactus.200")
     let bgTableHeadColor = useColorModeValue(
-        transparentBackGround ? 
-        "transparent" : "#d0d2d6", 
-        transparentBackGround ? 
-        "transparent" : "cactus.900")
+        transparentBackGround ?
+            "transparent" : "#d0d2d6",
+        transparentBackGround ?
+            "transparent" : "cactus.900")
     const bgColor = useColorModeValue("footerBgLight", "cactus.600")
     const bgTableContent = useColorModeValue("lightgrey", "cactus.700")
     const bgActionButton = useColorModeValue("accentLight", "accentDark")
-    
+
     const userInfos = [
         {
             title: "ADDRESS",
@@ -133,11 +133,11 @@ export default function UserInfos({ user }: { user?: User }) {
                     >
 
                         {/*************************** UPDATE ***************************/}
-                        <Button size='xs' padding='4' onClick={toggleUpdateUserModal} variant={"accentButton"}>Update</Button>
+                        <Button className="w-1/2" size='xs' padding='4' onClick={toggleUpdateUserModal} variant={"accentButton"}>Update</Button>
                         <UserInfoModal isOpen={isUpdateModalOpen} onClose={toggleUpdateUserModal} user={user} />
 
                         {/*************************** DELETE ***************************/}
-                        <Button size='xs' padding='4' variant={"warningButton"} onClick={toggleDeleteUserModal}>Delete Account</Button>
+                        <Button className="w-1/2" size='xs' padding='4' variant={"warningButton"} onClick={toggleDeleteUserModal}>Delete Account</Button>
                         <UserDeleteAccountModal isOpen={isDeleteModalOpen} onClose={toggleDeleteUserModal} />
 
                     </Flex>

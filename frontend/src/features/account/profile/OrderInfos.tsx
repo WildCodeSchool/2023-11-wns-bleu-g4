@@ -4,9 +4,13 @@ import { t } from "i18next";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
-import generatePdf from "./helper/GeneratePDF";
+import generatePdf from "../helpers/GeneratePDF";
 import { BookingItem, BookingPDF } from "../types";
 import transformToDate from "../helpers/TransformDate";
+import { useState } from "react";
+import CancelBookingModal from "./modal/CancelBookingModal";
+import { StatusBooking } from "@/graphql/generated/schema";
+import TimeStampToDayDuration from "../helpers/TimeStampToDayDuration";
 
 export default function OrderInfos() {
     /** DARK / LIGHT MODE */
@@ -15,14 +19,45 @@ export default function OrderInfos() {
     const labelColor = useColorModeValue("cactus.500", "cactus.200")
     const bgColor = useColorModeValue("footerBgLight", "cactus.600")
 
+    const { t } = useTranslation("UserOrderInfos");
+
     const router = useRouter()
     const { id } = router.query
-    const { data } = useGetBookingByIdQuery({ variables: { bookingId: parseInt(id as string) } })
+    const { data, loading } = useGetBookingByIdQuery({ variables: { bookingId: parseInt(id as string) } })
+
     const booking = data?.getBookingById
     const bookingId: number = parseInt(router.query.id as string)
-    const { t } = useTranslation("UserOrderInfos");
     const bookingItems = useGetBookingItemsByBookingIdQuery({ variables: { bookingId: bookingId } })
-    const bookingItemsArr : BookingItem[] = bookingItems.data?.getBookingItemsByBookingId || []
+    const bookingItemsArr: BookingItem[] = bookingItems.data?.getBookingItemsByBookingId || []
+    const canceled = booking?.status !== StatusBooking.Canceled
+
+
+    /* CHECK IF IT'S POSSIBLE TO CANCEL A BOOKING*/
+    const today = new Date()
+    const todayTimeStamp = today.getTime()
+    const endDateBooking: Date = new Date(booking?.endDate)
+    const endDateBookingTimestamp: number = endDateBooking.getTime()
+    let cancelable = endDateBookingTimestamp > todayTimeStamp
+
+    const [isCancelBookingModalOpen, setIsCancelBookingModalOpen] = useState(false);
+    const toggleCancelBookingModal = () => setIsCancelBookingModalOpen(!isCancelBookingModalOpen);
+
+    let totalAmount = 0
+    let bookingItemsId: number[] = []
+
+    for (let index = 0; index < bookingItemsArr.length; index++) {
+        totalAmount += bookingItemsArr[index].product?.price as number
+        bookingItemsId.push(bookingItemsArr[index].id as number)
+    }
+
+
+    const totalPrice = (price: number, dayFrom: Date, dayTo: Date) => {
+        let days = TimeStampToDayDuration(dayFrom, dayTo)
+        days = Math.floor(days)
+        // console.log(days)
+        return (price * days).toFixed(2)
+    }
+
 
     const bookingInfo = [
         {
@@ -45,7 +80,12 @@ export default function OrderInfos() {
             label: t("Status"),
             info: booking?.status
         },
+        {
+            label: t("Total Price"),
+            info: totalPrice(totalAmount, booking?.startDate as Date, booking?.endDate) + "€"
+        },
     ]
+
 
 
     return (
@@ -61,6 +101,8 @@ export default function OrderInfos() {
 
                 {
                     bookingInfo && bookingInfo.map((el, i) => {
+                        // Doesn't display price on canceled booking
+                        if (booking?.status === StatusBooking.Canceled && i === bookingInfo.length - 1) return
                         return (
                             <Flex key={i} gap={1} width={'100%'} className="flex sm:flex-col lg:flex-row mb-2">
                                 <Text className="w-2/5 sm:w-full lg:w-2/5 whitespace-nowrap truncate text-ellipsis" color={labelColor}>{el.label}</Text>
@@ -71,10 +113,29 @@ export default function OrderInfos() {
                 }
 
             </Flex>
-            <Flex className="w-full p-5 gap-2" bg={bgHeading}>
-                <Button className="w-1/2" size='xs' padding='4'>{t("Download")}</Button>
-                <Button className="w-1/2" size='xs' padding='4' onClick={()=>generatePdf(booking as BookingPDF, bookingItemsArr)}>{t("Print")}</Button>
-            </Flex>
+            {
+                canceled ?
+
+                    <Flex className="w-full p-5 gap-2" bg={bgHeading}>
+                        {
+                            cancelable ?
+                                <>
+                                    <Button className="w-1/2" size='xs' padding='4' variant={"warningButton"} onClick={toggleCancelBookingModal}>{t("Cancel")}</Button>
+                                    <CancelBookingModal isOpen={isCancelBookingModalOpen} onClose={toggleCancelBookingModal} bookingId={bookingId} bookingItemsId={bookingItemsId} />
+                                </>
+                                :
+                                null
+                        }
+                        <Button
+                            className={cancelable ? "w-1/2" : "w-full"}
+                            size='xs'
+                            padding='4'
+                            variant={"accentButton"}
+                            onClick={() => generatePdf(booking as BookingPDF, bookingItemsArr)}>{t("Print")}</Button>
+                    </Flex>
+                    :
+                    null
+            }
         </Flex>
     )
 }

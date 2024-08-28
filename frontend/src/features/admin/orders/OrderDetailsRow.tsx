@@ -24,7 +24,7 @@ export default function OrderDetailsDropdown({ order }: { order: Order }) {
           {order.user.postcode} {order.user.city}
           <span className="font-bold">{t("Customer phone")}:</span> {order.user.phone}
         </div>
-        {order.status !== StatusBooking.Cancelled &&
+        {order.status !== StatusBooking.Canceled &&
           <OrderDetailsStatus order={order} />
         }
       </td>
