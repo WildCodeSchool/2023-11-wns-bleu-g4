@@ -15,18 +15,18 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
   const [imageURL, setImageURL] = useState("")
   const [updateProfile] = useUpdateProfileMutation();
 
-  const client = useApolloClient()
-  const oldProfile = client.readQuery({ query: ProfileDocument })
-  
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const formJSON: any = Object.fromEntries(formData.entries());
     if (imageURL !== "") formJSON.avatar = imageURL
 
-    
+
     try {
-      client.writeQuery({ query: ProfileDocument, data: { ...oldProfile, formJSON } })
+      // const client = useApolloClient()
+      // const oldProfile = client.readQuery({ query: ProfileDocument })
+      // client.writeQuery({ query: ProfileDocument, data: { ...oldProfile, formJSON } })
 
       await updateProfile({ variables: { data: formJSON } });
       toast.info("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
