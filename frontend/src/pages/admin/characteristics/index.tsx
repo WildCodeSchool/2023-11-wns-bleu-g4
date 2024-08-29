@@ -63,11 +63,10 @@ export default function Characteristics() {
                 <CharacteristicCreateModal
                     isOpen={createCharacteristicModalOpen}
                     onClose={toggleCreateCharacteristicModal}
-                    refetch={refetch}
                 />
             )}
             <div className="overflow-x-auto">
-                <CharacteristicTableBody data={characteristics} refetch={refetch} loading={loading} />
+                <CharacteristicTableBody data={characteristics} loading={loading} />
             </div>
             <TableFooter
                 data={totalCharacteristics}
