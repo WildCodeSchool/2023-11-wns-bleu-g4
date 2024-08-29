@@ -109,10 +109,10 @@ export class NewProductCodeInput {
 	status: Status
 
 	@Field(() => Int)
-	product: number
+	productId: number
 
 	@Field(() => Int)
-	agency: number
+	agencyId: number
 
 	@Field(() => Boolean, { defaultValue: false })
 	isSizeable: boolean

@@ -1,0 +1,18 @@
+query GetProductCodesByProductId($limit: Int, $offset: Int, $productId: Int!) {
+  getProductCodesByProductId(limit: $limit, offset: $offset, productId: $productId) {
+    productCodes {
+      agency {
+        id
+        name
+      }
+      id
+      isSizeable
+      product {
+        id
+      }
+      size
+      status
+    }
+    total
+  }
+}

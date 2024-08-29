@@ -116,6 +116,7 @@ export type Mutation = {
   createParentCategory: ParentCategory;
   createProduct: Product;
   createProductCharacteristic: ProductCharacteristic;
+  createProductCode: Array<ProductCode>;
   createProduct_picture: Product_Picture;
   createReview: Review;
   createUser: User;
@@ -191,6 +192,12 @@ export type MutationCreateProductArgs = {
 
 export type MutationCreateProductCharacteristicArgs = {
   data: NewProductCharacteristicInput;
+};
+
+
+export type MutationCreateProductCodeArgs = {
+  data: NewProductCodeInput;
+  quantity: Scalars['Int']['input'];
 };
 
 
@@ -374,6 +381,14 @@ export type NewProductCharacteristicInput = {
   name: Scalars['String']['input'];
 };
 
+export type NewProductCodeInput = {
+  agencyId: Scalars['Int']['input'];
+  isSizeable?: Scalars['Boolean']['input'];
+  productId: Scalars['Int']['input'];
+  size?: InputMaybe<Scalars['String']['input']>;
+  status: Status;
+};
+
 export type NewProductInput = {
   brand: ObjectId;
   category?: InputMaybe<ObjectId>;
@@ -463,6 +478,12 @@ export type ProductCodeId = {
   id: Scalars['Int']['input'];
 };
 
+export type ProductCodeList = {
+  __typename?: 'ProductCodeList';
+  productCodes: Array<ProductCode>;
+  total: Scalars['Int']['output'];
+};
+
 export type ProductId = {
   id: Scalars['Int']['input'];
 };
@@ -506,6 +527,7 @@ export type Query = {
   getProductById: Product;
   getProductCharacteristicById: ProductCharacteristic;
   getProductCharacteristicsByProductId: Array<ProductCharacteristic>;
+  getProductCodesByProductId: ProductCodeList;
   getProductCodesByStatus: Array<ProductCode>;
   getReviewById: Review;
   getReviewsByProductId: Array<Review>;
@@ -631,6 +653,13 @@ export type QueryGetProductCharacteristicByIdArgs = {
 
 
 export type QueryGetProductCharacteristicsByProductIdArgs = {
+  productId: Scalars['Int']['input'];
+};
+
+
+export type QueryGetProductCodesByProductIdArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   productId: Scalars['Int']['input'];
 };
 

@@ -1,4 +1,3 @@
-import { productStocks } from "@/features/admin/helpers/dummyProducts";
 import ProductDetails from "@/features/admin/product/ProductDetails";
 import ProductPictures from "@/features/admin/product/ProductPictures";
 import ProductStocks from "@/features/admin/product/ProductStocks";
@@ -17,8 +16,10 @@ export default function ProductPage() {
       <h2>Informations</h2>
       <section className="flex flex-col gap-4 lg:flex-row lg:gap-8">
         <ProductDetails product={product!} />
-        <ProductPictures product={product!} />
-        {/* <ProductStocks product={product} /> */}
+        <div className="flex flex-col w-full gap-4 lg:gap-8">
+          <ProductPictures product={product!} />
+          <ProductStocks product={product!} />
+        </div>
       </section>
     </LayoutAdmin>
   );
