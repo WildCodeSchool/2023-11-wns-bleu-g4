@@ -108,6 +108,39 @@ class ProductCodeResolver {
 			relations: { product: true, agency: true },
 		})
 	}
+
+	@Authorized([UserRole.ADMIN])
+	@Mutation(() => ProductCode)
+	async updateProductCodeStatus(
+		@Arg("productCodeId", () => Int) productCodeId: number,
+		@Arg("status", () => Status) status: Status,
+		@Ctx() ctx: Context
+	) {
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+		if (ctx.currentUser.role !== UserRole.ADMIN) throw new GraphQLError("Not authorized")
+
+		const productCode = await ProductCode.findOne({ where: { id: productCodeId } })
+		if (!productCode) throw new GraphQLError(`Product code with ID ${productCodeId} not found`)
+
+		productCode.status = status
+		await productCode.save()
+
+		return productCode
+	}
+
+	@Authorized([UserRole.ADMIN])
+	@Mutation(() => Boolean)
+	async deleteProductCode(@Arg("productCodeId", () => Int) productCodeId: number, @Ctx() ctx: Context) {
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+		if (ctx.currentUser.role !== UserRole.ADMIN) throw new GraphQLError("Not authorized")
+
+		const productCode = await ProductCode.findOne({ where: { id: productCodeId } })
+		if (!productCode) throw new GraphQLError(`Product code with ID ${productCodeId} not found`)
+
+		await productCode.remove()
+
+		return true
+	}
 }
 
 export default ProductCodeResolver

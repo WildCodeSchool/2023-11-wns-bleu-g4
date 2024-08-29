@@ -11,14 +11,13 @@ export default function ProductStocks({ product }: { product: Product }) {
   const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
   const [currentPage, setCurrentPage] = useState(initialPage);
 
-  const { data } = useGetProductCodesByProductIdQuery({
+  const { data, refetch } = useGetProductCodesByProductIdQuery({
     variables: {
       limit: 14,
       offset: currentPage * 14,
       productId: product?.id!,
     }
-  },
-  );
+  });
   const productCodes = data?.getProductCodesByProductId.productCodes ?? [];
   const totalProductCodes = data?.getProductCodesByProductId.total ?? 0;
 
@@ -53,7 +52,7 @@ export default function ProductStocks({ product }: { product: Product }) {
         <h3>Stocks</h3>
         <span className="text-xl">({totalProductCodes})</span>
       </div>
-      <ProductStockTableBody data={productCodes} />
+      <ProductStockTableBody data={productCodes} refetch={refetch} />
       <TableFooter
         data={totalProductCodesAgencies}
         startIndex={startIndex}

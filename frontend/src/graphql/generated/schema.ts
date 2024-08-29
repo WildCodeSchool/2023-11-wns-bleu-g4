@@ -127,6 +127,7 @@ export type Mutation = {
   deleteParentCategory: Scalars['String']['output'];
   deleteProduct: Scalars['String']['output'];
   deleteProductCharacteristic: Scalars['String']['output'];
+  deleteProductCode: Scalars['Boolean']['output'];
   deleteProduct_picture: Scalars['Boolean']['output'];
   deleteReview: Scalars['String']['output'];
   login: Scalars['String']['output'];
@@ -139,6 +140,7 @@ export type Mutation = {
   updateParentCategory: ParentCategory;
   updateProduct: Product;
   updateProductCharacteristic: ProductCharacteristic;
+  updateProductCodeStatus: ProductCode;
   updateProduct_picture: Product_Picture;
   updateProfile: User;
   updateReview: Review;
@@ -251,6 +253,11 @@ export type MutationDeleteProductCharacteristicArgs = {
 };
 
 
+export type MutationDeleteProductCodeArgs = {
+  productCodeId: Scalars['Int']['input'];
+};
+
+
 export type MutationDeleteProduct_PictureArgs = {
   id: Scalars['Int']['input'];
 };
@@ -311,6 +318,12 @@ export type MutationUpdateProductArgs = {
 export type MutationUpdateProductCharacteristicArgs = {
   data: UpdateProductCharacteristicInput;
   productCharacteristicId: Scalars['Float']['input'];
+};
+
+
+export type MutationUpdateProductCodeStatusArgs = {
+  productCodeId: Scalars['Int']['input'];
+  status: Status;
 };
 
 
