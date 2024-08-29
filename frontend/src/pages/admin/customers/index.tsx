@@ -16,7 +16,7 @@ export default function Customers() {
   const [currentPage, setCurrentPage] = useState(initialPage);
   const searchTerm = query.search ? query.search as string : '';
 
-  const { data } = useGetAllUsersQuery({
+  const { data, loading } = useGetAllUsersQuery({
     variables: {
       limit: 14,
       offset: currentPage * 14,
@@ -50,7 +50,7 @@ export default function Customers() {
         <SearchAdmin />
       </div>
       <div className="overflow-x-auto">
-        <CustomerTableBody data={users} />
+        <CustomerTableBody data={users} loading={loading} />
       </div>
       <TableFooter
         data={totalUsers}

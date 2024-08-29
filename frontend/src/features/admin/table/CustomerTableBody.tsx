@@ -2,8 +2,9 @@ import { TableBodyProps } from "../product/types";
 import { customerTableHeaders } from "../helpers/tableHeaders";
 import { useTranslation } from "react-i18next";
 import { User } from "@/graphql/generated/schema";
+import Loading from "@/shared/components/Loading";
 
-export default function CustomerTableBody({ data }: TableBodyProps) {
+export default function CustomerTableBody({ data, loading }: TableBodyProps) {
   const { t } = useTranslation("CustomerTableBody");
 
   return (
@@ -22,7 +23,20 @@ export default function CustomerTableBody({ data }: TableBodyProps) {
         </tr>
       </thead>
       <tbody className="text-sm">
-        {data.length !== 0 ? (
+        {loading && (
+          <tr>
+            <td className="p-4 text-center" colSpan={5}>
+              <Loading loading={loading} />
+            </td>
+          </tr>
+        )}
+        {!loading && data.length === 0 ? (
+          <tr>
+            <td className="p-4 text-center" colSpan={5}>
+              {t("No customer found")}
+            </td>
+          </tr>
+        ) : (
           data.map((customer: User, index: number) => (
             <tr
               key={customer.id}
@@ -38,12 +52,6 @@ export default function CustomerTableBody({ data }: TableBodyProps) {
               <td className="whitespace-nowrap p-3 w-60 min-w-max">{customer.phone}</td>
             </tr>
           ))
-        ) : (
-          <tr>
-            <td className="p-4 text-center" colSpan={5}>
-              No customer found
-            </td>
-          </tr>
         )}
       </tbody>
     </table>

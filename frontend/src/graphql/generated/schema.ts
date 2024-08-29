@@ -117,6 +117,7 @@ export type Mutation = {
   createParentCategory: ParentCategory;
   createProduct: Product;
   createProductCharacteristic: ProductCharacteristic;
+  createProductCode: Array<ProductCode>;
   createProduct_picture: Product_Picture;
   createReview: Review;
   createUser: User;
@@ -127,6 +128,7 @@ export type Mutation = {
   deleteParentCategory: Scalars['String']['output'];
   deleteProduct: Scalars['String']['output'];
   deleteProductCharacteristic: Scalars['String']['output'];
+  deleteProductCode: Scalars['Boolean']['output'];
   deleteProduct_picture: Scalars['Boolean']['output'];
   deleteProfile: Scalars['String']['output'];
   deleteReview: Scalars['String']['output'];
@@ -141,6 +143,7 @@ export type Mutation = {
   updatePassword: User;
   updateProduct: Product;
   updateProductCharacteristic: ProductCharacteristic;
+  updateProductCodeStatus: ProductCode;
   updateProduct_picture: Product_Picture;
   updateProfile: User;
   updateReview: Review;
@@ -202,6 +205,12 @@ export type MutationCreateProductCharacteristicArgs = {
 };
 
 
+export type MutationCreateProductCodeArgs = {
+  data: NewProductCodeInput;
+  quantity: Scalars['Int']['input'];
+};
+
+
 export type MutationCreateProduct_PictureArgs = {
   data: NewProduct_PictureInput;
 };
@@ -249,6 +258,11 @@ export type MutationDeleteProductArgs = {
 
 export type MutationDeleteProductCharacteristicArgs = {
   productCharacteristicId: Scalars['Int']['input'];
+};
+
+
+export type MutationDeleteProductCodeArgs = {
+  productCodeId: Scalars['Int']['input'];
 };
 
 
@@ -320,6 +334,12 @@ export type MutationUpdateProductCharacteristicArgs = {
 };
 
 
+export type MutationUpdateProductCodeStatusArgs = {
+  productCodeId: Scalars['Int']['input'];
+  status: Status;
+};
+
+
 export type MutationUpdateProduct_PictureArgs = {
   data: UpdateProduct_PictureInput;
   id: Scalars['Int']['input'];
@@ -385,6 +405,14 @@ export type NewParentCategoryInput = {
 
 export type NewProductCharacteristicInput = {
   name: Scalars['String']['input'];
+};
+
+export type NewProductCodeInput = {
+  agencyId: Scalars['Int']['input'];
+  isSizeable?: Scalars['Boolean']['input'];
+  productId: Scalars['Int']['input'];
+  size?: InputMaybe<Scalars['String']['input']>;
+  status: Status;
 };
 
 export type NewProductInput = {
@@ -476,6 +504,12 @@ export type ProductCodeId = {
   id: Scalars['Int']['input'];
 };
 
+export type ProductCodeList = {
+  __typename?: 'ProductCodeList';
+  productCodes: Array<ProductCode>;
+  total: Scalars['Int']['output'];
+};
+
 export type ProductId = {
   id: Scalars['Int']['input'];
 };
@@ -520,6 +554,7 @@ export type Query = {
   getProductById: Product;
   getProductCharacteristicById: ProductCharacteristic;
   getProductCharacteristicsByProductId: Array<ProductCharacteristic>;
+  getProductCodesByProductId: ProductCodeList;
   getProductCodesByStatus: Array<ProductCode>;
   getReviewById: Review;
   getReviewsByProductId: Array<Review>;
@@ -652,6 +687,13 @@ export type QueryGetProductCharacteristicByIdArgs = {
 
 
 export type QueryGetProductCharacteristicsByProductIdArgs = {
+  productId: Scalars['Int']['input'];
+};
+
+
+export type QueryGetProductCodesByProductIdArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   productId: Scalars['Int']['input'];
 };
 

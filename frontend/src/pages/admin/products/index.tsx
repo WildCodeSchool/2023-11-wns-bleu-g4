@@ -19,7 +19,7 @@ export default function Products() {
   const [currentPage, setCurrentPage] = useState(initialPage);
   const searchTerm = query.search ? query.search as string : '';
 
-  const { data, refetch } = useGetAllProductsQuery({
+  const { data, refetch, loading } = useGetAllProductsQuery({
     variables: {
       limit: 14,
       offset: currentPage * 14,
@@ -70,7 +70,7 @@ export default function Products() {
         />
       }
       <div className="overflow-x-auto">
-        <ProductTableBody data={products} refetch={refetch} />
+        <ProductTableBody data={products} refetch={refetch} loading={loading} />
       </div>
       <TableFooter
         data={totalProducts}

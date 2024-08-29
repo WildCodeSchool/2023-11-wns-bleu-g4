@@ -1,7 +1,11 @@
 import {
+  Box,
   Button,
+  Checkbox,
+  Flex,
   FormControl,
   FormLabel,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,37 +18,121 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Select,
 } from "@chakra-ui/react";
-import { ProductModalProps } from "../types";
+import { ProductCodeModalProps } from "../types";
+import { useCreateProductCodeMutation } from "@/graphql/ProductCode/generated/CreateProductCode.generated";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { Status } from "@/graphql/generated/schema";
 
-export default function ProductStockModal({ isOpen, onClose, product }: ProductModalProps) {
+interface Size {
+  id: number;
+  name: string;
+}
+
+const sizes: Size[] = [
+  { id: 1, name: "S" },
+  { id: 2, name: "M" },
+  { id: 3, name: "L" },
+  { id: 4, name: "XL" },
+  { id: 5, name: "XXL" },
+];
+
+export default function ProductStockModal({ isOpen, onClose, agency, product }: ProductCodeModalProps) {
+  const agencyId = agency?.id!;
+  const productId = product?.id!;
+  const [createProductCode] = useCreateProductCodeMutation();
+  const [newProductCode, setNewProductCode] = useState({
+    size: "",
+    agencyId: agencyId,
+    productId: productId,
+    isSizeable: false,
+    status: Status.Available,
+  });
+  const [quantity, setQuantity] = useState(0);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setNewProductCode(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewProductCode(prev => ({
+      ...prev,
+      isSizeable: e.target.checked,
+      size: e.target.checked ? prev.size : "",
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    createProductCode({
+      variables: {
+        quantity: quantity,
+        data: newProductCode,
+      },
+      refetchQueries: ["GetProductCodesByProductId"],
+    })
+      .then(onClose)
+      .catch(console.error);
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add stock quantity for {product?.name}</ModalHeader>
+        <ModalHeader>Add stock quantity for {agency?.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <FormControl>
-            <FormLabel mb={1} id="stock">
-              Quantity
-            </FormLabel>
-            <NumberInput allowMouseWheel min={0} step={1}>
-              <NumberInputField placeholder="5" />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </FormControl>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <Flex gap={4}>
+              <FormControl>
+                <FormLabel mb={1} id="stock">
+                  Quantity
+                </FormLabel>
+                <NumberInput allowMouseWheel min={0} step={1}
+                  value={quantity}
+                  onChange={(valueString) => setQuantity(parseInt(valueString, 10))}>
+                  <NumberInputField placeholder="5" />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </FormControl>
+              <FormControl>
+                <FormLabel mb={1}>Sizeable</FormLabel>
+                <Checkbox
+                  type="checkbox"
+                  name="isSizeable"
+                  checked={newProductCode.isSizeable}
+                  onChange={handleCheckboxChange}
+                />
+              </FormControl>
+            </Flex>
+            <FormControl>
+              <FormLabel mb={1}>Size</FormLabel>
+              <Input
+                placeholder="Enter size (E.g. S, M, 46, 48)"
+                id="size"
+                name="size"
+                value={newProductCode.size}
+                onChange={handleInputChange}
+                isDisabled={!newProductCode.isSizeable}
+              />
+            </FormControl>
+            <ModalFooter paddingInline={0} pb={0} pt={8}>
+              <Button onClick={onClose}>Cancel</Button>
+              <Button colorScheme="blue" ml={3} type="submit">
+                Add
+              </Button>
+            </ModalFooter>
+          </form>
         </ModalBody>
-
-        <ModalFooter>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button colorScheme="blue" ml={3} type="submit">
-            Add
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );

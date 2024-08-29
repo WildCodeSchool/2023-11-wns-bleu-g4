@@ -10,8 +10,9 @@ import { Category } from "../types";
 import CategoryThumbnailModal from "../modal/CategoryThumbnailModal";
 import CategoryUpdateModal from "../modal/CategoryUpdateModal";
 import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
+import Loading from "@/shared/components/Loading";
 
-export default function CategoryTableBody({ data }: TableBodyProps) {
+export default function CategoryTableBody({ data, loading }: TableBodyProps) {
   const { t } = useTranslation("CategoryTableBody");
 
   const [deleteCategory] = useDeleteCategoryMutation();
@@ -67,7 +68,20 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
           </tr>
         </thead>
         <tbody className="text-sm">
-          {data.length !== 0 ? (
+          {loading && (
+            <tr>
+              <td className="p-4 text-center" colSpan={2}>
+                <Loading loading={loading} />
+              </td>
+            </tr>
+          )}
+          {!loading && data.length === 0 ? (
+            <tr>
+              <td className="p-4 text-center" colSpan={4}>
+                {t("No categories found")}
+              </td>
+            </tr>
+          ) : (
             data.map((category: Category, index: number) => (
               <React.Fragment key={category.id}>
                 <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
@@ -106,12 +120,6 @@ export default function CategoryTableBody({ data }: TableBodyProps) {
                 </tr>
               </React.Fragment>
             ))
-          ) : (
-            <tr>
-              <td className="p-4 text-center" colSpan={4}>
-                {t("No categories found")}
-              </td>
-            </tr>
           )}
         </tbody>
       </table>

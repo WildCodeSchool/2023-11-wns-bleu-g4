@@ -16,7 +16,7 @@ export default function Orders() {
   const [currentPage, setCurrentPage] = useState(initialPage);
   const searchTerm = query.search ? query.search as string : '';
 
-  const { data, refetch } = useGetAllBookingQuery({
+  const { data, refetch, loading } = useGetAllBookingQuery({
     variables: {
       limit: 14,
       offset: currentPage * 14,
@@ -93,6 +93,7 @@ export default function Orders() {
         <OrderTableBody
           data={sortedData}
           refetch={refetch}
+          loading={loading}
           sortOrder={sortOrder}
           sortColumnName={sortColumn}
           handleDateSort={handleDateSort}
