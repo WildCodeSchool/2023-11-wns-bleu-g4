@@ -16,9 +16,12 @@ import { BrandModalProps } from "./types";
 import { useUpdateBrandMutation } from "@/graphql/Brand/generated/updateBrand.generated";
 import { GetBrandByIdDocument } from "@/graphql/Brand/generated/getBrandById.generated";
 import uploadFile from "../helpers/uploadFile";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export default function BrandUpdateModal({ isOpen, onClose, brand }: BrandModalProps) {
-  const [updateBrand] = useUpdateBrandMutation();
+  const { t } = useTranslation("BrandUpdateModal");
+  const [updateBrand, { error }] = useUpdateBrandMutation();
   const [imageURL, setImageURL] = useState(brand?.logo);
   const [formData, setFormData] = useState({
     name: brand?.name,
@@ -43,12 +46,16 @@ export default function BrandUpdateModal({ isOpen, onClose, brand }: BrandModalP
       logo: imageURL,
     };
 
-    updateBrand({
-      variables: { data: brandData, brandId },
-      refetchQueries: [{ query: GetBrandByIdDocument, variables: { brandId } }],
-    })
-      .then(onClose)
-      .catch(console.error);
+    try {
+      await updateBrand({
+        variables: { data: brandData, brandId },
+        refetchQueries: [{ query: GetBrandByIdDocument, variables: { brandId } }],
+      }).then(onClose);
+      toast.success(t("Brand updated successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   return (

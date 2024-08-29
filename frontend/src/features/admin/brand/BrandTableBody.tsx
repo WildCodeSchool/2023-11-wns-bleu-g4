@@ -9,11 +9,12 @@ import { brandTableHeaders } from "../helpers/tableHeaders";
 import BrandDeleteModal from "./BrandDeleteModal";
 import BrandLogoModal from "./BrandLogoModal";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
 
 export default function BrandTableBody({ data, refetch, loading }: TableBodyProps) {
   const { t } = useTranslation("BrandTableBody");
 
-  const [deleteBrand] = useDeleteBrandMutation();
+  const [deleteBrand, { error }] = useDeleteBrandMutation();
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -39,7 +40,9 @@ export default function BrandTableBody({ data, refetch, loading }: TableBodyProp
       await deleteBrand({ variables: { brandId: id } });
       refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
+      toast.success(t("Brand deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };

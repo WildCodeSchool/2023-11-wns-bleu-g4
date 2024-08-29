@@ -19,9 +19,12 @@ import {
   useGetAllProductCharacteristicsQuery
 } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 import Select, { MultiValue } from "react-select";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export default function ProductCharUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
-  const [updateProduct] = useUpdateProductMutation();
+  const { t } = useTranslation("ProductCharUpdateModal");
+  const [updateProduct, { error }] = useUpdateProductMutation();
   const [formData, setFormData] = useState({
     characteristics: product?.characteristics,
   });
@@ -39,12 +42,16 @@ export default function ProductCharUpdateModal({ isOpen, onClose, product }: Pro
       characteristics: selectedCharacteristics.map((c: any) => ({ id: c.id })),
     };
 
-    updateProduct({
-      variables: { data: productData, productId },
-      refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
-    })
-      .then(onClose)
-      .catch(console.error);
+    try {
+      await updateProduct({
+        variables: { data: productData, productId },
+        refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
+      }).then(onClose);
+      toast.success(t("Product characteristics updated successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   useEffect(() => {

@@ -5,6 +5,8 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { useUpdateBookingMutation } from "@/graphql/Booking/generated/UpdateBooking.generated";
 import { GetBookingByIdDocument } from "@/graphql/Booking/generated/GetBookingById.generated";
 import { StatusBooking } from "@/graphql/generated/schema";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const statusOptions = [
     { id: 1, value: StatusBooking.Booked, name: "Booked" },
@@ -13,7 +15,8 @@ const statusOptions = [
 ];
 
 export default function OrderDetailsStatus({ order }: { order: Order }) {
-    const [updateOrderStatus] = useUpdateBookingMutation();
+    const { t } = useTranslation("OrderDetailsStatus");
+    const [updateOrderStatus, { error }] = useUpdateBookingMutation();
     const [formData, setFormData] = useState<{ status: StatusBooking }>({ status: order.status });
 
     const bookingId = order?.id!;
@@ -26,14 +29,19 @@ export default function OrderDetailsStatus({ order }: { order: Order }) {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        updateOrderStatus({
-            variables: { data: formData, bookingId },
-            refetchQueries: [{ query: GetBookingByIdDocument, variables: { bookingId } }],
-        })
-            .catch(console.error);
+        try {
+            await updateOrderStatus({
+                variables: { data: formData, bookingId },
+                refetchQueries: [{ query: GetBookingByIdDocument, variables: { bookingId } }],
+            })
+            toast.success(t("Order status updated successfully"));
+        } catch (e) {
+            toast.error(error?.message);
+            console.error(e);
+        }
     }
 
     return (
@@ -54,7 +62,7 @@ export default function OrderDetailsStatus({ order }: { order: Order }) {
                             </option>
                         ))}
                     </Select>
-                    <Button colorScheme="blue" ml={3} type="submit">
+                    <Button colorScheme="cactus" ml={3} type="submit">
                         <CheckIcon className="h-6 w-6" />
                     </Button>
                 </Flex>

@@ -26,9 +26,13 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useGetAllBrandsQuery } from "@/graphql/Brand/generated/getAllBrands.generated";
 import uploadFile from "../../helpers/uploadFile";
 import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import { on } from "events";
 
 export default function ProductCreateModal({ isOpen, onClose, refetch }: ProductModalProps) {
-  const [createProduct] = useCreateProductMutation();
+  const { t } = useTranslation("ProductCreateModal");
+  const [createProduct, { error }] = useCreateProductMutation();
   const [imageURL, setImageURL] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -81,11 +85,12 @@ export default function ProductCreateModal({ isOpen, onClose, refetch }: Product
     };
 
     try {
-      await createProduct({ variables: { data: productData } });
+      await createProduct({ variables: { data: productData } }).then(onClose);
       refetch && refetch();
-      onClose();
-    } catch (error) {
-      console.error(error);
+      toast.success(t("Product created successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
     }
   };
 
