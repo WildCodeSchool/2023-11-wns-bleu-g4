@@ -43,14 +43,12 @@ export default function UserOrdersTable() {
     const bookings = data?.getBookingsByUserId.bookings || []
     const totalProducts = data?.getBookingsByUserId.total
 
-    console.log(bookings)
     /** Pagination 2/2 */
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + Math.min(itemsPerPage, bookings?.length ?? 0);
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
         const nextPage = pageNumber + 1;
-        console.log(query.id)
         router.push(`/account/user/${query.id}?page=${nextPage}`);
     };
 

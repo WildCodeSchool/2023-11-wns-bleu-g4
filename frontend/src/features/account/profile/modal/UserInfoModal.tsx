@@ -8,13 +8,14 @@ import { toast } from "react-toastify";
 import { ToastConfigLogin } from '@/config/ToastConfig';
 import { useApolloClient } from '@apollo/client';
 import { ProfileDocument } from '@/graphql/User/generated/Profile.generated';
-import { CreateUserDocument } from '@/graphql/User/generated/CreateUser.generated';
 
 export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps) {
 
   const [imageURL, setImageURL] = useState("")
   const [updateProfile] = useUpdateProfileMutation();
 
+  // Use Apollo Client Cache
+  const client = useApolloClient()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,13 +23,12 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
     const formJSON: any = Object.fromEntries(formData.entries());
     if (imageURL !== "") formJSON.avatar = imageURL
 
-
     try {
-      // const client = useApolloClient()
-      // const oldProfile = client.readQuery({ query: ProfileDocument })
-      // client.writeQuery({ query: ProfileDocument, data: { ...oldProfile, formJSON } })
-
       await updateProfile({ variables: { data: formJSON } });
+      
+      // Hot reload data
+      client.writeQuery({ query: ProfileDocument, data: { profile: formJSON } }) 
+      
       toast.info("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
     } catch (e: any) {
       const errArr = e.message.replace("_", " ");
