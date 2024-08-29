@@ -17,9 +17,14 @@ import uploadFile from "../../helpers/uploadFile";
 import { CategoryModalProps, ParentCategory } from "../types";
 import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import { useCreateCategoryMutation } from "@/graphql/Category/generated/createCategory.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import client from "@/graphql/client";
+import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
 
-export default function CategoryCreateModal({ isOpen, onClose, refetch }: CategoryModalProps) {
-  const [createCategory] = useCreateCategoryMutation();
+export default function CategoryCreateModal({ isOpen, onClose }: CategoryModalProps) {
+  const { t } = useTranslation("CategoryCreateModal");
+  const [createCategory, { error }] = useCreateCategoryMutation();
   const [imageURL, setImageURL] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -57,10 +62,21 @@ export default function CategoryCreateModal({ isOpen, onClose, refetch }: Catego
 
     try {
       await createCategory({ variables: { data: categoryData } });
-      refetch && refetch();
+
+      const existingData = client.readQuery<GetAllCategoriesQuery>({ query: GetAllCategoriesDocument })!;
+
+      const updatedData = [...existingData.getAllCategories, categoryData];
+
+      client.writeQuery({
+        query: GetAllCategoriesDocument,
+        data: { getAllCategories: updatedData },
+      });
+
       onClose();
-    } catch (error) {
-      console.error(error);
+      toast.success(t("Category created successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
     }
   };
 

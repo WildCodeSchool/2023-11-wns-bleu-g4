@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import client from "@/graphql/client";
 import { TableBodyProps } from "../../product/types";
 import { parentCategoryTableHeaders } from "../../helpers/tableHeaders";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
@@ -15,11 +14,13 @@ import {
 import ParentCategoryDeleteModal from "../modal/ParentCategoryDeleteModal";
 import ParentCategoryUpdateModal from "../modal/ParentCategoryUpdateModal";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
+import client from "@/graphql/client";
 
 export default function ParentCategoryTableBody({ data, loading }: TableBodyProps) {
   const { t } = useTranslation("ParentCategoryTableBody");
 
-  const [deleteParentCategory] = useDeleteParentCategoryMutation();
+  const [deleteParentCategory, { error }] = useDeleteParentCategoryMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedParentCategory, setSelectedParentCategory] = useState<ParentCategory | null>(null);
@@ -42,9 +43,11 @@ export default function ParentCategoryTableBody({ data, loading }: TableBodyProp
         data: {
           getAllParentCategories: data.filter((parentCategory: ParentCategory) => parentCategory.id !== id),
         },
-      });
+      })
       setIsDeleteModalOpen(!isDeleteModalOpen);
+      toast.success(t("Parent category deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };
