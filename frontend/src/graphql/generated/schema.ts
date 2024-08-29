@@ -90,13 +90,6 @@ export type BrandList = {
   total: Scalars['Int']['output'];
 };
 
-export type CancelBookingInput = {
-  endDate: Scalars['DateTimeISO']['input'];
-  id: Scalars['Int']['input'];
-  startDate: Scalars['DateTimeISO']['input'];
-  status?: InputMaybe<StatusBooking>;
-};
-
 export type Category = {
   __typename?: 'Category';
   id: Scalars['Int']['output'];
@@ -155,12 +148,12 @@ export type Mutation = {
 
 
 export type MutationCancelBookingArgs = {
-  data: CancelBookingInput;
+  bookingId: Scalars['Int']['input'];
 };
 
 
 export type MutationCancelBookingItemsArgs = {
-  data: UpdateBookingItemInput;
+  bookingItemIds: Array<Scalars['Int']['input']>;
 };
 
 

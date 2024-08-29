@@ -82,7 +82,7 @@ export default function OrderInfos() {
         },
         {
             label: t("Total Price"),
-            info: totalPrice(totalAmount, booking?.startDate as Date, booking?.endDate) + "€"
+            info: totalPrice(totalAmount, booking?.startDate as Date, booking?.endDate) + " €"
         },
     ]
 
@@ -121,7 +121,7 @@ export default function OrderInfos() {
                             cancelable ?
                                 <>
                                     <Button className="w-1/2" size='xs' padding='4' variant={"warningButton"} onClick={toggleCancelBookingModal}>{t("Cancel")}</Button>
-                                    <CancelBookingModal isOpen={isCancelBookingModalOpen} onClose={toggleCancelBookingModal} bookingId={bookingId} bookingItemsId={bookingItemsId} />
+                                    <CancelBookingModal isOpen={isCancelBookingModalOpen} onClose={toggleCancelBookingModal} bookingId={bookingId} bookingItemIds={bookingItemsId} />
                                 </>
                                 :
                                 null

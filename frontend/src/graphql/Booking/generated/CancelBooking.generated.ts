@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CancelBookingMutationVariables = Types.Exact<{
-  data: Types.CancelBookingInput;
+  bookingId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -12,8 +12,8 @@ export type CancelBookingMutation = { __typename?: 'Mutation', cancelBooking: st
 
 
 export const CancelBookingDocument = gql`
-    mutation CancelBooking($data: CancelBookingInput!) {
-  cancelBooking(data: $data)
+    mutation CancelBooking($bookingId: Int!) {
+  cancelBooking(bookingId: $bookingId)
 }
     `;
 export type CancelBookingMutationFn = Apollo.MutationFunction<CancelBookingMutation, CancelBookingMutationVariables>;
@@ -31,7 +31,7 @@ export type CancelBookingMutationFn = Apollo.MutationFunction<CancelBookingMutat
  * @example
  * const [cancelBookingMutation, { data, loading, error }] = useCancelBookingMutation({
  *   variables: {
- *      data: // value for 'data'
+ *      bookingId: // value for 'bookingId'
  *   },
  * });
  */

@@ -14,31 +14,31 @@ import { ILike } from "typeorm"
 
 @Resolver()
 class BookingResolver {
-	@Query(() => BookingList)
-	async getAllBooking(
-		@Arg("bookingId", () => Int, { nullable: true }) bookingId?: number,
-		@Arg("agencyId", () => Int, { nullable: true }) agencyId?: number,
-		@Arg("userName", () => String, { nullable: true }) userName?: string,
-		@Arg("userFirstname", () => String, { nullable: true }) userFirstname?: string,
-		@Arg("limit", () => Int, { nullable: true }) limit?: number,
-		@Arg("offset", () => Int, { nullable: true }) offset?: number
-	) {
-		const whereConditions = [
-			{ id: bookingId },
-			{ agency: { id: agencyId } },
-			{ user: { name: ILike(`%${userName}%`) } },
-			{ user: { firstname: ILike(`%${userFirstname}%`) } },
-		]
+    @Query(() => BookingList)
+    async getAllBooking(
+        @Arg("bookingId", () => Int, { nullable: true }) bookingId?: number,
+        @Arg("agencyId", () => Int, { nullable: true }) agencyId?: number,
+        @Arg("userName", () => String, { nullable: true }) userName?: string,
+        @Arg("userFirstname", () => String, { nullable: true }) userFirstname?: string,
+        @Arg("limit", () => Int, { nullable: true }) limit?: number,
+        @Arg("offset", () => Int, { nullable: true }) offset?: number
+    ) {
+        const whereConditions = [
+            { id: bookingId },
+            { agency: { id: agencyId } },
+            { user: { name: ILike(`%${userName}%`) } },
+            { user: { firstname: ILike(`%${userFirstname}%`) } },
+        ]
 
-		const [bookings, total] = await Booking.findAndCount({
-			relations: { user: true, agency: true, bookingItem: true },
-			where: whereConditions,
-			take: limit,
-			skip: offset,
-		})
+        const [bookings, total] = await Booking.findAndCount({
+            relations: { user: true, agency: true, bookingItem: true },
+            where: whereConditions,
+            take: limit,
+            skip: offset,
+        })
 
-		return { bookings, total }
-	}
+        return { bookings, total }
+    }
 
     @Query(() => Booking)
     async getBookingById(
@@ -147,7 +147,7 @@ class BookingResolver {
     @Authorized()
     @Mutation(() => Booking)
     async updateBooking(
-        @Arg("bookingId",() => Int) id: number,
+        @Arg("bookingId", () => Int) id: number,
         @Arg("data", { validate: true }) data: UpdateBookingInput,
         @Ctx() ctx: Context
     ) {
@@ -176,13 +176,13 @@ class BookingResolver {
     @Authorized()
     @Mutation(() => String)
     async cancelBooking(
-        @Arg("data") data: CancelBookingInput,
+        @Arg("bookingId", () => Int) bookingId: number,
         @Ctx() ctx: Context
     ) {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
 
         const bookingToCancel = await Booking.findOne({
-            where: { id : data.id }
+            where: { id: bookingId }
         });
 
         if (!bookingToCancel) throw new GraphQLError("Booking not found");

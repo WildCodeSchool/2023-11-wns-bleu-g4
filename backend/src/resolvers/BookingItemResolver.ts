@@ -75,18 +75,21 @@ class BookingItemResolver {
 	@Authorized()
 	@Mutation(() => String)
 	async cancelBookingItems(
-		@Arg("data") data: UpdateBookingItemInput,
+		@Arg("bookingItemIds", () => [Int]) bookingItemIds: number[],
 		@Ctx() ctx: Context) {
 
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-		const itemToCancel = await BookingItem.findOne({ where: { id: data.id } })
-		if (!itemToCancel) throw new GraphQLError("Item not found")
+		for (let index = 0; index < bookingItemIds.length; index++) {
+			const itemToCancel = await BookingItem.findOne({ where: { id: bookingItemIds[index] } })
+			if (!itemToCancel) throw new GraphQLError("Item not found")
 
-		itemToCancel.status = BookingItemStatus.CANCELED
+			itemToCancel.status = BookingItemStatus.CANCELED
 
-		await itemToCancel.save()
-		return "Booking item set to canceled"
+			await itemToCancel.save()
+		}
+
+		return "Booking items set to canceled"
 	}
 }
 

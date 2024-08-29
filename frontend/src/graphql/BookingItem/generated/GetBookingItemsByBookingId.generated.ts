@@ -8,7 +8,7 @@ export type GetBookingItemsByBookingIdQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetBookingItemsByBookingIdQuery = { __typename?: 'Query', getBookingItemsByBookingId: Array<{ __typename?: 'BookingItem', id: number, status: Types.BookingItemStatus, startDate: any, endDate: any, productCode: { __typename?: 'ProductCode', id: number }, product: { __typename?: 'Product', name: string, price: number } }> };
+export type GetBookingItemsByBookingIdQuery = { __typename?: 'Query', getBookingItemsByBookingId: Array<{ __typename?: 'BookingItem', id: number, status: Types.BookingItemStatus, startDate: any, endDate: any, productCode: { __typename?: 'ProductCode', id: number }, product: { __typename?: 'Product', name: string, price: number, thumbnail: string } }> };
 
 
 export const GetBookingItemsByBookingIdDocument = gql`
@@ -24,6 +24,7 @@ export const GetBookingItemsByBookingIdDocument = gql`
     product {
       name
       price
+      thumbnail
     }
   }
 }

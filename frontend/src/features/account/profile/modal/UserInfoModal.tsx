@@ -24,10 +24,11 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
     if (imageURL !== "") formJSON.avatar = imageURL
 
     try {
+      // Hot reload data
+      const {profile} = client.readQuery({ query: ProfileDocument}) 
+      client.writeQuery({ query: ProfileDocument, data: { profile: formJSON } }) 
       await updateProfile({ variables: { data: formJSON } });
       
-      // Hot reload data
-      client.writeQuery({ query: ProfileDocument, data: { profile: formJSON } }) 
       
       toast.info("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
     } catch (e: any) {

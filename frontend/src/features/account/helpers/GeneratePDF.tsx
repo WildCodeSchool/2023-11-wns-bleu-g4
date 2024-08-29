@@ -16,7 +16,7 @@ export default function generatePdf(booking: BookingPDF, bookingItems: BookingIt
 
     const bookingItemsArraylength: number = bookingItems.length as number
 
-    // default unity mm
+    // MILLIMETERS BY DEFAULT
     let xInitial = 10
     let yInitial = 5
     let nbProduct = 0
@@ -102,8 +102,6 @@ export default function generatePdf(booking: BookingPDF, bookingItems: BookingIt
         let price: number = bookingItems[index].product?.price as number
         const dateFrom: Date = bookingItems[index].startDate as Date
         const dateTo: Date = bookingItems[index].endDate as Date
-        // const startDate : Date = Date.parse(bookingItems[index].startDate)
-        // const endDate : Date = new Date(bookingItems[index].endDate)
         const totalAMount = price * TimeStampToDayDuration(dateFrom, dateTo)
 
         doc.text(productName, xInitial, yInitial, { maxWidth: 125 })
@@ -113,24 +111,21 @@ export default function generatePdf(booking: BookingPDF, bookingItems: BookingIt
         doc.text(totalAMount.toFixed(2) + "€", 200, yInitial, { align: "right" })
         totalTTC += totalAMount
         nbProduct++
-        yInitial += 6
+        yInitial += index === bookingItemsArraylength - 1 ? 3 : 6
     }
 
 
     /* TOTAL */
-    yInitial -= 3
+    // yInitial -= 3
     doc.line(xInitial, yInitial, xInitial + 190, yInitial)
     yInitial += 5
     doc.setFont("", "bold")
-    doc.text("TAXES (20%)", 180, yInitial, { align: "right" })
+    doc.text("INCLUDE TAX (20%)", 180, yInitial, { align: "right" })
     doc.text((totalTTC * 20 / 100).toFixed(2) + "€", 200, yInitial, { align: "right" })
-    yInitial += 2
-    // doc.line(xInitial + columnTo + 15, yInitial, xInitial + 190, yInitial)
     yInitial += 5
     doc.text("TOTAL", 180, yInitial, { align: "right" })
     doc.text(totalTTC.toFixed(2) + "€", 200, yInitial, { align: "right" })
     yInitial += 2
-    // doc.line(xInitial + columnTo + 15, yInitial, xInitial + 190, yInitial)
 
 
     /** SIGNATURE */

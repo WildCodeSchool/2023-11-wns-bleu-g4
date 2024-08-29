@@ -41,7 +41,7 @@ export interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   bookingId: number;
-  bookingItemsId : number[]
+  bookingItemIds : number[]
 }
 
 export interface User {
@@ -95,6 +95,7 @@ export interface BookingItem {
     id: number
   }
   product?: {
+    thumbnail?: string
     name?: string
     price?: number
   }
