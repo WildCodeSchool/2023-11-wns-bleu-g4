@@ -29,6 +29,7 @@ export interface OrderModalProps {
 export interface OrderTableBodyProps {
   data: any[];
   refetch?: () => void;
+  loading?: boolean;
   sortColumnName: string | null;
   sortOrder: "asc" | "desc" | null;
   handleDateSort: (columnName: string) => void;

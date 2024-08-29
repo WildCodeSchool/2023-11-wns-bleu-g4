@@ -7,10 +7,12 @@ import { Order, OrderTableBodyProps } from "./types";
 import OrderCancelModal from "./OrderCancelModal";
 import { useCancelBookingMutation } from "@/graphql/Booking/generated/CancelBooking.generated";
 import { StatusBooking } from "@/graphql/generated/schema";
+import Loading from "@/shared/components/Loading";
 
 export default function OrderTableBody({
   data,
   refetch,
+  loading,
   handleDateSort,
   sortColumnName,
   sortOrder
@@ -94,7 +96,20 @@ export default function OrderTableBody({
           </tr>
         </thead>
         <tbody className="text-sm">
-          {data.length !== 0 ? (
+          {loading && (
+            <tr>
+              <td className="p-4 text-center" colSpan={7}>
+                <Loading loading={loading} />
+              </td>
+            </tr>
+          )}
+          {!loading && data.length === 0 ? (
+            <tr>
+              <td className="p-4 text-center" colSpan={7}>
+                {t("No orders found")}
+              </td>
+            </tr>
+          ) : (
             data.map((order: Order, index: number) => (
               <React.Fragment key={order.id}>
                 <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap hover:bg-cactus-300`}>
@@ -139,12 +154,6 @@ export default function OrderTableBody({
                 {openOrderId === order.id && <OrderDetailsDropdown order={order} />}
               </React.Fragment>
             ))
-          ) : (
-            <tr>
-              <td className="p-4 text-center" colSpan={7}>
-                {t("No orders found")}
-              </td>
-            </tr>
           )}
         </tbody>
       </table>

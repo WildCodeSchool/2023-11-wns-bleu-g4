@@ -10,8 +10,9 @@ import {
 import { Characteristic } from "./types";
 import CharacteristicUpdateModal from "./CharacteristicUpdateModal";
 import CharacteristicDeleteModal from "./CharacteristicDeleteModal";
+import Loading from "@/shared/components/Loading";
 
-export default function CharacteristicTableBody({ data, refetch }: TableBodyProps) {
+export default function CharacteristicTableBody({ data, refetch, loading }: TableBodyProps) {
   const { t } = useTranslation("CharacteristicTableBody");
 
   const [deleteCharacteristic] = useDeleteProductCharacteristicMutation();
@@ -56,7 +57,20 @@ export default function CharacteristicTableBody({ data, refetch }: TableBodyProp
           </tr>
         </thead>
         <tbody className="text-sm">
-          {data.length !== 0 ? (
+          {loading && (
+            <tr>
+              <td className="p-4 text-center" colSpan={2}>
+                <Loading loading={loading} />
+              </td>
+            </tr>
+          )}
+          {!loading && data.length === 0 ? (
+            <tr>
+              <td className="p-4 text-center" colSpan={3}>
+                {t("No characteristics found")}
+              </td>
+            </tr>
+          ) : (
             data.map((parentCategory: ParentCategory, index: number) => (
               <tr key={parentCategory.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
                 <td className="whitespace-nowrap p-3 pl-8 w-4/5 min-w-max">{parentCategory.name}</td>
@@ -83,12 +97,6 @@ export default function CharacteristicTableBody({ data, refetch }: TableBodyProp
                 </td>
               </tr>
             ))
-          ) : (
-            <tr>
-              <td className="p-4 text-center" colSpan={3}>
-                {t("No categories found")}
-              </td>
-            </tr>
           )}
         </tbody>
       </table>

@@ -41,6 +41,7 @@ export interface Product {
 export interface TableBodyProps {
   data: any;
   refetch?: () => void;
+  loading?: boolean;
 }
 
 export interface TableFooterProps {
