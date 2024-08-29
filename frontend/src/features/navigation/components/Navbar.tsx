@@ -47,15 +47,20 @@ function DesktopNavbar() {
   }, [profileData]);
 
   const handleLogout = async () => {
+    await router.push("/login");
     await logout();
     await client.resetStore();
     await refetch();
     setIsLogged(false);
-    router.push("/login");
   };
 
   const goToAccount = () => {
-    router.push(`/account/user/${profileData?.profile.id}`)
+    
+    try {
+      router.push(`/account`)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -130,11 +135,11 @@ function MobileNavbar() {
   }, [profileData]);
 
   const handleLogout = async () => {
+    await router.push("/login")
     await logout();
     await client.resetStore();
     await refetch();
     setIsLogged(false);
-    router.push("/login");
   };
 
   return (

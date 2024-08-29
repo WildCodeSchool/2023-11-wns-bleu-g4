@@ -1,19 +1,22 @@
-query GetBookingsByUserId($userId: Int!, $offset: Int, $limit: Int) {
-  getBookingsByUserId(userId: $userId, offset: $offset, limit: $limit) {
+query getBookingsByUserId($offset: Int, $limit: Int) {
+  getBookingsByUserId(offset: $offset, limit: $limit) {
     bookings {
+      id
+      status
+      invoice
+      bookingDate
+      startDate
+      endDate
       agency {
         id
         name
-        email
-        phone
+        address
+        postcode
         city
+        country
+        phone
+        email
       }
-      bookingDate
-      endDate
-      id
-      invoice
-      startDate
-      status
     }
     total
   }

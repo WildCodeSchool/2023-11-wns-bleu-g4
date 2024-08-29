@@ -4,32 +4,34 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetBookingsByUserIdQueryVariables = Types.Exact<{
-  userId: Types.Scalars['Int']['input'];
   offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
 }>;
 
 
-export type GetBookingsByUserIdQuery = { __typename?: 'Query', getBookingsByUserId: { __typename?: 'BookingList', total: number, bookings: Array<{ __typename?: 'Booking', bookingDate: any, endDate: any, id: number, invoice: string, startDate: any, status: Types.StatusBooking, agency: { __typename?: 'Agency', id: number, name: string, email: string, phone: string, city: string } }> } };
+export type GetBookingsByUserIdQuery = { __typename?: 'Query', getBookingsByUserId: { __typename?: 'BookingList', total: number, bookings: Array<{ __typename?: 'Booking', id: number, status: Types.StatusBooking, invoice: string, bookingDate: any, startDate: any, endDate: any, agency: { __typename?: 'Agency', id: number, name: string, address: string, postcode: string, city: string, country: string, phone: string, email: string } }> } };
 
 
 export const GetBookingsByUserIdDocument = gql`
-    query GetBookingsByUserId($userId: Int!, $offset: Int, $limit: Int) {
-  getBookingsByUserId(userId: $userId, offset: $offset, limit: $limit) {
+    query getBookingsByUserId($offset: Int, $limit: Int) {
+  getBookingsByUserId(offset: $offset, limit: $limit) {
     bookings {
+      id
+      status
+      invoice
+      bookingDate
+      startDate
+      endDate
       agency {
         id
         name
-        email
-        phone
+        address
+        postcode
         city
+        country
+        phone
+        email
       }
-      bookingDate
-      endDate
-      id
-      invoice
-      startDate
-      status
     }
     total
   }
@@ -48,13 +50,12 @@ export const GetBookingsByUserIdDocument = gql`
  * @example
  * const { data, loading, error } = useGetBookingsByUserIdQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *      offset: // value for 'offset'
  *      limit: // value for 'limit'
  *   },
  * });
  */
-export function useGetBookingsByUserIdQuery(baseOptions: Apollo.QueryHookOptions<GetBookingsByUserIdQuery, GetBookingsByUserIdQueryVariables> & ({ variables: GetBookingsByUserIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetBookingsByUserIdQuery(baseOptions?: Apollo.QueryHookOptions<GetBookingsByUserIdQuery, GetBookingsByUserIdQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetBookingsByUserIdQuery, GetBookingsByUserIdQueryVariables>(GetBookingsByUserIdDocument, options);
       }

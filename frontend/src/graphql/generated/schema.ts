@@ -657,7 +657,6 @@ export type QueryGetBookingsByUserArgs = {
 export type QueryGetBookingsByUserIdArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  userId: Scalars['Int']['input'];
 };
 
 

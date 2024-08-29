@@ -7,9 +7,11 @@ import transformToDate from "../helpers/TransformDate";
 import TableFooter from "./TableFooter";
 import { useEffect, useState } from "react";
 import { StatusBooking } from "@/graphql/generated/schema";
-
+import { jwtVerify } from "jose";
+import type { NextRequest } from "next/server";
 
 export default function UserOrdersTable() {
+
     /** Translations */
     const { t } = useTranslation("UserOrders");
 
@@ -35,7 +37,6 @@ export default function UserOrdersTable() {
     /** Queries - Mutations */
     const { data } = useGetBookingsByUserIdQuery({
         variables: {
-            userId: parseInt(query?.id as string),
             limit: itemsPerPage,
             offset: currentPage * itemsPerPage
         }

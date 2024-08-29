@@ -72,15 +72,18 @@ class BookingResolver {
         return bookings;
     }
 
+    @Authorized()
     @Query(() => BookingList)
     async getBookingsByUserId(
-        @Arg("userId", () => Int) id: number,
+        // @Arg("userId", () => Int) id: number,
         @Arg("limit", () => Int, { nullable: true }) limit?: number,
-        @Arg("offset", () => Int, { nullable: true }) offset?: number) {
+        @Arg("offset", () => Int, { nullable: true }) offset?: number,
+        @Ctx() ctx?: Context
+    ) {
 
         const [bookings, total] = await Booking.findAndCount({
             relations: { agency: true },
-            where: { user: { id } },
+            where: { user: { id : ctx?.currentUser?.id } },
             take: limit,
             skip: offset,
         })
