@@ -187,15 +187,7 @@ class BookingResolver {
 
         if (!bookingToCancel) throw new GraphQLError("Booking not found");
 
-        bookingToCancel.startDate = data.startDate
-        bookingToCancel.endDate = data.endDate
         bookingToCancel.status = StatusBooking.CANCELED;
-
-
-        // for (const item of bookingToCancel.bookingItem) {
-        //     item.status = BookingItemStatus.CANCELED;
-        //     await item.save();
-        // }
 
         await bookingToCancel.save();
 

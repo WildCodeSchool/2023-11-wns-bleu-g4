@@ -83,12 +83,10 @@ class BookingItemResolver {
 		const itemToCancel = await BookingItem.findOne({ where: { id: data.id } })
 		if (!itemToCancel) throw new GraphQLError("Item not found")
 
-		itemToCancel.startDate = data.startDate as Date
-		itemToCancel.endDate = data.endDate as Date
 		itemToCancel.status = BookingItemStatus.CANCELED
 
 		await itemToCancel.save()
-		return "ok"
+		return "Booking item set to canceled"
 	}
 }
 

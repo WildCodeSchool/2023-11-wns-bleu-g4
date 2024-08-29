@@ -131,12 +131,6 @@ export class CancelBookingInput {
 	@Field(() => Int)
 	id: number
 
-	@Field()
-	startDate: Date
-
-	@Field()
-	endDate: Date
-
 	@Field(() => StatusBooking, { nullable: true })
 	status?: StatusBooking
 }
