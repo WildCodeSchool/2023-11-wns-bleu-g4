@@ -11,6 +11,8 @@ import dynamic from "next/dynamic";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {UserProvider} from "@/context/UserDataContext";
+import "@/styles/globals.css";
+import "@/styles/toast.css";
 
 function App({Component, pageProps}: AppProps) {
   return (
