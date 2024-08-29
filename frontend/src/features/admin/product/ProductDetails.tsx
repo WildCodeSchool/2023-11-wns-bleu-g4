@@ -7,10 +7,13 @@ import { useRouter } from "next/router";
 import ProductCharUpdateModal from "./modal/ProductCharUpdateModal";
 import { Product } from "./types";
 import { Characteristic } from "../characteristic/types";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export default function ProductDetails({ product }: { product: Product }) {
   const router = useRouter();
-  const [deleteProduct] = useDeleteProductMutation();
+  const { t } = useTranslation("ProductDetails");
+  const [deleteProduct, { error }] = useDeleteProductMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isCharacteristicsModalOpen, setIsCharacteristicsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -23,7 +26,9 @@ export default function ProductDetails({ product }: { product: Product }) {
     try {
       await deleteProduct({ variables: { productId: id } });
       router.push("/admin/products");
+      toast.success(t("Product deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };

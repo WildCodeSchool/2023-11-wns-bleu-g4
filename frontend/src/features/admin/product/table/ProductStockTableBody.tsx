@@ -8,6 +8,7 @@ import ProductStockModal from "../modal/ProductStockModal";
 import { Agency, Product, ProductCode } from "@/graphql/generated/schema";
 import ProductStockDetails from "./ProductStockDetails";
 import { useDeleteProductCodeMutation } from "@/graphql/ProductCode/generated/deleteProductCode.generated";
+import { toast } from "react-toastify";
 
 export interface AggregatedDataEntry {
   agency: Agency;
@@ -30,7 +31,8 @@ const groupByAgency = (productCodes: ProductCode[]): Record<number, AggregatedDa
 
 export default function ProductStockTableBody({ data, refetch }: TableBodyProps) {
   const { t } = useTranslation("ProductStockTableBody");
-  const [deleteProductCode] = useDeleteProductCodeMutation();
+
+  const [deleteProductCode, { error }] = useDeleteProductCodeMutation();
   const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
   const [selectedAgency, setSelectedAgency] = useState<Agency | null>(null);
   const [openProductCodeAgenceId, setProductCodeAgenceId] = useState<number | null>(null);
@@ -56,7 +58,9 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
     try {
       await deleteProductCode({ variables: { productCodeId: id } });
       refetch && refetch();
+      toast.success(t("Product code deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };
@@ -141,6 +145,7 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
           onClose={() => toggleAddProductStockModal(data, product)}
           agency={selectedAgency}
           product={product}
+          refetch={refetch}
         />
       )}
     </>

@@ -12,9 +12,6 @@ import CharacteristicUpdateModal from "./CharacteristicUpdateModal";
 import CharacteristicDeleteModal from "./CharacteristicDeleteModal";
 import Loading from "@/shared/components/Loading";
 import { toast } from "react-toastify";
-import client from "@/graphql/client";
-import { GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
-import { getQueryVariables } from "../helpers/query";
 
 export default function CharacteristicTableBody({ data, refetch, loading }: TableBodyProps) {
   const { t } = useTranslation("CharacteristicTableBody");
@@ -37,30 +34,7 @@ export default function CharacteristicTableBody({ data, refetch, loading }: Tabl
   const handleDeleteCharacteristic = async (id: number) => {
     try {
       await deleteCharacteristic({ variables: { productCharacteristicId: id } });
-
-      const variables = getQueryVariables("getAllProductCharacteristics");
-
-      const existingData = client.readQuery<GetAllProductCharacteristicsQuery>({
-        query: GetAllProductCharacteristicsDocument,
-        variables: variables,
-      })!;
-
-      const updatedData = existingData.getAllProductCharacteristics.productCharacteristics.filter(
-        productCharacteristic => productCharacteristic.id !== id
-      );
-
-      client.writeQuery({
-        query: GetAllProductCharacteristicsDocument,
-        variables,
-        data: {
-          getAllProductCharacteristics: {
-            ...existingData.getAllProductCharacteristics,
-            productCharacteristics: updatedData,
-          },
-        },
-      });
-
-      // refetch && refetch();
+      refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
       toast.success(t("Characteristic deleted successfully"));
     } catch (e) {
