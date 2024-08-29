@@ -1,5 +1,3 @@
-// import { Category, ParentCategory } from "@/graphql/generated/schema";
-
 export interface ParentCategory {
   id?: number;
   name: string;
@@ -17,7 +15,5 @@ export interface CategoryModalProps {
   onClose: () => void;
   category?: Category;
   parentCategory?: ParentCategory;
-  variant?: string;
   handleDelete?: (id: number) => Promise<void>;
-  refetch?: () => void;
 }

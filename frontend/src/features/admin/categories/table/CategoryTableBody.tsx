@@ -11,11 +11,12 @@ import CategoryThumbnailModal from "../modal/CategoryThumbnailModal";
 import CategoryUpdateModal from "../modal/CategoryUpdateModal";
 import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
 
 export default function CategoryTableBody({ data, loading }: TableBodyProps) {
   const { t } = useTranslation("CategoryTableBody");
 
-  const [deleteCategory] = useDeleteCategoryMutation();
+  const [deleteCategory, { error }] = useDeleteCategoryMutation();
   const [isThumbnailModalOpen, setIsThumbnailModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -39,14 +40,16 @@ export default function CategoryTableBody({ data, loading }: TableBodyProps) {
   const handleDeleteCategory = async (id: number) => {
     try {
       await deleteCategory({ variables: { categoryId: id } });
-      client.writeQuery<GetAllCategoriesQuery>({
+      await client.writeQuery<GetAllCategoriesQuery>({
         query: GetAllCategoriesDocument,
         data: {
           getAllCategories: data.filter((category: Category) => category.id !== id),
         },
       });
       setIsDeleteModalOpen(!isDeleteModalOpen);
+      toast.success(t("Category deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };
