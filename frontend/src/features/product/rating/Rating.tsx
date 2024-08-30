@@ -19,11 +19,11 @@ export default function Rating() {
   const userId = user?.id;
 
   const { data, loading, error } = useGetAllReviewsQuery({
-    variables: { productId: productId ? Number(productId) : undefined },
+    variables: { productId: productId || 0 },
   });
 
   const { data: hasBookedData, loading: bookingLoading } = useHasUserBookedProductQuery({
-    variables: { productId: productId ? Number(productId) : 0, userId: userId ? Number(userId) : 0 },
+    variables: { productId: productId || 0, userId: userId || 0 },
     skip: !productId || !userId,
   });
 

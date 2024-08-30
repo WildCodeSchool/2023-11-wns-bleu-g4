@@ -9,8 +9,8 @@ import { Context } from "../utils"
 export class ReviewResolver {
 	@Query(() => [Review])
 	async getAllReviews(
-		@Arg("userId", { nullable: true }) userId?: number,
-		@Arg("productId", { nullable: true }) productId?: number
+		@Arg("userId", () => Int, { nullable: true }) userId?: number,
+		@Arg("productId", () => Int, { nullable: true }) productId?: number
 	) {
 		const where: any = {}
 
@@ -31,8 +31,8 @@ export class ReviewResolver {
 	@Query(() => Review)
 	async getReviewById(
 		@Arg("reviewId", () => Int) id: number,
-		@Arg("userId", { nullable: true }) userId?: number,
-		@Arg("productId", { nullable: true }) productId?: number
+		@Arg("userId", () => Int, { nullable: true }) userId?: number,
+		@Arg("productId", () => Int, { nullable: true }) productId?: number
 	) {
 		const review = await Review.findOne({
 			relations: { user: true, product: true },
@@ -45,7 +45,10 @@ export class ReviewResolver {
 	}
 
 	@Query(() => [Review])
-	async getReviewsByProductId(@Arg("productId") productId: number, @Arg("userId", { nullable: true }) userId?: number) {
+	async getReviewsByProductId(
+		@Arg("productId", () => Int) productId: number,
+		@Arg("userId", () => Int, { nullable: true }) userId?: number
+	) {
 		const reviews = await Review.find({
 			relations: { user: true, product: true },
 			where: { product: { id: productId } },
@@ -59,7 +62,7 @@ export class ReviewResolver {
 	@Query(() => [Review])
 	async getReviewsByUserId(
 		@Arg("userId", () => Int) userId: number,
-		@Arg("productId", { nullable: true }) productId?: number
+		@Arg("productId", () => Int, { nullable: true }) productId?: number
 	) {
 		const where: any = {
 			user: { id: userId },

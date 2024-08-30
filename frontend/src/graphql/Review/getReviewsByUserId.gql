@@ -1,4 +1,4 @@
-query GetReviewsByUserId($userId: Int!, $productId: Float) {
+query GetReviewsByUserId($userId: Int!, $productId: Int!) {
     getReviewsByUserId(userId: $userId, productId: $productId) {
         id
         createdAt

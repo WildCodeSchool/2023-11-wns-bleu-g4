@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetReviewsByUserIdQueryVariables = Types.Exact<{
   userId: Types.Scalars['Int']['input'];
-  productId?: Types.InputMaybe<Types.Scalars['Float']['input']>;
+  productId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -13,7 +13,7 @@ export type GetReviewsByUserIdQuery = { __typename?: 'Query', getReviewsByUserId
 
 
 export const GetReviewsByUserIdDocument = gql`
-    query GetReviewsByUserId($userId: Int!, $productId: Float) {
+    query GetReviewsByUserId($userId: Int!, $productId: Int!) {
   getReviewsByUserId(userId: $userId, productId: $productId) {
     id
     createdAt
