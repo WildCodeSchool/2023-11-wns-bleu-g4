@@ -40,26 +40,24 @@ class BookingResolver {
         return { bookings, total }
     }
 
-    @Query(() => Booking)
-    async getBookingById(
-        @Arg("bookingId", () => Int) id: number
-    ) {
-        const booking = await Booking.findOne({
-            relations: { user: true, agency: true },
-            where: { id }
-        });
+	@Query(() => Booking)
+	async getBookingById(@Arg("bookingId", () => Int) id: number) {
+		const booking = await Booking.findOne({
+			relations: { user: true, agency: true, bookingItem: true },
+			where: { id },
+		})
 
-        if (!booking) throw new GraphQLError("Booking Not found");
+		if (!booking) throw new GraphQLError("Booking Not found")
 
-        return booking;
-    }
+		return booking
+	}
 
     @Query(() => [Booking])
     async getBookingsByUser(
         @Arg("userId", () => Int) userId: number
     ) {
         const bookings = await Booking.find({
-            relations: { user: true, agency: true },
+            relations: { agency: true, user : true, bookingItem : true},
             where: {
                 user: {
                     id: userId
@@ -75,14 +73,13 @@ class BookingResolver {
     @Authorized()
     @Query(() => BookingList)
     async getBookingsByUserId(
-        // @Arg("userId", () => Int) id: number,
         @Arg("limit", () => Int, { nullable: true }) limit?: number,
         @Arg("offset", () => Int, { nullable: true }) offset?: number,
         @Ctx() ctx?: Context
     ) {
 
         const [bookings, total] = await Booking.findAndCount({
-            relations: { agency: true },
+            relations: { agency: true, user : true, bookingItem : true },
             where: { user: { id : ctx?.currentUser?.id } },
             take: limit,
             skip: offset,
@@ -172,7 +169,7 @@ class BookingResolver {
         await bookingToUpdate.save();
         return Booking.findOne({
             where: { id },
-            relations: { user: true, agency: true },
+            relations: { user: true, agency: true, bookingItem : true },
         });
     }
 
@@ -185,14 +182,26 @@ class BookingResolver {
         if (!ctx.currentUser) throw new GraphQLError("Not authenticated");
 
         const bookingToCancel = await Booking.findOne({
-            where: { id: bookingId }
+            where: { id: bookingId },
+			relations: { user: true, agency: true, bookingItem: true },
         });
 
         if (!bookingToCancel) throw new GraphQLError("Booking not found");
 
+        if (bookingToCancel.user.id !== ctx.currentUser.id && !ctx.currentUser.role.includes("admin")) {
+			throw new GraphQLError("Not authorized to cancel this booking")
+		}
+
         bookingToCancel.status = StatusBooking.CANCELED;
 
         await bookingToCancel.save();
+        
+        await mailer.sendMail({
+			from: env.EMAIL_FROM,
+			to: bookingToCancel.user.email,
+			subject: "Booking Cancellation Confirmation",
+			text: `Hello ${bookingToCancel.user.name} ${bookingToCancel.user.firstname},\n\nYour booking with ID ${bookingToCancel.id} has been successfully cancelled.\n\nBest regards,\nGear Go`,
+		})
 
         return "Booking canceled";
     }

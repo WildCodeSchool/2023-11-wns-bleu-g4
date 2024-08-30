@@ -179,6 +179,32 @@ async function main() {
 		"Trail running pole": "Hiking",
 	}
 
+	const characteristicObjects = []
+	const characteristics = [
+		"Suspension hydraulique",
+		"Moteur 10W",
+		"Guidon renforcé",
+		"Freins à disque",
+		"Pneus anti-crevaison",
+		"Selle confortable",
+		"Éclairage LED",
+		"Antivol intégré",
+		"Porte-bagages",
+		"Garde-boue",
+	]
+
+	for (const characteristic of characteristics) {
+		const existingCharacteristic = await ProductCharacteristic.findOne({ where: { name: characteristic } })
+		if (existingCharacteristic) {
+			characteristicObjects.push(existingCharacteristic)
+		} else {
+			const productCharacteristic = new ProductCharacteristic()
+			productCharacteristic.name = characteristic
+			await productCharacteristic.save()
+			characteristicObjects.push(productCharacteristic)
+		}
+	}
+
 	for (const productData of allProducts) {
 		const product = new Product()
 		const mappedCategoryName = categoryMapping[productData.category] || productData.category
@@ -190,69 +216,30 @@ async function main() {
 			thumbnail: productData.imageUrls[0],
 			category: category,
 			brand: await getOrCreateBrand(productData.brand),
-			ref:"test",
-			characteristics: [],
+			characteristics: characteristicObjects,
 		})
-		const characteristics = [
-			"Suspension hydraulique",
-			"Moteur 10W",
-			"Guidon renforcé",
-			"Freins à disque",
-			"Pneus anti-crevaison",
-			"Selle confortable",
-			"Éclairage LED",
-			"Antivol intégré",
-			"Porte-bagages",
-			"Garde-boue",
-		]
-		for (const characteristic of characteristics) {
-			const productCharacteristic = new ProductCharacteristic()
-			productCharacteristic.name = characteristic
-			await productCharacteristic.save()
-			product.characteristics.push(productCharacteristic)
+
+		await product.save()
+
+		for (const imageUrl of productData.imageUrls.slice(0, 5)) {
+			const productPicture = new Product_picture()
+			Object.assign(productPicture, {
+				thumbnail: imageUrl,
+				alt: "",
+				product,
+			})
+			await productPicture.save()
 		}
 
-	await product.save()
-
-	const productCode = new ProductCode()
-	Object.assign(productCode, {
-		status: Status.AVAILABLE,
-		product,
-		agency,
-		isSizeable: true,
-		size: "M",
-	})
-	await productCode.save()
-
-	const productPictures = [
-		{
-			thumbnail: "https://media.trekbikes.com/image/upload/w_1200/Rail5Deore_23_36791_A_Portrait",
-			alt: "",
-		},
-		{
-			thumbnail: "https://www.materiel-velo.com/92859-large_default/vtt-cross-country-trek-marlin-8-gen-3-crimson.jpg",
-			alt: "",
-		},
-		{
-			thumbnail: "https://www.revedevelo.com/287-large_default/vtt-29-trek-marlin-4-alpine-blue.jpg",
-			alt: "",
-		},
-		{
-			thumbnail:
-				"https://www.allterraincycles.co.uk/cdn/shop/files/Marlin4-24-41613-C-Portrait.webp?v=1702563590&width=1445",
-			alt: "",
-		},
-	]
-
-	for (const { thumbnail, alt } of productPictures) {
-		const productPicture = new Product_picture()
-		Object.assign(productPicture, {
-			thumbnail,
-			alt,
+		const productCode = new ProductCode()
+		Object.assign(productCode, {
+			status: Status.AVAILABLE,
 			product,
+			agency,
+			isSizeable: true,
+			size: "M",
 		})
-		await productPicture.save()
-	}
+		await productCode.save()
 
 		const booking = new Booking()
 		Object.assign(booking, {
@@ -302,14 +289,14 @@ async function getOrCreateCategory(categoryName: string, parentCategory: ParentC
 }
 
 async function getOrCreateBrand(brandName: string): Promise<Brand> {
-    let brand = await Brand.findOne({ where: { name: brandName } })
-    if (!brand) {
-        brand = new Brand()
-        brand.name = brandName
-        brand.logo = "https://example.com/default-logo.jpg"
-        await brand.save()
-    }
-    return brand
+	let brand = await Brand.findOne({ where: { name: brandName } })
+	if (!brand) {
+		brand = new Brand()
+		brand.name = brandName
+		brand.logo = "https://example.com/default-logo.jpg"
+		await brand.save()
+	}
+	return brand
 }
 
-main()
+main()	

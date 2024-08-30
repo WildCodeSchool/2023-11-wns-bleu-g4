@@ -55,7 +55,7 @@ function DesktopNavbar() {
   };
 
   const goToAccount = () => {
-    
+
     try {
       router.push(`/account`)
     } catch (error) {
@@ -74,7 +74,6 @@ function DesktopNavbar() {
           </div>
 
           <SearchBar
-            //  onSearch={query => console.log(query)}
             placeholder={t("Search")} />
           <li>
             {isLogged ? (
@@ -156,7 +155,6 @@ function MobileNavbar() {
           <Spacer />
           <Flex gap={2} align={"center"}>
             <SearchBar variant="mobile"
-              // onSearch={query => console.log(query)} 
               placeholder={t("Search")} />
             {isLogged ? (
               <IconButton

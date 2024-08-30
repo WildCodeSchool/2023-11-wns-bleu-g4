@@ -7,7 +7,7 @@ import uploadFile from '@/features/admin/helpers/uploadFile';
 import { toast } from "react-toastify";
 import { ToastConfigLogin } from '@/config/ToastConfig';
 import { useApolloClient } from '@apollo/client';
-import { ProfileDocument } from '@/graphql/User/generated/Profile.generated';
+import { ProfileDocument, ProfileQuery } from '@/graphql/User/generated/Profile.generated';
 
 export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps) {
 
@@ -25,11 +25,8 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
 
     try {
       // Hot reload data
-      const {profile} = client.readQuery({ query: ProfileDocument}) 
-      client.writeQuery({ query: ProfileDocument, data: { profile: formJSON } }) 
+      client.writeQuery<ProfileQuery>({ query: ProfileDocument, data: { profile: formJSON } })
       await updateProfile({ variables: { data: formJSON } });
-      
-      
       toast.info("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
     } catch (e: any) {
       const errArr = e.message.replace("_", " ");
@@ -51,6 +48,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
         <form onSubmit={(e) => handleSubmit(e).then(onClose)}>
           <ModalBody pb={6}>
             <FormControl>
+
               <Flex justifyContent="space-between" gap={2} mb={4}>
                 <Box>
                   <FormLabel mb={1} htmlFor="name">Name</FormLabel>
@@ -61,10 +59,12 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                   <Input type="text" placeholder="Firstname" defaultValue={user?.firstname} name="firstname" id="firstname" />
                 </Box>
               </Flex>
+
               <Box mb={4}>
                 <FormLabel mb={1} htmlFor='address'>Address</FormLabel>
                 <Textarea placeholder="Address" name='address' id="address" maxHeight={200} defaultValue={user?.address} />
               </Box>
+
               <Flex justifyContent="space-between" gap={2} mb={4}>
                 <Box>
                   <FormLabel mb={1} htmlFor="postcode">PostCode</FormLabel>
@@ -86,6 +86,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                   <Input type="tel" placeholder="Phone number" defaultValue={user?.phone} name="phone" id="phone" />
                 </Box>
               </Flex>
+              
               {/* <Box>
                   <FormLabel mb={1} htmlFor="email">Email</FormLabel>
                   <Input type="email" placeholder="Email" defaultValue={user?.email} name="email" id="email"/>

@@ -36,8 +36,7 @@ export default function LoginForm() {
 
     const formData = new FormData(e.target as HTMLFormElement);
     const formJSON: any = Object.fromEntries(formData.entries());
-    // const profile = useProfileQuery()
-
+    
     try {
       await login({ variables: { data: formJSON } });
       toast.info("LOGIN SUCCESSFULL", ToastConfigLogin);
