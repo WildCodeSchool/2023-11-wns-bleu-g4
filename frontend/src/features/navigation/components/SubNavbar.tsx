@@ -108,6 +108,7 @@ export default function SubNavbar() {
                         `/products?${qs.stringify({
                           ...searchParams,
                           categoryId: subCat.id,
+                          page: 1,
                         })}`,
                       );
                     }}

@@ -1,10 +1,10 @@
+import ProductGrid from "@/features/shop/product_grid/Productgrid";
 import Pagination from "@/features/shop/Pagination";
 import ProductFilter from "@/features/shop/filters/ProductFilter";
 import TopFilters from "@/features/shop/filters/TopFilters";
-import ProductGrid from "@/features/shop/product_grid/Productgrid";
+import Layout from "@/layouts/Layout";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 import { SortProduct } from "@/graphql/generated/schema";
-import Layout from "@/layouts/Layout";
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -14,11 +14,9 @@ export default function ShopPage() {
     const router = useRouter();
     const sortOrderFromQuery = router.query.sortOrder as SortProduct | undefined;
     const searchQuery = router.query.search as string | undefined;
-
-    const [sortOrder, setSortOrder] = useState<SortProduct | null>(
-        sortOrderFromQuery ?? null
-    );
-    const [page, setPage] = useState(0);
+    const [sortOrder, setSortOrder] = useState<SortProduct | null>(sortOrderFromQuery ?? null);
+    const [page, setPage] = useState<number>
+    (parseInt((router.query.page as string) || "1", 10) - 1);
 
     const { data, error, loading, refetch } = useGetAllProductsQuery({
         variables: {
@@ -30,12 +28,18 @@ export default function ShopPage() {
     });
 
     useEffect(() => {
-        refetch({ sortOrder, name: searchQuery });
-    }, [sortOrder, searchQuery, refetch]);
+        if (page >= 0) {
+            refetch({ sortOrder, name: searchQuery });
+        }
+    }, [sortOrder, searchQuery, page, refetch]);
 
     useEffect(() => {
         setSortOrder(sortOrderFromQuery ?? null);
     }, [sortOrderFromQuery]);
+
+    useEffect(() => {
+        setPage(parseInt((router.query.page as string) || "1", 10) - 1);
+    }, [router.query.page]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -45,10 +49,11 @@ export default function ShopPage() {
     const maxPages = Math.ceil(totalProducts / 12);
 
     const handlePageChange = (newPage: number) => {
+        if (newPage < 0 || newPage >= maxPages) return;
         setPage(newPage);
         router.push({
             pathname: router.pathname,
-            query: { ...router.query, page: newPage },
+            query: { ...router.query, page: newPage + 1 },
         });
     };
 

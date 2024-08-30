@@ -73,8 +73,8 @@ function DesktopNavbar() {
             </Link>
           </div>
 
-          <SearchBar
-            placeholder={t("Search")} />
+          <SearchBar placeholder={t("Search")} />
+
           <li>
             {isLogged ? (
               <Menu>
@@ -154,8 +154,7 @@ function MobileNavbar() {
           <ThemedLogo />
           <Spacer />
           <Flex gap={2} align={"center"}>
-            <SearchBar variant="mobile"
-              placeholder={t("Search")} />
+            <SearchBar variant="mobile" placeholder={t("Search")} />
             {isLogged ? (
               <IconButton
                 bg={"transparent"}
