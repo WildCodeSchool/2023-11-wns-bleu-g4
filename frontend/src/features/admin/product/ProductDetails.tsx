@@ -29,7 +29,7 @@ export default function ProductDetails({ product }: { product: Product }) {
   };
 
   return (
-    <div className="bg-[#F5F5F5] rounded flex flex-col gap-12 p-4 justify-between w-full max-w-96 2xl:max-w-md">
+    <div className="bg-[#F5F5F5] rounded flex flex-col gap-12 p-4 justify-between w-full max-w-96 2xl:max-w-md h-fit">
       <div className="flex flex-col gap-8">
         <div className="flex gap-4">
           {product?.thumbnail && (
@@ -90,7 +90,7 @@ export default function ProductDetails({ product }: { product: Product }) {
           ))}
         </div>
       </div>
-      <div className="flex gap-2 justify-end flex-grow">
+      <div className="flex gap-2 justify-end h-12">
         <button type="button" className="bg-cactus-400 rounded px-3 py-1 text-white" onClick={toggleUpdateProductModal}>
           Edit Product
         </button>

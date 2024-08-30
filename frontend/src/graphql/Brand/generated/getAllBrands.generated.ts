@@ -3,18 +3,25 @@ import * as Types from '../../generated/schema';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetAllBrandsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetAllBrandsQueryVariables = Types.Exact<{
+  limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  name?: Types.InputMaybe<Types.Scalars['String']['input']>;
+}>;
 
 
-export type GetAllBrandsQuery = { __typename?: 'Query', getAllBrands: Array<{ __typename?: 'Brand', name: string, id: number, logo: string }> };
+export type GetAllBrandsQuery = { __typename?: 'Query', getAllBrands: { __typename?: 'BrandList', total: number, brands: Array<{ __typename?: 'Brand', name: string, id: number, logo: string }> } };
 
 
 export const GetAllBrandsDocument = gql`
-    query GetAllBrands {
-  getAllBrands {
-    name
-    id
-    logo
+    query GetAllBrands($limit: Int, $offset: Int, $name: String) {
+  getAllBrands(limit: $limit, offset: $offset, name: $name) {
+    brands {
+      name
+      id
+      logo
+    }
+    total
   }
 }
     `;
@@ -31,6 +38,9 @@ export const GetAllBrandsDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllBrandsQuery({
  *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *      name: // value for 'name'
  *   },
  * });
  */

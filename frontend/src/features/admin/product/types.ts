@@ -1,4 +1,10 @@
+import { Agency } from "@/graphql/generated/schema";
 import { Characteristic } from "../characteristic/types";
+
+export enum Status {
+  AVAILABLE = "available",
+  BROKEN = "broken",
+}
 
 export interface menuItems {
   id?: number;
@@ -32,16 +38,10 @@ export interface Product {
   pictures: Product_Picture[];
 }
 
-export interface OrderTableBodyProps {
-  data: any;
-  sortColumnName: string | null;
-  sortOrder: "asc" | "desc" | null;
-  handleDateSort: (columnName: string) => void;
-}
-
 export interface TableBodyProps {
   data: any;
   refetch?: () => void;
+  loading?: boolean;
 }
 
 export interface TableFooterProps {
@@ -58,5 +58,13 @@ export interface ProductModalProps {
   onClose: () => void;
   product?: Product;
   handleDeleteProduct?: (id: number) => Promise<void>;
+  refetch?: () => void;
+}
+
+export interface ProductCodeModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  agency?: Agency;
+  product?: Product;
   refetch?: () => void;
 }

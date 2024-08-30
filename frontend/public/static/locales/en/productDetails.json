@@ -1,8 +1,10 @@
 {
   "Brand": "Brand",
   "Day": "Day",
+  "If this product allows the selection of a size, first select an agency to see the available sizes.": "If this product allows the selection of a size, first select an agency to see the available sizes.",
   "Please select an agency to see available sizes": "Please select an agency to see available sizes",
   "Price": "Price",
   "Quantity": "Quantity",
+  "Total price": "",
   "Total Price": "Total Price"
 }

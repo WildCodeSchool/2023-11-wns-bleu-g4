@@ -1,7 +1,10 @@
-query GetAllBrands {
-  getAllBrands {
-    name
-    id
-    logo
+query GetAllBrands($limit: Int, $offset: Int, $name: String) {
+  getAllBrands(limit: $limit, offset: $offset, name: $name) {
+    brands {
+      name
+      id
+      logo
+    }
+    total
   }
 }

@@ -6,6 +6,9 @@ const defaultOptions = {} as const;
 export type GetAllUsersQueryVariables = Types.Exact<{
   limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  email?: Types.InputMaybe<Types.Scalars['String']['input']>;
+  firstname?: Types.InputMaybe<Types.Scalars['String']['input']>;
+  name?: Types.InputMaybe<Types.Scalars['String']['input']>;
 }>;
 
 
@@ -13,8 +16,14 @@ export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: { __typename
 
 
 export const GetAllUsersDocument = gql`
-    query GetAllUsers($limit: Int, $offset: Int) {
-  getAllUsers(limit: $limit, offset: $offset) {
+    query GetAllUsers($limit: Int, $offset: Int, $email: String, $firstname: String, $name: String) {
+  getAllUsers(
+    limit: $limit
+    offset: $offset
+    email: $email
+    firstname: $firstname
+    name: $name
+  ) {
     users {
       id
       name
@@ -46,6 +55,9 @@ export const GetAllUsersDocument = gql`
  *   variables: {
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
+ *      email: // value for 'email'
+ *      firstname: // value for 'firstname'
+ *      name: // value for 'name'
  *   },
  * });
  */

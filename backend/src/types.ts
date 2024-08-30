@@ -3,6 +3,9 @@ import { Field, InputType, Int, ObjectType } from "type-graphql"
 import Product from "./entities/Product"
 import { User } from "./entities/User"
 import ProductCharacteristic from "./entities/ProductCharacteristic"
+import Brand from "./entities/Brand"
+import Booking from "./entities/Booking"
+import ProductCode from "./entities/ProductCode"
 
 export interface ContextType {
 	req: express.Request
@@ -13,81 +16,112 @@ export interface ContextType {
 @InputType()
 export class ObjectId {
 	@Field(() => Int)
-	id!: number;
+	id!: number
 }
 
 @InputType()
 export class UserId {
 	@Field(() => Int)
-	id!: number;
+	id!: number
 }
 
 @InputType()
 export class AgencyId {
 	@Field(() => Int)
-	id!: number;
+	id!: number
 }
 @InputType()
 export class ProductId {
 	@Field(() => Int)
-	id!: number;
+	id!: number
+}
+
+@InputType()
+export class ProductCodeId {
+	@Field(() => Int)
+	id!: number
 }
 
 @InputType()
 export class BookingId {
 	@Field(() => Int)
-	id!: number;
+	id!: number
 }
 
 @InputType()
 export class CategoryId {
 	@Field(() => Int)
-	id!: number;
+	id!: number
 }
 
 @InputType()
 export class CharacteristicID {
 	@Field(() => Int)
-	id!: number;
+	id!: number
 }
 
 @InputType()
 export class ParentCategoryId {
 	@Field(() => Int)
-	id!: number;
-	static BIKES: any;
-	static ACCESSORIES: any;
+	id!: number
 }
 
 @InputType()
 export class BrandId {
 	@Field(() => Int)
-	id!: number;
+	id!: number
 }
 
 @ObjectType()
 export class ProductList {
-	@Field(() => Int)
-	total: number;
-
 	@Field(() => [Product])
-	products: Product[];
+	products: Product[]
+
+	@Field(() => Int)
+	total: number
 }
 
 @ObjectType()
 export class UserList {
 	@Field(() => [User])
-	users: User[];
+	users: User[]
 
 	@Field(() => Int)
-	total: number;
+	total: number
 }
 
 @ObjectType()
 export class ProductCharacteristicList {
 	@Field(() => [ProductCharacteristic])
-	productCharacteristics: ProductCharacteristic[];
+	productCharacteristics: ProductCharacteristic[]
 
 	@Field(() => Int)
-	total: number;
+	total: number
+}
+
+@ObjectType()
+export class BrandList {
+	@Field(() => [Brand])
+	brands: Brand[]
+
+	@Field(() => Int)
+	total: number
+}
+
+@ObjectType()
+export class BookingList {
+	@Field(() => [Booking])
+	bookings: Booking[]
+
+	@Field(() => Int)
+	total: number
+}
+
+@ObjectType()
+export class ProductCodeList {
+	@Field(() => [ProductCode])
+	productCodes: ProductCode[]
+
+	@Field(() => Int)
+	total: number
 }

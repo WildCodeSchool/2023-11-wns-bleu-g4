@@ -43,7 +43,7 @@ async function main() {
 		city: "Paris",
 		country: "France",
 		phone: "+33612345678",
-		email: "support@geargo.fr",
+		email: "geargo.wild@gmail.com",
 		password: "4dminAdmin@!",
 		role: UserRole.ADMIN,
 		emailVerified: true,
@@ -68,28 +68,24 @@ async function main() {
 
 	const agency = new Agency()
 	Object.assign(agency, {
-		name: "GearGo Agency",
-		address: "456 Rue de GearGo",
-		postcode: "75001",
-		city: "Paris",
+		name: "GearGo Capitol",
+		address: "31, rue de la Chocolatine",
+		postcode: "31330",
+		city: "Toulouse",
 		country: "France",
-		phone: "+33687654321",
-		email: "agency@geargo.fr",
+		phone: "0504030201",
+		email: "geargo.wild@gmail.com",
 	})
 	await agency.save()
 
 	const brand = new Brand()
 	Object.assign(brand, {
-		name: "GearGo Brand",
-		logo: "https://example.com/logo.jpg",
+		name: "Trek",
+		logo: "https://rad-protection.com/wp-content/uploads/2024/02/logo-trek-velo-1024x1024.png",
 	})
 	await brand.save()
 
-	const parentCategoriesData = [
-		{ name: "Sea" },
-		{ name: "Mountain" },
-		{ name: "Outdoor" },
-	]
+	const parentCategoriesData = [{ name: "Sea" }, { name: "Mountain" }, { name: "Outdoor" }]
 
 	const parentCategories: ParentCategory[] = []
 	for (const data of parentCategoriesData) {
@@ -183,16 +179,16 @@ async function main() {
 		"Trail running pole": "Hiking",
 	}
 
-	for (const productData of allProducts) { 
+	for (const productData of allProducts) {
 		const product = new Product()
 		const mappedCategoryName = categoryMapping[productData.category] || productData.category
-		const category = categories.find((cat) => cat.name === mappedCategoryName) || categories.find((cat) => cat.id === 1) 
+		const category = categories.find((cat) => cat.name === mappedCategoryName) || categories.find((cat) => cat.id === 1)
 		Object.assign(product, {
 			name: productData.name,
 			price: productData.price / 10,
 			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
 			thumbnail: productData.imageUrls[0],
-			category: category, 
+			category: category,
 			brand: await getOrCreateBrand(productData.brand),
 			characteristics: [],
 		})
@@ -252,10 +248,10 @@ async function main() {
 		Object.assign(bookingItem, {
 			status: BookingItemStatus.RENTED,
 			booking,
-			productCode,
+			productCode: productCode.id,
 			startDate: new Date("2024-06-10T08:00:00.000Z"),
 			endDate: new Date("2024-06-15T19:00:00.000Z"),
-			product,
+			product: product.id,
 		})
 		await bookingItem.save()
 
@@ -263,7 +259,7 @@ async function main() {
 		Object.assign(review, {
 			rate: 4,
 			comment: "Good product, I recommend it!",
-			product,
+			product: product.id,
 			user: customer,
 		})
 		await review.save()
@@ -278,7 +274,7 @@ async function getOrCreateCategory(categoryName: string, parentCategory: ParentC
 	if (!category) {
 		category = new Category()
 		category.name = categoryName
-		category.parentCategory = parentCategory 
+		category.parentCategory = parentCategory
 		await category.save()
 	}
 	return category

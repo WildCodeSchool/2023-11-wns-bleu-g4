@@ -1,11 +1,11 @@
-import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
+import {Accordion, AccordionButton, AccordionItem, AccordionPanel, Box} from "@chakra-ui/react";
+import {motion} from "framer-motion";
+import {useTranslation} from "react-i18next";
 
 const MotionAccordionItem = motion(AccordionItem);
 
 export default function Faq() {
-  const { t } = useTranslation("faq");
+  const {t} = useTranslation("faq");
   const data = [
     {
       title: t("question1"),
@@ -30,20 +30,20 @@ export default function Faq() {
   ];
 
   return (
-    <Accordion allowToggle reduceMotion={false} variant="faq" w={{ base: "100%", md: "60%" }} overflow="hidden">
+    <Accordion allowToggle reduceMotion={false} variant="faq" w={{base: "100%", xl: "60%"}} overflow="hidden">
       {data.map((item, index) => (
         <MotionAccordionItem
           key={index}
-          mb={{ base: 4, md: 8 }}
-          initial={{ x: 1000, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
+          mb={{base: 4, md: 8}}
+          initial={{x: "100%", opacity: 0}}
+          whileInView={{x: 0, opacity: 1}}
+          transition={{duration: 0.5, delay: index * 0.1}}
         >
-          {({ isExpanded }) => (
+          {({isExpanded}) => (
             <>
               <h2>
                 <AccordionButton>
-                  <Box as="span" flex="1" textAlign="left" mr={4}>
+                  <Box as="span" flex="1" textAlign="left" mr={4} fontSize={{base: "16px", xl: "24px"}}>
                     {t(item.title)}
                   </Box>
                   <svg
@@ -64,7 +64,7 @@ export default function Faq() {
                   </svg>
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={4}>{t(item.content)}</AccordionPanel>
+              <AccordionPanel pb={4} fontSize={{base: "16px", xl: "24px"}}>{t(item.content)}</AccordionPanel>
             </>
           )}
         </MotionAccordionItem>

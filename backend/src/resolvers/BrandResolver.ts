@@ -2,12 +2,24 @@ import { GraphQLError } from "graphql"
 import { Arg, Authorized, Int, Mutation, Query, Resolver } from "type-graphql"
 import Brand, { NewBrandInput, UpdateBrandInput } from "../entities/Brand"
 import { UserRole } from "../entities/User"
+import { BrandList } from "../types"
+import { ILike } from "typeorm"
 
 @Resolver(Brand)
 class BrandResolver {
-	@Query(() => [Brand])
-	async getAllBrands() {
-		return Brand.find({ relations: { product: true } })
+	@Query(() => BrandList)
+	async getAllBrands(
+		@Arg("limit", () => Int, { nullable: true }) limit?: number,
+		@Arg("offset", () => Int, { nullable: true }) offset?: number,
+		@Arg("name", () => String, { nullable: true }) name?: string
+	) {
+		const [brands, total] = await Brand.findAndCount({
+			take: limit,
+			skip: offset,
+			relations: { product: true },
+			where: name ? { name: ILike(`%${name}%`) } : {},
+		})
+		return { brands, total }
 	}
 
 	@Query(() => Brand)
@@ -31,11 +43,8 @@ class BrandResolver {
 
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => Brand)
-	async updateBrand(
-		@Arg("brandId", () => Int) id: number,
-		@Arg("data") data?: UpdateBrandInput
-	) {
-		const brand = await Brand.findOne({ where: { id }, relations: {product:true} })
+	async updateBrand(@Arg("brandId", () => Int) id: number, @Arg("data") data?: UpdateBrandInput) {
+		const brand = await Brand.findOne({ where: { id }, relations: { product: true } })
 		if (!brand) throw new GraphQLError("Brand not found")
 		Object.assign(brand, data)
 		await brand.save()

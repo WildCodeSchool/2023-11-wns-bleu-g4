@@ -1,5 +1,5 @@
-query GetAllUsers($limit: Int, $offset: Int) {
-  getAllUsers(limit: $limit, offset: $offset) {
+query GetAllUsers($limit: Int, $offset: Int, $email: String, $firstname: String, $name: String) {
+  getAllUsers(limit: $limit, offset: $offset, email: $email, firstname: $firstname, name: $name) {
     users {
       id
       name

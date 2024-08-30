@@ -7,6 +7,8 @@ import env from "../env"
 import { Context } from "../utils"
 import crypto from "crypto"
 import { UserList } from "../types"
+import mailer from "../mailer"
+import { ILike } from "typeorm"
 
 @Resolver(User)
 class UserResolver {
@@ -22,8 +24,26 @@ class UserResolver {
 
 		newUser.emailConfirmationToken = token
 
+		await mailer.sendMail({
+			from: env.EMAIL_FROM,
+			to: newUser.email,
+			subject: "Welcome to GearGo",
+			text: `Welcome aboard ! To verify your email, please click on the link : ${env.FRONTEND_URL}/confirmEmail?token=${token}`,
+		})
+
 		const newUserWithId = await newUser.save()
 		return newUserWithId
+	}
+
+	@Mutation(() => String)
+	async confirmEmail(@Arg("token") token: string) {
+		const user = await User.findOneBy({ emailConfirmationToken: token })
+		if (user === null) throw new GraphQLError("INVALID_TOKEN")
+		user.emailVerified = true
+		user.emailConfirmationToken = null
+
+		user.save()
+		return "EMAIL_CONFIRMED"
 	}
 
 	@Mutation(() => String)
@@ -63,17 +83,6 @@ class UserResolver {
 		return ctx.currentUser.save()
 	}
 
-	@Mutation(() => String)
-	async confirmEmail(@Arg("token") token: string) {
-		const user = await User.findOneBy({ emailConfirmationToken: token })
-		if (user === null) throw new GraphQLError("INVALID_TOKEN")
-		user.emailVerified = true
-		user.emailConfirmationToken = null
-
-		user.save()
-		return "EMAIL_CONFIRMED"
-	}
-
 	@Authorized()
 	@Query(() => User)
 	async profile(@Ctx() ctx: Context) {
@@ -87,13 +96,27 @@ class UserResolver {
 	@Query(() => UserList)
 	async getAllUsers(
 		@Arg("limit", () => Int, { nullable: true }) limit?: number,
-		@Arg("offset", () => Int, { nullable: true }) offset?: number
+		@Arg("offset", () => Int, { nullable: true }) offset?: number,
+		@Arg("email", () => String, { nullable: true }) email?: string,
+		@Arg("name", () => String, { nullable: true }) name?: string,
+		@Arg("firstname", () => String, { nullable: true }) firstname?: string
 	) {
+		const whereConditions = []
+		if (email) whereConditions.push({ email: ILike(`%${email}%`) })
+		if (name) whereConditions.push({ name: ILike(`%${name}%`) })
+		if (firstname) whereConditions.push({ firstname: ILike(`%${firstname}%`) })
+
+		const whereClause =
+			whereConditions.length > 0
+				? whereConditions.map((condition) => ({ role: UserRole.CUSTOMER, ...condition }))
+				: { role: UserRole.CUSTOMER }
+
 		const [users, total] = await User.findAndCount({
-			where: { role: UserRole.CUSTOMER },
+			where: whereClause,
 			take: limit,
 			skip: offset,
 		})
+
 		return { users, total }
 	}
 }

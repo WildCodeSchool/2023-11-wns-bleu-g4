@@ -1,10 +1,46 @@
-query GetAllBooking {
-  getAllBooking {
-    id
-    status
-    invoice
-    bookingDate
-    startDate
-    endDate
+query GetAllBooking(
+  $offset: Int
+  $limit: Int
+  $userName: String
+  $userFirstname: String
+  $agencyId: Int
+  $bookingId: Int
+) {
+  getAllBooking(
+    offset: $offset
+    limit: $limit
+    userName: $userName
+    userFirstname: $userFirstname
+    agencyId: $agencyId
+    bookingId: $bookingId
+  ) {
+    bookings {
+      id
+      status
+      invoice
+      bookingDate
+      startDate
+      endDate
+      user {
+        id
+        name
+        firstname
+        address
+        postcode
+        city
+        phone
+      }
+      agency {
+        id
+        name
+      }
+      bookingItem {
+        id
+        endDate
+        startDate
+        status
+      }
+    }
+    total
   }
 }

@@ -56,7 +56,7 @@ export class NewReviewInput {
 	comment: string
 
 	@Field(() => ProductId)
-	productId: ProductId
+	product: ProductId
 
 	@Field(() => UserId)
 	userId: UserId
