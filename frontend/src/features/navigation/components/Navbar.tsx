@@ -75,7 +75,8 @@ function DesktopNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
             </Link>
           </div>
 
-          <SearchBar onSearch={query => console.log(query)} placeholder={t("Search")}/>
+          <SearchBar placeholder={t("Search")} />
+
           <li>
             {isLogged ? (
               <Menu>
@@ -137,7 +138,7 @@ function MobileNavbar({t, profileData, isLogged, handleLogout}: NavbarProps) {
           <ThemedLogo/>
           <Spacer/>
           <Flex gap={2} align={"center"}>
-            <SearchBar variant="mobile" onSearch={query => console.log(query)} placeholder={t("Search")}/>
+            <SearchBar variant="mobile" placeholder={t("Search")} />
             {isLogged ? (
               <IconButton
                 bg={"transparent"}

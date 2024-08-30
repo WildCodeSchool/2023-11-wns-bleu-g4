@@ -34,7 +34,10 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage, maxPages }) => {
 
     return (
         <HStack spacing={2} justifyContent="center">
-            <Button onClick={() => setPage(page - 1)} isDisabled={page <= 0}>
+            <Button
+                onClick={() => setPage(page - 1)}
+                isDisabled={page <= 0}
+            >
                 Prev
             </Button>
             {pages[0] > 0 && (
@@ -48,7 +51,6 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage, maxPages }) => {
                     key={pageNum}
                     onClick={() => setPage(pageNum)}
                     isActive={pageNum === page}
-                    variant={pageNum === page ? 'solid' : 'disable'}
                 >
                     {pageNum + 1}
                 </Button>
@@ -59,7 +61,10 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage, maxPages }) => {
                     <Button onClick={() => setPage(maxPages - 1)}>{maxPages}</Button>
                 </>
             )}
-            <Button onClick={() => setPage(page + 1)} isDisabled={page >= maxPages - 1}>
+            <Button
+                onClick={() => setPage(page + 1)}
+                isDisabled={page >= maxPages - 1}
+            >
                 Next
             </Button>
         </HStack>
