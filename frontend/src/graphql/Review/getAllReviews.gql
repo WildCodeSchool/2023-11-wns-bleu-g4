@@ -1,13 +1,15 @@
-query GetAllReviews($productId: Int) {
-  getAllReviews(productId: $productId) {
-    comment
-    id
-    rate
-    user {
-      id
-      avatar
-      firstname
-      name
+query GetAllReviews($productId: Int!) {
+    getAllReviews(productId: $productId) {
+        comment
+        id
+        rate
+        createdAt
+        edited
+        user {
+            id
+            avatar
+            firstname
+            name
+        }
     }
-  }
 }

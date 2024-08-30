@@ -33,7 +33,7 @@ export class User extends BaseEntity {
 	@Field()
 	name: string
 
-	@Column({ default: "account" })
+	@Column({ default: "My account" })
 	@Field()
 	firstname: string
 
