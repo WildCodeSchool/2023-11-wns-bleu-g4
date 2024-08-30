@@ -20,8 +20,8 @@ export default function Footer() {
       link: "#",
     },
     {
-      name: t("Recruitement"),
-      link: "#",
+      name: t("General sales conditions"),
+      link: "/content/sale-conditions",
     },
     {
       name: t("Accessibility : partially compliant"),
@@ -33,7 +33,7 @@ export default function Footer() {
     },
     {
       name: t("Legal notice"),
-      link: "#",
+      link: "/content/Legal-notice",
     },
     {
       name: t("Personal data"),
