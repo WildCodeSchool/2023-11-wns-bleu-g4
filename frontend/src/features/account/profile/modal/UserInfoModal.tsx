@@ -25,7 +25,8 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
 
     try {
       // Hot reload data
-      client.writeQuery<ProfileQuery>({ query: ProfileDocument, data: { profile: formJSON } })
+      const {profile} = client.readQuery({ query: ProfileDocument })
+      client.writeQuery<ProfileQuery>({ query: ProfileDocument, data: { profile: {...profile, ...formJSON} } })
       await updateProfile({ variables: { data: formJSON } });
       toast.info("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
     } catch (e: any) {
@@ -86,7 +87,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                   <Input type="tel" placeholder="Phone number" defaultValue={user?.phone} name="phone" id="phone" />
                 </Box>
               </Flex>
-              
+
               {/* <Box>
                   <FormLabel mb={1} htmlFor="email">Email</FormLabel>
                   <Input type="email" placeholder="Email" defaultValue={user?.email} name="email" id="email"/>
