@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
-import { ParentCategory } from "@/graphql/generated/schema";
+import { ParentCategory, ProductCharacteristic } from "@/graphql/generated/schema";
 import { characteristicTableHeaders } from "../helpers/tableHeaders";
 import { TableBodyProps } from "../product/types";
 import {
@@ -11,11 +11,12 @@ import { Characteristic } from "./types";
 import CharacteristicUpdateModal from "./CharacteristicUpdateModal";
 import CharacteristicDeleteModal from "./CharacteristicDeleteModal";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
 
 export default function CharacteristicTableBody({ data, refetch, loading }: TableBodyProps) {
   const { t } = useTranslation("CharacteristicTableBody");
 
-  const [deleteCharacteristic] = useDeleteProductCharacteristicMutation();
+  const [deleteCharacteristic, { error }] = useDeleteProductCharacteristicMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCharacteristic, setSelectedCharacteristic] = useState<Characteristic | null>(null);
@@ -35,7 +36,9 @@ export default function CharacteristicTableBody({ data, refetch, loading }: Tabl
       await deleteCharacteristic({ variables: { productCharacteristicId: id } });
       refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
+      toast.success(t("Characteristic deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };

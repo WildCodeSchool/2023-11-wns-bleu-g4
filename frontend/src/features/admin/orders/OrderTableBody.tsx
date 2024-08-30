@@ -8,6 +8,7 @@ import OrderCancelModal from "./OrderCancelModal";
 import { useCancelBookingMutation } from "@/graphql/Booking/generated/CancelBooking.generated";
 import { StatusBooking } from "@/graphql/generated/schema";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
 
 export default function OrderTableBody({
   data,
@@ -18,7 +19,7 @@ export default function OrderTableBody({
   sortOrder
 }: OrderTableBodyProps) {
   const { t } = useTranslation("OrderTableBody");
-  const [cancelOrder] = useCancelBookingMutation();
+  const [cancelOrder, { error }] = useCancelBookingMutation();
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [openOrderId, setOpenOrderId] = useState<number | null>(null);
@@ -37,7 +38,9 @@ export default function OrderTableBody({
       await cancelOrder({ variables: { bookingId: id } });
       refetch && refetch();
       setCancelModalOpen(false);
+      toast.success(t("Order canceled successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     };
   };

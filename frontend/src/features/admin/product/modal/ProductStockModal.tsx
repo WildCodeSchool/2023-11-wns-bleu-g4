@@ -18,30 +18,25 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  Select,
 } from "@chakra-ui/react";
 import { ProductCodeModalProps } from "../types";
 import { useCreateProductCodeMutation } from "@/graphql/ProductCode/generated/CreateProductCode.generated";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Status } from "@/graphql/generated/schema";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
-interface Size {
-  id: number;
-  name: string;
-}
-
-const sizes: Size[] = [
-  { id: 1, name: "S" },
-  { id: 2, name: "M" },
-  { id: 3, name: "L" },
-  { id: 4, name: "XL" },
-  { id: 5, name: "XXL" },
-];
-
-export default function ProductStockModal({ isOpen, onClose, agency, product }: ProductCodeModalProps) {
+export default function ProductStockModal({
+  isOpen,
+  onClose,
+  agency,
+  product,
+  refetch
+}: ProductCodeModalProps) {
+  const { t } = useTranslation("ProductStockModal");
   const agencyId = agency?.id!;
   const productId = product?.id!;
-  const [createProductCode] = useCreateProductCodeMutation();
+  const [createProductCode, { error }] = useCreateProductCodeMutation();
   const [newProductCode, setNewProductCode] = useState({
     size: "",
     agencyId: agencyId,
@@ -70,16 +65,17 @@ export default function ProductStockModal({ isOpen, onClose, agency, product }: 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    createProductCode({
-      variables: {
-        quantity: quantity,
-        data: newProductCode,
-      },
-      refetchQueries: ["GetProductCodesByProductId"],
-    })
-      .then(onClose)
-      .catch(console.error);
-  }
+    try {
+      await createProductCode({
+        variables: { quantity: quantity, data: newProductCode }
+      }).then(onClose)
+      refetch && refetch();
+      toast.success(t("Product code added successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>

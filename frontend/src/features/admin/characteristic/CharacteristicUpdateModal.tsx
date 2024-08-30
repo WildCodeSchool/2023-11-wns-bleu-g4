@@ -16,12 +16,15 @@ import { CharacteristicModalProps } from "./types";
 import {
   useUpdateProductCharacteristicMutation
 } from "@/graphql/ProductCharacteristic/generated/updateProductCharacteristic.generated";
-import {
-  GetProductCharacteristicByIdDocument
-} from "@/graphql/ProductCharacteristic/generated/getProductCharacteristicsById.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import client, { cache } from "@/graphql/client";
+import { GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import { getQueryVariables } from "../helpers/query";
 
 export default function CharacteristicUpdateModal({ isOpen, onClose, characteristic }: CharacteristicModalProps) {
-  const [updateCharacteristic] = useUpdateProductCharacteristicMutation();
+  const { t } = useTranslation("CharacteristicUpdateModal");
+  const [updateCharacteristic, { error }] = useUpdateProductCharacteristicMutation();
   const [formData, setFormData] = useState({ name: characteristic?.name });
 
   const productCharacteristicId = characteristic?.id!;
@@ -37,12 +40,42 @@ export default function CharacteristicUpdateModal({ isOpen, onClose, characteris
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    updateCharacteristic({
-      variables: { data: formData, productCharacteristicId },
-      refetchQueries: [{ query: GetProductCharacteristicByIdDocument, variables: { productCharacteristicId } }],
-    })
-      .then(onClose)
-      .catch(console.error);
+    try {
+      await updateCharacteristic({
+        variables: { data: formData, productCharacteristicId },
+      });
+
+      const variables = getQueryVariables("getAllProductCharacteristics");
+
+      const existingData = client.readQuery<GetAllProductCharacteristicsQuery>({
+        query: GetAllProductCharacteristicsDocument,
+        variables: variables,
+      })!;
+
+      const updatedData = existingData.getAllProductCharacteristics.productCharacteristics.map(
+        (productCharacteristic) =>
+          productCharacteristic.id === productCharacteristicId
+            ? { ...productCharacteristic, ...formData }
+            : productCharacteristic
+      );
+
+      client.writeQuery({
+        query: GetAllProductCharacteristicsDocument,
+        variables,
+        data: {
+          getAllProductCharacteristics: {
+            ...existingData.getAllProductCharacteristics,
+            productCharacteristics: updatedData,
+          },
+        },
+      });
+
+      onClose();
+      toast.success(t("Product characteristic updated successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   return (

@@ -9,5 +9,4 @@ export interface CharacteristicModalProps {
   onClose: () => void;
   characteristic?: Characteristic;
   handleDelete?: (id: number) => Promise<void>;
-  refetch?: () => void;
 }

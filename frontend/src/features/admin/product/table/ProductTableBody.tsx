@@ -10,12 +10,13 @@ import { useRouter } from "next/router";
 import { Product } from "@/graphql/generated/schema";
 import { useDeleteProductMutation } from "@/graphql/Product/generated/deleteProduct.generated";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
 
 export default function ProductTableBody({ data, refetch, loading }: TableBodyProps) {
   const { t } = useTranslation("ProductTableBody");
   const router = useRouter();
 
-  const [deleteProduct] = useDeleteProductMutation();
+  const [deleteProduct, { error }] = useDeleteProductMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -35,7 +36,9 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
       await deleteProduct({ variables: { productId: id } });
       refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
+      toast.success(t("Product deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };

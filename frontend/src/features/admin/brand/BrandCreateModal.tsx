@@ -15,9 +15,12 @@ import { FormEvent, useState } from "react";
 import { BrandModalProps } from "./types";
 import uploadFile from "../helpers/uploadFile";
 import { useCreateBrandMutation } from "@/graphql/Brand/generated/createBrand.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function BrandCreateModal({ isOpen, onClose, refetch }: BrandModalProps) {
-  const [createBrand] = useCreateBrandMutation();
+  const { t } = useTranslation("BrandCreateModal");
+  const [createBrand, { error }] = useCreateBrandMutation();
   const [imageURL, setImageURL] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -35,17 +38,17 @@ export default function BrandCreateModal({ isOpen, onClose, refetch }: BrandModa
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const brandData = {
-      ...formData,
-      logo: imageURL,
-    };
+    const brandData = { ...formData, logo: imageURL };
 
     try {
       await createBrand({ variables: { data: brandData } });
       refetch && refetch();
+
       onClose();
-    } catch (error) {
-      console.error(error);
+      toast.success(t("Brand added successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
     }
   };
 
