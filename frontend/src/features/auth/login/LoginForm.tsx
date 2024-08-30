@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { FormEvent } from "react";
 import { toast } from "react-toastify";
 
@@ -30,6 +31,7 @@ export default function LoginForm() {
   const [login] = useLoginMutation();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  const router = useRouter()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ export default function LoginForm() {
     try {
       await login({ variables: { data: formJSON } });
       toast.info("LOGIN SUCCESSFULL", ToastConfigLogin);
-      window.location.replace("/");
+      router.push("/");
     } catch (e: any) {
       const errArr = e.message.replace("_", " ");
       toast.error(errArr, ToastConfigLogin);

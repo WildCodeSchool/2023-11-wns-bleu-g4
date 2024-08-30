@@ -86,11 +86,10 @@ export default function SignupForm() {
         const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
         const toastInfo: string = `Account created. Please check your email to verify your account.`;
         const duration: number = 5000
-        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: duration });
         form.reset();
-        setTimeout(() => {
-          router.push('/')
-        }, duration);
+        router.push('/')
+        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: duration });
+
       } catch (e: any) {
         const errArr = e.message.replaceAll("_", " ");
         toast.error(errArr, ToastConfigLogin);

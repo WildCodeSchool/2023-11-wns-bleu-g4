@@ -29,9 +29,8 @@ export default function CancelBookingModal({ isOpen, onClose, bookingId, booking
             client.writeQuery({query : GetBookingsByUserIdDocument, data : {userId : 2, limit : 10, offset: offset}})
             await cancelBooking({ variables: { bookingId } })
             await cancelBookingItems({ variables: { bookingItemIds } })
-
+            history.back()
             toast.success("BOOKING CANCELED SUCCESSFULLY", ToastConfigWarning);
-            setTimeout(() => { history.back() }, 2000);
         } catch (error: any) {
             const errArr = error.message.replace("_", " ");
             toast.error(errArr, ToastConfigWarning);
