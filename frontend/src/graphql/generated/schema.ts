@@ -264,7 +264,7 @@ export type MutationDeleteProduct_PictureArgs = {
 
 
 export type MutationDeleteReviewArgs = {
-  reviewId: Scalars['Float']['input'];
+  reviewId: Scalars['Int']['input'];
 };
 
 
@@ -545,6 +545,7 @@ export type Query = {
   getReviewById: Review;
   getReviewsByProductId: Array<Review>;
   getReviewsByUserId: Array<Review>;
+  hasUserBookedProduct: Scalars['Boolean']['output'];
   profile: User;
 };
 
@@ -611,8 +612,8 @@ export type QueryGetAllProductsArgs = {
 
 
 export type QueryGetAllReviewsArgs = {
-  productId?: InputMaybe<Scalars['Float']['input']>;
-  userId?: InputMaybe<Scalars['Float']['input']>;
+  productId?: InputMaybe<Scalars['Int']['input']>;
+  userId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -683,26 +684,34 @@ export type QueryGetProductCodesByStatusArgs = {
 
 
 export type QueryGetReviewByIdArgs = {
-  productId?: InputMaybe<Scalars['Float']['input']>;
+  productId?: InputMaybe<Scalars['Int']['input']>;
   reviewId: Scalars['Int']['input'];
-  userId?: InputMaybe<Scalars['Float']['input']>;
+  userId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryGetReviewsByProductIdArgs = {
-  productId: Scalars['Float']['input'];
-  userId?: InputMaybe<Scalars['Float']['input']>;
+  productId: Scalars['Int']['input'];
+  userId?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryGetReviewsByUserIdArgs = {
-  productId?: InputMaybe<Scalars['Float']['input']>;
+  productId?: InputMaybe<Scalars['Int']['input']>;
+  userId: Scalars['Int']['input'];
+};
+
+
+export type QueryHasUserBookedProductArgs = {
+  productId: Scalars['Int']['input'];
   userId: Scalars['Int']['input'];
 };
 
 export type Review = {
   __typename?: 'Review';
   comment: Scalars['String']['output'];
+  createdAt: Scalars['DateTimeISO']['output'];
+  edited: Scalars['Boolean']['output'];
   id: Scalars['Int']['output'];
   product: Product;
   rate: Scalars['Int']['output'];
