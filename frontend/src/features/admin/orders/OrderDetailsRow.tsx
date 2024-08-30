@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Order } from "./types";
 import {
   useGetBookingItemsByBookingIdQuery
-} from "@/graphql/BookingItem/generated/getBookingItemByBookingId.generated";
+} from "@/graphql/BookingItem/generated/getBookingItemsByBookingId.generated";
 import OrderDetailsTable from "./OrderDetailsTable";
 import OrderDetailsStatus from "./OrderDetailsStatus";
 import { StatusBooking } from "@/graphql/generated/schema";
@@ -24,7 +24,7 @@ export default function OrderDetailsDropdown({ order }: { order: Order }) {
           {order.user.postcode} {order.user.city}
           <span className="font-bold">{t("Customer phone")}:</span> {order.user.phone}
         </div>
-        {order.status !== StatusBooking.Cancelled &&
+        {order.status !== StatusBooking.Canceled &&
           <OrderDetailsStatus order={order} />
         }
       </td>

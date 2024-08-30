@@ -8,7 +8,7 @@ import ProductDescription from "./components/ProductDescription";
 import ProductHeader from "./components/ProductHeader";
 import ProductPricing from "./components/ProductPricing";
 import SizeSelector from "./components/SizeSelector";
-import {useGetAllAgenciesQuery} from "@/graphql/Agency/generated/getAllAgency.generated";
+import { useGetAllAgenciesQuery } from "@/graphql/Agency/generated/GetAllAgencies.generated";
 
 export default function DetailsComponent() {
   const {state} = useProductContext();

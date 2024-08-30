@@ -8,14 +8,12 @@ export type UpdateProfileMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'User', id: number, email: string, name: string, firstname: string, address: string, postcode: string, city: string, country: string, phone: string, avatar: string, role: string } };
+export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'User', name: string, firstname: string, address: string, postcode: string, city: string, country: string, phone: string, avatar: string } };
 
 
 export const UpdateProfileDocument = gql`
     mutation UpdateProfile($data: UpdateUserInput!) {
   updateProfile(data: $data) {
-    id
-    email
     name
     firstname
     address
@@ -24,7 +22,6 @@ export const UpdateProfileDocument = gql`
     country
     phone
     avatar
-    role
   }
 }
     `;

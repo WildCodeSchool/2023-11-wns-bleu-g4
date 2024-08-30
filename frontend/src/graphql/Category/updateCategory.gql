@@ -1,4 +1,4 @@
-mutation UpdateCategory($data: UpdateCategoryInput!, $categoryId: Float!) {
+mutation UpdateCategory($data: UpdateCategoryInput!, $categoryId: Int!) {
   updateCategory(data: $data, categoryId: $categoryId) {
     id
     name

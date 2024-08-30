@@ -9,6 +9,7 @@ import crypto from "crypto"
 import { UserList } from "../types"
 import mailer from "../mailer"
 import { ILike } from "typeorm"
+import { hash } from "argon2"
 
 @Resolver(User)
 class UserResolver {
@@ -34,6 +35,19 @@ class UserResolver {
 		const newUserWithId = await newUser.save()
 		return newUserWithId
 	}
+
+	@Authorized()
+	@Mutation(() => User)
+	async updatePassword(
+		@Arg("password") password: string,
+		@Ctx() ctx: Context) {
+		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
+
+		if (password) ctx.currentUser.hashedPassword = await hash(password)
+
+		return ctx.currentUser.save()
+	}
+
 
 	@Mutation(() => String)
 	async confirmEmail(@Arg("token") token: string) {
@@ -68,7 +82,9 @@ class UserResolver {
 
 	@Authorized()
 	@Mutation(() => User)
-	async updateProfile(@Ctx() ctx: Context, @Arg("data", { validate: true }) data: UpdateUserInput) {
+	async updateProfile(
+		@Ctx() ctx: Context,
+		@Arg("data", { validate: true }) data: UpdateUserInput) {
 		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
 
 		if (data.name) ctx.currentUser.name = data.name
@@ -79,6 +95,7 @@ class UserResolver {
 		if (data.country) ctx.currentUser.country = data.country
 		if (data.phone) ctx.currentUser.phone = data.phone
 		if (data.avatar) ctx.currentUser.avatar = data.avatar
+		// if (data.email) ctx.currentUser.email = data.email
 
 		return ctx.currentUser.save()
 	}
@@ -91,6 +108,23 @@ class UserResolver {
 			where: { id: ctx.currentUser?.id },
 		})
 	}
+
+	@Authorized()
+	@Mutation(() => String)
+	async deleteProfile(@Ctx() ctx: Context) {
+		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
+
+		const user = await User.findOne({
+			where: { id: ctx.currentUser?.id },
+		})
+
+		if (!user) throw new GraphQLError("USER_NOT_FOUND");
+
+		await user.remove()
+
+		return "ACCOUNT_DELETED"
+	}
+
 
 	@Authorized([UserRole.ADMIN])
 	@Query(() => UserList)

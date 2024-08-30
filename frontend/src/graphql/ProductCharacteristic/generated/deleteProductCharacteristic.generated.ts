@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type DeleteProductCharacteristicMutationVariables = Types.Exact<{
-  productCharacteristicId: Types.Scalars['Float']['input'];
+  productCharacteristicId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -12,7 +12,7 @@ export type DeleteProductCharacteristicMutation = { __typename?: 'Mutation', del
 
 
 export const DeleteProductCharacteristicDocument = gql`
-    mutation DeleteProductCharacteristic($productCharacteristicId: Float!) {
+    mutation DeleteProductCharacteristic($productCharacteristicId: Int!) {
   deleteProductCharacteristic(productCharacteristicId: $productCharacteristicId)
 }
     `;

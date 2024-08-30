@@ -1,6 +1,6 @@
 import React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
-import {useGetAllAgenciesQuery} from "@/graphql/Agency/generated/getAllAgency.generated";
+import {useGetAllAgenciesQuery} from "@/graphql/Agency/generated/GetAllAgencies.generated";
 import {useGetProductsDetailsQuery} from "@/graphql/Product/generated/getProductsDetails.generated";
 import {Agency, Product} from "@/graphql/generated/schema";
 import {useGetSizeByAgencyIdQuery} from "@/graphql/Agency/generated/getSizeByAgencyId.generated";

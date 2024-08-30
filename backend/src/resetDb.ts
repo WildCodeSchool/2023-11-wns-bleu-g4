@@ -299,4 +299,4 @@ async function getOrCreateBrand(brandName: string): Promise<Brand> {
 	return brand
 }
 
-main()
+main()	

@@ -2,6 +2,7 @@ import { GraphQLError } from "graphql"
 import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
 import { BookingItem, NewBookingItemInput, UpdateBookingItemInput } from "../entities/BookingItem"
 import { Context } from "../utils"
+import { BookingItemStatus } from "../enum/BookingItemStatus"
 
 @Resolver()
 class BookingItemResolver {
@@ -13,7 +14,7 @@ class BookingItemResolver {
 	}
 
 	@Query(() => [BookingItem])
-	async getBookingItemsByBookingId(@Arg("bookingId", ()=> Int) bookingId: number) {
+	async getBookingItemsByBookingId(@Arg("bookingId", () => Int) bookingId: number) {
 		const items = await BookingItem.find({
 			where: { booking: { id: bookingId } },
 			relations: { booking: true, product: true, productCode: true },
@@ -41,7 +42,7 @@ class BookingItemResolver {
 	@Authorized()
 	@Mutation(() => BookingItem)
 	async updateBookingItem(
-		@Arg("bookingItemId") id: number,
+		@Arg("bookingItemId", () => Int) id: number,
 		@Arg("data", { validate: true }) data: UpdateBookingItemInput,
 		@Ctx() ctx: Context
 	) {
@@ -61,7 +62,7 @@ class BookingItemResolver {
 
 	@Authorized()
 	@Mutation(() => String)
-	async deleteBookingItem(@Arg("bookingItemId") id: number, @Ctx() ctx: Context) {
+	async deleteBookingItem(@Arg("bookingItemId", () => Int) id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
 		const itemToDelete = await BookingItem.findOne({ where: { id } })
@@ -69,6 +70,26 @@ class BookingItemResolver {
 
 		await itemToDelete.remove()
 		return `${itemToDelete.product.name} deleted`
+	}
+
+	@Authorized()
+	@Mutation(() => String)
+	async cancelBookingItems(
+		@Arg("bookingItemIds", () => [Int]) bookingItemIds: number[],
+		@Ctx() ctx: Context) {
+
+		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
+
+		for (let index = 0; index < bookingItemIds.length; index++) {
+			const itemToCancel = await BookingItem.findOne({ where: { id: bookingItemIds[index] } })
+			if (!itemToCancel) throw new GraphQLError("Item not found")
+
+			itemToCancel.status = BookingItemStatus.CANCELED
+
+			await itemToCancel.save()
+		}
+
+		return "Booking items set to canceled"
 	}
 }
 

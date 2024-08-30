@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type DeleteAgencyMutationVariables = Types.Exact<{
-  agencyId: Types.Scalars['Float']['input'];
+  agencyId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -12,7 +12,7 @@ export type DeleteAgencyMutation = { __typename?: 'Mutation', deleteAgency: stri
 
 
 export const DeleteAgencyDocument = gql`
-    mutation DeleteAgency($agencyId: Float!) {
+    mutation DeleteAgency($agencyId: Int!) {
   deleteAgency(agencyId: $agencyId)
 }
     `;

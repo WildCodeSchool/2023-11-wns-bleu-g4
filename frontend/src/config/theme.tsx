@@ -79,6 +79,9 @@ export const theme = extendTheme({
     secondaryDarkTheme: "#91B195",
     secondaryDarkThemeLight: lighten(0.1, "#91B195"),
     secondaryDarkThemeDark: darken(0.1, "#91B195"),
+
+    // Table User
+    tableHeaderLight:"#d0d2d6",
   },
   styles: {
     global: (props: any) => ({

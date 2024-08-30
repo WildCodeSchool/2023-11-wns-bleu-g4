@@ -3,7 +3,7 @@ import LayoutAdmin from "@/layouts/LayoutAdmin";
 import TableFooter from "@/features/admin/shared/TableFooter";
 import OrderTableBody from "@/features/admin/orders/OrderTableBody";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "@root/i18nUtils";
+import { getAllNamespaces } from "../../../../i18nUtils";
 import { GetStaticProps } from "next";
 import { useGetAllBookingQuery } from "@/graphql/Booking/generated/GetAllBooking.generated";
 import { useRouter } from "next/router";
