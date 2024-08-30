@@ -1,4 +1,3 @@
-"use client";
 import CategoryCreateModal from "@/features/admin/categories/modal/CategoryCreateModal";
 import ParentCategoryCreateModal from "@/features/admin/categories/modal/ParentCategoryCreateModal";
 import CategoryTableBody from "@/features/admin/categories/table/CategoryTableBody";
@@ -14,9 +13,9 @@ export default function Categories() {
   const [createCategoryModalOpen, setCreateCategoryModalOpen] = useState(false);
   const [createParentCategoryModalOpen, setCreateParentCategoryModalOpen] = useState(false);
 
-  const { data: categoriesData, refetch: refetchCategories } = useGetAllCategoriesQuery();
+  const { data: categoriesData, loading: categoriesLoading } = useGetAllCategoriesQuery();
   const categories = categoriesData?.getAllCategories || [];
-  const { data: parentCategoriesData, refetch: refetchParentCategories } = useGetAllParentCategoriesQuery();
+  const { data: parentCategoriesData, loading: parentCategoriesLoading } = useGetAllParentCategoriesQuery();
   const parentCategories = parentCategoriesData?.getAllParentCategories || [];
 
   const toggleCreateCategoryModal = () => setCreateCategoryModalOpen(!createCategoryModalOpen);
@@ -44,10 +43,9 @@ export default function Categories() {
               <ParentCategoryCreateModal
                 isOpen={createParentCategoryModalOpen}
                 onClose={toggleCreateParentCategoryModal}
-                refetch={refetchParentCategories}
               />
             )}
-            <ParentCategoryTableBody data={parentCategories} refetch={refetchCategories} />
+            <ParentCategoryTableBody data={parentCategories} loading={parentCategoriesLoading} />
           </TabPanel>
           <TabPanel className="flex flex-col items-end gap-4">
             <button
@@ -62,10 +60,9 @@ export default function Categories() {
               <CategoryCreateModal
                 isOpen={createCategoryModalOpen}
                 onClose={toggleCreateCategoryModal}
-                refetch={refetchCategories}
               />
             )}
-            <CategoryTableBody data={categories} />
+            <CategoryTableBody data={categories} loading={categoriesLoading} />
           </TabPanel>
         </TabPanels>
       </Tabs>

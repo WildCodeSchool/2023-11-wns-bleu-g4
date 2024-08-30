@@ -1,13 +1,13 @@
 import { useBookingData } from "@/context/BookingDataContext";
 import { useGetProductsDetailsQuery } from "@/graphql/Product/generated/getProductsDetails.generated";
 import {
+  Box,
   Button,
   Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   Flex,
@@ -41,64 +41,70 @@ export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onCl
         <DrawerHeader>{t("Your basket")}</DrawerHeader>
         <Divider />
 
-        <DrawerBody >
+        <DrawerBody>
           {bookingData && bookingData.length > 0 ? (
             bookingData.map((data, index) => {
               const product = productData?.getAllProducts.products.find(p => p.id === data.product?.id);
               return (
                 <Flex key={index} flexDirection="column" gap={10}>
-                  <Flex justifyContent="space-around" mt={10}>
+                  <Flex justifyContent="space-around" mt={10} gap={4} alignItems="center">
                     {product && <Image w="20%" h="20%" src={product.thumbnail} alt={product.name} />}
                     <Flex justifyContent="center" flexDirection="column" gap={2}>
-                      {product &&
-                        <Text display="flex" >
+                      {product && (
+                        <Box display="flex" className="flex-wrap">
                           <Text fontWeight="bold" mr={2}>
                             {t("Product :")}
                           </Text>
-                          {product.name}
-                        </Text>}
-                      {data.quantity &&
-                        <Text display="flex" >
+                          <Text>{product.name}</Text>
+                        </Box>
+                      )}
+                      {data.quantity && (
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("Quantity :")}
                           </Text>
-                          {data.quantity}
-                        </Text>}
-                      {data.selectedSize &&
-                        <Text display="flex" >
+                          <Text>{data.quantity}</Text>
+                        </Box>
+                      )}
+                      {data.selectedSize && (
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("Size :")}
                           </Text>
-                          {data.selectedSize}
-                        </Text>}
-                      {data.startDate &&
-                        <Text display="flex" >
+                          <Text>{data.selectedSize}</Text>
+                        </Box>
+                      )}
+                      {data.startDate && (
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("Start date :")}
                           </Text>
-                          {data.startDate.toLocaleDateString()}
-                        </Text>}
-                      {data.endDate &&
-                        <Text display="flex" >
+                          <Text>{data.startDate.toLocaleDateString()}</Text>
+                        </Box>
+                      )}
+                      {data.endDate && (
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
                             {t("End date :")}
                           </Text>
-                          {data.endDate.toLocaleDateString()}
-                        </Text>}
-                      {data.totalPrice &&
-                        <Text display="flex" >
+                          <Text>{data.endDate.toLocaleDateString()}</Text>
+                        </Box>
+                      )}
+                      {data.totalPrice && (
+                        <Box display="flex">
                           <Text fontWeight="bold" mr={2}>
-                            {("Total price :")}
+                            {"Total price :"}
                           </Text>
-                          {parseFloat(data.totalPrice.toFixed(2))} €
-                        </Text>}
+                          <Text>{parseFloat(data.totalPrice.toFixed(2))} €</Text>
+                        </Box>
+                      )}
                     </Flex>
                   </Flex>
                   <Flex justifyContent="space-between" gap={5}>
                     <Button
                       variant="primaryButton"
                       // onClick={() => removeBookingData(index)}
-                      aria-label='Edit'
+                      aria-label="Edit"
                       leftIcon={<PencilSquareIcon width={24} />}
                       w="100%"
                     >
@@ -115,23 +121,20 @@ export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onCl
                     </Button>
                   </Flex>
                   <Divider />
+                  <Button
+                    onClick={() => router.push("/basket")}
+                    isDisabled={!bookingData || bookingData.length === 0}
+                    variant="accentButton"
+                  >
+                    {t("Go to basket")}
+                  </Button>
                 </Flex>
               );
             })
           ) : (
-            <p>{t("Your basket is empty")}</p>
+            <Text>{t("Your basket is empty")}</Text>
           )}
         </DrawerBody>
-        <DrawerFooter>
-          <Button
-            mr={3}
-            onClick={() => router.push("/basket")}
-            isDisabled={!bookingData || bookingData.length === 0}
-            variant="accentButton"
-          >
-            {t("Go to basket")}
-          </Button>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );

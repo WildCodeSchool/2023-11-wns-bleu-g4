@@ -1,78 +1,86 @@
+import ProductGrid from "@/features/shop/product_grid/Productgrid";
 import Pagination from "@/features/shop/Pagination";
 import ProductFilter from "@/features/shop/filters/ProductFilter";
 import TopFilters from "@/features/shop/filters/TopFilters";
-import ProductGrid from "@/features/shop/product_grid/Productgrid";
+import Layout from "@/layouts/Layout";
 import { useGetAllProductsByCategoryIdQuery } from "@/graphql/Product/generated/getAllProductsByCategorieID.generated";
 import { SortProduct } from "@/graphql/generated/schema";
-import Layout from "@/layouts/Layout";
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "@root/i18nUtils";
 
 export default function ProductByCategory() {
-    const isMobile = useBreakpointValue({ base: true, md: false });
-    const router = useRouter();
-    const { categoryId } = router.query;
-    const parsedCategoryId = parseInt(categoryId as string, 10);
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const router = useRouter();
+  const { categoryId } = router.query;
+  const parsedCategoryId = parseInt(categoryId as string, 10);
 
     const sortOrderFromQuery = router.query.sortOrder as SortProduct | undefined;
+    const [sortOrder, setSortOrder] = useState<SortProduct | null>(sortOrderFromQuery ?? null);
+    const [page, setPage] = useState<number>(parseInt((router.query.page as string) || "1", 10) - 1);
 
-    const [sortOrder, setSortOrder] = useState<SortProduct | null>(
-        sortOrderFromQuery ?? null
-    );
-    const [page, setPage] = useState(0);
 
-    const { data, error, loading, refetch } = useGetAllProductsByCategoryIdQuery({
-        variables: {
-            categoryId: parsedCategoryId,
-            sortOrder,
-            limit: 12,
-            offset: page * 12,
-        },
-    });
+  const { data, error, loading, refetch } = useGetAllProductsByCategoryIdQuery({
+    variables: {
+      categoryId: parsedCategoryId,
+      sortOrder,
+      limit: 12,
+      offset: page * 12,
+    },
+  });
 
     useEffect(() => {
-        if (sortOrder !== null) {
+        if (page >= 0) {
             refetch({ categoryId: parsedCategoryId, sortOrder });
         }
-    }, [sortOrder, parsedCategoryId, refetch]);
+    }, [sortOrder, page, parsedCategoryId, refetch]);
+
+
+  useEffect(() => {
+    setSortOrder(sortOrderFromQuery ?? null);
+  }, [sortOrderFromQuery]);
 
     useEffect(() => {
-        setSortOrder(sortOrderFromQuery ?? null);
-    }, [sortOrderFromQuery]);
+        setPage(parseInt((router.query.page as string) || "1", 10) - 1);
+    }, [router.query.page]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-    const products = data?.getAllProducts.products ?? [];
-    const totalProducts = data?.getAllProducts.total ?? 0;
-    const maxPages = Math.ceil(totalProducts / 12);
+
+  const products = data?.getAllProducts.products ?? [];
+  const totalProducts = data?.getAllProducts.total ?? 0;
+  const maxPages = Math.ceil(totalProducts / 12);
 
     const handlePageChange = (newPage: number) => {
+        if (newPage < 0 || newPage >= maxPages) return;
         setPage(newPage);
         router.push({
             pathname: router.pathname,
-            query: { ...router.query, page: newPage },
+            query: { ...router.query, page: newPage + 1 },
         });
     };
 
-    const handleSortChange = (newSortOrder: SortProduct | null) => {
-        if (newSortOrder !== null) {
-            setSortOrder(newSortOrder);
-            router.push({
-                pathname: router.pathname,
-                query: { ...router.query, sortOrder: newSortOrder },
-            });
-        } else {
-            const { sortOrder, ...queryWithoutSortOrder } = router.query;
-            setSortOrder(null);
-            router.push({
-                pathname: router.pathname,
-                query: queryWithoutSortOrder,
-            });
-        }
-    };
 
+  const handleSortChange = (newSortOrder: SortProduct | null) => {
+    if (newSortOrder !== null) {
+      setSortOrder(newSortOrder);
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, sortOrder: newSortOrder },
+      });
+    } else {
+      const { sortOrder, ...queryWithoutSortOrder } = router.query;
+      setSortOrder(null);
+      router.push({
+        pathname: router.pathname,
+        query: queryWithoutSortOrder,
+      });
+    }
+  };
 
     return (
         <Layout pageTitle="ProductByCategory">
@@ -104,3 +112,4 @@ export default function ProductByCategory() {
         </Layout>
     );
 }
+

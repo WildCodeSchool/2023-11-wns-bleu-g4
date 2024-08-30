@@ -41,8 +41,8 @@ export class NewCategoryInput {
 	@Field()
 	thumbnail: string
 
-	@Field(() => ParentCategoryId, { nullable: true })
-	parentCategory?: ParentCategoryId
+	@Field(() => ParentCategoryId)
+	parentCategory: ParentCategoryId
 }
 
 @InputType()

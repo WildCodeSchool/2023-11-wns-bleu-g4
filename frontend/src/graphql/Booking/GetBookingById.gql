@@ -6,5 +6,24 @@ query GetBookingById($bookingId: Int!) {
     bookingDate
     startDate
     endDate
+    user {
+      address
+      city
+      country
+      email
+      firstname
+      name
+      phone
+      postcode
+    }
+    agency {
+      address
+      city
+      country
+      email
+      name
+      phone
+      postcode
+    }
   }
 }

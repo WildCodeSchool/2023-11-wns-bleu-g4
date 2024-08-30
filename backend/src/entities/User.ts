@@ -33,7 +33,7 @@ export class User extends BaseEntity {
 	@Field()
 	name: string
 
-	@Column({ default: "firstname" })
+	@Column({ default: "My account" })
 	@Field()
 	firstname: string
 
@@ -131,6 +131,10 @@ export class UpdateUserInput {
 	@Length(2, 255)
 	@Field({ nullable: true })
 	avatar?: string
+
+	@Length(2, 255)
+	@Field({ nullable: true })
+	email?: string
 }
 
 @InputType()
@@ -143,5 +147,6 @@ export class LoginInput {
 	@IsStrongPassword()
 	password: string
 }
+
 
 export default User

@@ -29,7 +29,19 @@ export const ToastConfigLight: ToastOptions = {
 
 export const ToastConfigLogin: ToastOptions = {
   position: "bottom-right",
-  autoClose: 5000,
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+  transition: Bounce,
+};
+
+export const ToastConfigWarning: ToastOptions = {
+  position: "bottom-right",
+  autoClose: 2000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,

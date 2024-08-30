@@ -1,4 +1,3 @@
-"use client";
 import {
   Button,
   FormControl,
@@ -18,10 +17,14 @@ import uploadFile from "../../helpers/uploadFile";
 import { CategoryModalProps, ParentCategory } from "../types";
 import { useGetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import { useUpdateCategoryMutation } from "@/graphql/Category/generated/updateCategory.generated";
-import { GetCategoryByIdDocument } from "@/graphql/Category/generated/GetCategoryById.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import client from "@/graphql/client";
+import { GetAllCategoriesDocument, GetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
 
 export default function CategoryUpdateModal({ isOpen, onClose, category }: CategoryModalProps) {
-  const [updateCategory] = useUpdateCategoryMutation();
+  const { t } = useTranslation("CategoryUpdateModal");
+  const [updateCategory, { error }] = useUpdateCategoryMutation();
   const [imageURL, setImageURL] = useState(category?.thumbnail);
   const [formData, setFormData] = useState({
     name: category?.name,
@@ -59,19 +62,47 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
       thumbnail: imageURL,
     };
 
-    updateCategory({
-      variables: { data: categoryData, categoryId },
-      refetchQueries: [{ query: GetCategoryByIdDocument, variables: { categoryId } }],
-    })
-      .then(onClose)
-      .catch(console.error);
+    try {
+      await updateCategory({ variables: { data: categoryData, categoryId } });
+
+      const existingData = client.readQuery<GetAllCategoriesQuery>({
+        query: GetAllCategoriesDocument
+      })!;
+
+      const updatedData = existingData.getAllCategories.map((category) =>
+        category.id === categoryId
+          ? {
+            ...category,
+            ...categoryData,
+            parentCategory: {
+              ...category.parentCategory,
+              id: formData.parentCategory,
+            },
+          }
+          : category
+      );
+
+      client.writeQuery({
+        query: GetAllCategoriesDocument,
+        data: {
+          getAllCategories: updatedData,
+        },
+      });
+
+      onClose();
+      toast.success(t("Category updated successfully"));
+    }
+    catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add a new category</ModalHeader>
+        <ModalHeader>Update {category?.name} category</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit}>
@@ -81,7 +112,7 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
               </FormLabel>
               <Input
                 type="text"
-                id=""
+                id="name"
                 name="name"
                 placeholder="Name"
                 value={formData.name}

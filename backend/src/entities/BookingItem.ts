@@ -1,17 +1,11 @@
-import { IsEnum } from "class-validator";
-import { Field, InputType, Int, ObjectType } from "type-graphql";
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	ManyToOne,
-	PrimaryGeneratedColumn,
-} from "typeorm";
-import { BookingItemStatus } from "../enum/BookingItemStatus";
-import { BookingId, ProductId } from '../types';
-import { Booking } from "./Booking";
-import Product from "./Product";
-import ProductCode from "./ProductCode";
+import { IsEnum } from "class-validator"
+import { Field, InputType, Int, ObjectType } from "type-graphql"
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { BookingItemStatus } from "../enum/BookingItemStatus"
+import { BookingId, ProductCodeId, ProductId } from "../types"
+import { Booking } from "./Booking"
+import Product from "./Product"
+import ProductCode from "./ProductCode"
 
 @Entity()
 @ObjectType()
@@ -36,15 +30,15 @@ export class BookingItem extends BaseEntity {
 	@Field()
 	endDate: Date;
 
-	@ManyToOne(() => Booking, (booking) => booking.bookingItem, { nullable: false })
+	@ManyToOne(() => Booking, (booking) => booking.bookingItem)
 	@Field(() => Booking)
 	booking: Booking;
 
-	@ManyToOne(() => Product, (product) => product.bookingItem, { nullable: false })
+	@ManyToOne(() => Product, (product) => product.bookingItem)
 	@Field(() => Product)
 	product: Product;
 
-	@ManyToOne(() => ProductCode, (product) => product.bookingItems, { nullable: false })
+	@ManyToOne(() => ProductCode, (product) => product.bookingItems)
 	@Field(() => ProductCode)
 	productCode: ProductCode;
 }
@@ -59,10 +53,10 @@ export class NewBookingItemInput {
 	booking: BookingId;
 
 	@Field(() => ProductId)
-	productId: ProductId;
+	product: ProductId;
 
-	@Field(() => ProductId)
-	productCodeId: ProductId;
+	@Field(() => ProductCodeId)
+	productCode: ProductCodeId;
 
 	@Field()
 	startDate: Date;
@@ -84,10 +78,10 @@ export class UpdateBookingItemInput {
 	booking?: BookingId;
 
 	@Field(() => ProductId, { nullable: true })
-	productId?: ProductId;
+	product?: ProductId;
 
-	@Field(() => ProductId, { nullable: true })
-	productCodeId?: ProductId;
+	@Field(() => ProductCodeId, { nullable: true })
+	productCode?: ProductCodeId;
 
 	@Field({ nullable: true })
 	startDate?: Date;
@@ -95,5 +89,6 @@ export class UpdateBookingItemInput {
 	@Field({ nullable: true })
 	endDate?: Date;
 }
+
 
 export default BookingItem

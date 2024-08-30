@@ -4,19 +4,21 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetAllReviewsQueryVariables = Types.Exact<{
-  productId?: Types.InputMaybe<Types.Scalars['Float']['input']>;
+  productId: Types.Scalars['Int']['input'];
 }>;
 
 
-export type GetAllReviewsQuery = { __typename?: 'Query', getAllReviews: Array<{ __typename?: 'Review', comment: string, id: number, rate: number, user: { __typename?: 'User', id: number, avatar: string, firstname: string, name: string } }> };
+export type GetAllReviewsQuery = { __typename?: 'Query', getAllReviews: Array<{ __typename?: 'Review', comment: string, id: number, rate: number, createdAt: any, edited: boolean, user: { __typename?: 'User', id: number, avatar: string, firstname: string, name: string } }> };
 
 
 export const GetAllReviewsDocument = gql`
-    query GetAllReviews($productId: Float) {
+    query GetAllReviews($productId: Int!) {
   getAllReviews(productId: $productId) {
     comment
     id
     rate
+    createdAt
+    edited
     user {
       id
       avatar
@@ -43,7 +45,7 @@ export const GetAllReviewsDocument = gql`
  *   },
  * });
  */
-export function useGetAllReviewsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllReviewsQuery, GetAllReviewsQueryVariables>) {
+export function useGetAllReviewsQuery(baseOptions: Apollo.QueryHookOptions<GetAllReviewsQuery, GetAllReviewsQueryVariables> & ({ variables: GetAllReviewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetAllReviewsQuery, GetAllReviewsQueryVariables>(GetAllReviewsDocument, options);
       }

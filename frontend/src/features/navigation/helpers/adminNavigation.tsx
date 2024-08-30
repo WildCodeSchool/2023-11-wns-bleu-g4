@@ -5,6 +5,7 @@ import {
   ShoppingBagIcon,
   UserGroupIcon,
   Squares2X2Icon,
+  TagIcon,
 } from "@heroicons/react/24/outline";
 import { ReactNode } from "react";
 
@@ -19,37 +20,43 @@ export const adminNavigation: Navigation[] = [
   {
     id: 1,
     title: "Dashboard",
-    icon: <ChartBarSquareIcon className="h-6 w-6" />,
+    icon: <ChartBarSquareIcon className="h-6 w-6 min-w-fit" />,
     path: "/admin",
   },
   {
     id: 2,
-    title: "Categories",
-    icon: <Squares2X2Icon className="h-6 w-6" />,
-    path: "/admin/categories",
+    title: "Brands",
+    icon: <TagIcon className="h-6 w-6 min-w-fit" />,
+    path: "/admin/brands",
   },
   {
     id: 3,
-    title: "Characteristics",
-    icon: <ClipboardDocumentListIcon className="h-6 w-6" />,
-    path: "/admin/characteristics",
+    title: "Categories",
+    icon: <Squares2X2Icon className="h-6 w-6 min-w-fit" />,
+    path: "/admin/categories",
   },
   {
     id: 4,
-    title: "Customers",
-    icon: <UserGroupIcon className="h-6 w-6" />,
-    path: "/admin/customers",
+    title: "Characteristics",
+    icon: <ClipboardDocumentListIcon className="h-6 w-6 min-w-fit" />,
+    path: "/admin/characteristics",
   },
   {
     id: 5,
-    title: "Orders",
-    icon: <CubeIcon className="h-6 w-6" />,
-    path: "/admin/orders",
+    title: "Customers",
+    icon: <UserGroupIcon className="h-6 w-6 min-w-fit" />,
+    path: "/admin/customers",
   },
   {
     id: 6,
+    title: "Orders",
+    icon: <CubeIcon className="h-6 w-6 min-w-fit" />,
+    path: "/admin/orders",
+  },
+  {
+    id: 7,
     title: "Products",
-    icon: <ShoppingBagIcon className="h-6 w-6" />,
+    icon: <ShoppingBagIcon className="h-6 w-6 min-w-fit" />,
     path: "/admin/products",
   },
 ];

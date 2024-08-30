@@ -1,6 +1,9 @@
-query GetAllProductCharacteristics {
-  getAllProductCharacteristics {
-    id
-    name
+query GetAllProductCharacteristics($limit: Int, $offset: Int, $name: String) {
+  getAllProductCharacteristics(limit: $limit, offset: $offset, name: $name) {
+    productCharacteristics {
+      id
+      name
+    }
+    total
   }
 }

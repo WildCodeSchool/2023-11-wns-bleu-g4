@@ -1,4 +1,4 @@
-import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
+import {defineStyle, defineStyleConfig} from "@chakra-ui/react";
 
 const outline = defineStyle({
   border: "2px dashed", // change the appearance of the border
@@ -12,6 +12,15 @@ const accentButton = defineStyle({
 
   _hover: {
     bg: "accentDark",
+  },
+});
+
+const warningButton = defineStyle({
+  color: "light", // change the text color,
+  bg: "#D23732",
+
+  _hover: {
+    bg: "#ab1313",
   },
 });
 
@@ -72,6 +81,7 @@ const sizeButton = defineStyle({
   borderRadius: "10px",
   color: "dark",
   fontWeight: "600",
+  marginInlineStart: "0 !important",
   bg: "#F5EEE5",
   _hover: {
     bg: "#D23732",
@@ -104,5 +114,6 @@ export const buttonTheme = defineStyleConfig({
     selectorButton,
     accentButton,
     primaryButton,
+    warningButton,
   },
 });

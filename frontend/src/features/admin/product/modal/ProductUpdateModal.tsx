@@ -27,9 +27,12 @@ import uploadFile from "../../helpers/uploadFile";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function ProductUpdateModal({ isOpen, onClose, product }: ProductModalProps) {
-  const [updateProduct] = useUpdateProductMutation();
+  const { t } = useTranslation("ProductUpdateModal");
+  const [updateProduct, { error }] = useUpdateProductMutation();
   const [imageURL, setImageURL] = useState(product?.thumbnail);
   const [formData, setFormData] = useState({
     name: product?.name,
@@ -45,7 +48,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
   const { data: categoriesData } = useGetAllCategoriesQuery();
   const categories = categoriesData?.getAllCategories ?? [];
   const { data: brandsData } = useGetAllBrandsQuery();
-  const brands = brandsData?.getAllBrands ?? [];
+  const brands = brandsData?.getAllBrands.brands ?? [];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -81,12 +84,16 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
       thumbnail: imageURL,
     };
 
-    updateProduct({
-      variables: { data: productData, productId },
-      refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
-    })
-      .then(onClose)
-      .catch(console.error);
+    try {
+      await updateProduct({
+        variables: { data: productData, productId },
+        refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
+      }).then(onClose)
+      toast.success(t("Product updated successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   return (

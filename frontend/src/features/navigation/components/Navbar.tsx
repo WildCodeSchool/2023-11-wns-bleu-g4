@@ -47,12 +47,21 @@ function DesktopNavbar() {
   }, [profileData]);
 
   const handleLogout = async () => {
+    await router.push("/login");
     await logout();
     await client.resetStore();
     await refetch();
     setIsLogged(false);
-    router.push("/login");
   };
+
+  const goToAccount = () => {
+
+    try {
+      router.push(`/account`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <Flex display={{ base: "none", md: "none", xl: "flex" }}>
@@ -64,7 +73,8 @@ function DesktopNavbar() {
             </Link>
           </div>
 
-          <SearchBar onSearch={query => console.log(query)} placeholder={t("Search")} />
+          <SearchBar placeholder={t("Search")} />
+
           <li>
             {isLogged ? (
               <Menu>
@@ -78,7 +88,7 @@ function DesktopNavbar() {
                   {profileData?.profile.firstname}
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>{t("My Account")}</MenuItem>
+                  <MenuItem onClick={goToAccount}>{t("My Account")}</MenuItem>
                   {profileData?.profile.role === "admin" &&
                     <MenuItem onClick={() => router.push('/admin')}>{t("Admin Panel")}</MenuItem>
                   }
@@ -124,11 +134,11 @@ function MobileNavbar() {
   }, [profileData]);
 
   const handleLogout = async () => {
+    await router.push("/login")
     await logout();
     await client.resetStore();
     await refetch();
     setIsLogged(false);
-    router.push("/login");
   };
 
   return (
@@ -144,7 +154,7 @@ function MobileNavbar() {
           <ThemedLogo />
           <Spacer />
           <Flex gap={2} align={"center"}>
-            <SearchBar variant="mobile" onSearch={query => console.log(query)} placeholder={t("Search")} />
+            <SearchBar variant="mobile" placeholder={t("Search")} />
             {isLogged ? (
               <IconButton
                 bg={"transparent"}

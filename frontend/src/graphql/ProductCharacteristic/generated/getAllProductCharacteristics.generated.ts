@@ -3,17 +3,24 @@ import * as Types from '../../generated/schema';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetAllProductCharacteristicsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetAllProductCharacteristicsQueryVariables = Types.Exact<{
+  limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  name?: Types.InputMaybe<Types.Scalars['String']['input']>;
+}>;
 
 
-export type GetAllProductCharacteristicsQuery = { __typename?: 'Query', getAllProductCharacteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, name: string }> };
+export type GetAllProductCharacteristicsQuery = { __typename?: 'Query', getAllProductCharacteristics: { __typename?: 'ProductCharacteristicList', total: number, productCharacteristics: Array<{ __typename?: 'ProductCharacteristic', id: number, name: string }> } };
 
 
 export const GetAllProductCharacteristicsDocument = gql`
-    query GetAllProductCharacteristics {
-  getAllProductCharacteristics {
-    id
-    name
+    query GetAllProductCharacteristics($limit: Int, $offset: Int, $name: String) {
+  getAllProductCharacteristics(limit: $limit, offset: $offset, name: $name) {
+    productCharacteristics {
+      id
+      name
+    }
+    total
   }
 }
     `;
@@ -30,6 +37,9 @@ export const GetAllProductCharacteristicsDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllProductCharacteristicsQuery({
  *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *      name: // value for 'name'
  *   },
  * });
  */

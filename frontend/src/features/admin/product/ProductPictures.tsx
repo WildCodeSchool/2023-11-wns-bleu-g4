@@ -5,19 +5,29 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDeleteProduct_PictureMutation } from "@/graphql/ProductPicture/generated/DeleteProduct_picture.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 import { Product, Product_Picture } from "./types";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function ProductPictures({ product }: { product: Product }) {
-  const [deletePicture] = useDeleteProduct_PictureMutation();
+  const { t } = useTranslation("ProductPictures");
+  const [deletePicture, { error }] = useDeleteProduct_PictureMutation();
   const [productPictureModal, setProductPictureModal] = useState(false);
   const toggleAddPictureModal = () => setProductPictureModal(!productPictureModal);
 
   const productId = product?.id;
 
   const handleDeletePicture = async (pictureId: number) => {
-    deletePicture({
-      variables: { deleteProductPictureId: pictureId },
-      refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
-    }).catch(console.error);
+
+    try {
+      await deletePicture({
+        variables: { deleteProductPictureId: pictureId },
+        refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
+      });
+      toast.success(t("Product picture deleted successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   return (
@@ -36,10 +46,10 @@ export default function ProductPictures({ product }: { product: Product }) {
           <ProductPictureAddModal isOpen={productPictureModal} onClose={toggleAddPictureModal} product={product} />
         )}
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap">
         {product?.pictures.length === 0 && <span className="italic">No pictures available</span>}
         {product?.pictures.map((picture: Product_Picture) => (
-          <div key={picture.id} className="relative h-36 max-w-52 rounded aspect-auto">
+          <div key={picture.id} className="relative h-36 rounded aspect-square">
             <img
               src={picture.thumbnail}
               alt={picture.alt}

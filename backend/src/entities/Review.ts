@@ -1,12 +1,6 @@
 import { Length, Max, Min } from "class-validator"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	ManyToOne,
-	PrimaryGeneratedColumn,
-} from "typeorm"
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
 import { ProductId, UserId } from "../types"
 import Product from "./Product"
 import User from "./User"
@@ -26,6 +20,14 @@ export class Review extends BaseEntity {
 	@Column({ type: "text" })
 	@Field()
 	comment: string
+
+	@CreateDateColumn()
+	@Field()
+	createdAt: Date
+
+	@Column({ default: false })
+	@Field()
+	edited: boolean
 
 	@ManyToOne(() => Product, (product) => product.reviews, {
 		cascade: true,
@@ -56,7 +58,7 @@ export class NewReviewInput {
 	comment: string
 
 	@Field(() => ProductId)
-	productId: ProductId
+	product: ProductId
 
 	@Field(() => UserId)
 	userId: UserId

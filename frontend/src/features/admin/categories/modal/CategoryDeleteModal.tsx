@@ -12,7 +12,7 @@ import { CategoryModalProps } from "../types";
 
 export default function CategoryDeleteModal({ isOpen, onClose, category, handleDelete }: CategoryModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} variant="baseStyle" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Delete {category?.name}</ModalHeader>

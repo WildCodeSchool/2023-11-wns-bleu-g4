@@ -6,17 +6,24 @@ import ProductCharacteristic, {
 import { UserRole } from "../entities/User"
 import { Context } from "../utils"
 import { GraphQLError } from "graphql"
+import { ProductCharacteristicList } from "../types"
+import { ILike } from "typeorm"
 
 @Resolver()
 class ProductCharacteristicResolver {
-	@Query(() => [ProductCharacteristic])
-	async getAllProductCharacteristics() {
-		try {
-			return await ProductCharacteristic.find({ relations: ["product"] })
-		} catch (error) {
-			console.error("Error fetching all product characteristics:", error)
-			throw new Error("Could not fetch product characteristics")
-		}
+	@Query(() => ProductCharacteristicList)
+	async getAllProductCharacteristics(
+		@Arg("limit", () => Int, { nullable: true }) limit?: number,
+		@Arg("offset", () => Int, { nullable: true }) offset?: number,
+		@Arg("name", () => String, { nullable: true }) name?: string
+	) {
+		const [productCharacteristics, total] = await ProductCharacteristic.findAndCount({
+			take: limit,
+			skip: offset,
+			relations: ["product"],
+			where: name ? { name: ILike(`%${name}%`) } : {},
+		})
+		return { productCharacteristics, total }
 	}
 
 	@Query(() => ProductCharacteristic)
@@ -64,7 +71,7 @@ class ProductCharacteristicResolver {
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => ProductCharacteristic)
 	async updateProductCharacteristic(
-		@Arg("productCharacteristicId") id: number,
+		@Arg("productCharacteristicId", () => Int) id: number,
 		@Arg("data", { validate: true }) data: UpdateProductCharacteristicInput,
 		@Ctx() ctx: Context
 	) {
@@ -84,7 +91,10 @@ class ProductCharacteristicResolver {
 
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => String)
-	async deleteProductCharacteristic(@Arg("productCharacteristicId") id: number, @Ctx() ctx: Context) {
+	async deleteProductCharacteristic(
+		@Arg("productCharacteristicId", () => Int) id: number,
+		@Ctx() ctx: Context) {
+			
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const productCharacteristicToDelete = await ProductCharacteristic.findOne({ where: { id } })
 		if (!productCharacteristicToDelete) throw new GraphQLError("Product characteristic not found")

@@ -1,3 +1,4 @@
+import { SidebarProvider, useSidebar } from "@/context/SideNavbarContext";
 import SideNavbar from "@/features/navigation/components/SideNavbar";
 import Head from "next/head";
 import { ReactNode } from "react";
@@ -16,9 +17,21 @@ export default function LayoutAdmin({ children, pageTitle }: LayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-[100vh]">
-        <SideNavbar />
-        <main className="space-y-4 ml-60 p-6 w-full">{children}</main>
+        <SidebarProvider>
+          <SideNavbar />
+          <LayoutContent>{children}</LayoutContent>
+        </SidebarProvider>
       </div>
     </>
+  );
+}
+
+function LayoutContent({ children }: { children: ReactNode }) {
+  const { isExpanded } = useSidebar();
+
+  return (
+    <main className={`space-y-4 ${isExpanded ? "ml-60" : "ml-[4.5rem]"} p-6 w-full duration-300`}>
+      {children}
+    </main>
   );
 }

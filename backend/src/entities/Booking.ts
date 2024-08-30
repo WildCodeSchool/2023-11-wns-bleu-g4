@@ -128,9 +128,11 @@ export class UpdateBookingInput {
 
 @InputType()
 export class CancelBookingInput {
-	@Field(() => StatusBooking)
+	@Field(() => Int)
+	id: number
+
+	@Field(() => StatusBooking, { nullable: true })
 	status?: StatusBooking
 }
 
 export default Booking
-

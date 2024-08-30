@@ -1,55 +1,84 @@
 import ProductCreateModal from "@/features/admin/product/modal/ProductCreateModal";
 import ProductTableBody from "@/features/admin/product/table/ProductTableBody";
-import TableFooter from "@/features/admin/table/TableFooter";
+import TableFooter from "@/features/admin/shared/TableFooter";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
-import { useDisclosure } from "@chakra-ui/react";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllNamespaces } from "../../../../i18nUtils";
+import { useRouter } from "next/router";
+import SearchAdmin from "@/features/admin/shared/SearchAdmin";
 
 export default function Products() {
-  const { data, refetch } = useGetAllProductsQuery();
+  const router = useRouter();
+  const { query } = router;
+  const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const searchTerm = query.search ? query.search as string : '';
+
+  const { data, refetch, loading } = useGetAllProductsQuery({
+    variables: {
+      limit: 14,
+      offset: currentPage * 14,
+      name: searchTerm,
+    }
+  });
   const products = data?.getAllProducts.products ?? [];
-  const [currentPage, setCurrentPage] = useState(1);
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const totalProducts = data?.getAllProducts.total ?? 0;
 
   const itemsPerPage = 14;
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + Math.min(itemsPerPage, products?.length ?? 0);
-  const currentProducts = products.slice(startIndex, endIndex);
 
-  const toggleCreateProductModal = () => {
-    onOpen();
-    isOpen ? onClose() : onOpen();
+  const toggleCreateProductModal = () => setIsCreateModalOpen(!isCreateModalOpen);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    const nextPage = pageNumber + 1;
+    const searchParam = searchTerm ? `&search=${searchTerm}` : '';
+    router.push(`/admin/products?page=${nextPage}${searchParam}`);
   };
+
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [query.page]);
 
   return (
     <LayoutAdmin pageTitle="Product list">
       <div className="flex justify-between items-center">
         <h1>Product list</h1>
-        <button
-          type="button"
-          className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
-          onClick={toggleCreateProductModal}
-        >
-          <PlusIcon className="h-6 w-6" />
-          Add Product
-        </button>
+        <div className="flex gap-4">
+          <button
+            type="button"
+            className="flex gap-2 items-center bg-accent font-semibold rounded text-white px-3 py-1"
+            onClick={toggleCreateProductModal}
+          >
+            <PlusIcon className="h-6 w-6" />
+            Add Product
+          </button>
+          <SearchAdmin />
+        </div>
       </div>
-      {isOpen && <ProductCreateModal isOpen={isOpen} onClose={onClose} refetch={refetch} />}
+      {isCreateModalOpen &&
+        <ProductCreateModal
+          isOpen={isCreateModalOpen}
+          onClose={() => setIsCreateModalOpen(!isCreateModalOpen)}
+          refetch={refetch}
+        />
+      }
       <div className="overflow-x-auto">
-        <ProductTableBody data={currentProducts} />
+        <ProductTableBody data={products} refetch={refetch} loading={loading} />
       </div>
       <TableFooter
-        data={products}
+        data={totalProducts}
         startIndex={startIndex}
         endIndex={endIndex}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={handlePageChange}
       />
     </LayoutAdmin>
   );

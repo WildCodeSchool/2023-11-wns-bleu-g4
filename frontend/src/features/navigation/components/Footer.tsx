@@ -1,11 +1,11 @@
 import ThemedLogo from "@/shared/components/ThemedLogo";
-import { Card, useColorModeValue } from "@chakra-ui/react";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import {Card, useColorModeValue} from "@chakra-ui/react";
+import {ArrowTopRightOnSquareIcon} from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useTranslation } from "next-i18next";
+import {useTranslation} from "next-i18next";
 
 export default function Footer() {
-  const { t } = useTranslation("Footer");
+  const {t} = useTranslation("Footer");
 
   type Footer = {
     name: string;
@@ -42,10 +42,10 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="px-0 lg:mx-24 lg:pb-5">
-      <Card variant="footerCard" direction={{ base: "column", md: "row" }}>
+    <footer className="px-0 xl:mx-24 xl:pb-5">
+      <Card variant="footerCard" direction={{base: "column", xl: "row"}}>
         {/**About Us */}
-        <ul className="w-full space-y-2 p-3 md:w-1/3">
+        <ul className="w-full space-y-2 p-3 xl:w-1/3">
           <li className="font-normal text-slate-500">{t("About us")}</li>
 
           {aboutUs.map((el: any, index: number) => {
@@ -62,7 +62,7 @@ export default function Footer() {
         </ul>
 
         {/**Contact */}
-        <ul className="w-full space-y-2 p-3 md:w-1/3">
+        <ul className="w-full space-y-2 p-3 xl:w-1/3">
           <li className="text-slate-500">{t("Let's connect")}</li>
           <li className="group w-fit hover:cursor-pointer">
             {t("Connect us")}
@@ -74,8 +74,8 @@ export default function Footer() {
           <li className="group w-fit hover:cursor-pointer">
             <Link href="https://www.facebook.com/?locale=fr_FR" target="_blank" className="flex items-center gap-2">
               {t("Facebook")}
-              <ThemedLogo type="facebook" alt="Facebook Logo" />
-              <ArrowTopRightOnSquareIcon width={18} height={18} />
+              <ThemedLogo type="facebook" alt="Facebook Logo"/>
+              <ArrowTopRightOnSquareIcon width={18} height={18}/>
             </Link>
             <div
               className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} 
@@ -85,8 +85,8 @@ export default function Footer() {
           <li className="group w-fit hover:cursor-pointer">
             <Link href="https://www.instagram.com/" target="_blank" className="flex items-center gap-2">
               {t("Instagram")}
-              <ThemedLogo type="instagram" alt="Instagram Logo" />
-              <ArrowTopRightOnSquareIcon width={18} height={18} />
+              <ThemedLogo type="instagram" alt="Instagram Logo"/>
+              <ArrowTopRightOnSquareIcon width={18} height={18}/>
             </Link>
             <div
               className={`h-1 w-2 border-b ${isDark ? "border-white" : "border-black"} 
@@ -97,13 +97,13 @@ export default function Footer() {
 
         {/**Logo */}
         <div
-          className="flex w-full flex-col items-center py-3 md:w-1/3 md:items-start 
-        md:justify-between md:border-l-2 md:border-l-slate-300 md:px-12"
+          className="flex w-full flex-col items-center py-3 xl:w-1/3 xl:items-start
+        xl:justify-between xl:border-l-2 xl:border-l-slate-300 xl:px-12"
         >
-          <Link href="/" className="flex w-full justify-center md:justify-start">
-            <ThemedLogo />
+          <Link href="/" className="flex w-full justify-center xl:justify-start">
+            <ThemedLogo/>
           </Link>
-          <p className="justify-center text-xs font-thin md:justify-start">
+          <p className="justify-center text-xs font-thin xl:justify-start">
             {t("Copyright © 2024 All Rights Reserved.")}
           </p>
         </div>
