@@ -8,7 +8,6 @@ COPY public ./public
 COPY tsconfig.json ./tsconfig.json
 COPY next-env.d.ts ./next-env.d.ts
 
-COPY .env ./.env
 COPY next.config.js ./next.config.js
 COPY i18next-parser.config.js ./i18next-parser.config.js
 COPY next-i18next.config.js ./next-i18next.config.js
