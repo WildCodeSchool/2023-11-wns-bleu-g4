@@ -16,11 +16,16 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 import uploadFile from "../../helpers/uploadFile";
 import { useCreateProduct_PictureMutation } from "@/graphql/ProductPicture/generated/CreateProduct_picture.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function ProductPictureAddModal({ isOpen, onClose, product }: ProductModalProps) {
+  const { t } = useTranslation("ProductPictureAddModal");
   const productId = product?.id!;
-  const [addProductPicture] = useCreateProduct_PictureMutation();
-  const [newPicture, setNewPicture] = useState<Product_Picture>({ thumbnail: "", alt: "" });
+  const [addProductPicture, { error }] = useCreateProduct_PictureMutation();
+  const [newPicture, setNewPicture] = useState<Product_Picture>({
+    thumbnail: "", alt: ""
+  });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -48,12 +53,16 @@ export default function ProductPictureAddModal({ isOpen, onClose, product }: Pro
       productId: { id: productId },
     };
 
-    addProductPicture({
-      variables: { data: pictureData },
-      refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
-    })
-      .then(onClose)
-      .catch(console.error);
+    try {
+      await addProductPicture({
+        variables: { data: pictureData },
+        refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
+      }).then(onClose);
+      toast.success(t("Product picture added successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   return (
@@ -64,13 +73,13 @@ export default function ProductPictureAddModal({ isOpen, onClose, product }: Pro
         <ModalCloseButton />
         <ModalBody pb={6}>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel mb={1} htmlFor="alt">
                 Picture Alt
               </FormLabel>
               <Input type="text" id="alt" name="alt" value={newPicture.alt} onChange={handleInputChange} />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel mb={1} htmlFor="pictures">
                 Picture
               </FormLabel>

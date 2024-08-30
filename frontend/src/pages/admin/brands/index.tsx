@@ -16,7 +16,7 @@ export default function Brand() {
     const [currentPage, setCurrentPage] = useState(initialPage);
     const searchTerm = query.search ? query.search as string : '';
 
-    const { data, refetch, loading } = useGetAllBrandsQuery({
+    const { data, loading, refetch } = useGetAllBrandsQuery({
         variables: {
             limit: 14,
             offset: currentPage * 14,
@@ -67,7 +67,7 @@ export default function Brand() {
                 />
             )}
             <div className="overflow-x-auto">
-                <BrandTableBody data={brands} refetch={refetch} loading={loading} />
+                <BrandTableBody data={brands} loading={loading} refetch={refetch} />
             </div>
             <TableFooter
                 data={totalBrands}

@@ -179,6 +179,32 @@ async function main() {
 		"Trail running pole": "Hiking",
 	}
 
+	const characteristicObjects = []
+	const characteristics = [
+		"Suspension hydraulique",
+		"Moteur 10W",
+		"Guidon renforcé",
+		"Freins à disque",
+		"Pneus anti-crevaison",
+		"Selle confortable",
+		"Éclairage LED",
+		"Antivol intégré",
+		"Porte-bagages",
+		"Garde-boue",
+	]
+
+	for (const characteristic of characteristics) {
+		const existingCharacteristic = await ProductCharacteristic.findOne({ where: { name: characteristic } })
+		if (existingCharacteristic) {
+			characteristicObjects.push(existingCharacteristic)
+		} else {
+			const productCharacteristic = new ProductCharacteristic()
+			productCharacteristic.name = characteristic
+			await productCharacteristic.save()
+			characteristicObjects.push(productCharacteristic)
+		}
+	}
+
 	for (const productData of allProducts) {
 		const product = new Product()
 		const mappedCategoryName = categoryMapping[productData.category] || productData.category
@@ -190,26 +216,8 @@ async function main() {
 			thumbnail: productData.imageUrls[0],
 			category: category,
 			brand: await getOrCreateBrand(productData.brand),
-			characteristics: [],
+			characteristics: characteristicObjects,
 		})
-		const characteristics = [
-			"Suspension hydraulique",
-			"Moteur 10W",
-			"Guidon renforcé",
-			"Freins à disque",
-			"Pneus anti-crevaison",
-			"Selle confortable",
-			"Éclairage LED",
-			"Antivol intégré",
-			"Porte-bagages",
-			"Garde-boue",
-		]
-		for (const characteristic of characteristics) {
-			const productCharacteristic = new ProductCharacteristic()
-			productCharacteristic.name = characteristic
-			await productCharacteristic.save()
-			product.characteristics.push(productCharacteristic)
-		}
 
 		await product.save()
 
@@ -281,14 +289,14 @@ async function getOrCreateCategory(categoryName: string, parentCategory: ParentC
 }
 
 async function getOrCreateBrand(brandName: string): Promise<Brand> {
-    let brand = await Brand.findOne({ where: { name: brandName } })
-    if (!brand) {
-        brand = new Brand()
-        brand.name = brandName
-        brand.logo = "https://example.com/default-logo.jpg"
-        await brand.save()
-    }
-    return brand
+	let brand = await Brand.findOne({ where: { name: brandName } })
+	if (!brand) {
+		brand = new Brand()
+		brand.name = brandName
+		brand.logo = "https://example.com/default-logo.jpg"
+		await brand.save()
+	}
+	return brand
 }
 
 main()
