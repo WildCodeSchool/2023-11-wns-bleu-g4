@@ -15,16 +15,20 @@ import {
   LightMode,
   Divider,
   Heading,
+  Checkbox
 } from "@chakra-ui/react";
 import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
 import Link from "next/link";
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { toast } from "react-toastify";
 import { FetchResult } from "@apollo/client";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 
 export default function SignupForm() {
+  const [disableButton, setDisableButton] = useState(true)
+
   const { t } = useTranslation("SignupForm");
 
   const [signup] = useCreateUserMutation();
@@ -34,6 +38,8 @@ export default function SignupForm() {
 
   const [showRepPass, setShowRepPass] = React.useState(false);
   const handleClickRepeatPass = () => setShowRepPass(!showRepPass);
+
+  const router = useRouter()
 
   function validatePassword(password: string, repeatPassword: string): boolean {
     let validate: boolean = true;
@@ -83,7 +89,7 @@ export default function SignupForm() {
         toast.success(toastInfo, { ...ToastConfigLogin, autoClose: duration });
         form.reset();
         setTimeout(() => {
-          window.location.replace('/')
+          router.push('/')
         }, duration);
       } catch (e: any) {
         const errArr = e.message.replaceAll("_", " ");
@@ -178,9 +184,12 @@ export default function SignupForm() {
           </Flex>
         </CardBody>
         <CardFooter>
-          <Flex direction="column" className="w-full">
+          <Flex direction="column" alignItems="center" className="w-full">
+            <Checkbox className="pb-2" onChange={() => setDisableButton(!disableButton)}>
+              <Link href="#" className="underline text-orange-500">I accept terms and conditions</Link>
+            </Checkbox>
             {/* BUTTON */}
-            <Button type="submit" className="w-full" variant="loginButton" m="0">
+            <Button type="submit" className="w-full" variant="loginButton" m="0" isDisabled={disableButton}>
               {t("Signup")}
             </Button>
             {/* FORGOT PASSWORD */}
