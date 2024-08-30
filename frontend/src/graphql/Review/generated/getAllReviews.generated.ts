@@ -8,7 +8,7 @@ export type GetAllReviewsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetAllReviewsQuery = { __typename?: 'Query', getAllReviews: Array<{ __typename?: 'Review', comment: string, id: number, rate: number, user: { __typename?: 'User', id: number, avatar: string, firstname: string, name: string } }> };
+export type GetAllReviewsQuery = { __typename?: 'Query', getAllReviews: Array<{ __typename?: 'Review', comment: string, id: number, rate: number, createdAt: any, edited: boolean, user: { __typename?: 'User', id: number, avatar: string, firstname: string, name: string } }> };
 
 
 export const GetAllReviewsDocument = gql`
@@ -17,6 +17,8 @@ export const GetAllReviewsDocument = gql`
     comment
     id
     rate
+    createdAt
+    edited
     user {
       id
       avatar

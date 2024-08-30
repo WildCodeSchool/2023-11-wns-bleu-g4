@@ -264,7 +264,7 @@ export type MutationDeleteProduct_PictureArgs = {
 
 
 export type MutationDeleteReviewArgs = {
-  reviewId: Scalars['Float']['input'];
+  reviewId: Scalars['Int']['input'];
 };
 
 
@@ -545,6 +545,7 @@ export type Query = {
   getReviewById: Review;
   getReviewsByProductId: Array<Review>;
   getReviewsByUserId: Array<Review>;
+  hasUserBookedProduct: Scalars['Boolean']['output'];
   profile: User;
 };
 
@@ -700,9 +701,17 @@ export type QueryGetReviewsByUserIdArgs = {
   userId: Scalars['Int']['input'];
 };
 
+
+export type QueryHasUserBookedProductArgs = {
+  productId: Scalars['Int']['input'];
+  userId: Scalars['Int']['input'];
+};
+
 export type Review = {
   __typename?: 'Review';
   comment: Scalars['String']['output'];
+  createdAt: Scalars['DateTimeISO']['output'];
+  edited: Scalars['Boolean']['output'];
   id: Scalars['Int']['output'];
   product: Product;
   rate: Scalars['Int']['output'];
