@@ -1,4 +1,4 @@
-import { Flex, Heading, Table, TableContainer, Tbody, Td, Text, Tr, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Heading, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { orderTableHeaders } from "../helpers/tableHeaders"
 import { useGetBookingsByUserIdQuery } from "@/graphql/Booking/generated/GetBookingByUserId.generated";
@@ -7,8 +7,7 @@ import transformToDate from "../helpers/TransformDate";
 import TableFooter from "./TableFooter";
 import { useEffect, useState } from "react";
 import { StatusBooking } from "@/graphql/generated/schema";
-import { jwtVerify } from "jose";
-import type { NextRequest } from "next/server";
+
 
 export default function UserOrdersTable() {
 
@@ -21,6 +20,8 @@ export default function UserOrdersTable() {
     const bgTableContent = useColorModeValue("lightgrey", "cactus.700")
     const bgWarning = useColorModeValue("#ab1313", "#620C0C")
     const textColor = useColorModeValue("dark", "light")
+    const hoverTableColor = useColorModeValue("gray.400", "cactus.400")
+    const hoverTableCancelColor = useColorModeValue("red.800", "orange.800")
 
     /** Router */
     const router = useRouter()
@@ -57,6 +58,7 @@ export default function UserOrdersTable() {
         setCurrentPage(initialPage);
     }, [query.page]);
 
+
     const handleBGColor = (index: number) => {
         if (bookings[index].status === StatusBooking.Canceled) return bgWarning
         return index % 2 === 0 ? bgColor : bgTableContent
@@ -64,15 +66,17 @@ export default function UserOrdersTable() {
 
     const thClass = "h-14 p-3 text-center uppercase font-bold whitespace-nowrap"
     return (
-        <Flex className="flex flex-col w-full sm:mx-auto lg:mx-0 sm:max-w-full xl:w-fit" gap={2}>
-            <Table className="text-xs rounded max-w-full">
-                <Tr bg={bgTableHeadColor}>
-                    {orderTableHeaders.map(menu => (
-                        <Td className={thClass + " " + menu.thClass} key={menu.id}>
-                            <Heading size='xs' className="text-center">{menu.name}</Heading>
-                        </Td>
-                    ))}
-                </Tr>
+        <Flex className="flex flex-col w-full max-w-96 sm:max-w-2xl lg:mx-5 xl:max-w-4xl 2xl:max-w-7xl" gap={2}>
+            <Table className="text-md max-w-full rounded overflow-hidden ">
+                <Thead color={textColor}>
+                    <Tr bg={bgTableHeadColor}>
+                        {orderTableHeaders.map(menu => (
+                            <Th className={thClass + " " + menu.thClass} key={menu.id}>
+                                <Heading size='md' className="text-center">{menu.name}</Heading>
+                            </Th>
+                        ))}
+                    </Tr>
+                </Thead>
                 <Tbody>
                     {
                         bookings ?
@@ -81,29 +85,31 @@ export default function UserOrdersTable() {
                                     bg={handleBGColor(index)}
                                     textColor={booking.status === StatusBooking.Canceled ? "white" : textColor}
                                     key={booking.id}
+                                    _hover={{ bg: booking.status === StatusBooking.Canceled ? hoverTableCancelColor : hoverTableColor }}
                                     className={`
-                                    ${booking.status === StatusBooking.Canceled ? "hover:bg-orange-800" : "hover:bg-cactus-400"}
-                                    whitespace-nowrap 
-                                    max-h-14 
-                                    cursor-pointer`}
+                                        hover:text-white 
+                                        whitespace-nowrap 
+                                        max-h-14 
+                                        cursor-pointer 
+                                        `}
                                     onClick={() => goToDetails(booking.id)}
                                 >
-                                    <Td className="text-center whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72" title={t('invoice number')}>
+                                    <Td className="text-center whitespace-normal p-3 min-w-48 max-w-96 xl:max-w-48 2xl:max-w-60" title={t('invoice number')}>
                                         <Text className="text-center">{booking.invoice}</Text>
                                     </Td>
-                                    <Td className="text-center whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72" title={t('booking date')}>
+                                    <Td className="text-center hidden whitespace-normal p-3 min-w-48 max-w-96  xl:max-w-48 md:table-cell" title={t('booking date')}>
                                         <Text className="text-center">{transformToDate(booking.bookingDate)}</Text>
                                     </Td>
-                                    <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 overflow-hidden text-ellipsis sm:table-cell" title={t('agency name')}>
+                                    <Td className="text-center hidden whitespace-normal p-3 min-w-48 max-w-96  xl:max-w-48 overflow-hidden text-ellipsis sm:table-cell" title={t('agency name')}>
                                         <Text className="text-center">{booking.agency.name}</Text>
                                     </Td>
-                                    <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('start booking date')}>
+                                    <Td className="text-center hidden whitespace-normal p-3 min-w-48 max-w-28  xl:max-w-48 2xl:table-cell" title={t('start booking date')}>
                                         <Text className="text-center">{transformToDate(booking.startDate)}</Text>
                                     </Td>
-                                    <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('end booking date')}>
+                                    <Td className="text-center hidden whitespace-normal p-3 min-w-48 max-w-28  xl:max-w-48 2xl:table-cell" title={t('end booking date')}>
                                         <Text className="text-center">{transformToDate(booking.endDate)}</Text>
                                     </Td>
-                                    <Td className="text-center hidden whitespace-nowrap p-3 min-w-25 max-w-40 xl:min-w-40 xl:max-w-72 sm:table-cell" title={t('booking status')}>
+                                    <Td className="text-center hidden whitespace-normal p-3 min-w-48 max-w-28  xl:max-w-48 xl:table-cell" title={t('booking status')}>
                                         <Text className="text-center">{booking.status}</Text>
                                     </Td>
                                 </Tr>

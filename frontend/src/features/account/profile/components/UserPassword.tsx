@@ -15,15 +15,15 @@ export default function UserPassword() {
     return (
         <Flex
             direction={'column'}
-            className='bg-cactus-600 text-white text-xs min-w-56 h-fit '
+            className='bg-cactus-600 text-white text-xs min-w-56 h-28 rounded overflow-hidden'
             bg={bgColor}
             color={textColor}
         >
-            <Heading size={"xs"} className="p-3 bg-cactus-900" bg={bgTableHeadColor}>PASSWORD</Heading>
+            <Heading size={"md"} className="p-3 bg-cactus-900" bg={bgTableHeadColor}>PASSWORD</Heading>
 
             <Flex gap={4} justify={"space-between"} alignItems={'center'} className="px-5 py-3">
-                <Text color={textColor}>*******</Text>
-                <Button className="w-1/2" size='xs' padding='4' variant={"accentButton"} onClick={toggleUpdateUserModal}>Modify</Button>
+                <Text color={textColor} size={"md"}>*******</Text>
+                <Button className="w-1/2" size='md' padding='4' variant={"accentButton"} onClick={toggleUpdateUserModal}>Modify</Button>
                 <UserPasswordModal onClose={toggleUpdateUserModal} isOpen={isPasswordModalOpen} />
             </Flex>
         </Flex>

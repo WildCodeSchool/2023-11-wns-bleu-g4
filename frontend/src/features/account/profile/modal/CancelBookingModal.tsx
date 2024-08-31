@@ -45,10 +45,8 @@ export default function CancelBookingModal({ isOpen, onClose, bookingId, booking
                 <ModalHeader>Are you sure you want to cancel this booking ?</ModalHeader>
                 <ModalCloseButton />
                 <ModalFooter justifyContent={"space-between"} padding={5}>
-                    {/* <Flex justifyContent={"space-between"} padding={5}> */}
                     <Button onClick={onClose}>Back</Button>
                     <Button onClick={handleCancelBooking} variant={"warningButton"}>Cancel Booking</Button>
-                    {/* </Flex> */}
                 </ModalFooter>
             </ModalContent>
         </Modal>

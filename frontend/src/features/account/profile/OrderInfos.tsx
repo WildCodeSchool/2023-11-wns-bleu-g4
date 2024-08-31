@@ -3,7 +3,6 @@ import { Button, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react
 import { t } from "i18next";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
 import generatePdf from "../helpers/GeneratePDF";
 import { BookingItem, BookingPDF } from "../types";
 import transformToDate from "../helpers/TransformDate";
@@ -11,6 +10,8 @@ import { useState } from "react";
 import CancelBookingModal from "./modal/CancelBookingModal";
 import { StatusBooking } from "@/graphql/generated/schema";
 import TimeStampToDayDuration from "../helpers/TimeStampToDayDuration";
+import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/getBookingItemsByBookingId.generated";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 export default function OrderInfos() {
     /** DARK / LIGHT MODE */
@@ -90,52 +91,64 @@ export default function OrderInfos() {
 
     return (
         <Flex
-            className="w-full sm:max-w-48 flex flex-col bg-cactus-600 text-white h-fit text-xs lg:min-w-64"
+            className="w-full sm:max-w-96 h-fit relative "
             color={textColor}
             bg={bgColor}
         >
-            <Heading size='xs' className="p-5  text-center" bg={bgHeading}>
-                {t("Booking Info")}
-            </Heading>
-            <Flex direction={'column'} gap={2} className="p-5">
+            <ArrowLeftIcon
+                color={textColor}
+                className="arrowleft absolute -top-14 left-0 size-10 cursor-pointer rounded-full p-2 hover:border border-slate-400" onClick={() => history.back()} />
+            <Flex
+                className="w-full sm:max-w-96 h-fit text-md rounded overflow-hidden"
+                color={textColor}
+                bg={bgColor}
+                direction={"column"}
+            >
 
+
+                <Heading size='md' className="p-5  text-center" bg={bgHeading}>
+                    {t("Booking Info")}
+                </Heading>
+                <Flex direction={'column'} gap={2} className="p-5">
+
+                    {
+                        bookingInfo && bookingInfo.map((el, i) => {
+                            // Doesn't display price on canceled booking
+                            if (booking?.status === StatusBooking.Canceled && i === bookingInfo.length - 1) return
+                            return (
+                                <Flex key={i} gap={1} width={'100%'} className="flex sm:flex-col lg:flex-row mb-2">
+                                    <Text className="w-2/5 sm:w-full lg:w-2/5 whitespace-nowrap truncate text-ellipsis" color={labelColor}>{el.label}</Text>
+                                    <Text className="w-3/5 sm:w-full lg:w-3/5 whitespace-nowrap overflow-hidden text-ellipsis">{el.info}</Text>
+                                </Flex>
+                            )
+                        })
+                    }
+
+                </Flex>
                 {
-                    bookingInfo && bookingInfo.map((el, i) => {
-                        // Doesn't display price on canceled booking
-                        if (booking?.status === StatusBooking.Canceled && i === bookingInfo.length - 1) return
-                        return (
-                            <Flex key={i} gap={1} width={'100%'} className="flex sm:flex-col lg:flex-row mb-2">
-                                <Text className="w-2/5 sm:w-full lg:w-2/5 whitespace-nowrap truncate text-ellipsis" color={labelColor}>{el.label}</Text>
-                                <Text className="w-3/5 sm:w-full lg:w-3/5 whitespace-nowrap overflow-hidden text-ellipsis">{el.info}</Text>
-                            </Flex>
-                        )
-                    })
+                    canceled ?
+
+                        <Flex className="w-full p-5 gap-2" bg={bgHeading}>
+                            {
+                                cancelable ?
+                                    <>
+                                        <Button className="w-1/2" size='md' padding='4' variant={"warningButton"} onClick={toggleCancelBookingModal}>{t("Cancel")}</Button>
+                                        <CancelBookingModal isOpen={isCancelBookingModalOpen} onClose={toggleCancelBookingModal} bookingId={bookingId} bookingItemIds={bookingItemsId} />
+                                    </>
+                                    :
+                                    null
+                            }
+                            <Button
+                                className={cancelable ? "w-1/2" : "w-full"}
+                                size='md'
+                                padding='4'
+                                variant={"accentButton"}
+                                onClick={() => generatePdf(booking as BookingPDF, bookingItemsArr)}>{t("Print")}</Button>
+                        </Flex>
+                        :
+                        null
                 }
-
             </Flex>
-            {
-                canceled ?
-
-                    <Flex className="w-full p-5 gap-2" bg={bgHeading}>
-                        {
-                            cancelable ?
-                                <>
-                                    <Button className="w-1/2" size='xs' padding='4' variant={"warningButton"} onClick={toggleCancelBookingModal}>{t("Cancel")}</Button>
-                                    <CancelBookingModal isOpen={isCancelBookingModalOpen} onClose={toggleCancelBookingModal} bookingId={bookingId} bookingItemIds={bookingItemsId} />
-                                </>
-                                :
-                                null
-                        }
-                        <Button
-                            className={cancelable ? "w-1/2" : "w-full"}
-                            size='xs'
-                            padding='4'
-                            variant={"accentButton"}
-                            onClick={() => generatePdf(booking as BookingPDF, bookingItemsArr)}>{t("Print")}</Button>
-                    </Flex>
-                    :
-                    null
-            }
         </Flex>
     )
 }

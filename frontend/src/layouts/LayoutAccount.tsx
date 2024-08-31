@@ -9,7 +9,7 @@ interface LayoutProps {
   pageTitle?: string;
 }
 
-export default function Layout({ children, pageTitle }: LayoutProps) {
+export default function LayoutAccount({ children, pageTitle }: LayoutProps) {
   return (
     <>
       <Head>
@@ -22,7 +22,7 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         <Navbar />
         <SubNavbar />
       </header>
-      <main className="pb-5 xl:pt-5 flex flex-col lg:gap-8">
+      <main className="pb-5 xl:pt-5 flex flex-col">
         {children}
       </main>
       <Footer />

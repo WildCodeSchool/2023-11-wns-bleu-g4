@@ -41,7 +41,7 @@ export default function LoginForm() {
     
     try {
       await login({ variables: { data: formJSON } });
-      toast.info("LOGIN SUCCESSFULL", ToastConfigLogin);
+      toast.success("LOGIN SUCCESSFULL", ToastConfigLogin);
       router.push("/");
     } catch (e: any) {
       const errArr = e.message.replace("_", " ");
