@@ -7,13 +7,17 @@ import { useState } from "react";
 
 export default function UserPasswordModal({ isOpen, onClose }: UserModalProps) {
     /* Gestion de la saisie des mots de passe*/
-    const [password, setPassword] = useState("")
-    const [showPassword, setShowPassword] = useState(false)
-    const handleClick = () => setShowPassword(!showPassword)
+    const [currentPassword, setCurrentPassword] = useState("")
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false)
+    const handleClick = () => setShowCurrentPassword(!showCurrentPassword)
 
     const [newPassword, setNewPassword] = useState("")
     const [showNewPassword, setShowNewPassword] = useState(false)
     const handleNewPassClick = () => setShowNewPassword(!showNewPassword)
+
+    const [repeatNewPassword, setRepeatNewPassword] = useState("")
+    const [showRepeatNewPassword, setShowRepeatNewPassword] = useState(false)
+    const handleRepeatNewPassClick = () => setShowRepeatNewPassword(!showRepeatNewPassword)
 
     function validatePassword(password: string, newPassword: string): boolean {
         let validate: boolean = true;
@@ -51,10 +55,15 @@ export default function UserPasswordModal({ isOpen, onClose }: UserModalProps) {
 
     const updateUserPassword = async () => {
         try {
-            await updatePassword({ variables: { password } })
+            await updatePassword({
+                variables: {
+                    currentPassword,
+                    newPassword
+                }
+            })
             toast.success("PASSWORD UPDATED SUCCESSFULLY", ToastConfigWarning);
         } catch (error: any) {
-            const errArr = error.message.replace("_", " ");
+            const errArr = error.message.replaceAll("_", " ");
             toast.error(errArr, ToastConfigWarning);
             return
         }
@@ -74,31 +83,48 @@ export default function UserPasswordModal({ isOpen, onClose }: UserModalProps) {
                             <InputGroup size='md'>
                                 <Input
                                     pr='4.5rem'
-                                    type={showPassword ? 'text' : 'password'}
-                                    placeholder="Enter your new password"
+                                    type={showCurrentPassword ? 'text' : 'password'}
+                                    placeholder="Enter your current password"
                                     name="password"
                                     id="password"
-                                    onChange={e => setPassword(e.target.value)} />
+                                    onChange={e => setCurrentPassword(e.target.value)} />
                                 <InputRightElement width='4.5rem'>
                                     <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                        {showPassword ? 'Hide' : 'Show'}
+                                        {showCurrentPassword ? 'Hide' : 'Show'}
                                     </Button>
                                 </InputRightElement>
                             </InputGroup>
                         </Box>
-                        <Box gap={2}>
-                            <FormLabel mb={1} htmlFor="newPassword">Verify Password</FormLabel>
+                        <Box gap={2} mb={5}>
+                            <FormLabel mb={1} htmlFor="newPassword">New Password</FormLabel>
                             <InputGroup size='md'>
                                 <Input
                                     pr='4.5rem'
                                     type={showNewPassword ? 'text' : 'password'}
-                                    placeholder="Verify your new password"
+                                    placeholder="Enter your new password"
                                     name="newPassword"
                                     id="newPassword"
                                     onChange={e => setNewPassword(e.target.value)} />
                                 <InputRightElement width='4.5rem'>
                                     <Button h='1.75rem' size='sm' onClick={handleNewPassClick}>
                                         {showNewPassword ? 'Hide' : 'Show'}
+                                    </Button>
+                                </InputRightElement>
+                            </InputGroup>
+                        </Box>
+                        <Box gap={2}>
+                            <FormLabel mb={1} htmlFor="repeatNewPassword">Verify Password</FormLabel>
+                            <InputGroup size='md'>
+                                <Input
+                                    pr='4.5rem'
+                                    type={showRepeatNewPassword ? 'text' : 'password'}
+                                    placeholder="Verify your new password"
+                                    name="repeatNewPassword"
+                                    id="repeatNewPassword"
+                                    onChange={e => setRepeatNewPassword(e.target.value)} />
+                                <InputRightElement width='4.5rem'>
+                                    <Button h='1.75rem' size='sm' onClick={handleRepeatNewPassClick}>
+                                        {showRepeatNewPassword ? 'Hide' : 'Show'}
                                     </Button>
                                 </InputRightElement>
                             </InputGroup>
@@ -110,7 +136,7 @@ export default function UserPasswordModal({ isOpen, onClose }: UserModalProps) {
                         <Button onClick={onClose}>Cancel</Button>
                         <Button onClick={(e) => {
                             e.preventDefault()
-                            if (validatePassword(password, newPassword)) {
+                            if (validatePassword(newPassword, repeatNewPassword)) {
                                 updateUserPassword().then(onClose)
                             }
                         }}
