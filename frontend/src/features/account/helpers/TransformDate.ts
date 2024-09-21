@@ -1,8 +1,8 @@
 export default function transformToDate(dateToTransform: string | Date, locale?: string | undefined) {
   const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
+    year : 'numeric',
     month: 'long',
-    day: 'numeric',
+    day  : 'numeric',
   };
 
   const newDate = new Date(dateToTransform)

@@ -23,7 +23,7 @@ export default function OrderInfos() {
 
     const router = useRouter()
     const { id } = router.query
-    const { data, loading } = useGetBookingByIdQuery({ variables: { bookingId: parseInt(id as string) } })
+    const { data } = useGetBookingByIdQuery({ variables: { bookingId: parseInt(id as string) } })
 
     const booking = data?.getBookingById
     const bookingId: number = parseInt(router.query.id as string)
@@ -50,14 +50,11 @@ export default function OrderInfos() {
         bookingItemsId.push(bookingItemsArr[index].id as number)
     }
 
-
     const totalPrice = (price: number, dayFrom: Date, dayTo: Date) => {
         let days = TimeStampToDayDuration(dayFrom, dayTo)
         days = Math.floor(days)
-        // console.log(days)
         return (price * days).toFixed(2)
     }
-
 
     const bookingInfo = [
         {
@@ -86,8 +83,6 @@ export default function OrderInfos() {
         },
     ]
 
-
-
     return (
         <Flex
             className="w-full sm:max-w-48 flex flex-col bg-cactus-600 text-white h-fit text-xs lg:min-w-64"
@@ -98,7 +93,6 @@ export default function OrderInfos() {
                 {t("Booking Info")}
             </Heading>
             <Flex direction={'column'} gap={2} className="p-5">
-
                 {
                     bookingInfo && bookingInfo.map((el, i) => {
                         // Doesn't display price on canceled booking
@@ -115,7 +109,6 @@ export default function OrderInfos() {
             </Flex>
             {
                 canceled ?
-
                     <Flex className="w-full p-5 gap-2" bg={bgHeading}>
                         {
                             cancelable ?
@@ -131,7 +124,9 @@ export default function OrderInfos() {
                             size='xs'
                             padding='4'
                             variant={"accentButton"}
-                            onClick={() => generatePdf(booking as BookingPDF, bookingItemsArr)}>{t("Print")}</Button>
+                            onClick={() => generatePdf(booking as BookingPDF, bookingItemsArr)}>
+                            {t("Print")}
+                        </Button>
                     </Flex>
                     :
                     null
