@@ -7,6 +7,9 @@ COPY src ./src
 COPY public ./public
 COPY tsconfig.json ./tsconfig.json
 COPY next-env.d.ts ./next-env.d.ts
+COPY jest.config.ts ./jest.config.ts
+COPY jest.setup.ts ./jest.setup.ts
+
 
 COPY .env ./.env
 COPY next.config.js ./next.config.js
