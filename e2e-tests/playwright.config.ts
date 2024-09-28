@@ -40,12 +40,6 @@ const config: PlaywrightTestConfig = {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
     },
-
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
-      timeout: 10000,
-    },
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',

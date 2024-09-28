@@ -11,41 +11,11 @@ jobs:
       run:
         working-directory: ./e2e-tests
     steps:
+      - uses: actions/checkout@v4
+
       # Docker layer caching
       - uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
-
-      - uses: actions/checkout@v4
-      - name: Install Required Libraries
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libwoff2-dev \
-            libwoff2-1 \
-            libglib2.0-0 \
-            libnss3 \
-            libgconf-2-4 \
-            libfontconfig1 \
-            libxss1 \
-            libasound2 \
-            libx11-xcb1 \
-            libxcomposite1 \
-            libxcursor1 \
-            libxi6 \
-            libxtst6 \
-            fonts-liberation \
-            libappindicator1 \
-            libappindicator3-1
-
-          if ! dpkg -l | grep -q libwoff2-dev; then
-            git clone https://github.com/google/woff2.git
-            cd woff2
-            mkdir out && cd out
-            cmake ..
-            make
-            sudo make install
-          fi
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
