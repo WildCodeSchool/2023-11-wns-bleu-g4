@@ -74,7 +74,7 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
 
-        # Setup Playwright if not cached
+      # Setup Playwright if not cached
       - name: Setup Playwright
         if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
@@ -82,10 +82,9 @@ jobs:
       # Start your application using the .env file
       - name: Start app
         run: |
-          npm run app:start &
-          sleep 10 # Wait for the application to start;
+          npm run app:start & sleep 30
 
-        # Run Playwright tests
+      # Run Playwright tests
       - name: Run Playwright tests
         run: npm run test
 
