@@ -17,8 +17,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Make envfile
-        run: cp .env.sample .env
+      # - name: Make envfile
+      #   run: cp .env.sample .env
       - name: Install deps
         run: npm ci
       - name: Start test DB
