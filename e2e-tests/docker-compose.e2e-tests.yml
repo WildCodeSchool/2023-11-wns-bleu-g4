@@ -31,7 +31,7 @@ services:
       interval: 1s
       timeout: 2s
       retries: 30
-      start_period: 10s
+      start_period: 30s
     depends_on:
       testDB:
         condition: service_healthy
