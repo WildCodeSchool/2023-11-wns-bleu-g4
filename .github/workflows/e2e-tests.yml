@@ -24,7 +24,7 @@ jobs:
       - name: Install backend dependencies
         run: cd ../backend && npm ci
 
-        # Create .env file using secrets
+      # Create .env file using secrets
       - name: Create .env from Secrets
         run: |
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> ../backend/.env
@@ -43,7 +43,6 @@ jobs:
           echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> ../backend/.env
           echo "EMAIL_FROM=${{ secrets.EMAIL_FROM }}" >> ../backend/.env
 
-        # Now create .env file for e2e-tests          
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> ../e2e-tests/.env
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> ../e2e-tests/.env
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> ../e2e-tests/.env
