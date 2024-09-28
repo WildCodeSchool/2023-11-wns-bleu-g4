@@ -19,7 +19,23 @@ jobs:
       - name: Install Required Libraries
         run: |
           sudo apt-get update
-          sudo apt-get install -y
+          sudo apt-get install -y \
+            libwoff2-dev \
+            libwoff2-1 \
+            libglib2.0-0 \
+            libnss3 \
+            libgconf-2-4 \
+            libfontconfig1 \
+            libxss1 \
+            libasound2 \
+            libx11-xcb1 \
+            libxcomposite1 \
+            libxcursor1 \
+            libxi6 \
+            libxtst6 \
+            fonts-liberation \
+            libappindicator1 \
+            libappindicator3-1
       - uses: actions/setup-node@v4
         with:
           node-version: 20
