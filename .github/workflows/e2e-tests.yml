@@ -24,6 +24,10 @@ jobs:
       - name: Install backend dependencies
         run: cd ../backend && npm ci
 
+      # Copy .env file for e2e tests
+      - name: Copy .env file for e2e tests
+        run: cp ../backend/.env ./e2e-tests/.env
+
       # Store Playwright's Version
       - name: Store Playwright's Version
         run: |
