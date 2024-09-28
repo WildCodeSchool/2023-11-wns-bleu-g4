@@ -37,7 +37,6 @@ jobs:
             libappindicator1 \
             libappindicator3-1
 
-      # Install woff2 from source if libwoff2-dev is not available
           if ! dpkg -l | grep -q libwoff2-dev; then
             git clone https://github.com/google/woff2.git
             cd woff2
@@ -46,7 +45,7 @@ jobs:
             make
             sudo make install
           fi
-          
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
