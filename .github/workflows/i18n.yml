@@ -5,6 +5,8 @@ on:
     branches: [main, master, dev]
   pull_request:
     branches: [main, master, dev]
+  workflow_call:
+
 
 jobs:
   i18n-parser:

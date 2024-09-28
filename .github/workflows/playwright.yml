@@ -4,6 +4,13 @@ on:
     branches: [main, master, dev]
   pull_request:
     branches: [main, master, dev]
+  workflow_call:
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
+
 jobs:
   test:
     timeout-minutes: 60
@@ -47,5 +54,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: "{{defaultContext}}:client"
+          context: "{{defaultContext}}:frontend"
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/quete1902:latest
