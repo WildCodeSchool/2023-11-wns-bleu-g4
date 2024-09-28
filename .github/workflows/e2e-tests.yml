@@ -59,6 +59,10 @@ jobs:
           echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> ../e2e-tests/.env
           echo "EMAIL_FROM=${{ secrets.EMAIL_FROM }}" >> ../e2e-tests/.env
 
+          echo "JWT_PRIVATE_KEY=${{ secrets.JWT_PRIVATE_KEY }}" >> ../frontend/.env
+          echo "NEXT_PUBLIC_GRAPHQL_API_URL=${{ secrets.NEXT_PUBLIC_GRAPHQL_API_URL }}" >> ../frontend/.env
+          echo "NEXT_PUBLIC_UPLOAD_API_ENDPOINT=${{ secrets.NEXT_PUBLIC_UPLOAD_API_ENDPOINT }}" >> ../frontend/.env
+
       # Store Playwright's Version
       - name: Store Playwright's Version
         run: |
