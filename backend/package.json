@@ -13,6 +13,7 @@
 		"lint:fix": "eslint . --ext .ts --fix",
 		"prettier": "prettier --write .",
 		"test": "jest",
+		"testDB:wait": "docker compose -f docker-compose.integration-tests.yml up testDB --wait",
 		"checkLateBookings": "ts-node ./src/checkLateBookings.ts",
 		"checkLateBookings:prod": "node build/checkLateBookings.js"
 	},
