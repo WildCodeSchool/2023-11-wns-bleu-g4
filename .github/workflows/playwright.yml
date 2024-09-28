@@ -28,6 +28,10 @@ jobs:
         run: npm install @playwright/test
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - name: Install dependencies
+        run: |
+          cd e2e-tests
+          npm install
       - name: Run Playwright tests
         run: npx playwright test
       - uses: actions/upload-artifact@v4
