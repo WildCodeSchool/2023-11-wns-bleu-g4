@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 20
       - name: Make envfile
-        run: cp .env.example .env
+        run: cp .env.sample .env
       - name: Install deps
         run: npm ci
       - name: Start test DB
