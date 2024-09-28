@@ -38,11 +38,11 @@ jobs:
       - name: Setup Playwright
         if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
-      # - name: Make envfiles
-      #   run: |
-      #     cp .env.sample .env
-      #     cd ../backend/ && cp .env.sample .env 
-      #     cd ../frontend/ && cp .env.sample .env
+      - name: Make envfiles
+        run: |
+          cp .env .env.sample
+          cd ../backend/ && cp .env .env.sample
+          cd ../frontend/ && cp .env .env.sample
       - name: Start app
         run: npm run app:start
       - name: Run Playwright tests
