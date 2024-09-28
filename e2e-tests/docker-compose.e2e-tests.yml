@@ -25,9 +25,8 @@ services:
       - ../backend/src:/app/src
     environment:
       DB_HOST: testDB
-      KVSTORE_HOST: ${KVSTORE_HOST:-kvStore}
     healthcheck:
-      test: "nc -z localhost 4000 || exit 1"
+      test: ["CMD", "sh", "-c", "[[ \"$CI\" != \"true\" ]] || curl --fail --silent --request GET -H 'content-type:application/json' --url 'http://localhost:4000/graphql?query=%7B__typename%7D'"]
       interval: 1s
       timeout: 2s
       retries: 30
