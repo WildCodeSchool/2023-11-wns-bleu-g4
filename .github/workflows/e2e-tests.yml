@@ -54,3 +54,5 @@ jobs:
           name: test-results
           path: e2e-tests/test-results/
           retention-days: 7
+      - name: Show backend logs
+        run: docker logs e2e-tests-backend-1
