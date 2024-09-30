@@ -5,7 +5,7 @@ import createAgency from "./operations/createAgency"
 import getAllAgencies from "./operations/getAllAgencies"
 
 describe("AgencyResolver", () => {
-	it("should display all agencies", async () => {
+	it("should get all agencies", async () => {
 		await Agency.create({
 			name: "agency1",
 			address: "address1",
