@@ -47,20 +47,20 @@ export default function ProductStockDetails({ data, aggregatedData, handleDelete
 
     return (
         <tr className="min-w-full space-y-4">
-            <td colSpan={4} className="p-4 align-top border-top border-gray-200 w-full">
+            <td colSpan={4} className="p-4 align-top border-top border-gray-200 dark:border-gray-600 w-full">
                 <table className="min-w-full">
                     <thead>
                         <tr>
-                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200">
+                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200 dark:border-gray-600">
                                 {t("Product code")}
                             </th>
-                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200">
+                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200 dark:border-gray-600">
                                 {t("Size")}
                             </th>
-                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200">
+                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200 dark:border-gray-600">
                                 {t("Status")}
                             </th>
-                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200">
+                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200 dark:border-gray-600">
                                 {t("Remove")}
                             </th>
                         </tr>
