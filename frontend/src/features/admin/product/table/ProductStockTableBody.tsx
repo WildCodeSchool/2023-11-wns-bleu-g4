@@ -51,7 +51,8 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
   };
 
   const handleProductCodeAgenceDetails = (productCodeAgenceId: number) => {
-    setProductCodeAgenceId(prevProductCodeAgenceId => (prevProductCodeAgenceId === productCodeAgenceId ? null : productCodeAgenceId));
+    setProductCodeAgenceId(prevProductCodeAgenceId =>
+      (prevProductCodeAgenceId === productCodeAgenceId ? null : productCodeAgenceId));
   };
 
   const handleDeleteProductCode = async (id: number) => {

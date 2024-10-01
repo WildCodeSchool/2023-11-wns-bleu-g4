@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
+import {
+    Button,
+    Modal,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay
+} from "@chakra-ui/react";
 import { BookingModalProps } from "../../types";
 import { toast } from "react-toastify";
 import { ToastConfigWarning } from "@/config/ToastConfig";
@@ -6,11 +14,15 @@ import { useCancelBookingMutation } from "@/graphql/Booking/generated/CancelBook
 import { useCancelBookingItemsMutation } from "@/graphql/BookingItem/generated/CancelBookingItem.generated";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { ApolloClient, useApolloClient } from "@apollo/client";
+import { useApolloClient } from "@apollo/client";
 import { GetBookingsByUserIdDocument } from "@/graphql/Booking/generated/GetBookingByUserId.generated";
 
-export default function CancelBookingModal({ isOpen, onClose, bookingId, bookingItemIds }: BookingModalProps) {
-
+export default function CancelBookingModal({
+    isOpen,
+    onClose,
+    bookingId,
+    bookingItemIds
+}: BookingModalProps) {
     const [cancelBooking] = useCancelBookingMutation()
     const [cancelBookingItems] = useCancelBookingItemsMutation()
 
@@ -23,10 +35,12 @@ export default function CancelBookingModal({ isOpen, onClose, bookingId, booking
 
     const client = useApolloClient()
 
-
     const handleCancelBooking = async () => {
         try {
-            client.writeQuery({query : GetBookingsByUserIdDocument, data : {userId : 2, limit : 10, offset: offset}})
+            client.writeQuery({
+                query: GetBookingsByUserIdDocument,
+                data: { userId: 2, limit: 10, offset: offset }
+            })
             await cancelBooking({ variables: { bookingId } })
             await cancelBookingItems({ variables: { bookingItemIds } })
 
@@ -48,7 +62,9 @@ export default function CancelBookingModal({ isOpen, onClose, bookingId, booking
                 <ModalFooter justifyContent={"space-between"} padding={5}>
                     {/* <Flex justifyContent={"space-between"} padding={5}> */}
                     <Button onClick={onClose}>Back</Button>
-                    <Button onClick={handleCancelBooking} variant={"warningButton"}>Cancel Booking</Button>
+                    <Button onClick={handleCancelBooking} variant={"warningButton"}>
+                        Cancel Booking
+                    </Button>
                     {/* </Flex> */}
                 </ModalFooter>
             </ModalContent>
