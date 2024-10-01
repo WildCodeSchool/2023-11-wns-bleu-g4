@@ -1,6 +1,5 @@
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { useLoginMutation } from "@/graphql/User/generated/Login.generated";
-import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import {
   Box,
   Button,
