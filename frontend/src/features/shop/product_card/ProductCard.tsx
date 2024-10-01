@@ -21,43 +21,30 @@ export default function ProductCard({product}: ProductCardProps) {
   const totalReviews = product.reviews?.length || 0;
 
   return (
-    <Card
-      variant="productCard"
-      p="4"
-      bg="white"
-      borderRadius="lg"
-      boxShadow='lg'
-      overflow="hidden"
-      onClick={handleCardClick}
-      cursor="pointer"
-      w="250px"
-      h="380px"
-      padding="40px"
-      justifyContent="space-around"
-      _hover={{
-        boxShadow: 'dark-lg',
-        border: 'none',
-        transition: '0.6s'
-      }}
-    >
-      <Flex justifyContent="center" alignItems="center">
-        <Image src={product.thumbnail} alt={product.name} width="100%"/>
-      </Flex>
-      <Box>
-        <Box alignItems="baseline">
-          <Text
-            mt="1"
-            fontWeight="semibold"
-            as="h4"
-            lineHeight="tight"
-            isTruncated
-          >
+      <Card
+          variant="productCard"
+          p="4"
+          bg="white"
+          borderRadius="lg"
+          boxShadow="lg"
+          overflow="hidden"
+          cursor="pointer"
+          w={{ base: "100%", md: "250px" }}
+          h="380px"
+          _hover={{
+            boxShadow: "dark-lg",
+            transition: "0.6s"
+          }}
+      >
+        <Flex justifyContent="center" alignItems="center">
+          <Image src={product.thumbnail} alt={product.name} width="100%" />
+        </Flex>
+        <Box>
+          <Text mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
             {product.name}
           </Text>
-        </Box>
-        <Text>{product.brand.name}</Text>
-
-        <Flex mt="2" alignItems="center">
+          <Text>{product.brand.name}</Text>
+          <Flex mt="2" alignItems="center">
           {Array(5)
             .fill("")
             .map((_, i) => (
@@ -73,18 +60,17 @@ export default function ProductCard({product}: ProductCardProps) {
             <ChatBubbleLeftEllipsisIcon className="h-5 w-5 mr-2"/>
             {totalReviews}
           </Flex>
-        </Flex>
-
-        <Flex mt="3" alignItems="center" justifyContent="space-between">
-          <Box fontSize="xl">
-            {product.price.toFixed(2)}€
-            <Box as="span" fontSize="xl">
-              / Day
+          </Flex>
+          <Flex mt="3" alignItems="center" justifyContent="space-between">
+            <Box fontSize="xl">
+              {product.price.toFixed(2)}€
+              <Box as="span" fontSize="xl">
+                / Day
+              </Box>
             </Box>
-          </Box>
-          <IconButton variant="accentButton" aria-label="shopping cart" icon={<ShoppingCartIcon width="24"/>}/>
-        </Flex>
-      </Box>
-    </Card>
+            <IconButton variant="accentButton" aria-label="shopping cart" icon={<ShoppingCartIcon width="24" />} />
+          </Flex>
+        </Box>
+      </Card>
   );
 }
