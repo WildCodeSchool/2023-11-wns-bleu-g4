@@ -38,7 +38,7 @@ export default function LoginForm() {
 
     const formData = new FormData(e.target as HTMLFormElement);
     const formJSON: any = Object.fromEntries(formData.entries());
-    
+
     try {
       await login({ variables: { data: formJSON } });
       toast.success("LOGIN SUCCESSFULL", ToastConfigLogin);
@@ -120,7 +120,7 @@ export default function LoginForm() {
         <CardFooter>
           <Flex direction="column" className="w-full">
             {/* BUTTON */}
-            <Button type="submit" className="w-full" variant="loginButton" m="0">
+            <Button name="Login" type="submit" className="w-full" variant="loginButton" m="0">
               {t("Login")}
             </Button>
             {/* FORGOT PASSWORD */}

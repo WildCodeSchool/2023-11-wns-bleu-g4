@@ -18,32 +18,48 @@ services:
     environment:
       DB_HOST: db
       DB_USER: ${DB_USER:-postgres}
-      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_PASS: ${DB_PASS:-postgres}
+      DB_NAME: ${DB_NAME:-postgres}
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
       NODE_ENV: ${NODE_ENV:-production}
-      CORS-ALLOWED-ORIGINS: ${CORS_ALLOWED_ORIGINS:-changeme} 
+      FRONTEND_URL: ${FRONTEND_URL:-localhost:3000}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-localhost:3000}
+      SMTP_HOST: ${SMTP_HOST:-smtp}
+      SMTP_PORT: ${SMTP_PORT:-400}
+      SMTP_USER: ${SMTP_USER:-yourId}
+      SMTP_PASS: ${SMTP_PASS:-yourPassword}
+      EMAIL_FROM: ${EMAIL_FROM:-yourEmail}
+      DB_PORT: ${DB_PORT:-5432}
+      SERVER_PORT: ${SERVER_PORT:-4000}
     depends_on:
       db:
         condition: service_healthy
     image: chambrin80/gear-go-server
-
+    # build:
+    #   context: backend
+    #   dockerfile: Dockerfile.production
 
   frontend:
     stop_grace_period: 0s
-    env_file: frontend/.env
     environment:
       JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY:-changeme}
+      NEXT_PUBLIC_GRAPHQL_API_URL: ${NEXT_PUBLIC_GRAPHQL_API_URL}
+      NEXT_PUBLIC_UPLOAD_API_ENDPOINT: ${NEXT_PUBLIC_UPLOAD_API_ENDPOINT}
     image: chambrin80/gear-go-client
+    # build:
+    #   context: frontend
+    #   dockerfile: Dockerfile.production
 
   upload-service:
-    stop_grace_period: 0s
     environment:
       - HOST=/
-    build: 
+    stop_grace_period: 0s
+    # image: scrip/file-upload-service
+    volumes:
+      - prodUploads:/app/files
+    build:
       context: upload
       dockerfile: Dockerfile
-    volumes:
-      - prodUpload:/app/files/
 
   gateway:
     restart: always
@@ -53,7 +69,7 @@ services:
       dockerfile: Dockerfile.production
     ports:
       - ${GATEWAY_PORT:-80}:80
-    
+
 volumes:
   prodDB:
-  prodUpload:
+  prodUploads:

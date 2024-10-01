@@ -33,7 +33,7 @@
     "i18next-browser-languagedetector": "^8.0.0",
     "jose": "^5.6.3",
     "jspdf": "^2.5.1",
-    "next": "^14.2.3",
+    "next": "^14.2.13",
     "next-i18next": "^15.3.0",
     "polished": "4.3.1",
     "postcss": "8.4.38",
@@ -62,7 +62,7 @@
     "eslint": "8.57.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "9.1.0",
-    "i18next-parser": "8.13.0",
+    "i18next-parser": "^9.0.2",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.14"
   }
