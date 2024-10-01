@@ -25,7 +25,7 @@ import { FetchResult } from "@apollo/client";
 import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
-import { SignupType } from "../authTypes"
+import { SignupType } from "../types/authTypes"
 import { validatePassword } from "../helpers/validatePassword";
 
 export default function SignupForm() {
@@ -171,11 +171,11 @@ export default function SignupForm() {
             </Checkbox>
 
             {/* BUTTON */}
-            {/* <Button type="submit" className="w-full" variant="loginButton" m="0" isDisabled={disableButton}>
-              {t("Signup")}
-              </Button> */}
-            <button type="submit" disabled={disableButton} hidden={false} 
-            className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" :"hover:cursor-pointer hover:bg-orange-400"}`}>
+            <button
+              type="submit"
+              disabled={disableButton}
+              hidden={false}
+              className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"}`}>
               {t("Signup")}
             </button>
 

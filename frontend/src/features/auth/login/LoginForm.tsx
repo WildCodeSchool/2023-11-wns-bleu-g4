@@ -21,14 +21,15 @@ import {
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
+import { LoginType } from "../types/authTypes";
 
 export default function LoginForm() {
   const { t } = useTranslation("LoginForm");
 
   const [login] = useLoginMutation();
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const router = useRouter()
 
@@ -36,7 +37,10 @@ export default function LoginForm() {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const formJSON: any = Object.fromEntries(formData.entries());
+    const formJSON: LoginType = {
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+    }
 
     try {
       await login({ variables: { data: formJSON } });

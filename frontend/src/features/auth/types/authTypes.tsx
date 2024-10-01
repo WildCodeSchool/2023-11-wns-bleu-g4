@@ -4,4 +4,9 @@ export interface SignupType {
 	password: string
     repeatPassword? : string
 	acceptConditions: boolean
+}
+
+  export interface LoginType {
+    email: string
+	password: string
   }
