@@ -16,7 +16,9 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useUpdateParentCategoryMutation } from "@/graphql/ParentCategory/generated/updateParentCategory.generated";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { GetAllParentCategoriesDocument, GetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
+import {
+  GetAllParentCategoriesDocument, GetAllParentCategoriesQuery
+} from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import client from "@/graphql/client";
 
 export default function ParentCategoryUpdateModal({ isOpen, onClose, parentCategory }: CategoryModalProps) {

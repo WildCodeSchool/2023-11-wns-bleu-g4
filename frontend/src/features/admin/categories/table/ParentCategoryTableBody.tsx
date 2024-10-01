@@ -84,7 +84,10 @@ export default function ParentCategoryTableBody({ data, loading }: TableBodyProp
             </tr>
           ) : (
             data.map((parentCategory: ParentCategory, index: number) => (
-              <tr key={parentCategory.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
+              <tr
+                key={parentCategory.id}
+                className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}
+              >
                 <td className="whitespace-nowrap p-3 pl-8 w-4/5 min-w-max">{parentCategory.name}</td>
                 <td className="whitespace-nowrap p-3 pr-8 w-1/5 min-w-max text-left align-middle">
                   <div className="inline-block">

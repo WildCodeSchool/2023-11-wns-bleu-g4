@@ -1,5 +1,21 @@
-import { Box, Button, Flex, FormControl, FormLabel, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
-import { User, UserModalProps } from "../../types";
+import {
+    Box,
+    Button,
+    Flex,
+    FormControl,
+    FormLabel,
+    Input,
+    InputGroup,
+    InputRightElement,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+} from "@chakra-ui/react";
+import { UserModalProps } from "../../types";
 import { toast } from "react-toastify";
 import { ToastConfigWarning } from "@/config/ToastConfig";
 import { useUpdatePasswordMutation } from "@/graphql/User/generated/UpdatePassword.generated";
