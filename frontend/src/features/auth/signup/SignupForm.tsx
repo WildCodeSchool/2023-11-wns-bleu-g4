@@ -22,64 +22,44 @@ import Link from "next/link";
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { toast } from "react-toastify";
 import { FetchResult } from "@apollo/client";
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
+import { SignupType } from "../authTypes"
+import { validatePassword } from "../helpers/validatePassword";
 
 export default function SignupForm() {
+
+  /** Hooks */
   const [disableButton, setDisableButton] = useState(true)
-
   const { t } = useTranslation("SignupForm");
-
   const [signup] = useCreateUserMutation();
-
-  const [showPass, setShowPass] = React.useState(false);
-  const handleClickPass = () => setShowPass(!showPass);
-
-  const [showRepPass, setShowRepPass] = React.useState(false);
-  const handleClickRepeatPass = () => setShowRepPass(!showRepPass);
-
   const router = useRouter()
 
-  function validatePassword(password: string, repeatPassword: string): boolean {
-    let validate: boolean = true;
-    if (password !== repeatPassword) {
-      toast.error("Passwords must be the same", ToastConfigLogin);
-      validate = false;
-    }
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 chars long", ToastConfigLogin);
-      validate = false;
-    }
-    if (password.search(/[a-z]/) < 0) {
-      toast.error("Password must contain a lowercase", ToastConfigLogin);
-      validate = false;
-    }
-    if (password.search(/[A-Z]/) < 0) {
-      toast.error("Password must contain an uppercase letter", ToastConfigLogin);
-      validate = false;
-    }
-    if (password.search(/[0-9]/) < 0) {
-      toast.error("Password must contain a number", ToastConfigLogin);
-      validate = false;
-    }
+  /** Show/Hide Password */
+  const [showPass, setShowPass] = useState(false);
+  const handleClickPass = () => setShowPass(!showPass);
 
-    if (password.search(/\D+\S+\W/) < 0) {
-      toast.error("Password must contain at least 1 special character", ToastConfigLogin);
-      validate = false;
-    }
+  /** Show/Hide RepeatPassword */
+  const [showRepPass, setShowRepPass] = useState(false);
+  const handleClickRepeatPass = () => setShowRepPass(!showRepPass);
 
-    return validate;
-  }
 
+  /** Submit function */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    let formJSON: any = Object.fromEntries(formData.entries());
 
-    if (validatePassword(formJSON.password, formJSON.repeatPassword)) {
+    let formJSON: SignupType = {
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+      repeatPassword: formData.get('repeatPassword') as string,
+      acceptConditions: !disableButton,
+    };
+
+    if (validatePassword(formJSON.password, formJSON.repeatPassword as string)) {
       try {
         delete formJSON.repeatPassword;
 
@@ -184,14 +164,22 @@ export default function SignupForm() {
         </CardBody>
         <CardFooter>
           <Flex direction="column" alignItems="center" className="w-full">
-            <Checkbox className="pb-2" onChange={() => setDisableButton(!disableButton)}>
+
+            {/* CHECKBOX */}
+            <Checkbox className="pb-2" onChange={() => setDisableButton(!disableButton)} name="acceptConditions">
               <Link href="#" className="underline text-orange-500">I accept terms and conditions</Link>
             </Checkbox>
+
             {/* BUTTON */}
-            <Button type="submit" className="w-full" variant="loginButton" m="0" isDisabled={disableButton}>
+            {/* <Button type="submit" className="w-full" variant="loginButton" m="0" isDisabled={disableButton}>
               {t("Signup")}
-            </Button>
-            {/* FORGOT PASSWORD */}
+              </Button> */}
+            <button type="submit" disabled={disableButton} hidden={false} 
+            className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" :"hover:cursor-pointer hover:bg-orange-400"}`}>
+              {t("Signup")}
+            </button>
+
+            {/* GO TO LOGIN */}
             <Text className=" text-center text-sm py-2" color="black">
               {t("Already registered ?")}&nbsp;
               <Link href="/login" className="underline text-orange-500">

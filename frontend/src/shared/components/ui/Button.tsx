@@ -61,9 +61,9 @@ const loginButton = defineStyle({
   color: "light",
   bg: "accent",
   borderRadius: "lg",
-  _hover: {
-    bg: "orange.400",
-  },
+  // _hover: {
+  //   bg: "orange.400",
+  // },
 });
 
 const adminFooterButton = defineStyle({
