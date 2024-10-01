@@ -1,5 +1,20 @@
 
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Flex, Box, Textarea } from '@chakra-ui/react'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Flex,
+  Box,
+  Textarea
+} from '@chakra-ui/react'
 import { UserModalProps } from '../../types'
 import { useUpdateProfileMutation } from '@/graphql/User/generated/UpdateProfile.generated';
 import { FormEvent, useState } from 'react';
@@ -92,21 +107,20 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                 </Box>
               </Flex>
 
-              {/************************************ Avatar */}
-              <Flex direction={"column"} gap={5}>
-                <FormLabel mb={1}>Avatar</FormLabel>
-                <Input type="file"
-                  onChange={e => {
-                    if (e.target.files?.[0]) {
-                      uploadFile(e.target.files?.[0])
-                        .then(setImageURL)
-                    };
-                  }}
-                />
-                <Box className='w-full h-auto rounded-lg overflow-hidden'>
-                  <img src={imageURL} className='w-full h-auto ' alt="image upload preview" />
-                </Box>
-              </Flex>
+              {/* <Box>
+                  <FormLabel mb={1} htmlFor="email">Email</FormLabel>
+                  <Input type="email" placeholder="Email" defaultValue={user?.email} name="email" id="email"/>
+                </Box> */}
+
+              <FormLabel mb={1}>Avatar</FormLabel>
+              <input type="file"
+                onChange={e => {
+                  if (e.target.files?.[0]) {
+                    uploadFile(e.target.files?.[0])
+                      .then(setImageURL)
+                  };
+                }}
+              />
             </FormControl>
           </ModalBody>
 

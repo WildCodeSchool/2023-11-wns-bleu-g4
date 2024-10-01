@@ -1,8 +1,10 @@
 import { useGetBookingByIdQuery } from "@/graphql/Booking/generated/GetBookingById.generated";
 import { Button, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
-import { t } from "i18next";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import {
+    useGetBookingItemsByBookingIdQuery
+} from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
 import generatePdf from "../helpers/GeneratePDF";
 import { BookingItem, BookingPDF } from "../types";
 import transformToDate from "../helpers/TransformDate";
@@ -32,7 +34,6 @@ export default function OrderInfos() {
     const bookingItemsArr: BookingItem[] = bookingItems.data?.getBookingItemsByBookingId || []
     const canceled = booking?.status !== StatusBooking.Canceled
 
-
     /* CHECK IF IT'S POSSIBLE TO CANCEL A BOOKING*/
     const today = new Date()
     const todayTimeStamp = today.getTime()
@@ -55,7 +56,6 @@ export default function OrderInfos() {
     const totalPrice = (price: number, dayFrom: Date, dayTo: Date) => {
         let days = TimeStampToDayDuration(dayFrom, dayTo)
         days = Math.floor(days)
-        // console.log(days)
         return (price * days).toFixed(2)
     }
 
@@ -111,44 +111,65 @@ export default function OrderInfos() {
                 </Heading>
                 <Flex direction={'column'} gap={2} className="p-5">
 
-                    {
-                        bookingInfo && bookingInfo.map((el, i) => {
-                            // Doesn't display price on canceled booking
-                            if (booking?.status === StatusBooking.Canceled && i === bookingInfo.length - 1) return
-                            return (
-                                <Flex key={i} gap={1} width={'100%'} className="flex sm:flex-col lg:flex-row mb-2">
-                                    <Text className="w-2/5 sm:w-full lg:w-2/5 whitespace-nowrap truncate text-ellipsis" color={labelColor}>{el.label}</Text>
-                                    <Text className="w-3/5 sm:w-full lg:w-3/5 whitespace-nowrap overflow-hidden text-ellipsis">{el.info}</Text>
-                                </Flex>
-                            )
-                        })
-                    }
+                {
+                    bookingInfo && bookingInfo.map((el, i) => {
+                        // Doesn't display price on canceled booking
+                        if (booking?.status === StatusBooking.Canceled && i === bookingInfo.length - 1) return
+                        return (
+                            <Flex key={i} gap={1} width={'100%'} className="flex sm:flex-col lg:flex-row mb-2">
+                                <Text
+                                    className="w-2/5 sm:w-full lg:w-2/5 whitespace-nowrap truncate text-ellipsis"
+                                    color={labelColor}
+                                >
+                                    {el.label}
+                                </Text>
+                                <Text
+                                    className="w-3/5 sm:w-full lg:w-3/5 whitespace-nowrap overflow-hidden text-ellipsis"
+                                >
+                                    {el.info}
+                                </Text>
+                            </Flex>
+                        )
+                    })
+                }
 
                 </Flex>
                 {
                     canceled ?
 
-                        <Flex className="w-full p-5 gap-2" bg={bgHeading}>
-                            {
-                                cancelable ?
-                                    <>
-                                        <Button className="w-1/2" size='md' padding='4' variant={"warningButton"} onClick={toggleCancelBookingModal}>{t("Cancel")}</Button>
-                                        <CancelBookingModal isOpen={isCancelBookingModalOpen} onClose={toggleCancelBookingModal} bookingId={bookingId} bookingItemIds={bookingItemsId} />
-                                    </>
-                                    :
-                                    null
-                            }
-                            <Button
-                                className={cancelable ? "w-1/2" : "w-full"}
-                                size='md'
-                                padding='4'
-                                variant={"accentButton"}
-                                onClick={() => generatePdf(booking as BookingPDF, bookingItemsArr)}>{t("Print")}</Button>
-                        </Flex>
-                        :
-                        null
-                }
-            </Flex>
+                    <Flex className="w-full p-5 gap-2" bg={bgHeading}>
+                        {
+                            cancelable ?
+                                <>
+                                    <Button
+                                        className="w-1/2"
+                                        size='xs'
+                                        padding='4'
+                                        variant={"warningButton"}
+                                        onClick={toggleCancelBookingModal}
+                                    >
+                                        {t("Cancel")}
+                                    </Button>
+                                    <CancelBookingModal
+                                        isOpen={isCancelBookingModalOpen}
+                                        onClose={toggleCancelBookingModal}
+                                        bookingId={bookingId}
+                                        bookingItemIds={bookingItemsId}
+                                    />
+                                </>
+                                :
+                                null
+                        }
+                        <Button
+                            className={cancelable ? "w-1/2" : "w-full"}
+                            size='xs'
+                            padding='4'
+                            variant={"accentButton"}
+                            onClick={() => generatePdf(booking as BookingPDF, bookingItemsArr)}>{t("Print")}</Button>
+                    </Flex>
+                    :
+                    null
+            }
         </Flex>
     )
 }

@@ -20,7 +20,9 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { getQueryVariables } from "../helpers/query";
 import client from "@/graphql/client";
-import { GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import {
+  GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery
+} from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 
 export default function CharacteristicCreateModal({ isOpen, onClose }: CharacteristicModalProps) {
   const { t } = useTranslation("CharacteristicCreateModal");

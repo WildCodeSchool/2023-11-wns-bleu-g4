@@ -18,8 +18,10 @@ import {
 } from "@/graphql/ProductCharacteristic/generated/updateProductCharacteristic.generated";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import client, { cache } from "@/graphql/client";
-import { GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import client from "@/graphql/client";
+import {
+  GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery
+} from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 import { getQueryVariables } from "../helpers/query";
 
 export default function CharacteristicUpdateModal({ isOpen, onClose, characteristic }: CharacteristicModalProps) {

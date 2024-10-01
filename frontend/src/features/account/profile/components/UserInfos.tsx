@@ -1,12 +1,13 @@
 import {
     Box, Button, Flex, Heading, Text, useColorModeValue,
 } from "@chakra-ui/react";
-import { HomeIcon, MapPinIcon, MapIcon, GlobeEuropeAfricaIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
+import {
+    HomeIcon, MapPinIcon, MapIcon, GlobeEuropeAfricaIcon, PhoneIcon, EnvelopeIcon
+} from '@heroicons/react/24/outline'
 import { User } from "../../types";
 import { useState } from "react";
 import UserInfoModal from "./../modal/UserInfoModal";
 import UserDeleteAccountModal from "../modal/UserDeleteAccountModal";
-
 
 export default function UserInfos({ user }: { user?: User }) {
 
@@ -107,7 +108,7 @@ export default function UserInfos({ user }: { user?: User }) {
                                                     <Flex key={i} gap={2} alignItems='center' className="w-full">
                                                         <Box>{el.icon}</Box>
                                                         <Text
-                                                            className="text-cactus-200 sm:hidden lg:flex w-3/12 whitespace-nowrap 2xl:block "
+                                                            className="text-cactus-200 sm:hidden lg:flex w-3/12 whitespace-nowrap 2xl:block"
                                                             color={labelColor}
                                                         >
                                                             {el.label}
@@ -134,11 +135,27 @@ export default function UserInfos({ user }: { user?: User }) {
                     >
 
                         {/*************************** UPDATE ***************************/}
-                        <Button className="w-1/2" size='md' padding='4' onClick={toggleUpdateUserModal} variant={"accentButton"}>Update</Button>
+                        <Button
+                            className="w-1/2"
+                            size='xs'
+                            padding='4'
+                            onClick={toggleUpdateUserModal}
+                            variant={"accentButton"}
+                        >
+                            Update
+                        </Button>
                         <UserInfoModal isOpen={isUpdateModalOpen} onClose={toggleUpdateUserModal} user={user} />
 
                         {/*************************** DELETE ***************************/}
-                        <Button className="w-1/2" size='md' padding='4' variant={"warningButton"} onClick={toggleDeleteUserModal}>Delete</Button>
+                        <Button
+                            className="w-1/2"
+                            size='xs'
+                            padding='4'
+                            variant={"warningButton"}
+                            onClick={toggleDeleteUserModal}
+                        >
+                            Delete Account
+                        </Button>
                         <UserDeleteAccountModal isOpen={isDeleteModalOpen} onClose={toggleDeleteUserModal} />
 
                     </Flex>

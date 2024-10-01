@@ -1,12 +1,13 @@
-import {Flex, Text, useColorModeValue} from "@chakra-ui/react";
-import {useTranslation} from "react-i18next";
+import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {Autoplay, Pagination} from "swiper/modules";
-import {Swiper, SwiperSlide} from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import CardItem from "./CardItem";
-import {useGetAllCategoriesQuery} from "@/graphql/Category/generated/getAllCats.generated";
+import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
+import Loading from "@/shared/components/Loading";
 
 interface Category {
   id: number;
@@ -16,11 +17,11 @@ interface Category {
 
 export default function CardItemCarousel() {
   const color = useColorModeValue("#F5F5F5", "transparent");
-  const {t} = useTranslation("Welcome");
+  const { t } = useTranslation("Welcome");
 
-  const {data, error, loading} = useGetAllCategoriesQuery();
+  const { data, error, loading } = useGetAllCategoriesQuery();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading loading={loading} />;
   if (error) return <div>Error...</div>;
 
   const categories: Category[] = data?.getAllCategories || [];
@@ -28,19 +29,19 @@ export default function CardItemCarousel() {
   return (
     <Flex
       flexDirection="column"
-      gap={{base: "10px", xl: "30px"}}
+      gap={{ base: "10px", xl: "30px" }}
       bg={color}
-      p={{base: "1.87rem 0", xl: "6.25rem 0 6.25rem 0"}}
+      p={{ base: "1.87rem 0", xl: "6.25rem 0 6.25rem 0" }}
     >
-      <Flex gap="10px" flexDirection="column" px={{base: "1.25rem", xl: "6.25rem"}}>
-        <Text fontSize={{base: "24px", xl: "72px"}} fontWeight="bold" fontFamily="Poppins" lineHeight="100%">
+      <Flex gap="10px" flexDirection="column" px={{ base: "1.25rem", xl: "6.25rem" }}>
+        <Text fontSize={{ base: "24px", xl: "72px" }} fontWeight="bold" fontFamily="Poppins" lineHeight="100%">
           {t("CATEGORIES")}
         </Text>
-        <Text fontSize={{base: "16px", xl: "24px"}} fontWeight="semibold" fontFamily="Nunito" lineHeight="100%">
+        <Text fontSize={{ base: "16px", xl: "24px" }} fontWeight="semibold" fontFamily="Nunito" lineHeight="100%">
           {t("Select the category of your choice.")}
         </Text>
       </Flex>
-      <Flex className="xl:px-24" ml={{base: "1.25rem", xl: "0"}}>
+      <Flex className="xl:px-24" ml={{ base: "1.25rem", xl: "0" }}>
         <Swiper
           style={
             {
@@ -64,7 +65,7 @@ export default function CardItemCarousel() {
         >
           {categories.map(category => (
             <SwiperSlide key={category.id}>
-              <CardItem text={category.name} image={category.thumbnail} id={category.id}/>
+              <CardItem text={category.name} image={category.thumbnail} id={category.id} />
             </SwiperSlide>
           ))}
         </Swiper>
