@@ -108,7 +108,7 @@ export default function LoginForm() {
 
               {/* FORGOT PASSWORD */}
               <Text className=" text-center text-sm py-2">
-                <Link href="#" className="hover:underline hover:text-orange-500">
+                <Link href="/sendmailform" className="hover:underline hover:text-orange-500">
                   {t("Forgot your password ?")}
                 </Link>
               </Text>
