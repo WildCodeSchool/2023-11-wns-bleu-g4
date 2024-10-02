@@ -29,6 +29,7 @@ jobs:
               - 'frontend/**'
 
   prettier-backend:
+    needs: filter
     if: ${{ needs.filter.outputs.backend_changed == 'true' }}
     runs-on: ubuntu-latest
     defaults:
@@ -66,6 +67,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   prettier-frontend:
+    needs: filter
     if: ${{ needs.filter.outputs.frontend_changed == 'true' }}
     runs-on: ubuntu-latest
     defaults:
