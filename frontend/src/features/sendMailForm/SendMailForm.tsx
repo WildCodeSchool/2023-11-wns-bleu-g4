@@ -52,12 +52,26 @@ export default function sendMailForm() {
         <>
             {
                 mailSend ?
-                    <Box bg={"white"} padding={10} className="rounded-lg flex flex-col gap-5 shadow-sm">
-                        <Text className="text-center">CHECK YOUR MAILBOX !</Text>
-                        <Text>If the email address you provided is saved in our data,
-                            you will receive a password reset email shortly!</Text>
-                        <Button variant={"loginButton"} onClick={() => router.push("/login")}>Return to login page</Button>
-                    </Box>
+                    <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "480px" }} h="fit-content">
+                        <CardHeader textAlign="center">
+                            <Heading as="h1" color="black" fontWeight="500">
+                                {t("CHECK YOUR MAILBOX")}
+                            </Heading>
+                        </CardHeader>
+                        <Divider color="black" />
+                        <CardBody>
+                            <Text className="text-lg text-justify">
+                                {t("If the email address you provided is saved in our data, you will receive a password reset email shortly (1 min) !")}
+                            </Text>
+                        </CardBody>
+
+                        <CardFooter>
+                            <Button className="w-full" variant={"loginButton"} onClick={() => router.push("/login")}>
+                                {t("Return to login page")}
+                            </Button>
+
+                        </CardFooter>
+                    </Card>
                     :
                     <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
                         {/* TITLE */}
