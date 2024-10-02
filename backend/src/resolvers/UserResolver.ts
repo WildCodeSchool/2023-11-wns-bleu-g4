@@ -40,7 +40,8 @@ class UserResolver {
 	async updatePassword(
 		@Arg("currentPassword") currentPassword: string,
 		@Arg("newPassword") newPassword: string,
-		@Ctx() ctx: Context) {
+		@Ctx() ctx: Context
+	) {
 		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
 
 		const passwordValid = await verify(ctx.currentUser.hashedPassword, currentPassword)
@@ -51,7 +52,6 @@ class UserResolver {
 		return ctx.currentUser.save()
 	}
 
-
 	@Mutation(() => String)
 	async confirmEmail(@Arg("token") token: string) {
 		const user = await User.findOneBy({ emailConfirmationToken: token })
@@ -61,6 +61,38 @@ class UserResolver {
 
 		user.save()
 		return "EMAIL_CONFIRMED"
+	}
+
+	@Mutation(() => String)
+	async requestPasswordReset(@Arg("email") email: string) {
+		const user = await User.findOneBy({ email })
+		if (!user) throw new GraphQLError("USER_NOT_FOUND")
+
+		const token = crypto.randomBytes(32).toString("hex")
+		user.emailConfirmationToken = token
+
+		await mailer.sendMail({
+			from: env.EMAIL_FROM,
+			to: user.email,
+			subject: "Password Reset Request",
+			text: `You have requested a password reset. Click the link to reset your password: ${env.FRONTEND_URL}/resetPassword?token=${token}`,
+		})
+
+		await user.save()
+		return "PASSWORD_RESET_EMAIL_SENT"
+	}
+
+	@Mutation(() => String)
+	async resetPassword(@Arg("token") token: string, @Arg("newPassword") newPassword: string) {
+		const user = await User.findOneBy({ emailConfirmationToken: token })
+		if (!user) throw new GraphQLError("INVALID_TOKEN")
+
+		user.hashedPassword = await hash(newPassword)
+		user.emailConfirmationToken = null
+
+		await user.save()
+
+		return "PASSWORD_RESET_SUCCESS"
 	}
 
 	@Mutation(() => String)
@@ -85,9 +117,7 @@ class UserResolver {
 
 	@Authorized()
 	@Mutation(() => User)
-	async updateProfile(
-		@Ctx() ctx: Context,
-		@Arg("data", { validate: true }) data: UpdateUserInput) {
+	async updateProfile(@Ctx() ctx: Context, @Arg("data", { validate: true }) data: UpdateUserInput) {
 		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
 
 		if (data.name) ctx.currentUser.name = data.name
@@ -121,13 +151,12 @@ class UserResolver {
 			where: { id: ctx.currentUser?.id },
 		})
 
-		if (!user) throw new GraphQLError("USER_NOT_FOUND");
+		if (!user) throw new GraphQLError("USER_NOT_FOUND")
 
 		await user.remove()
 
 		return "ACCOUNT_DELETED"
 	}
-
 
 	@Authorized([UserRole.ADMIN])
 	@Query(() => UserList)
