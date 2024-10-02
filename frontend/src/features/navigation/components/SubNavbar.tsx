@@ -125,7 +125,7 @@ export default function SubNavbar() {
       </Flex>
       <Spacer />
       <Button
-        title={"basket"}
+        data-testid={"basket"}
         size="sm"
         onClick={onOpen}
         borderRadius="md"

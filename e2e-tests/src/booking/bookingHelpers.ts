@@ -2,10 +2,14 @@ import {Page} from '@playwright/test';
 
 export const LOGIN_EMAIL = 'customer@gmail.com';
 export const LOGIN_PASSWORD = 'Customer42@!';
-export const AGENCY_BUTTON_NAME = 'Sélectionner une agence';
 export const SIZE_BUTTON_SELECTOR = 'button[data-testid^="size-"]:not([disabled])';
 export const DATE_BUTTON_NAME = 'Select a date';
+export const DATE_PICKER_LABEL = 'october';
+export const DATE_PICKER_DAY = 'gridcell';
+export const DATE_PICKER_FROM_TO_BUTTON_NAME = 'From : 10/14/2024 To : 10/17/2024';
 export const ADD_TO_BASKET_BUTTON_NAME = 'Add to basket';
+export const MY_BASKET_BUTTON_NAME = 'My basket (1)';
+export const GO_BASKET_BUTTON_NAME = 'Go to basket';
 export const BOOK_BUTTON_NAME = 'Book';
 
 export async function login(page: Page) {

@@ -5,7 +5,12 @@ import {
   ADD_TO_BASKET_BUTTON_NAME,
   BOOK_BUTTON_NAME,
   DATE_BUTTON_NAME,
+  DATE_PICKER_DAY,
+  DATE_PICKER_FROM_TO_BUTTON_NAME,
+  DATE_PICKER_LABEL,
+  GO_BASKET_BUTTON_NAME,
   login,
+  MY_BASKET_BUTTON_NAME,
   selectFirstAvailableAgency,
   selectFirstAvailableSize
 } from './bookingHelpers';
@@ -26,20 +31,21 @@ test('user can book an item', async ({page}) => {
 
   await page.goto('/login');
   await login(page);
-  await page.waitForTimeout(2000);
+  await page.waitForLoadState('networkidle');
   await page.goto('/products/25');
 
   await selectFirstAvailableAgency(page);
-  await page.waitForTimeout(2000); // Attendre un peu pour voir si les tailles se mettent à jour
+  await page.waitForLoadState('load');
+  await page.waitForSelector('[data-testid^="size-"]', {state: 'visible'});
   await selectFirstAvailableSize(page);
 
   await page.getByRole('button', {name: DATE_BUTTON_NAME}).click();
-  await page.getByLabel('october').getByRole('gridcell', {name: '14'}).click();
-  await page.getByLabel('october').getByRole('gridcell', {name: '17'}).click();
-  await page.getByRole('button', {name: 'From : 10/14/2024 To : 10/17/2024'}).click();
+  await page.getByLabel(DATE_PICKER_LABEL).getByRole(DATE_PICKER_DAY, {name: '14'}).click();
+  await page.getByLabel(DATE_PICKER_LABEL).getByRole(DATE_PICKER_DAY, {name: '17'}).click();
+  await page.getByRole('button', {name: DATE_PICKER_FROM_TO_BUTTON_NAME}).click();
   await page.getByRole('button', {name: ADD_TO_BASKET_BUTTON_NAME}).click();
-  await page.getByRole('button', {name: 'My basket (1)'}).click();
-  await page.getByRole('button', {name: 'Go to basket'}).click();
+  await page.getByRole('button', {name: MY_BASKET_BUTTON_NAME}).click();
+  await page.getByRole('button', {name: GO_BASKET_BUTTON_NAME}).click();
   await page.getByRole('button', {name: BOOK_BUTTON_NAME}).click();
 
   firstTestPassed = true; // Marque le premier test comme réussi
@@ -55,11 +61,12 @@ test('user cannot select already booked dates', async ({page}) => {
   // Si le premier test a réussi, exécutez le deuxième test
   await page.goto('/login');
   await login(page);
-  await page.waitForTimeout(2000);
+  await page.waitForLoadState('networkidle');
   await page.goto('/products/25');
 
   await selectFirstAvailableAgency(page);
-  await page.waitForTimeout(2000); // Attendre un peu pour voir si les tailles se mettent à jour
+  await page.waitForLoadState('load');
+  await page.waitForSelector('[data-testid^="size-"]', {state: 'visible'});
   await selectFirstAvailableSize(page);
 
   // Ouvrir le sélecteur de dates
@@ -70,7 +77,7 @@ test('user cannot select already booked dates', async ({page}) => {
   const date15 = page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '15'});
   const date16 = page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '16'});
   const date17 = page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '17'});
-
+  await page.waitForLoadState('load');
   // Vérifier que les cellules sont désactivées
   const areDatesDisabled = await Promise.all([
     date14.isDisabled(),
