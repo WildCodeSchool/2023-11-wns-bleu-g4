@@ -16,24 +16,26 @@ let firstTestPassed = false; // Variable pour suivre le succès du premier test
 test.beforeAll(async () => {
   await connect();
 });
+test.beforeEach(async ({page}) => {
+  await page.setViewportSize({width: 2000, height: 1000});
+});
 
 // Test 1 : réservation d'un article
 test('user can book an item', async ({page}) => {
   await execInContainer('e2e-tests-backend-1', 'npm run resetDB'); // Réinitialisation de la base de données
 
-  await page.goto('http://localhost:3000/fr');
+  await page.goto('/login');
   await login(page);
-  await page.getByRole('button', {name: 'Montagne', exact: true}).click();
-  await page.getByRole('menuitem', {name: 'Ski'}).click();
-  await page.getByRole('img', {name: 'ULTRA RAPTOR II MID LEATHER'}).click();
+  await page.waitForTimeout(2000);
+  await page.goto('/products/25');
 
   await selectFirstAvailableAgency(page);
   await page.waitForTimeout(2000); // Attendre un peu pour voir si les tailles se mettent à jour
   await selectFirstAvailableSize(page);
 
   await page.getByRole('button', {name: DATE_BUTTON_NAME}).click();
-  await page.getByLabel('octobre').getByRole('gridcell', {name: '14'}).click();
-  await page.getByLabel('octobre').getByRole('gridcell', {name: '17'}).click();
+  await page.getByLabel('october').getByRole('gridcell', {name: '14'}).click();
+  await page.getByLabel('october').getByRole('gridcell', {name: '17'}).click();
   await page.getByRole('button', {name: 'From : 10/14/2024 To : 10/17/2024'}).click();
   await page.getByRole('button', {name: ADD_TO_BASKET_BUTTON_NAME}).click();
   await page.getByRole('button', {name: 'My basket (1)'}).click();
@@ -51,11 +53,10 @@ test('user cannot select already booked dates', async ({page}) => {
   }
 
   // Si le premier test a réussi, exécutez le deuxième test
-  await page.goto('http://localhost:3000/fr');
+  await page.goto('/login');
   await login(page);
-  await page.getByRole('button', {name: 'Montagne', exact: true}).click();
-  await page.getByRole('menuitem', {name: 'Ski'}).click();
-  await page.getByRole('img', {name: 'ULTRA RAPTOR II MID LEATHER'}).click();
+  await page.waitForTimeout(2000);
+  await page.goto('/products/25');
 
   await selectFirstAvailableAgency(page);
   await page.waitForTimeout(2000); // Attendre un peu pour voir si les tailles se mettent à jour
@@ -65,10 +66,10 @@ test('user cannot select already booked dates', async ({page}) => {
   await page.getByRole('button', {name: DATE_BUTTON_NAME}).click();
 
   // Vérifier que les dates réservées ne sont pas cliquables
-  const date14 = await page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '14'});
-  const date15 = await page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '15'});
-  const date16 = await page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '16'});
-  const date17 = await page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '17'});
+  const date14 = page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '14'});
+  const date15 = page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '15'});
+  const date16 = page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '16'});
+  const date17 = page.locator('button.rdp-day.rdp-day_disabled.booked', {hasText: '17'});
 
   // Vérifier que les cellules sont désactivées
   const areDatesDisabled = await Promise.all([

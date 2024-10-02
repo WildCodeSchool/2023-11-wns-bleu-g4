@@ -9,14 +9,13 @@ export const ADD_TO_BASKET_BUTTON_NAME = 'Add to basket';
 export const BOOK_BUTTON_NAME = 'Book';
 
 export async function login(page: Page) {
-  await page.getByRole('button', {name: 'Se connecter'}).click();
   await page.getByPlaceholder('Email').fill(LOGIN_EMAIL);
-  await page.getByPlaceholder('Mot de passe').fill(LOGIN_PASSWORD);
-  await page.getByRole('button', {name: 'Connexion'}).click();
+  await page.getByPlaceholder('Password').fill(LOGIN_PASSWORD);
+  await page.locator('button[type="submit"]').click();
 }
 
 export async function selectFirstAvailableAgency(page: Page) {
-  await page.getByRole('button', {name: AGENCY_BUTTON_NAME}).click();
+  await page.getByTestId('agency').click();
   const firstAvailableAgency = page.locator('[data-testid^="agency-"]:not([disabled])');
   await firstAvailableAgency.waitFor({state: 'visible', timeout: 60000});
 
