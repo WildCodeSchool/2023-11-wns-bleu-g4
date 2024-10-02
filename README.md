@@ -100,10 +100,17 @@ To get a local copy up and running follow these simple example steps.
 
 Make sure to have NodeJS on your machine and it's up to date, you can do so with the following.
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+1. NPM
+
+   ```sh
+   npm install npm@latest -g
+   ```
+
+2. Clone the repo
+
+   ```sh
+   git clone https://github.com/WildCodeSchool/2023-11-wns-bleu-g4
+   ```
 
 ### Installation
 
@@ -116,7 +123,7 @@ _Below is a step by step series of tasks that will help you on installing and se
    npm run dev
    ```
 
-   _This will install and run the backend, database, upload and the frontend modules all at once with docker._
+_This will install and run the backend, database, upload and the frontend modules all at once with docker._
 
 OR
 
