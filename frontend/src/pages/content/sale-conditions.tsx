@@ -1,85 +1,64 @@
 import React from "react";
 import Layout from "@/layouts/Layout";
+import {useTranslation} from "react-i18next";
 
 export default function ConditionsGeneralesVente() {
+    const {t} = useTranslation("SaleConditions");
+
     return (
         <Layout>
             <div className="px-60 xl:mx-24 xl:pb-5">
-                <h1 className="text-3xl font-bold mb-6">Conditions Générales de Vente</h1>
+                <h1 className="text-3xl font-bold mb-6">{t("General Terms and Conditions of Sale")}</h1>
 
-                <p className="mb-4"><strong>Article 1 : Objet</strong></p>
+                <p className="mb-4"><strong>{t("Article 1: Purpose")}</strong></p>
                 <p className="mb-4">
-                    Les présentes conditions générales de vente (CGV) régissent les relations contractuelles entre
-                    la société GearGo (le « Vendeur ») et toute personne physique ou morale (le « Client ») souhaitant
-                    louer des équipements de sport via le site internet GearGo. En passant commande, le Client accepte
-                    sans réserve les présentes CGV.
+                    {t("These general terms and conditions of sale (GTC) govern the contractual relationships between the company GearGo (the 'Seller') and any natural or legal person (the 'Customer') wishing to rent sports equipment via the GearGo website. By placing an order, the Customer unreservedly accepts these GTC.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 2 : Produits</strong></p>
+                <p className="mb-4"><strong>{t("Article 2: Products")}</strong></p>
                 <p className="mb-4">
-                    Les produits proposés à la location sont décrits et présentés avec la plus grande exactitude possible.
-                    Toutefois, si des erreurs ou omissions se produisent dans cette présentation, la responsabilité de GearGo
-                    ne pourra être engagée. Les photographies des produits ne sont pas contractuelles.
+                    {t("The products offered for rent are described and presented with the greatest possible accuracy. However, if errors or omissions occur in this presentation, GearGo cannot be held liable. The photographs of the products are not contractual.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 3 : Commande</strong></p>
+                <p className="mb-4"><strong>{t("Article 3: Order")}</strong></p>
                 <p className="mb-4">
-                    Le Client passe commande en ligne via le site GearGo. La commande ne sera validée qu'après acceptation
-                    du paiement. GearGo se réserve le droit d'annuler ou de refuser toute commande d'un Client avec lequel
-                    il existerait un litige relatif au paiement d'une commande antérieure.
+                    {t("The Customer places an order online via the GearGo website. The order will only be validated after payment acceptance. GearGo reserves the right to cancel or refuse any order from a Customer with whom there is a dispute regarding the payment of a previous order.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 4 : Tarifs et Paiement</strong></p>
+                <p className="mb-4"><strong>{t("Article 4: Prices and Payment")}</strong></p>
                 <p className="mb-4">
-                    Les prix des produits sont indiqués en euros, toutes taxes comprises (TTC). Le paiement s'effectue en
-                    ligne par carte bancaire via un système sécurisé. GearGo se réserve le droit de modifier ses prix
-                    à tout moment, mais les produits seront facturés sur la base des tarifs en vigueur au moment de la
-                    validation de la commande.
+                    {t("The prices of the products are indicated in euros, all taxes included (TTC). Payment is made online by credit card via a secure system. GearGo reserves the right to modify its prices at any time, but the products will be billed based on the rates in effect at the time of order validation.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 5 : Livraison</strong></p>
+                <p className="mb-4"><strong>{t("Article 5: Delivery")}</strong></p>
                 <p className="mb-4">
-                    Les produits loués sont livrés à l'adresse indiquée par le Client lors de la commande. Les délais de
-                    livraison sont donnés à titre indicatif et GearGo ne saurait être tenu responsable des retards éventuels.
-                    En cas de non réception de la commande, le Client doit contacter GearGo dans les plus brefs délais.
+                    {t("The rented products are delivered to the address indicated by the Customer when ordering. Delivery times are given as an indication and GearGo cannot be held responsible for any delays. In case of non-receipt of the order, the Customer must contact GearGo as soon as possible.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 6 : Utilisation des Produits</strong></p>
+                <p className="mb-4"><strong>{t("Article 6: Use of Products")}</strong></p>
                 <p className="mb-4">
-                    Le Client s'engage à utiliser les produits loués conformément à leur destination. Il est responsable
-                    de l'entretien et de la conservation des produits pendant la durée de la location. Toute détérioration
-                    ou perte des produits loués engage la responsabilité du Client qui devra en assumer les coûts de
-                    réparation ou de remplacement.
+                    {t("The Customer agrees to use the rented products in accordance with their intended purpose. They are responsible for the maintenance and preservation of the products during the rental period. Any deterioration or loss of the rented products engages the responsibility of the Customer who will have to bear the costs of repair or replacement.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 7 : Rétractation</strong></p>
+                <p className="mb-4"><strong>{t("Article 7: Withdrawal")}</strong></p>
                 <p className="mb-4">
-                    Conformément à la législation en vigueur, le Client dispose d'un délai de 14 jours à compter de la
-                    réception des produits pour exercer son droit de rétractation. Pour exercer ce droit, le Client doit
-                    notifier GearGo de sa décision par écrit et retourner les produits dans leur état d'origine.
-                    Les frais de retour sont à la charge du Client.
+                    {t("In accordance with the legislation in force, the Customer has a period of 14 days from the receipt of the products to exercise their right of withdrawal. To exercise this right, the Customer must notify GearGo of their decision in writing and return the products in their original condition. Return costs are the responsibility of the Customer.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 8 : Responsabilité</strong></p>
+                <p className="mb-4"><strong>{t("Article 8: Liability")}</strong></p>
                 <p className="mb-4">
-                    GearGo ne saurait être tenu responsable des dommages de toute nature, tant matériels qu'immatériels ou
-                    corporels, qui pourraient résulter d'une mauvaise utilisation des produits loués. La responsabilité de
-                    GearGo sera, en tout état de cause, limitée au montant de la commande.
+                    {t("GearGo cannot be held responsible for damages of any kind, whether material, immaterial, or bodily, that may result from the misuse of the rented products. GearGo's liability will, in any event, be limited to the amount of the order.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 9 : Données Personnelles</strong></p>
+                <p className="mb-4"><strong>{t("Article 9: Personal Data")}</strong></p>
                 <p className="mb-4">
-                    GearGo s'engage à respecter la confidentialité des données personnelles communiquées par le Client
-                    lors de la commande et à les traiter conformément à la législation en vigueur. Le Client dispose
-                    d'un droit d'accès, de modification et de suppression des données le concernant.
+                    {t("GearGo undertakes to respect the confidentiality of the personal data communicated by the Customer when ordering and to process them in accordance with the legislation in force. The Customer has the right to access, modify, and delete their data.")}
                 </p>
 
-                <p className="mb-4"><strong>Article 10 : Loi Applicable et Juridiction</strong></p>
+                <p className="mb-4"><strong>{t("Article 10: Applicable Law and Jurisdiction")}</strong></p>
                 <p className="mb-4">
-                    Les présentes CGV sont soumises à la loi française. Tout litige relatif à leur interprétation et/ou
-                    à leur exécution relève des tribunaux français compétents.
+                    {t("These GTC are subject to French law. Any dispute relating to their interpretation and/or execution falls under the jurisdiction of the competent French courts.")}
                 </p>
-
             </div>
         </Layout>
     );
