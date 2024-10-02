@@ -1,20 +1,39 @@
-name: "prettier"
-
 on:
   pull_request:
     paths:
-      - 'backend/**'
-      - 'frontend/**'
-  workflow_call:
+      - "backend/**"
+      - "frontend/**"
+  push:
+    paths:
+      - "backend/**"
+      - "frontend/**"
 
 jobs:
+  filter:
+    runs-on: ubuntu-latest
+    outputs:
+      backend_changed: ${{ steps.filter.outputs.backend }}
+      frontend_changed: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Filter changed files
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+            frontend:
+              - 'frontend/**'
+
   prettier-backend:
-    if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+    if: ${{ needs.filter.outputs.backend_changed == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./backend
-    if: contains(github.event.head_commit.message, 'backend/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -47,12 +66,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   prettier-frontend:
-    if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+    if: ${{ needs.filter.outputs.frontend_changed == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./frontend
-    if: contains(github.event.head_commit.message, 'frontend/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -77,7 +95,7 @@ jobs:
           git add .
           git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
 
-      - name: Push changes (only on push events, not pull requests)
+      - name: Push changes
         if: github.event_name == 'push'
         run: |
           git push origin HEAD:${{ github.ref }}
