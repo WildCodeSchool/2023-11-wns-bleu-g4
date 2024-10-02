@@ -16,13 +16,20 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "GearGo - Rent Outdoor Gear for Your Adventures",
-  description: "GearGo is your go-to platform for renting outdoor equipment, from camping gear to hiking accessories. Enjoy your outdoor adventures without the hassle of ownership.",
+  description:
+    "GearGo is your go-to platform for renting outdoor equipment, from camping gear to hiking accessories. Enjoy your outdoor adventures without the hassle of ownership.",
   keywords: "GearGo, gear rental, outdoor equipment, camping gear, hiking gear, outdoor adventures, rental platform",
   robots: "index, follow",
-  authors: [{ name: "Alexandre Chambrin" }, { name: "Mehdy Hertereau" }, { name: "Jeremy Dohin" }, { name: "Loic Hernandez" }],
+  authors: [
+    { name: "Alexandre Chambrin" },
+    { name: "Mehdy Hertereau" },
+    { name: "Jeremy Dohin" },
+    { name: "Loic Hernandez" },
+  ],
   openGraph: {
     title: "GearGo - Rent Outdoor Gear for Your Adventures",
-    description: "GearGo is your go-to platform for renting outdoor equipment, from camping gear to hiking accessories. Enjoy your outdoor adventures without the hassle of ownership.",
+    description:
+      "GearGo is your go-to platform for renting outdoor equipment, from camping gear to hiking accessories. Enjoy your outdoor adventures without the hassle of ownership.",
     url: "https://www.geargo.com",
     siteName: "GearGo",
     type: "website",
