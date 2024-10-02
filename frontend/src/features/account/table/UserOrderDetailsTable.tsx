@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import transformToDate from "../helpers/TransformDate";
 import TimeStampToDayDuration from "../helpers/TimeStampToDayDuration";
 import { BookingItem } from "../types";
-import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/getBookingItemsByBookingId.generated";
+import { useGetBookingItemsByBookingIdQuery } from "@/graphql/BookingItem/generated/GetBookingItemsByBookingId.generated";
 
 export default function UserOrdersDetailsTable() {
 
