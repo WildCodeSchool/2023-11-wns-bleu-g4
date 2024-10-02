@@ -37,12 +37,13 @@ export default function sendMailForm() {
 
         try {
             await requestResetPassword({ variables: { email: formJSON.email } });
-            toast.info("Mail Send", ToastConfigLogin);
+            toast.success("Mail Send", ToastConfigLogin);
             setMailSend(true)
-
         } catch (e: any) {
-            const errArr = e.message.replace("_", " ");
-            toast.error(errArr, ToastConfigLogin);
+            if (e.message === "USER_NOT_FOUND") {
+                // const errArr = e.message.replaceAll("_", " ");
+                toast.error(t("The email address is not recognized"), ToastConfigLogin);
+            }
             return;
         }
     }
@@ -53,8 +54,9 @@ export default function sendMailForm() {
                 mailSend ?
                     <Box bg={"white"} padding={10} className="rounded-lg flex flex-col gap-5 shadow-sm">
                         <Text className="text-center">CHECK YOUR MAILBOX !</Text>
-                        <Text>If the email address you provided is saved in our data,<br/> you will receive a password reset email shortly!</Text>
-                        <Button variant={"loginButton"} onClick={()=>router.push("/login")}>Return to login page</Button>
+                        <Text>If the email address you provided is saved in our data,
+                            you will receive a password reset email shortly!</Text>
+                        <Button variant={"loginButton"} onClick={() => router.push("/login")}>Return to login page</Button>
                     </Box>
                     :
                     <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
@@ -68,6 +70,11 @@ export default function sendMailForm() {
                         <form onSubmit={handleSubmit}>
                             <CardBody>
                                 <Flex direction="column" gap="15px">
+                                    <Text>
+                                        Please enter your email address.
+                                        <br />
+                                        If the address you enter is registered in our database, we will send you an email with a link to create a new password.
+                                    </Text>
                                     {/* EMAIL */}
                                     <FormControl size="md">
                                         <FormLabel>Email</FormLabel>
@@ -76,7 +83,7 @@ export default function sendMailForm() {
                                                 <Input
                                                     type="email"
                                                     color="black"
-                                                    placeholder="Email"
+                                                    placeholder="personnal_email@mail.com"
                                                     name="email"
                                                     size="md"
                                                     bg="bgLight"
