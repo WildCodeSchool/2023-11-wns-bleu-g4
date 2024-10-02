@@ -29,8 +29,10 @@ export default function SideNavbar() {
               <Image src={LightLogo} alt="Logo de l'entreprise" className="max-h-12 min-w-fit" priority />
             </span>
           }
-          <button onClick={toggleSidebar} className="flex cursor-pointer items-center gap-4 rounded-full m-2 p-2 text-dark
-                bg-cactus-300">
+          <button
+            onClick={toggleSidebar}
+            className="flex cursor-pointer items-center gap-4 rounded-full m-2 p-2 text-dark bg-cactus-300"
+          >
             <ChevronRightIcon className={`h-4 w-4 ${isExpanded && "rotate-180"}`} />
           </button>
         </div>
@@ -38,12 +40,19 @@ export default function SideNavbar() {
         <div className="flex flex-col gap-3">
           {adminNavigation.map(navItem => (
             <Fragment key={navItem.id}>
-              <Tooltip label={navItem.title} placement='right' hasArrow className={`${isExpanded && "hidden"}`} borderRadius={4}>
+              <Tooltip
+                label={navItem.title}
+                placement='right'
+                hasArrow
+                className={`${isExpanded && "hidden"}`}
+                borderRadius={4}
+              >
                 <Link
 
                   href={navItem.path}
                   className={`flex cursor-pointer items-center gap-3 rounded p-3 text-light 
-                hover:bg-cactus-300 hover:text-dark ${isActive(navItem.path) && "bg-cactus-300 text-dark"} ${isExpanded && "overflow-hidden"}`}
+                  hover:bg-cactus-300 hover:text-dark ${isActive(navItem.path)
+                    && "bg-cactus-300 text-dark"} ${isExpanded && "overflow-hidden"}`}
                 >
                   {navItem.icon}
                   {isExpanded && <span>{navItem.title}</span>}

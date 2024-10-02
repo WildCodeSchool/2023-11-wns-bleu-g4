@@ -1,5 +1,20 @@
 
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, Flex, Box, Textarea } from '@chakra-ui/react'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Flex,
+  Box,
+  Textarea
+} from '@chakra-ui/react'
 import { UserModalProps } from '../../types'
 import { useUpdateProfileMutation } from '@/graphql/User/generated/UpdateProfile.generated';
 import { FormEvent, useState } from 'react';
@@ -86,7 +101,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                   <Input type="tel" placeholder="Phone number" defaultValue={user?.phone} name="phone" id="phone" />
                 </Box>
               </Flex>
-              
+
               {/* <Box>
                   <FormLabel mb={1} htmlFor="email">Email</FormLabel>
                   <Input type="email" placeholder="Email" defaultValue={user?.email} name="email" id="email"/>
