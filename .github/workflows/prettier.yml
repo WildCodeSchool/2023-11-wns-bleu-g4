@@ -2,6 +2,9 @@ name: "prettier"
 
 on:
   pull_request:
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
   workflow_call:
 
 jobs:
@@ -41,16 +44,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # Only run if backend files were modified
-    condition: ${{ always() }}
-    on:
-      pull_request:
-        paths:
-          - "backend/**"
-      push:
-        paths:
-          - "backend/**"
-
   prettier-frontend:
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
     runs-on: ubuntu-latest
@@ -86,13 +79,3 @@ jobs:
           git push origin HEAD:${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    # Only run if frontend files were modified
-    condition: ${{ always() }}
-    on:
-      pull_request:
-        paths:
-          - "frontend/**"
-      push:
-        paths:
-          - "frontend/**"
