@@ -71,16 +71,16 @@ jobs:
           echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
 
       # Cache Playwright Browsers for Playwright's Version
-      - name: Cache Playwright Browsers
-        id: cache-playwright-browsers
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+      # - name: Cache Playwright Browsers
+      #   id: cache-playwright-browsers
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.cache/ms-playwright
+      #     key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
 
       # Setup Playwright if not cached
       - name: Setup Playwright
-        if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
+        # if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
 
       # Start your application using the .env file
