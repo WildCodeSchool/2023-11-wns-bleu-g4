@@ -18,7 +18,7 @@ test.beforeAll(async () => {
 });
 
 // Test 1 : réservation d'un article
-test('can book an item', async ({page}) => {
+test('user can book an item', async ({page}) => {
   await execInContainer('e2e-tests-backend-1', 'npm run resetDB'); // Réinitialisation de la base de données
 
   await page.goto('http://localhost:3000/fr');
@@ -44,7 +44,7 @@ test('can book an item', async ({page}) => {
 });
 
 // Test 2 : essayer de réserver avec des dates réservées
-test('cannot select already booked dates', async ({page}) => {
+test('user cannot select already booked dates', async ({page}) => {
   // Vérifiez si le premier test a réussi avant d'exécuter ce test
   if (!firstTestPassed) {
     test.skip(); // Ignore le test si le premier n'a pas réussi
