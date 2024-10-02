@@ -24,22 +24,24 @@ export const useUserContext = () => {
 
 export const UserProvider = ({ children }: PropsUserProvider) => {
   const [user, setUser] = useState<User | null>(null);
-  const { data, loading, error } = useProfileQuery();
+  // const {data, loading, error} = useProfileQuery();
 
-  useEffect(() => {
-    if (data && data.profile) {
-      const userProfile: User = {
-        ...data.profile,
-        bookings: [],
-        reviews: [],
-      };
-      setUser(userProfile);
-    } else if (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  }, [data, error]);
+  // useEffect(() => {
+  //   if (data && data.profile) {
+  //     const userProfile: User = {
+  //       ...data.profile,
+  //       bookings: [],
+  //       reviews: [],
+  //     };
+  //     setUser(userProfile);
+  //   } else if (error) {
+  //     console.error('Error fetching user profile:', error);
+  //   }
+  // }, [data, error]);
 
-  if (loading) return <Loading loading={loading} />;
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
