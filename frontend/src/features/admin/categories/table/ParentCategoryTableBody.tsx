@@ -54,13 +54,13 @@ export default function ParentCategoryTableBody({ data, loading }: TableBodyProp
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {parentCategoryTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 {menu.name}
@@ -86,7 +86,7 @@ export default function ParentCategoryTableBody({ data, loading }: TableBodyProp
             data.map((parentCategory: ParentCategory, index: number) => (
               <tr
                 key={parentCategory.id}
-                className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}
+                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}
               >
                 <td className="whitespace-nowrap p-3 pl-8 w-4/5 min-w-max">{parentCategory.name}</td>
                 <td className="whitespace-nowrap p-3 pr-8 w-1/5 min-w-max text-left align-middle">
