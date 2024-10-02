@@ -14,6 +14,7 @@ jobs:
     defaults:
       run:
         working-directory: ./backend
+    if: contains(github.event.head_commit.message, 'backend/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,6 +40,7 @@ jobs:
           git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
 
       - name: Push changes
+        if: github.event_name == 'push'
         run: |
           git push origin HEAD:${{ github.ref }}
         env:
@@ -50,6 +52,7 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+    if: contains(github.event.head_commit.message, 'frontend/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -74,7 +77,8 @@ jobs:
           git add .
           git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
 
-      - name: Push changes
+      - name: Push changes (only on push events, not pull requests)
+        if: github.event_name == 'push'
         run: |
           git push origin HEAD:${{ github.ref }}
         env:
