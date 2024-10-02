@@ -79,15 +79,16 @@ export default function UserInfos({ user }: { user?: User }) {
         <>
             <Flex
                 className="
-            w-full
+                rounded overflow-hidden
+            w-full max-w-96  
+            sm:h-full sm:max-w-2xl
             flex flex-col 
-            sm:h-full sm:max-w-full 
             lg:min-w-56 bg-orange-300">
                 {/*************************** USER INFOS ***************************/}
                 <Flex className="
-                        h-full w-full text-xs 
+                        h-full w-full text-md 
                         flex flex-col justify-between items-start 
-                        sm:flex-row sm:grow sm:relative
+                        sm:flex-row sm:grow sm:relative 
                         lg:flex-col lg:grow-0
                         "
                     bg={bgColor}
@@ -97,7 +98,7 @@ export default function UserInfos({ user }: { user?: User }) {
                         return (
                             <Flex key={i} className="flex flex-col w-full sm:h-full sm:flex-row lg:flex-col" >
                                 <Flex className="flex flex-col justify-start w-full">
-                                    <Heading size={"xs"} className="p-3 h-fit" bg={bgTableHeadColor}>
+                                    <Heading size={"md"} className="p-3 h-fit" bg={bgTableHeadColor}>
                                         {info.title}
                                     </Heading>
                                     <Flex gap='1' direction='column' className="px-5 py-3 h-full w-full">

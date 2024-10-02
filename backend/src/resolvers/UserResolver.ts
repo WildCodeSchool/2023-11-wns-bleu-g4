@@ -1,7 +1,6 @@
 import { Arg, Authorized, Ctx, Int, Mutation, Query, Resolver } from "type-graphql"
 import { User, NewUserInput, LoginInput, UpdateUserInput, UserRole } from "../entities/User"
 import { GraphQLError } from "graphql"
-import { verify } from "argon2"
 import jwt from "jsonwebtoken"
 import env from "../env"
 import { Context } from "../utils"
@@ -9,7 +8,7 @@ import crypto from "crypto"
 import { UserList } from "../types"
 import mailer from "../mailer"
 import { ILike } from "typeorm"
-import { hash } from "argon2"
+import { hash, verify } from "argon2"
 
 @Resolver(User)
 class UserResolver {
@@ -39,11 +38,15 @@ class UserResolver {
 	@Authorized()
 	@Mutation(() => User)
 	async updatePassword(
-		@Arg("password") password: string,
+		@Arg("currentPassword") currentPassword: string,
+		@Arg("newPassword") newPassword: string,
 		@Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("NOT_AUTHENTICATED")
 
-		if (password) ctx.currentUser.hashedPassword = await hash(password)
+		const passwordValid = await verify(ctx.currentUser.hashedPassword, currentPassword)
+		if (!passwordValid) throw new GraphQLError("INVALID_CURRENT_PASSWORD")
+
+		if (newPassword) ctx.currentUser.hashedPassword = await hash(newPassword)
 
 		return ctx.currentUser.save()
 	}

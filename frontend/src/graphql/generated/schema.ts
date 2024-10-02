@@ -273,7 +273,6 @@ export type MutationDeleteProduct_PictureArgs = {
 
 export type MutationDeleteReviewArgs = {
   reviewId: Scalars['Int']['input'];
-  reviewId: Scalars['Int']['input'];
 };
 
 
@@ -319,7 +318,8 @@ export type MutationUpdateParentCategoryArgs = {
 
 
 export type MutationUpdatePasswordArgs = {
-  password: Scalars['String']['input'];
+  currentPassword: Scalars['String']['input'];
+  newPassword: Scalars['String']['input'];
 };
 
 

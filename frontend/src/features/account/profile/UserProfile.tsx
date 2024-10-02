@@ -12,14 +12,14 @@ export default function UserProfile() {
     return (
         <Flex
             className="w-full gap-2 flex flex-col items-center justify-center
-            sm:flex-row sm:items-start sm:gap-5 sm:justify-center sm:w-full
-            lg:flex-col lg:max-w-56 lg:pb-5 lg:items-start lg:gap-2
-            xl:max-w-72 xl:min-w-56">
+            lg:gap-5
+            xl:pb-5 xl:items-start xl:gap-2 xl:max-w-96
+            2xl:min-w-64">
             <Flex
-                className="min-w-56 w-full flex flex-col h-full gap-2
-                sm:justify-between sm:max-w-56
-                lg:justify-start lg:h-fit
-                xl:max-w-72 xl:min-w-56">
+                className="min-w-28 max-w-96 w-full flex flex-col h-full gap-2
+                sm:justify-between sm:max-w-2xl
+                lg:flex-row lg:justify-start lg:h-fit lg:min-w-56
+                xl:flex-col xl:min-w-64">
                 <UserAvatar user={currentUser?.profile as User} />
                 <UserPassword />
             </Flex>

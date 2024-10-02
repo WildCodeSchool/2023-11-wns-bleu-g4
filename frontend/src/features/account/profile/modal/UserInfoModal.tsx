@@ -26,7 +26,7 @@ import { ProfileDocument, ProfileQuery } from '@/graphql/User/generated/Profile.
 
 export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps) {
 
-  const [imageURL, setImageURL] = useState("")
+  const [imageURL, setImageURL] = useState(user?.avatar)
   const [updateProfile] = useUpdateProfileMutation();
 
   // Use Apollo Client Cache
@@ -40,9 +40,10 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
 
     try {
       // Hot reload data
-      client.writeQuery<ProfileQuery>({ query: ProfileDocument, data: { profile: formJSON } })
+      const { profile } = client.readQuery({ query: ProfileDocument })
+      client.writeQuery<ProfileQuery>({ query: ProfileDocument, data: { profile: { ...profile, ...formJSON } } })
       await updateProfile({ variables: { data: formJSON } });
-      toast.info("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
+      toast.success("PROFILE UPDATE SUCCESSFULL", ToastConfigLogin);
     } catch (e: any) {
       const errArr = e.message.replace("_", " ");
       toast.error(errArr, ToastConfigLogin);
@@ -64,6 +65,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
           <ModalBody pb={6}>
             <FormControl>
 
+              {/*********************************** Name / Firstname */}
               <Flex justifyContent="space-between" gap={2} mb={4}>
                 <Box>
                   <FormLabel mb={1} htmlFor="name">Name</FormLabel>
@@ -75,11 +77,13 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                 </Box>
               </Flex>
 
+              {/*********************************** Address */}
               <Box mb={4}>
                 <FormLabel mb={1} htmlFor='address'>Address</FormLabel>
                 <Textarea placeholder="Address" name='address' id="address" maxHeight={200} defaultValue={user?.address} />
               </Box>
 
+              {/*********************************** PostCode / City  */}
               <Flex justifyContent="space-between" gap={2} mb={4}>
                 <Box>
                   <FormLabel mb={1} htmlFor="postcode">PostCode</FormLabel>
@@ -91,6 +95,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                 </Box>
               </Flex>
 
+              {/************************************ Country / Phone */}
               <Flex gap={2} mb={4}>
                 <Box>
                   <FormLabel mb={1} htmlFor="country">Country</FormLabel>

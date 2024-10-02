@@ -43,9 +43,8 @@ export default function CancelBookingModal({
             })
             await cancelBooking({ variables: { bookingId } })
             await cancelBookingItems({ variables: { bookingItemIds } })
-
+            history.back()
             toast.success("BOOKING CANCELED SUCCESSFULLY", ToastConfigWarning);
-            setTimeout(() => { history.back() }, 2000);
         } catch (error: any) {
             const errArr = error.message.replace("_", " ");
             toast.error(errArr, ToastConfigWarning);
@@ -60,7 +59,6 @@ export default function CancelBookingModal({
                 <ModalHeader>Are you sure you want to cancel this booking ?</ModalHeader>
                 <ModalCloseButton />
                 <ModalFooter justifyContent={"space-between"} padding={5}>
-                    {/* <Flex justifyContent={"space-between"} padding={5}> */}
                     <Button onClick={onClose}>Back</Button>
                     <Button onClick={handleCancelBooking} variant={"warningButton"}>
                         Cancel Booking

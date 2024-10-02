@@ -76,6 +76,9 @@ export class User extends BaseEntity {
 	@Column({ default: false })
 	emailVerified: boolean
 
+	@Column({ default: false })
+	acceptConditions: boolean
+
 	/** RELATIONS *********************/
 	/** ONE TO MANY */
 	@OneToMany(() => Booking, (bookings) => bookings.user)
@@ -96,6 +99,9 @@ export class NewUserInput {
 	@Field()
 	@IsStrongPassword()
 	password: string
+
+	@Field()
+	acceptConditions: boolean
 }
 
 @InputType()

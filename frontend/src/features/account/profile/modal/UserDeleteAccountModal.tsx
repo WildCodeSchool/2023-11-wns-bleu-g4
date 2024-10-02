@@ -3,18 +3,18 @@ import { UserModalProps } from "../../types";
 import { toast } from "react-toastify";
 import { ToastConfigWarning } from "@/config/ToastConfig";
 import { useDeleteProfileMutation } from "@/graphql/User/generated/DeleteProfile.generated";
+import { useRouter } from "next/router";
 
 export default function UserDeleteAccountModal({ isOpen, onClose }: UserModalProps) {
     const [deleteProfile] = useDeleteProfileMutation()
+    const router = useRouter()
 
     const deleteAccount = async (e: any) => {
         e.preventDefault()
         try {
             await deleteProfile();
+            router.push('/')
             toast.success("ACCOUNT DELETED SUCCESSFULLY", ToastConfigWarning);
-            setTimeout(() => {
-                window.location.replace('/')
-            }, 2000);
         } catch (error: any) {
             const errArr = error.message.replace("_", " ");
             toast.error(errArr, ToastConfigWarning);
