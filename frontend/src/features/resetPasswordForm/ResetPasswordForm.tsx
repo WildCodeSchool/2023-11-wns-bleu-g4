@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { resetPasswordType } from "./types";
 import { useRouter } from "next/router";
+import { useResetPasswordMutation } from "@/graphql/User/generated/ResetPassword.generated";
 
 
 
@@ -32,11 +33,9 @@ export default function ResetPasswordForm() {
     const token = router.query.token as string;
 
     /* Gestion de la saisie des mots de passe*/
-    const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const handleClick = () => setShowPassword(!showPassword)
 
-    const [newPassword, setNewPassword] = useState("")
     const [showNewPassword, setShowNewPassword] = useState(false)
     const handleNewPassClick = () => setShowNewPassword(!showNewPassword)
 
@@ -72,7 +71,7 @@ export default function ResetPasswordForm() {
     }
 
     /* Gestion de l'enregistrement en db du mot de passe*/
-    // const [resetPassword] = useResetPasswordMutation()
+    const [resetPassword] = useResetPasswordMutation()
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
@@ -85,8 +84,9 @@ export default function ResetPasswordForm() {
 
         try {
             validatePassword(formJSON.password, formJSON.newPassword)
-            // await resetPassword({ variables: { formJSON.password, token } })
-            toast.success("PASSWORD UPDATED SUCCESSFULLY", ToastConfigWarning);
+            await resetPassword({ variables: { newPassword : formJSON.password, token } })
+            toast.success("PASSWORD CHANGED SUCCESSFULLY", ToastConfigWarning);
+            router.push("/login")
         } catch (error: any) {
             const errArr = error.message.replace("_", " ");
             toast.error(errArr, ToastConfigWarning);
