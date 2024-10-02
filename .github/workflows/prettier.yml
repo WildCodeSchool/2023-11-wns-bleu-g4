@@ -28,13 +28,9 @@ jobs:
             frontend:
               - 'frontend/**'
 
-  prettier-backend:
+  prettier:
     needs: filter
-    if: ${{ needs.filter.outputs.backend_changed == 'true' }}
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -47,48 +43,24 @@ jobs:
           node-version: 20
 
       - name: Install dependencies for backend
+        if: ${{ needs.filter.outputs.backend_changed == 'true' }}
         run: npm ci
+        working-directory: ./backend
 
       - name: Run Prettier fix on backend
+        if: ${{ needs.filter.outputs.backend_changed == 'true' }}
         run: npm run prettier:fix
-
-      - name: Commit changes if necessary
-        run: |
-          git config --local user.name "GitHub Action"
-          git config --local user.email "action@github.com"
-          git add .
-          git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
-
-      - name: Push changes
-        if: github.event_name == 'push'
-        run: |
-          git push origin HEAD:${{ github.ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  prettier-frontend:
-    needs: filter
-    if: ${{ needs.filter.outputs.frontend_changed == 'true' }}
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+        working-directory: ./backend
 
       - name: Install dependencies for frontend
+        if: ${{ needs.filter.outputs.frontend_changed == 'true' }}
         run: npm ci
+        working-directory: ./frontend
 
       - name: Run Prettier fix on frontend
+        if: ${{ needs.filter.outputs.frontend_changed == 'true' }}
         run: npm run prettier:fix
+        working-directory: ./frontend
 
       - name: Commit changes if necessary
         run: |
@@ -98,7 +70,6 @@ jobs:
           git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
 
       - name: Push changes
-        if: github.event_name == 'push'
         run: |
           git push origin HEAD:${{ github.ref }}
         env:
