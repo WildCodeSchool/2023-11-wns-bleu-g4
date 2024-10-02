@@ -56,13 +56,13 @@ export default function CategoryTableBody({ data, loading }: TableBodyProps) {
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {categoryTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 {menu.name}
@@ -87,7 +87,7 @@ export default function CategoryTableBody({ data, loading }: TableBodyProps) {
           ) : (
             data.map((category: Category, index: number) => (
               <React.Fragment key={category.id}>
-                <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
+                <tr className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}>
                   <td className="whitespace-nowrap p-3 pl-8 w-1/3 min-w-max">{category.name}</td>
                   <td className="whitespace-nowrap p-3 w-1/3 min-w-max">
                     <button
