@@ -1,14 +1,12 @@
 import nodemailer from "nodemailer"
 import env from "./env"
 
-const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = env
-
 export default nodemailer.createTransport({
-	host: SMTP_HOST,
-	port: SMTP_PORT,
+	host: env.SMTP_HOST,
+	port: env.SMTP_PORT,
 	secure: true,
 	auth: {
-		user: SMTP_USER,
-		pass: SMTP_PASS,
+		user: env.SMTP_USER,
+		pass: env.SMTP_PASS,
 	},
 })

@@ -8,6 +8,7 @@ import { SortProduct } from "@/graphql/generated/schema";
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Loading from "@/shared/components/Loading";
 
 export default function ShopPage() {
     const isMobile = useBreakpointValue({ base: true, md: false });
@@ -41,7 +42,7 @@ export default function ShopPage() {
         setPage(parseInt((router.query.page as string) || "1", 10) - 1);
     }, [router.query.page]);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loading loading={loading} />;
     if (error) return <p>Error: {error.message}</p>;
 
     const products = data?.getAllProducts.products.filter(product => product.category) ?? [];
@@ -95,7 +96,7 @@ export default function ShopPage() {
                     <ProductFilter />
                 </GridItem>
                 <GridItem area={"ProductGrid"}>
-                    <ProductGrid products={products} />
+                    <ProductGrid products={products} loading={loading} />
                 </GridItem>
                 <GridItem area={"Pagination"}>
                     <Pagination setPage={handlePageChange} page={page} maxPages={maxPages} />

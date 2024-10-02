@@ -1,6 +1,7 @@
-import React, {createContext, ReactNode, useContext, useState, useEffect} from 'react';
-import {User} from '@/graphql/generated/schema';
-import {useProfileQuery} from "@/graphql/User/generated/Profile.generated";
+import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react';
+import { User } from '@/graphql/generated/schema';
+import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
+import Loading from '@/shared/components/Loading';
 
 interface UserContextType {
   user: User | null;
@@ -21,7 +22,7 @@ export const useUserContext = () => {
   return context;
 };
 
-export const UserProvider = ({children}: PropsUserProvider) => {
+export const UserProvider = ({ children }: PropsUserProvider) => {
   const [user, setUser] = useState<User | null>(null);
   // const {data, loading, error} = useProfileQuery();
 
@@ -43,7 +44,7 @@ export const UserProvider = ({children}: PropsUserProvider) => {
   // }
 
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   );
