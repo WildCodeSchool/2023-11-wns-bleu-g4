@@ -83,7 +83,6 @@ export default function SearchBar({ placeholder, variant = "desktop" }: SearchBa
   };
 
   const handleSuggestionClick = (productId: number) => {
-    console.log('Suggestion clicked:', productId);
     setShowSuggestions(false);
 
     router.push(`/products/${productId}`)

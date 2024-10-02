@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import ProductStockTableBody from "./table/ProductStockTableBody";
 import TableFooter from "../shared/TableFooter";
 import { Product } from "./types";
-import { useGetProductCodesByProductIdQuery } from "@/graphql/ProductCode/generated/GetProductCodesByProductId.generated";
+import {
+  useGetProductCodesByProductIdQuery
+} from "@/graphql/ProductCode/generated/GetProductCodesByProductId.generated";
 import { useRouter } from "next/router";
 
 export default function ProductStocks({ product }: { product: Product }) {
