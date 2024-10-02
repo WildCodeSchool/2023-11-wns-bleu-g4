@@ -1,0 +1,70 @@
+name: "prettier"
+
+on:
+  pull_request:
+  workflow_call:
+
+jobs:
+  prettier-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies for backend
+        run: npm ci
+
+      - name: Run Prettier fix on backend
+        run: npm run prettier:fix
+
+      - name: Commit changes if necessary
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
+
+      - name: Push changes
+        run: git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  prettier-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies for frontend
+        run: npm ci
+
+      - name: Run Prettier fix on frontend
+        run: npm run prettier:fix
+
+      - name: Commit changes if necessary
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
+
+      - name: Push changes
+        run: git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
