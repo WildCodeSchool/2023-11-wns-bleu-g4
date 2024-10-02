@@ -4,7 +4,8 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UpdatePasswordMutationVariables = Types.Exact<{
-  password: Types.Scalars['String']['input'];
+  newPassword: Types.Scalars['String']['input'];
+  currentPassword: Types.Scalars['String']['input'];
 }>;
 
 
@@ -12,8 +13,8 @@ export type UpdatePasswordMutation = { __typename?: 'Mutation', updatePassword: 
 
 
 export const UpdatePasswordDocument = gql`
-    mutation UpdatePassword($password: String!) {
-  updatePassword(password: $password) {
+    mutation UpdatePassword($newPassword: String!, $currentPassword: String!) {
+  updatePassword(newPassword: $newPassword, currentPassword: $currentPassword) {
     id
     firstname
     name
@@ -35,7 +36,8 @@ export type UpdatePasswordMutationFn = Apollo.MutationFunction<UpdatePasswordMut
  * @example
  * const [updatePasswordMutation, { data, loading, error }] = useUpdatePasswordMutation({
  *   variables: {
- *      password: // value for 'password'
+ *      newPassword: // value for 'newPassword'
+ *      currentPassword: // value for 'currentPassword'
  *   },
  * });
  */

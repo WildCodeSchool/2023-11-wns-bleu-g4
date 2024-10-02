@@ -8,19 +8,19 @@ interface ProductGridProps {
 }
 
 export default function ProductGrid({ products }: ProductGridProps) {
-  const router = useRouter();
   const gridTemplateColumns = useBreakpointValue({
-    base: "repeat(auto-fill, minmax(150px, auto))",
-    md: "repeat(auto-fill, minmax(200px, auto))"
+    base: "repeat(auto-fill, minmax(150px, 1fr))",
+    md: "repeat(auto-fill, minmax(200px, 1fr))",
+    lg: "repeat(auto-fill, minmax(250px, 1fr))"
   });
 
   if (!products) return <p>Loading...</p>;
   if (products.length === 0) return <p>No products found.</p>;
 
   return (
-      <Grid templateColumns={gridTemplateColumns} gap={10}>
+      <Grid templateColumns={gridTemplateColumns} gap={6}>
         {products.map((product) => (
-            <GridItem key={product.id} colSpan={1} rowSpan={1}>
+            <GridItem key={product.id} colSpan={1}>
               <ProductCard product={product} />
             </GridItem>
         ))}

@@ -43,3 +43,9 @@ export function invalidDataError(errors: any) {
 		extensions: { code: "INVALID_DATA", errors },
 	})
 }
+
+export function invalidCurrentPassword(errors: any) {
+	return new GraphQLError("Invalid current password.Try again.", {
+		extensions: { code: "INVALID_CURRENT_PASSWORD", errors },
+	})
+}

@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.43.1"
+    "@playwright/test": "^1.47.2"
   },
   "dependencies": {
     "argon2": "^0.40.1",

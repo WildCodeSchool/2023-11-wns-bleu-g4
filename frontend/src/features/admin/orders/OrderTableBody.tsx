@@ -70,13 +70,13 @@ export default function OrderTableBody({
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {orderTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 <span className="flex gap-2 items-center">
@@ -115,7 +115,7 @@ export default function OrderTableBody({
           ) : (
             data.map((order: Order, index: number) => (
               <React.Fragment key={order.id}>
-                <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap hover:bg-cactus-300`}>
+                <tr className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap hover:bg-cactus-300 dark:hover:text-black`}>
                   <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{order.id}</td>
                   <td className="whitespace-nowrap p-3 w-96 min-w-max">
                     {order.user.firstname} {order.user.name}

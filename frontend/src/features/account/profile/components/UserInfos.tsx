@@ -1,12 +1,13 @@
 import {
-    Box, Button, Flex, FormLabel, Heading, Text, Textarea, useColorModeValue,
+    Box, Button, Flex, Heading, Text, useColorModeValue,
 } from "@chakra-ui/react";
-import { HomeIcon, MapPinIcon, MapIcon, GlobeEuropeAfricaIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
+import {
+    HomeIcon, MapPinIcon, MapIcon, GlobeEuropeAfricaIcon, PhoneIcon, EnvelopeIcon
+} from '@heroicons/react/24/outline'
 import { User } from "../../types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import UserInfoModal from "./../modal/UserInfoModal";
 import UserDeleteAccountModal from "../modal/UserDeleteAccountModal";
-import { useDeleteProfileMutation } from "@/graphql/User/generated/DeleteProfile.generated";
 
 export default function UserInfos({ user }: { user?: User }) {
 
@@ -78,15 +79,16 @@ export default function UserInfos({ user }: { user?: User }) {
         <>
             <Flex
                 className="
-            w-full
+                rounded overflow-hidden
+            w-full max-w-96  
+            sm:h-full sm:max-w-2xl
             flex flex-col 
-            sm:h-full sm:max-w-full 
             lg:min-w-56 bg-orange-300">
                 {/*************************** USER INFOS ***************************/}
                 <Flex className="
-                        h-full w-full text-xs 
+                        h-full w-full text-md 
                         flex flex-col justify-between items-start 
-                        sm:flex-row sm:grow sm:relative
+                        sm:flex-row sm:grow sm:relative 
                         lg:flex-col lg:grow-0
                         "
                     bg={bgColor}
@@ -96,7 +98,7 @@ export default function UserInfos({ user }: { user?: User }) {
                         return (
                             <Flex key={i} className="flex flex-col w-full sm:h-full sm:flex-row lg:flex-col" >
                                 <Flex className="flex flex-col justify-start w-full">
-                                    <Heading size={"xs"} className="p-3 h-fit" bg={bgTableHeadColor}>
+                                    <Heading size={"md"} className="p-3 h-fit" bg={bgTableHeadColor}>
                                         {info.title}
                                     </Heading>
                                     <Flex gap='1' direction='column' className="px-5 py-3 h-full w-full">
@@ -106,7 +108,7 @@ export default function UserInfos({ user }: { user?: User }) {
                                                     <Flex key={i} gap={2} alignItems='center' className="w-full">
                                                         <Box>{el.icon}</Box>
                                                         <Text
-                                                            className="text-cactus-200 sm:hidden lg:flex w-3/12 whitespace-nowrap 2xl:block "
+                                                            className="text-cactus-200 sm:hidden lg:flex w-3/12 whitespace-nowrap 2xl:block"
                                                             color={labelColor}
                                                         >
                                                             {el.label}
@@ -133,11 +135,27 @@ export default function UserInfos({ user }: { user?: User }) {
                     >
 
                         {/*************************** UPDATE ***************************/}
-                        <Button className="w-1/2" size='xs' padding='4' onClick={toggleUpdateUserModal} variant={"accentButton"}>Update</Button>
+                        <Button
+                            className="w-1/2"
+                            size='xs'
+                            padding='4'
+                            onClick={toggleUpdateUserModal}
+                            variant={"accentButton"}
+                        >
+                            Update
+                        </Button>
                         <UserInfoModal isOpen={isUpdateModalOpen} onClose={toggleUpdateUserModal} user={user} />
 
                         {/*************************** DELETE ***************************/}
-                        <Button className="w-1/2" size='xs' padding='4' variant={"warningButton"} onClick={toggleDeleteUserModal}>Delete Account</Button>
+                        <Button
+                            className="w-1/2"
+                            size='xs'
+                            padding='4'
+                            variant={"warningButton"}
+                            onClick={toggleDeleteUserModal}
+                        >
+                            Delete Account
+                        </Button>
                         <UserDeleteAccountModal isOpen={isDeleteModalOpen} onClose={toggleDeleteUserModal} />
 
                     </Flex>

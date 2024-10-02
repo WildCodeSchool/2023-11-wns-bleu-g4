@@ -1,6 +1,5 @@
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { useLoginMutation } from "@/graphql/User/generated/Login.generated";
-import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import {
   Box,
   Button,
@@ -21,26 +20,32 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
-import React, { FormEvent } from "react";
+import { useRouter } from "next/router";
+import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
+import { LoginType } from "../types/authTypes";
 
 export default function LoginForm() {
   const { t } = useTranslation("LoginForm");
 
   const [login] = useLoginMutation();
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const router = useRouter()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const formJSON: any = Object.fromEntries(formData.entries());
-    
+    const formJSON: LoginType = {
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+    }
+
     try {
       await login({ variables: { data: formJSON } });
-      toast.info("LOGIN SUCCESSFULL", ToastConfigLogin);
-      window.location.replace("/");
+      toast.success("LOGIN SUCCESSFULL", ToastConfigLogin);
+      router.push("/");
     } catch (e: any) {
       const errArr = e.message.replace("_", " ");
       toast.error(errArr, ToastConfigLogin);
@@ -118,7 +123,7 @@ export default function LoginForm() {
         <CardFooter>
           <Flex direction="column" className="w-full">
             {/* BUTTON */}
-            <Button type="submit" className="w-full" variant="loginButton" m="0">
+            <Button name="Login" type="submit" className="w-full" variant="loginButton" m="0">
               {t("Login")}
             </Button>
             {/* FORGOT PASSWORD */}

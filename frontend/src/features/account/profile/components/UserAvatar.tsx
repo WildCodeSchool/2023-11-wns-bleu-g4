@@ -11,19 +11,22 @@ export default function UserAvatar({ user }: { user: User }) {
         <Flex
             color={textColor}
             bg={bgTableHeadColor}
+            flex='1'
+            gap='4'
+            alignItems='center' flexWrap='wrap'
             className='
-            text-xs 
+            text-md 
             py-3 px-5
             h-fit w-full 
-            flex flex-col
-            lg:flex-row
+            flex
+            rounded overflow-hidden
+            lg:flex-col lg:h-28
+            xl:flex-row
             '>
-            <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                <Avatar name={user?.firstname + ' ' + user?.name} src={user?.avatar} size='sm' />
-                <Box>
-                    <Heading size='xs'>{user?.firstname + ' ' + user?.name}</Heading>
-                </Box>
-            </Flex>
+            <Avatar name={user?.firstname + ' ' + user?.name} src={user?.avatar} size='sm' />
+            <Box>
+                <Heading size='md'>{user?.firstname + ' ' + user?.name}</Heading>
+            </Box>
         </Flex>
     )
 }
