@@ -40,6 +40,7 @@ export default function ProductDescription() {
 
             return (
               <MenuItem
+                data-testid={`agency-${agency.id}`}
                 key={index}
                 onClick={() => {
                   if (isAvailable) {
