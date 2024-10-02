@@ -1,11 +1,5 @@
 import { Field, InputType, Int, ObjectType } from "type-graphql"
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	OneToMany,
-	PrimaryGeneratedColumn,
-} from "typeorm"
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { ProductCode } from "./ProductCode"
 import { Booking } from "./Booking"
 

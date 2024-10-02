@@ -77,11 +77,11 @@ export class ProductCode extends BaseEntity {
 		quantity: number,
 		size?: string | number
 	): Promise<ProductCode[] | null> {
-		const availableProductCodes = [];
+		const availableProductCodes = []
 
 		const productCodes = await this.find({
 			where: { product: { id: productId }, status: Status.AVAILABLE, ...(size ? { size: size.toString() } : {}) },
-		});
+		})
 
 		for (const productCode of productCodes) {
 			const overlappingBookings = await BookingItem.find({
@@ -91,15 +91,15 @@ export class ProductCode extends BaseEntity {
 					endDate: MoreThanOrEqual(startDate),
 					status: Not(BookingItemStatus.CANCELED),
 				},
-			});
+			})
 
 			if (overlappingBookings.length === 0) {
 				availableProductCodes.push(productCode)
-				if (availableProductCodes.length === quantity) return availableProductCodes;
+				if (availableProductCodes.length === quantity) return availableProductCodes
 			}
 		}
 
-		return null;
+		return null
 	}
 }
 

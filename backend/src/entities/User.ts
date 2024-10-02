@@ -154,5 +154,4 @@ export class LoginInput {
 	password: string
 }
 
-
 export default User

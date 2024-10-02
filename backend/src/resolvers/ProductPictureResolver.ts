@@ -30,7 +30,7 @@ class ProductPictureResolver {
 		}
 		const newProduct_picture = new Product_picture()
 		newProduct_picture.thumbnail = data.thumbnail
-		newProduct_picture.alt = data.alt ?? ''
+		newProduct_picture.alt = data.alt ?? ""
 		newProduct_picture.product = product
 
 		return newProduct_picture.save()

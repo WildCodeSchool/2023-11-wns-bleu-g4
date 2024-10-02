@@ -1,12 +1,6 @@
 import { Length } from "class-validator"
 import { Field, InputType, Int, ObjectType } from "type-graphql"
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	ManyToOne,
-	PrimaryGeneratedColumn,
-} from "typeorm"
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
 import { Product } from "./Product"
 import { ProductId } from "../types"
 
@@ -52,7 +46,6 @@ export class NewProduct_pictureInput {
 
 @InputType()
 export class UpdateProduct_pictureInput {
-
 	@Length(1, 255)
 	@Field()
 	thumbnail?: string
