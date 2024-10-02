@@ -15,7 +15,7 @@ import {
   LightMode,
   Divider,
   Heading,
-  Checkbox
+  Checkbox,
 } from "@chakra-ui/react";
 import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
 import Link from "next/link";
@@ -25,16 +25,15 @@ import { FetchResult } from "@apollo/client";
 import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
-import { SignupType } from "../types/authTypes"
+import { SignupType } from "../types/authTypes";
 import { validatePassword } from "../helpers/validatePassword";
 
 export default function SignupForm() {
-
   /** Hooks */
-  const [disableButton, setDisableButton] = useState(true)
+  const [disableButton, setDisableButton] = useState(true);
   const { t } = useTranslation("SignupForm");
   const [signup] = useCreateUserMutation();
-  const router = useRouter()
+  const router = useRouter();
 
   /** Show/Hide Password */
   const [showPass, setShowPass] = useState(false);
@@ -44,7 +43,6 @@ export default function SignupForm() {
   const [showRepPass, setShowRepPass] = useState(false);
   const handleClickRepeatPass = () => setShowRepPass(!showRepPass);
 
-
   /** Submit function */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,9 +51,9 @@ export default function SignupForm() {
     const formData = new FormData(form);
 
     let formJSON: SignupType = {
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-      repeatPassword: formData.get('repeatPassword') as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      repeatPassword: formData.get("repeatPassword") as string,
       acceptConditions: !disableButton,
     };
 
@@ -65,11 +63,10 @@ export default function SignupForm() {
 
         const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
         const toastInfo: string = `Account created. Please check your email to verify your account.`;
-        const duration: number = 5000
+        const duration: number = 5000;
         form.reset();
-        router.push('/')
+        router.push("/");
         toast.success(toastInfo, { ...ToastConfigLogin, autoClose: duration });
-
       } catch (e: any) {
         const errArr = e.message.replaceAll("_", " ");
         toast.error(errArr, ToastConfigLogin);
@@ -164,10 +161,11 @@ export default function SignupForm() {
         </CardBody>
         <CardFooter>
           <Flex direction="column" alignItems="center" className="w-full">
-
             {/* CHECKBOX */}
             <Checkbox className="pb-2" onChange={() => setDisableButton(!disableButton)} name="acceptConditions">
-              <Link href="#" className="underline text-orange-500">I accept terms and conditions</Link>
+              <Link href="#" className="underline text-orange-500">
+                I accept terms and conditions
+              </Link>
             </Checkbox>
 
             {/* BUTTON */}
@@ -175,7 +173,8 @@ export default function SignupForm() {
               type="submit"
               disabled={disableButton}
               hidden={false}
-              className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"}`}>
+              className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"}`}
+            >
               {t("Signup")}
             </button>
 

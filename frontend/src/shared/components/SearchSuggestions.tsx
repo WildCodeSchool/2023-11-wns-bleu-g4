@@ -18,7 +18,7 @@ export default function SearchSuggestions({ suggestions, onSuggestionClick }: Se
           maxHeight="300px"
           overflowY="auto"
         >
-          {suggestions.map((product) => (
+          {suggestions.map(product => (
             <ListItem
               key={product.id}
               px={4}
@@ -38,7 +38,7 @@ export default function SearchSuggestions({ suggestions, onSuggestionClick }: Se
                 />
                 <Text>{product.name.toLowerCase()}</Text>
               </Flex>
-              <Divider m={2} orientation='horizontal' />
+              <Divider m={2} orientation="horizontal" />
             </ListItem>
           ))}
         </List>

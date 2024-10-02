@@ -31,16 +31,16 @@ export default function LoginForm() {
   const [login] = useLoginMutation();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
     const formJSON: LoginType = {
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-    }
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
 
     try {
       await login({ variables: { data: formJSON } });
@@ -51,8 +51,6 @@ export default function LoginForm() {
       toast.error(errArr, ToastConfigLogin);
       return;
     }
-
-
   };
 
   return (

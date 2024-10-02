@@ -20,7 +20,6 @@ export default function ProductByCategory() {
   const [sortOrder, setSortOrder] = useState<SortProduct | null>(sortOrderFromQuery ?? null);
   const [page, setPage] = useState<number>(parseInt((router.query.page as string) || "1", 10) - 1);
 
-
   const { data, error, loading, refetch } = useGetAllProductsByCategoryIdQuery({
     variables: {
       categoryId: parsedCategoryId,
@@ -35,7 +34,6 @@ export default function ProductByCategory() {
       refetch({ categoryId: parsedCategoryId, sortOrder });
     }
   }, [sortOrder, page, parsedCategoryId, refetch]);
-
 
   useEffect(() => {
     setSortOrder(sortOrderFromQuery ?? null);
@@ -60,7 +58,6 @@ export default function ProductByCategory() {
       query: { ...router.query, page: newPage + 1 },
     });
   };
-
 
   const handleSortChange = (newSortOrder: SortProduct | null) => {
     if (newSortOrder !== null) {
@@ -109,4 +106,3 @@ export default function ProductByCategory() {
     </Layout>
   );
 }
-

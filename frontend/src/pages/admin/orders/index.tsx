@@ -14,7 +14,7 @@ export default function Orders() {
   const { query } = router;
   const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const searchTerm = query.search ? query.search : '';
+  const searchTerm = query.search ? query.search : "";
 
   const { data, refetch, loading } = useGetAllBookingQuery({
     variables: {
@@ -24,7 +24,7 @@ export default function Orders() {
       bookingId: isNaN(parseInt(searchTerm.toLocaleString())) ? undefined : parseInt(searchTerm.toLocaleString()),
       userFirstname: searchTerm.toLocaleString(),
       userName: searchTerm.toLocaleString(),
-    }
+    },
   });
   const [sortedData, setSortedData] = useState<any[]>([]);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
@@ -71,7 +71,7 @@ export default function Orders() {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     const nextPage = pageNumber + 1;
-    const searchParam = searchTerm ? `&search=${searchTerm}` : '';
+    const searchParam = searchTerm ? `&search=${searchTerm}` : "";
     router.push(`/admin/orders?page=${nextPage}${searchParam}`);
   };
 

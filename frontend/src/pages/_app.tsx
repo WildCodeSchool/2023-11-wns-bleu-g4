@@ -9,7 +9,7 @@ import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {UserProvider} from "@/context/UserDataContext";
+import { UserProvider } from "@/context/UserDataContext";
 import "@/styles/globals.css";
 import "@/styles/toast.css";
 
@@ -20,9 +20,9 @@ function App({ Component, pageProps }: AppProps) {
         <UserProvider>
           <BookingDataContextProvider>
             <ProductProvider>
-              <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
-              <Component {...pageProps} suppressHydrationWarning/>
-              <ToastContainer theme={"colored"} position="bottom-right" stacked/>
+              <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+              <Component {...pageProps} suppressHydrationWarning />
+              <ToastContainer theme={"colored"} position="bottom-right" stacked />
             </ProductProvider>
           </BookingDataContextProvider>
         </UserProvider>

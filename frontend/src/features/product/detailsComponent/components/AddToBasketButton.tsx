@@ -1,13 +1,13 @@
-import {useBookingData} from "@/context/BookingDataContext";
-import {useProductContext} from "@/context/ProductPageContext";
-import {Product} from "@/graphql/generated/schema";
-import {Button, Flex, Text} from "@chakra-ui/react";
-import {ShoppingCartIcon} from "@heroicons/react/24/outline";
-import {useTranslation} from "react-i18next";
-import {useState, useEffect} from "react";
-import {toast, ToastContainer} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import {useCheckProductAvailabilityLazyQuery} from "@/graphql/ProductCode/generated/checkProductAvailability.generated";
+import { useBookingData } from "@/context/BookingDataContext";
+import { useProductContext } from "@/context/ProductPageContext";
+import { Product } from "@/graphql/generated/schema";
+import { Button, Flex, Text } from "@chakra-ui/react";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useCheckProductAvailabilityLazyQuery } from "@/graphql/ProductCode/generated/checkProductAvailability.generated";
 
 interface BookingData {
   profileData: {
@@ -27,22 +27,12 @@ interface AddToBasketButtonProps {
   triggerReload: () => void;
 }
 
-export default function AddToBasketButton({triggerReload}: AddToBasketButtonProps) {
-  const {t} = useTranslation("AddToBasketButton");
-  const {updateBookingData, bookingData} = useBookingData();
+export default function AddToBasketButton({ triggerReload }: AddToBasketButtonProps) {
+  const { t } = useTranslation("AddToBasketButton");
+  const { updateBookingData, bookingData } = useBookingData();
   const {
-    state: {
-      selectedProduct,
-      selectedAgency,
-      startDate,
-      endDate,
-      quantity,
-      selectedSize,
-      totalPrice,
-      isSizeable,
-    }
-  }
-    = useProductContext();
+    state: { selectedProduct, selectedAgency, startDate, endDate, quantity, selectedSize, totalPrice, isSizeable },
+  } = useProductContext();
 
   const [checkProductAvailability] = useCheckProductAvailabilityLazyQuery();
   const [isProductAdded, setIsProductAdded] = useState(false);
@@ -70,9 +60,7 @@ export default function AddToBasketButton({triggerReload}: AddToBasketButtonProp
           </Text>
           <ul>
             {missingFields.map(field => (
-              <li key={field}>
-                - {field}
-              </li>
+              <li key={field}>- {field}</li>
             ))}
           </ul>
         </>
@@ -87,7 +75,7 @@ export default function AddToBasketButton({triggerReload}: AddToBasketButtonProp
       return;
     }
 
-    const {data} = await checkProductAvailability({
+    const { data } = await checkProductAvailability({
       variables: {
         agencyId: selectedAgency!,
         productId: selectedProduct!.id,
@@ -100,7 +88,7 @@ export default function AddToBasketButton({triggerReload}: AddToBasketButtonProp
 
     if (data?.checkProductAvailability) {
       const newBookingData: BookingData = {
-        profileData: {name: "", email: ""},
+        profileData: { name: "", email: "" },
         selectedAgency,
         startDate,
         endDate,
@@ -124,7 +112,7 @@ export default function AddToBasketButton({triggerReload}: AddToBasketButtonProp
       <Button
         onClick={handleAddToBasket}
         h={54}
-        rightIcon={<ShoppingCartIcon width={24}/>}
+        rightIcon={<ShoppingCartIcon width={24} />}
         variant={"accentButton"}
         size="lg"
         width="100%"
