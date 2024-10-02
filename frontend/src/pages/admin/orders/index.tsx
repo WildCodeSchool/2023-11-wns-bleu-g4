@@ -14,16 +14,16 @@ export default function Orders() {
   const { query } = router;
   const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const searchTerm = query.search ? query.search as string : '';
+  const searchTerm = query.search ? query.search : '';
 
   const { data, refetch, loading } = useGetAllBookingQuery({
     variables: {
       limit: 14,
       offset: currentPage * 14,
       // agencyId: isNaN(parseInt(searchTerm)) ? undefined : parseInt(searchTerm),
-      bookingId: isNaN(parseInt(searchTerm)) ? undefined : parseInt(searchTerm),
-      userFirstname: searchTerm,
-      userName: searchTerm,
+      bookingId: isNaN(parseInt(searchTerm.toLocaleString())) ? undefined : parseInt(searchTerm.toLocaleString()),
+      userFirstname: searchTerm.toLocaleString(),
+      userName: searchTerm.toLocaleString(),
     }
   });
   const [sortedData, setSortedData] = useState<any[]>([]);
@@ -77,11 +77,8 @@ export default function Orders() {
 
   useEffect(() => {
     setCurrentPage(initialPage);
-  }, [query.page]);
-
-  useEffect(() => {
     setSortedData(orders);
-  }, [orders]);
+  }, [query.page, orders]);
 
   return (
     <LayoutAdmin pageTitle="Order list">
