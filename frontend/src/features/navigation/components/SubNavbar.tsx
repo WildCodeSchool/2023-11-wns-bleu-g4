@@ -8,6 +8,7 @@ import {
   MenuList,
   Spacer,
   useColorMode,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/16/solid";
@@ -23,6 +24,7 @@ export default function SubNavbar() {
   const { t } = useTranslation("SubNav");
   const { isOpen, onOpen: originalOnOpen, onClose } = useDisclosure();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const isLight = useColorModeValue("bgLight", "bgDark");
 
   const onOpen = () => {
     if (router.pathname === "/basket") {
@@ -66,6 +68,7 @@ export default function SubNavbar() {
       display={{ base: "none", md: "none", xl: "flex" }}
       align={"center"}
       style={{ boxShadow: shadowColor }}
+      backgroundColor={isLight}
     >
       <Flex gap={2}>
         {categoriesData?.getAllParentCategories.map((category, index) => (
