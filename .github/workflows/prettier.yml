@@ -69,14 +69,43 @@ jobs:
           git add .
           git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
 
-      - name: Push changes
+      # - name: Push changes
+      #   env:
+      #     TOKEN: ${{ secrets.ADMIN_TOKEN }}
+      #   run: |
+      #     CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+
+      #     if [[ "$CURRENT_BRANCH" == "dev" ]]; then
+      #       git remote set-url origin https://x-access-token:${{ secrets.ADMIN_TOKEN }}@github.com/WildCodeSchool/2023-11-wns-bleu-g4.git
+      #     fi
+
+      #     git push origin HEAD:${CURRENT_BRANCH}
+
+      - name: Create a new branch and push changes
         env:
           TOKEN: ${{ secrets.ADMIN_TOKEN }}
         run: |
           CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+          NEW_BRANCH="prettier-fixes-${{ github.run_id }}"
 
-          if [[ "$CURRENT_BRANCH" == "dev" ]]; then
-            git remote set-url origin https://x-access-token:${{ secrets.ADMIN_TOKEN }}@github.com/WildCodeSchool/2023-11-wns-bleu-g4.git
-          fi
+          # Create a new branch for the changes
+          git checkout -b $NEW_BRANCH
 
-          git push origin HEAD:${CURRENT_BRANCH}
+          # Push the new branch
+          git remote set-url origin https://x-access-token:${{ secrets.ADMIN_TOKEN }}@github.com/WildCodeSchool/2023-11-wns-bleu-g4.git
+          git push origin $NEW_BRANCH
+
+      - name: Create a pull request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X POST \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/WildCodeSchool/2023-11-wns-bleu-g4/pulls \
+          -d '{
+            "title": "Apply Prettier fixes",
+            "head": "'"$NEW_BRANCH"'",
+            "base": "dev",
+            "body": "This pull request contains Prettier fixes applied automatically."
+          }'
