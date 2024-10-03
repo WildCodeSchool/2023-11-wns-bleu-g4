@@ -39,6 +39,7 @@ function DesktopNavbar() {
   const { data: profileData, refetch, client } = useProfileQuery({ errorPolicy: "ignore" });
   const [logout] = useLogoutMutation();
   const router = useRouter();
+  const isLight = useColorModeValue("bgLight", "bgDark");
 
   const [isLogged, setIsLogged] = useState(Boolean(profileData?.profile));
 
@@ -63,7 +64,7 @@ function DesktopNavbar() {
   };
 
   return (
-    <Flex display={{ base: "none", md: "none", xl: "flex" }}>
+    <Flex display={{ base: "none", md: "none", xl: "flex" }} backgroundColor={isLight}>
       <nav className="inline-flex h-16 w-full justify-between border-b border-zinc-300 px-5">
         <ul className="flex w-full items-center justify-start gap-8">
           <div className="flex grow">

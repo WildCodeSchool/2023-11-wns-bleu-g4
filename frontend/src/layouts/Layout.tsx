@@ -16,7 +16,7 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         <title>GearGo - {pageTitle}</title>
         <meta
           name="description"
-          content="Explore the great outdoors with our wide range of equipments of our rental platform. 
+          content="Explore the great outdoors with our wide range of equipments of our rental platform.
           Find hiking material, bikes, surf boards, and more. Get active and enjoy nature!"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,8 +26,10 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         <Navbar />
         <SubNavbar />
       </header>
-      <main className="pb-5 xl:pt-5 flex flex-col lg:gap-8">{children}</main>
-      <Footer />
+      <main className="xl:pb-5 xl:pt-5 flex flex-col lg:gap-8 flex-grow overflow-y-auto">
+        {children}
+        <Footer />
+      </main>
     </>
   );
 }
