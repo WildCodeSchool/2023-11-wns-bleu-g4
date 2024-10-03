@@ -87,7 +87,7 @@ export default function ResetPasswordForm() {
           <Flex direction="column" gap="15px">
             {passwordInputs.map((el, i) => {
               return (
-                <Box>
+                <Box key={i}>
                   <FormControl size="md">
                     <FormLabel>{el.label}</FormLabel>
                     <LightMode>

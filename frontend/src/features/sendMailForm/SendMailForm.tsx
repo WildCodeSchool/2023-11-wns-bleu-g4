@@ -21,7 +21,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function sendMailForm() {
+export default function SendMailForm() {
   const router = useRouter();
   const { t } = useTranslation("SendMailForm");
   const [requestResetPassword] = useRequestPasswordResetMutation();
