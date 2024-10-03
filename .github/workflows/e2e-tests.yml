@@ -3,6 +3,41 @@ name: e2e-tests
 on:
   pull_request:
   workflow_call:
+    secrets:
+      DB_HOST:
+        required: true
+      DB_PORT:
+        required: true
+      DB_NAME:
+        required: true
+      DB_USER:
+        required: true
+      DB_PASS:
+        required: true
+      SERVER_PORT:
+        required: true
+      JWT_PRIVATE_KEY:
+        required: true
+      NODE_ENV:
+        required: true
+      FRONTEND_URL:
+        required: true
+      CORS_ALLOWED_ORIGINS:
+        required: true
+      SMTP_HOST:
+        required: true
+      SMTP_PORT:
+        required: true
+      SMTP_USER:
+        required: true
+      SMTP_PASS:
+        required: true
+      EMAIL_FROM:
+        required: true
+      NEXT_PUBLIC_GRAPHQL_API_URL:
+        required: true
+      NEXT_PUBLIC_UPLOAD_API_ENDPOINT:
+        required: true
 
 jobs:
   e2e-tests:
