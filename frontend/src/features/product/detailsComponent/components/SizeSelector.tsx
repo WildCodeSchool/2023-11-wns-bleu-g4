@@ -1,12 +1,12 @@
-import {useEffect} from "react";
-import {useProductContext} from "@/context/ProductPageContext";
-import {Button, ButtonGroup, Text} from "@chakra-ui/react";
-import {useTranslation} from "react-i18next";
+import { useEffect } from "react";
+import { useProductContext } from "@/context/ProductPageContext";
+import { Button, ButtonGroup, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 export default function SizeSelector() {
-  const {state, setState} = useProductContext();
-  const {availableSizes, selectedSize, selectedAgency} = state;
-  const {t} = useTranslation("productDetails");
+  const { state, setState } = useProductContext();
+  const { availableSizes, selectedSize, selectedAgency } = state;
+  const { t } = useTranslation("productDetails");
 
   useEffect(() => {
     setState(prevState => ({
@@ -23,6 +23,7 @@ export default function SizeSelector() {
       const isAvailable = availableSizes.includes(size);
       return (
         <Button
+          data-testid={`size-${size}`}
           variant="sizeButton"
           key={size}
           onClick={() => handleSizeSelection(size)}
