@@ -36,7 +36,6 @@ services:
         condition: service_healthy
     image: chambrin80/gear-go-server-dev
 
-
   frontend:
     stop_grace_period: 0s
     environment:
@@ -44,7 +43,6 @@ services:
       NEXT_PUBLIC_GRAPHQL_API_URL: ${NEXT_PUBLIC_GRAPHQL_API_URL}
       NEXT_PUBLIC_UPLOAD_API_ENDPOINT: ${NEXT_PUBLIC_UPLOAD_API_ENDPOINT}
     image: chambrin80/gear-go-client-dev
-
 
   upload-service:
     environment:
@@ -66,6 +64,6 @@ services:
     ports:
       - ${GATEWAY_PORT:-80}:80
 
-  volumes:
-    devDB:
-    devUploads:
+volumes:
+  devDB:
+  devUploads:
