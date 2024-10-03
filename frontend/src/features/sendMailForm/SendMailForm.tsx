@@ -1,7 +1,6 @@
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { useRequestPasswordResetMutation } from "@/graphql/User/generated/RequestPasswordReset.generated";
 import {
-    Box,
     Button,
     Card,
     CardBody,
@@ -25,7 +24,7 @@ import { toast } from "react-toastify";
 export default function sendMailForm() {
 
     const router = useRouter()
-    const { t } = useTranslation("ResetPassword");
+    const { t } = useTranslation("SendMailForm");
     const [requestResetPassword] = useRequestPasswordResetMutation()
     const [mailSend, setMailSend] = useState(false)
 
@@ -40,10 +39,7 @@ export default function sendMailForm() {
             toast.success("Mail Send", ToastConfigLogin);
             setMailSend(true)
         } catch (e: any) {
-            if (e.message === "USER_NOT_FOUND") {
-                // const errArr = e.message.replaceAll("_", " ");
-                toast.error(t("The email address is not recognized"), ToastConfigLogin);
-            }
+            if (e.message === "USER_NOT_FOUND") toast.error(t("The email address is not recognized"), ToastConfigLogin);
             return;
         }
     }
@@ -60,7 +56,7 @@ export default function sendMailForm() {
                         </CardHeader>
                         <Divider color="black" />
                         <CardBody>
-                            <Text className="text-lg text-justify">
+                            <Text className="text-justify">
                                 {t("If the email address you provided is saved in our data, you will receive a password reset email shortly (1 min) !")}
                             </Text>
                         </CardBody>
@@ -84,10 +80,10 @@ export default function sendMailForm() {
                         <form onSubmit={handleSubmit}>
                             <CardBody>
                                 <Flex direction="column" gap="15px">
-                                    <Text>
-                                        Please enter your email address.
+                                    <Text className="text-justify">
+                                        {t("Please enter your email address.")}
                                         <br />
-                                        If the address you enter is registered in our database, we will send you an email with a link to create a new password.
+                                        {t("If the address you enter is registered in our database, we will send you an email with a link to create a new password.")}
                                     </Text>
                                     {/* EMAIL */}
                                     <FormControl size="md">
@@ -97,7 +93,7 @@ export default function sendMailForm() {
                                                 <Input
                                                     type="email"
                                                     color="black"
-                                                    placeholder="personnal_email@mail.com"
+                                                    placeholder="my_personnal_email@mail.com"
                                                     name="email"
                                                     size="md"
                                                     bg="bgLight"
@@ -111,7 +107,6 @@ export default function sendMailForm() {
                             </CardBody>
                             <CardFooter>
                                 <Flex direction="column" className="w-full">
-                                    {/* BUTTON */}
                                     <Button type="submit" className="w-full" variant="loginButton" m="0">
                                         {t("Send")}
                                     </Button>
