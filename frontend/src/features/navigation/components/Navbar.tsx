@@ -121,9 +121,9 @@ function DesktopNavbar() {
 }
 
 function MobileNavbar() {
-  const { isOpen: isMenuOpen, onToggle: onToggleMenu, onClose: onCloseMenu } = useDisclosure(); // Pour le Collapse du menu principal
-  const { isOpen: isProfileOpen, onToggle: onToggleProfile, onClose: onCloseProfile } = useDisclosure(); // Pour le Collapse du profil
-  const { isOpen: isBasketOpen, onOpen: onOpenBasket, onClose: onCloseBasket } = useDisclosure(); // Pour le BasketDrawer
+  const { isOpen: isMenuOpen, onToggle: onToggleMenu, onClose: onCloseMenu } = useDisclosure();
+  const { isOpen: isProfileOpen, onToggle: onToggleProfile, onClose: onCloseProfile } = useDisclosure();
+  const { isOpen: isBasketOpen, onOpen: onOpenBasket, onClose: onCloseBasket } = useDisclosure();
   const bg = useColorModeValue("white", "#3B3B3B");
   const textColor = useColorModeValue("black", "white");
   const [t] = useTranslation("Navbar");
