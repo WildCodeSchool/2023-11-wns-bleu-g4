@@ -23,7 +23,7 @@ export default function ProductDescription() {
       </Text>
       <Text fontWeight="600">{selectedProduct.description}</Text>
       <Menu flip={true} matchWidth={true}>
-        <MenuButton as={Button} mt={5} width={"fit-content"}>
+        <MenuButton as={Button} mt={5} width={"fit-content"} data-testid={"agency"}>
           {selectedAgencyName ? (
             <>
               <strong>Agence :</strong> {selectedAgencyName}
@@ -40,6 +40,7 @@ export default function ProductDescription() {
 
             return (
               <MenuItem
+                data-testid={`agency-${agency.id}`}
                 key={index}
                 onClick={() => {
                   if (isAvailable) {

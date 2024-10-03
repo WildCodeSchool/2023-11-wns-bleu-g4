@@ -35,5 +35,6 @@ export const config = {
     "/account/:path*",
     // Routes that require both a login token and admin role
     "/admin/:path*",
+    "/resetPassword/:path*",
   ],
 };

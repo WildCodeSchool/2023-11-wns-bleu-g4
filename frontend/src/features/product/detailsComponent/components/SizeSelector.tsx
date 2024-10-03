@@ -23,6 +23,7 @@ export default function SizeSelector() {
       const isAvailable = availableSizes.includes(size);
       return (
         <Button
+          data-testid={`size-${size}`}
           variant="sizeButton"
           key={size}
           onClick={() => handleSizeSelection(size)}

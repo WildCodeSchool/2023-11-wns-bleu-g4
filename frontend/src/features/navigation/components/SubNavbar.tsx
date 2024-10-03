@@ -72,6 +72,7 @@ export default function SubNavbar() {
           <Menu key={index} isOpen={activeIndex === index} closeOnBlur>
             <MenuButton
               as={Button}
+              data-testid="category"
               size="sm"
               variant="subNavButton"
               borderRadius="md"
@@ -102,6 +103,7 @@ export default function SubNavbar() {
 
                 return (
                   <MenuItem
+                    data-testid="subCategory"
                     onClick={() => {
                       router.push(
                         `/products?${qs.stringify({
@@ -123,6 +125,7 @@ export default function SubNavbar() {
       </Flex>
       <Spacer />
       <Button
+        data-testid={"basket"}
         size="sm"
         onClick={onOpen}
         borderRadius="md"
