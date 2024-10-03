@@ -15,7 +15,7 @@ import env from "./env"
 
 const db = new DataSource({
 	type: "postgres",
-	host: env.DB_HOST,
+	host: env.NODE_ENV !== "test" ? env.DB_HOST : "localhost",
 	port: env.DB_PORT,
 	username: env.DB_USER,
 	password: env.DB_PASS,
