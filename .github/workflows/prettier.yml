@@ -100,12 +100,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           curl -X POST \
-          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Authorization: Bearer $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/WildCodeSchool/2023-11-wns-bleu-g4/pulls \
           -d '{
             "title": "Apply Prettier fixes",
+            "body": "This pull request contains Prettier fixes applied automatically."
             "head": "'"$NEW_BRANCH"'",
             "base": "dev",
-            "body": "This pull request contains Prettier fixes applied automatically."
           }'
