@@ -2,11 +2,13 @@ name: Apply Prettier fixes
 
 on:
   push:
+    branches-ignore:
+      - main
     paths:
       - "backend/**"
       - "frontend/**"
     branches:
-      - "**" # Trigger on all branches
+      - "**"
 
 jobs:
   filter:
@@ -75,7 +77,7 @@ jobs:
         run: |
           CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
 
-          if [[ "$CURRENT_BRANCH" == "main" || "$CURRENT_BRANCH" == "dev" ]]; then
+          if [[ "$CURRENT_BRANCH" == "dev" ]]; then
             git remote set-url origin https://x-access-token:${{ secrets.ADMIN_TOKEN }}@github.com/WildCodeSchool/2023-11-wns-bleu-g4.git
           fi
 
