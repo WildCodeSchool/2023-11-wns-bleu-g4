@@ -2,7 +2,6 @@ import { ToastConfigLogin } from "@/config/ToastConfig";
 import { toast } from "react-toastify";
 
 export function validatePassword(password: string, repeatPassword: string): boolean {
-
   if (password.length < 1) {
     toast.error("Password can't be empty", ToastConfigLogin);
     return false;
