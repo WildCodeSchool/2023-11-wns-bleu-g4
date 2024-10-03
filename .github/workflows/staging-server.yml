@@ -1,5 +1,5 @@
-# .github/workflows/staging-client.yml
-name: Compile and push client image
+# .github/workflows/staging-server.yml
+name: Compile and push server image
 
 # Controls when the workflow will run
 on:
@@ -38,7 +38,7 @@ jobs:
       - uses: docker/build-push-action@v2
         name: Build and push
         with:
-          context: ./client
-          file: ./client/Dockerfile
+          context: ./server
+          file: ./server/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/chambrin80/gear-go-client:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/chambrin80/gear-go-server:latest
