@@ -14,7 +14,10 @@ export default function LayoutAccount({ children, pageTitle }: LayoutProps) {
     <>
       <Head>
         <title>GearGo - {pageTitle}</title>
-        <meta name="description" content="Explore the great outdoors with our wide range of equipments of our rental platform. Find hiking material, bikes, surf boards, and more. Get active and enjoy nature!" />
+        <meta
+          name="description"
+          content="Explore the great outdoors with our wide range of equipments of our rental platform. Find hiking material, bikes, surf boards, and more. Get active and enjoy nature!"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -22,9 +25,7 @@ export default function LayoutAccount({ children, pageTitle }: LayoutProps) {
         <Navbar />
         <SubNavbar />
       </header>
-      <main className="pb-5 xl:pt-5 flex flex-col">
-        {children}
-      </main>
+      <main className="pb-5 xl:pt-5 flex flex-col">{children}</main>
       <Footer />
     </>
   );

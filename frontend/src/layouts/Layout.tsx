@@ -26,9 +26,7 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         <Navbar />
         <SubNavbar />
       </header>
-      <main className="pb-5 xl:pt-5 flex flex-col lg:gap-8">
-        {children}
-      </main>
+      <main className="pb-5 xl:pt-5 flex flex-col lg:gap-8">{children}</main>
       <Footer />
     </>
   );

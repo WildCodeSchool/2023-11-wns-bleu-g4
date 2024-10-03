@@ -56,7 +56,8 @@ export default function BrandTableBody({ data, refetch, loading }: TableBodyProp
               <th
                 key={menu.id}
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-                border-b border-gray-200 dark:border-gray-600">
+                border-b border-gray-200 dark:border-gray-600"
+              >
                 {menu.name}
               </th>
             ))}

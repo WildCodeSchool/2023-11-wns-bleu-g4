@@ -57,10 +57,7 @@ export default function Categories() {
               Add Category
             </button>
             {createCategoryModalOpen && (
-              <CategoryCreateModal
-                isOpen={createCategoryModalOpen}
-                onClose={toggleCreateCategoryModal}
-              />
+              <CategoryCreateModal isOpen={createCategoryModalOpen} onClose={toggleCreateCategoryModal} />
             )}
             <CategoryTableBody data={categories} loading={categoriesLoading} />
           </TabPanel>

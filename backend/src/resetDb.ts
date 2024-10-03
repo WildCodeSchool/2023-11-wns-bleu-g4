@@ -15,8 +15,8 @@ import { BookingItemStatus } from "./enum/BookingItemStatus"
 import { StatusBooking } from "./enum/StatusBooking"
 import { Status } from "./enum/StatusProductCode"
 import allProducts from "./data/ekosport/allProducts.json"
-import * as fs from "node:fs";
-import * as path from "node:path";
+import * as fs from "node:fs"
+import * as path from "node:path"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -335,50 +335,52 @@ async function getOrCreateCategory(categoryName: string, parentCategory: ParentC
 }
 
 async function getOrCreateBrand(brandName: string): Promise<Brand> {
-	let brand = await Brand.findOne({ where: { name: brandName } });
+	let brand = await Brand.findOne({ where: { name: brandName } })
 	if (!brand) {
-		brand = new Brand();
-		brand.name = brandName;
+		brand = new Brand()
+		brand.name = brandName
 
-		const manufacturePath = path.join(__dirname, 'data', 'manufacture');
+		const manufacturePath = path.join(__dirname, "data", "manufacture")
 		// console.log(`Searching in directory: ${manufacturePath}`);
 		try {
-			const files = fs.readdirSync(manufacturePath);
-			const brandFile = files.find(file => file.toLowerCase() === `${brandName.toLowerCase()}.webp`);
+			const files = fs.readdirSync(manufacturePath)
+			const brandFile = files.find((file) => file.toLowerCase() === `${brandName.toLowerCase()}.webp`)
 
 			if (brandFile) {
-				const imagePath = path.join(manufacturePath, brandFile);
-			//	console.log(`Found image at: ${imagePath}`);
-				const fileBuffer = fs.readFileSync(imagePath);
-				const form = new FormData();
-				form.append('file', new Blob([fileBuffer]), brandFile);
+				const imagePath = path.join(manufacturePath, brandFile)
+				//	console.log(`Found image at: ${imagePath}`);
+				const fileBuffer = fs.readFileSync(imagePath)
+				const form = new FormData()
+				form.append("file", new Blob([fileBuffer]), brandFile)
 
-				const response = await fetch('http://localhost:8000/uploads', {
-					method: 'POST',
+				const response = await fetch("http://localhost:8000/uploads", {
+					method: "POST",
 					body: form,
-				});
+				})
 
 				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
+					throw new Error(`HTTP error! status: ${response.status}`)
 				}
 
-				const result = await response.json() as { url: string };
-				brand.logo = result.url;
+				const result = (await response.json()) as { url: string }
+				brand.logo = result.url
 			} else {
-			//	console.warn(`Image not found for brand ${brandName}. Using default logo.`);
-				brand.logo = 'https://res.cloudinary.com/ekoweb/image/upload/s--avKnuAjv--/f_auto,h_80,q_auto:eco,w_80/v1/brand/19640937';
+				//	console.warn(`Image not found for brand ${brandName}. Using default logo.`);
+				brand.logo =
+					"https://res.cloudinary.com/ekoweb/image/upload/s--avKnuAjv--/f_auto,h_80,q_auto:eco,w_80/v1/brand/19640937"
 			}
 		} catch (error: unknown) {
 			if (error instanceof Error) {
-			//	console.error(`Error processing image for ${brandName}:`, error.message);
+				//	console.error(`Error processing image for ${brandName}:`, error.message);
 			} else {
-			//	console.error(`Unknown error processing image for ${brandName}`);
+				//	console.error(`Unknown error processing image for ${brandName}`);
 			}
-			brand.logo = 'https://res.cloudinary.com/ekoweb/image/upload/s--avKnuAjv--/f_auto,h_80,q_auto:eco,w_80/v1/brand/19640937';
+			brand.logo =
+				"https://res.cloudinary.com/ekoweb/image/upload/s--avKnuAjv--/f_auto,h_80,q_auto:eco,w_80/v1/brand/19640937"
 		}
 
-		await brand.save();
+		await brand.save()
 	}
-	return brand;
+	return brand
 }
 main()

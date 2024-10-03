@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
 
     if (request.nextUrl.pathname.startsWith("/account")) return NextResponse.next();
 
-    // Return to homepage 
+    // Return to homepage
     return NextResponse.redirect(new URL("/", request.url));
   } catch (error) {
     console.error("JWT verification failed:", error);

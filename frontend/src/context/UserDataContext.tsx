@@ -1,7 +1,7 @@
-import React, { createContext, ReactNode, useContext, useState, useEffect } from 'react';
-import { User } from '@/graphql/generated/schema';
+import React, { createContext, ReactNode, useContext, useState, useEffect } from "react";
+import { User } from "@/graphql/generated/schema";
 import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
-import Loading from '@/shared/components/Loading';
+import Loading from "@/shared/components/Loading";
 
 interface UserContextType {
   user: User | null;
@@ -17,7 +17,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const useUserContext = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
-    throw new Error('useUserContext must be used within a UserProvider');
+    throw new Error("useUserContext must be used within a UserProvider");
   }
   return context;
 };
@@ -43,9 +43,5 @@ export const UserProvider = ({ children }: PropsUserProvider) => {
   //   return <p>Loading...</p>;
   // }
 
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };

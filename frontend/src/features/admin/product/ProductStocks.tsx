@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import ProductStockTableBody from "./table/ProductStockTableBody";
 import TableFooter from "../shared/TableFooter";
 import { Product } from "./types";
-import {
-  useGetProductCodesByProductIdQuery
-} from "@/graphql/ProductCode/generated/GetProductCodesByProductId.generated";
+import { useGetProductCodesByProductIdQuery } from "@/graphql/ProductCode/generated/GetProductCodesByProductId.generated";
 import { useRouter } from "next/router";
 
 export default function ProductStocks({ product }: { product: Product }) {
@@ -18,7 +16,7 @@ export default function ProductStocks({ product }: { product: Product }) {
       limit: 14,
       offset: currentPage * 14,
       productId: product?.id!,
-    }
+    },
   });
   const productCodes = data?.getProductCodesByProductId.productCodes ?? [];
   const totalProductCodes = data?.getProductCodesByProductId.total ?? 0;
@@ -27,9 +25,7 @@ export default function ProductStocks({ product }: { product: Product }) {
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + Math.min(itemsPerPage, productCodes.length ?? 0);
 
-  const uniqueAgencies = new Set<number>(
-    productCodes.map((productCode: any) => productCode.agency.id)
-  );
+  const uniqueAgencies = new Set<number>(productCodes.map((productCode: any) => productCode.agency.id));
   const totalProductCodesAgencies = uniqueAgencies.size;
 
   const handlePageChange = (pageNumber: number) => {

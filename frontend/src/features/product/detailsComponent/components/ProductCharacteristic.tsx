@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 
 export default function ProductCharacteristic() {
   const { t } = useTranslation("ProductCharacteristic");
-  const { state: { selectedProduct } } = useProductContext();
+  const {
+    state: { selectedProduct },
+  } = useProductContext();
   const colorScheme = useColorModeValue("gray.600", "gray.300");
 
   if (!selectedProduct) return null;

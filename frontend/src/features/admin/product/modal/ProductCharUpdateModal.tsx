@@ -15,9 +15,7 @@ import { Characteristic } from "../../characteristic/types";
 import { FormEvent, useEffect, useState } from "react";
 import { useUpdateProductMutation } from "@/graphql/Product/generated/updateProduct.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
-import {
-  useGetAllProductCharacteristicsQuery
-} from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import { useGetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 import Select, { MultiValue } from "react-select";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";

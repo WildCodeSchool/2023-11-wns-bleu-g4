@@ -16,7 +16,7 @@ export default function OrderTableBody({
   loading,
   handleDateSort,
   sortColumnName,
-  sortOrder
+  sortOrder,
 }: OrderTableBodyProps) {
   const { t } = useTranslation("OrderTableBody");
   const [cancelOrder, { error }] = useCancelBookingMutation();
@@ -27,7 +27,7 @@ export default function OrderTableBody({
   const toggleCancelModal = (order: Order) => {
     setSelectedOrder(order);
     setCancelModalOpen(!cancelModalOpen);
-  }
+  };
 
   const handleOrderDetails = (orderId: number) => {
     setOpenOrderId(prevOrderId => (prevOrderId === orderId ? null : orderId));
@@ -42,16 +42,16 @@ export default function OrderTableBody({
     } catch (e) {
       toast.error(error?.message);
       console.error(e);
-    };
+    }
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
     const year = date.getUTCFullYear();
     return `${day}-${month}-${year}`;
-  }
+  };
 
   const setStatusStyle = (status: string) => {
     switch (status) {
@@ -115,7 +115,9 @@ export default function OrderTableBody({
           ) : (
             data.map((order: Order, index: number) => (
               <React.Fragment key={order.id}>
-                <tr className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap hover:bg-cactus-300 dark:hover:text-black`}>
+                <tr
+                  className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap hover:bg-cactus-300 dark:hover:text-black`}
+                >
                   <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{order.id}</td>
                   <td className="whitespace-nowrap p-3 w-96 min-w-max">
                     {order.user.firstname} {order.user.name}
@@ -137,8 +139,11 @@ export default function OrderTableBody({
                         onClick={() => handleOrderDetails(order?.id!)}
                       >
                         <ChevronDownIcon
-                          className={`h-5 w-5 text-white ${openOrderId === order.id ?
-                            "transform duration-150 rotate-180" : "transform duration-150 rotate-0"}`}
+                          className={`h-5 w-5 text-white ${
+                            openOrderId === order.id
+                              ? "transform duration-150 rotate-180"
+                              : "transform duration-150 rotate-0"
+                          }`}
                         />
                       </button>
                       {order.status.toLocaleLowerCase() !== "canceled" && (
@@ -170,5 +175,4 @@ export default function OrderTableBody({
       )}
     </>
   );
-
 }

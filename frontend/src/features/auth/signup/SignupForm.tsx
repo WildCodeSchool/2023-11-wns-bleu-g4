@@ -15,7 +15,7 @@ import {
   LightMode,
   Divider,
   Heading,
-  Checkbox
+  Checkbox,
 } from "@chakra-ui/react";
 import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
 import Link from "next/link";
@@ -25,20 +25,19 @@ import { FetchResult } from "@apollo/client";
 import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
-import { SignupType } from "../types/authTypes"
+import { SignupType } from "../types/authTypes";
 import { validatePassword } from "../helpers/validatePassword";
 import CheckPasswordAvailability from "@/features/resetPasswordForm/helpers/CheckPasswordAvailability";
-import { CheckIcon } from '@heroicons/react/16/solid'
+import { CheckIcon } from "@heroicons/react/16/solid";
 
 export default function SignupForm() {
-
   /** Hooks */
-  const [disableButton, setDisableButton] = useState(true)
+  const [disableButton, setDisableButton] = useState(true);
   const { t } = useTranslation("SignupForm");
   const [signup] = useCreateUserMutation();
-  const router = useRouter()
-  const [repeatedPassword, setRepeatedPassword] = useState("")
-  const [firstPassword, setFirstPassword] = useState("")
+  const router = useRouter();
+  const [repeatedPassword, setRepeatedPassword] = useState("");
+  const [firstPassword, setFirstPassword] = useState("");
 
   /** Show/Hide Password */
   const [showPass, setShowPass] = useState(false);
@@ -48,7 +47,6 @@ export default function SignupForm() {
   const [showRepPass, setShowRepPass] = useState(false);
   const handleClickRepeatPass = () => setShowRepPass(!showRepPass);
 
-
   /** Submit function */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,9 +55,9 @@ export default function SignupForm() {
     const formData = new FormData(form);
 
     let formJSON: SignupType = {
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-      repeatPassword: formData.get('repeatPassword') as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      repeatPassword: formData.get("repeatPassword") as string,
       acceptConditions: !disableButton,
     };
 
@@ -69,11 +67,10 @@ export default function SignupForm() {
 
         const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
         const toastInfo: string = `Account created. Please check your email to verify your account.`;
-        const duration: number = 5000
+        const duration: number = 5000;
         form.reset();
-        router.push('/')
+        router.push("/");
         toast.success(toastInfo, { ...ToastConfigLogin, autoClose: duration });
-
       } catch (e: any) {
         const errArr = e.message.replaceAll("_", " ");
         toast.error(errArr, ToastConfigLogin);
@@ -82,16 +79,11 @@ export default function SignupForm() {
     }
   };
 
-  function CustomIcon(props : any) {
-    const { isChecked, ...rest } = props
+  function CustomIcon(props: any) {
+    const { isChecked, ...rest } = props;
 
-    return (
-      <>
-        {isChecked ? < CheckIcon className="text-orange-500"/> : null}
-      </>
-    )
+    return <>{isChecked ? <CheckIcon className="text-orange-500" /> : null}</>;
   }
-
 
   return (
     <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
@@ -137,7 +129,7 @@ export default function SignupForm() {
                       bg="bgLight"
                       borderRadius="lg"
                       required
-                      onChange={(e) => setFirstPassword(e.target.value)}
+                      onChange={e => setFirstPassword(e.target.value)}
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleClickPass}>
@@ -164,7 +156,7 @@ export default function SignupForm() {
                       bg="bgLight"
                       borderRadius="lg"
                       required
-                      onChange={(e) => setRepeatedPassword(e.target.value)}
+                      onChange={e => setRepeatedPassword(e.target.value)}
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleClickRepeatPass}>
@@ -177,20 +169,23 @@ export default function SignupForm() {
             </Box>
             <CheckPasswordAvailability password={firstPassword} secondPassword={repeatedPassword} />
           </Flex>
-
         </CardBody>
         <CardFooter>
           <Flex direction="column" alignItems="center" className="w-full">
-
             {/* CHECKBOX */}
             <Checkbox
               className="pb-2  border-orange-500"
-              size='lg'   
-              colorScheme="transparent"        
-              onChange={() => { setDisableButton(!disableButton) }}
+              size="lg"
+              colorScheme="transparent"
+              onChange={() => {
+                setDisableButton(!disableButton);
+              }}
               icon={<CustomIcon />}
-              name="acceptConditions">
-              <Link href="#" className="underline text-orange-500">I accept terms and conditions</Link>
+              name="acceptConditions"
+            >
+              <Link href="#" className="underline text-orange-500">
+                I accept terms and conditions
+              </Link>
             </Checkbox>
 
             {/* BUTTON */}
@@ -198,7 +193,8 @@ export default function SignupForm() {
               type="submit"
               disabled={disableButton}
               hidden={false}
-              className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"}`}>
+              className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"}`}
+            >
               {t("Signup")}
             </button>
 

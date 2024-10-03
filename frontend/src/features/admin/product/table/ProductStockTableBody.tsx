@@ -16,17 +16,20 @@ export interface AggregatedDataEntry {
 }
 
 const groupByAgency = (productCodes: ProductCode[]): Record<number, AggregatedDataEntry> => {
-  return productCodes.reduce((acc, productCode) => {
-    const agencyId = productCode.agency?.id!;
-    if (!acc[agencyId]) {
-      acc[agencyId] = {
-        agency: productCode.agency!,
-        count: 0,
-      };
-    }
-    acc[agencyId].count += 1;
-    return acc;
-  }, {} as Record<number, AggregatedDataEntry>);
+  return productCodes.reduce(
+    (acc, productCode) => {
+      const agencyId = productCode.agency?.id!;
+      if (!acc[agencyId]) {
+        acc[agencyId] = {
+          agency: productCode.agency!,
+          count: 0,
+        };
+      }
+      acc[agencyId].count += 1;
+      return acc;
+    },
+    {} as Record<number, AggregatedDataEntry>,
+  );
 };
 
 export default function ProductStockTableBody({ data, refetch }: TableBodyProps) {
@@ -52,7 +55,8 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
 
   const handleProductCodeAgenceDetails = (productCodeAgenceId: number) => {
     setProductCodeAgenceId(prevProductCodeAgenceId =>
-      (prevProductCodeAgenceId === productCodeAgenceId ? null : productCodeAgenceId));
+      prevProductCodeAgenceId === productCodeAgenceId ? null : productCodeAgenceId,
+    );
   };
 
   const handleDeleteProductCode = async (id: number) => {
@@ -107,8 +111,11 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
                         onClick={() => handleProductCodeAgenceDetails(aggregatedData.agency?.id!)}
                       >
                         <ChevronDownIcon
-                          className={`h-5 w-5 text-white ${openProductCodeAgenceId === aggregatedData.agency.id ?
-                            "transform duration-150 rotate-180" : "transform duration-150 rotate-0"}`}
+                          className={`h-5 w-5 text-white ${
+                            openProductCodeAgenceId === aggregatedData.agency.id
+                              ? "transform duration-150 rotate-180"
+                              : "transform duration-150 rotate-0"
+                          }`}
                         />
                       </button>
                       <button

@@ -20,15 +20,17 @@ export default function SideNavbar() {
   };
 
   return (
-    <nav className={`fixed flex h-full ${isExpanded ? 'w-60' : 'w-[4.5rem]'} 
-    flex-col justify-between bg-cactus-400 p-3 transition-width duration-300`}>
+    <nav
+      className={`fixed flex h-full ${isExpanded ? "w-60" : "w-[4.5rem]"} 
+    flex-col justify-between bg-cactus-400 p-3 transition-width duration-300`}
+    >
       <div className="flex flex-col gap-3">
         <div className={`flex items-center ${!isExpanded && "justify-center"}`}>
-          {isExpanded &&
+          {isExpanded && (
             <span className="overflow-hidden">
               <Image src={LightLogo} alt="Logo de l'entreprise" className="max-h-12 min-w-fit" priority />
             </span>
-          }
+          )}
           <button
             onClick={toggleSidebar}
             className="flex cursor-pointer items-center gap-4 rounded-full m-2 p-2 text-dark bg-cactus-300"
@@ -42,17 +44,17 @@ export default function SideNavbar() {
             <Fragment key={navItem.id}>
               <Tooltip
                 label={navItem.title}
-                placement='right'
+                placement="right"
                 hasArrow
                 className={`${isExpanded && "hidden"}`}
                 borderRadius={4}
               >
                 <Link
-
                   href={navItem.path}
                   className={`flex cursor-pointer items-center gap-3 rounded p-3 text-light 
-                  hover:bg-cactus-300 hover:text-dark ${isActive(navItem.path)
-                    && "bg-cactus-300 text-dark"} ${isExpanded && "overflow-hidden"}`}
+                  hover:bg-cactus-300 hover:text-dark ${
+                    isActive(navItem.path) && "bg-cactus-300 text-dark"
+                  } ${isExpanded && "overflow-hidden"}`}
                 >
                   {navItem.icon}
                   {isExpanded && <span>{navItem.title}</span>}

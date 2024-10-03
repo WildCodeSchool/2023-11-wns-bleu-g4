@@ -23,16 +23,15 @@ class BookingResolver {
 		@Arg("limit", () => Int, { nullable: true }) limit?: number,
 		@Arg("offset", () => Int, { nullable: true }) offset?: number
 	) {
-		const whereConditions = [
-			{ id: bookingId },
-			{ agency: { id: agencyId } },
-			{ user: { name: ILike(`%${userName}%`) } },
-			{ user: { firstname: ILike(`%${userFirstname}%`) } },
-		]
+		const whereConditions: any = []
+		if (bookingId) whereConditions.push({ id: bookingId })
+		if (agencyId) whereConditions.push({ agency: { id: agencyId } })
+		if (userName) whereConditions.push({ user: { name: ILike(`%${userName.toLowerCase()}%`) } })
+		if (userFirstname) whereConditions.push({ user: { firstname: ILike(`%${userFirstname.toLowerCase()}%`) } })
 
 		const [bookings, total] = await Booking.findAndCount({
 			relations: { user: true, agency: true, bookingItem: true },
-			where: whereConditions,
+			where: whereConditions.length ? whereConditions : undefined,
 			take: limit,
 			skip: offset,
 		})

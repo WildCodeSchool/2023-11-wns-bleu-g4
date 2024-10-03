@@ -4,9 +4,7 @@ import { parentCategoryTableHeaders } from "../../helpers/tableHeaders";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
 import { ParentCategory } from "@/graphql/generated/schema";
-import {
-  useDeleteParentCategoryMutation
-} from "@/graphql/ParentCategory/generated/deleteParentCategory.generated";
+import { useDeleteParentCategoryMutation } from "@/graphql/ParentCategory/generated/deleteParentCategory.generated";
 import {
   GetAllParentCategoriesDocument,
   GetAllParentCategoriesQuery,
@@ -43,7 +41,7 @@ export default function ParentCategoryTableBody({ data, loading }: TableBodyProp
         data: {
           getAllParentCategories: data.filter((parentCategory: ParentCategory) => parentCategory.id !== id),
         },
-      })
+      });
       setIsDeleteModalOpen(!isDeleteModalOpen);
       toast.success(t("Parent category deleted successfully"));
     } catch (e) {

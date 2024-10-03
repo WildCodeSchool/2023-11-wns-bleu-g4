@@ -49,9 +49,7 @@ export default function GaleryComponent({ images }: GaleryComponentProps) {
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              src={image} alt={`Image ${index}`} />
+            <img style={{ width: "100%", height: "100%", objectFit: "contain" }} src={image} alt={`Image ${index}`} />
           </SwiperSlide>
         ))}
       </Swiper>

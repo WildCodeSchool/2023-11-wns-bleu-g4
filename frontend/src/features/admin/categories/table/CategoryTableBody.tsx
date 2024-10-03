@@ -87,7 +87,9 @@ export default function CategoryTableBody({ data, loading }: TableBodyProps) {
           ) : (
             data.map((category: Category, index: number) => (
               <React.Fragment key={category.id}>
-                <tr className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}>
+                <tr
+                  className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}
+                >
                   <td className="whitespace-nowrap p-3 pl-8 w-1/3 min-w-max">{category.name}</td>
                   <td className="whitespace-nowrap p-3 w-1/3 min-w-max">
                     <button

@@ -17,7 +17,6 @@ export default function ProductPictures({ product }: { product: Product }) {
   const productId = product?.id;
 
   const handleDeletePicture = async (pictureId: number) => {
-
     try {
       await deletePicture({
         variables: { deleteProductPictureId: pictureId },

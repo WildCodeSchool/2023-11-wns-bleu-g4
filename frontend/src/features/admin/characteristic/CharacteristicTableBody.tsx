@@ -4,9 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ParentCategory, ProductCharacteristic } from "@/graphql/generated/schema";
 import { characteristicTableHeaders } from "../helpers/tableHeaders";
 import { TableBodyProps } from "../product/types";
-import {
-  useDeleteProductCharacteristicMutation
-} from "@/graphql/ProductCharacteristic/generated/deleteProductCharacteristic.generated";
+import { useDeleteProductCharacteristicMutation } from "@/graphql/ProductCharacteristic/generated/deleteProductCharacteristic.generated";
 import { Characteristic } from "./types";
 import CharacteristicUpdateModal from "./CharacteristicUpdateModal";
 import CharacteristicDeleteModal from "./CharacteristicDeleteModal";
@@ -98,7 +96,6 @@ export default function CharacteristicTableBody({ data, refetch, loading }: Tabl
                     >
                       <TrashIcon className="h-5 w-5 text-white" />
                     </button>
-
                   </div>
                 </td>
               </tr>
