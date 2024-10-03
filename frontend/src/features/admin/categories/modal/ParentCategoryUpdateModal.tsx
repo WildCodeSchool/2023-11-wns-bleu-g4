@@ -16,7 +16,10 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useUpdateParentCategoryMutation } from "@/graphql/ParentCategory/generated/updateParentCategory.generated";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { GetAllParentCategoriesDocument, GetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
+import {
+  GetAllParentCategoriesDocument,
+  GetAllParentCategoriesQuery,
+} from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 import client from "@/graphql/client";
 
 export default function ParentCategoryUpdateModal({ isOpen, onClose, parentCategory }: CategoryModalProps) {
@@ -40,17 +43,12 @@ export default function ParentCategoryUpdateModal({ isOpen, onClose, parentCateg
     try {
       await updateParentCategory({
         variables: { data: formData, parentCategoryId },
-      })
+      });
 
-      const existingData = client.readQuery<GetAllParentCategoriesQuery>(
-        { query: GetAllParentCategoriesDocument }
-      )!;
+      const existingData = client.readQuery<GetAllParentCategoriesQuery>({ query: GetAllParentCategoriesDocument })!;
 
-      const updatedData = existingData.getAllParentCategories.map(
-        parentCategory =>
-          parentCategory.id === parentCategoryId
-            ? { ...parentCategory, ...formData }
-            : parentCategory
+      const updatedData = existingData.getAllParentCategories.map(parentCategory =>
+        parentCategory.id === parentCategoryId ? { ...parentCategory, ...formData } : parentCategory,
       );
 
       client.writeQuery({

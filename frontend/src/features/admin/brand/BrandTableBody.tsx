@@ -49,14 +49,15 @@ export default function BrandTableBody({ data, refetch, loading }: TableBodyProp
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {brandTableHeaders.map(menu => (
               <th
                 key={menu.id}
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-                border-b border-gray-200">
+                border-b border-gray-200 dark:border-gray-600"
+              >
                 {menu.name}
               </th>
             ))}
@@ -78,7 +79,10 @@ export default function BrandTableBody({ data, refetch, loading }: TableBodyProp
             </tr>
           ) : (
             data.map((brand: Brand, index: number) => (
-              <tr key={brand.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
+              <tr
+                key={brand.id}
+                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}
+              >
                 <td className="whitespace-nowrap p-3 pl-8 w-1/2 min-w-max">{brand.name}</td>
                 <td className="whitespace-nowrap p-3 w-1/2 min-w-max">
                   <button

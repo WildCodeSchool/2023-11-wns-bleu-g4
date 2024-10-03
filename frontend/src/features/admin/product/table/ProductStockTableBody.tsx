@@ -16,17 +16,20 @@ export interface AggregatedDataEntry {
 }
 
 const groupByAgency = (productCodes: ProductCode[]): Record<number, AggregatedDataEntry> => {
-  return productCodes.reduce((acc, productCode) => {
-    const agencyId = productCode.agency?.id!;
-    if (!acc[agencyId]) {
-      acc[agencyId] = {
-        agency: productCode.agency!,
-        count: 0,
-      };
-    }
-    acc[agencyId].count += 1;
-    return acc;
-  }, {} as Record<number, AggregatedDataEntry>);
+  return productCodes.reduce(
+    (acc, productCode) => {
+      const agencyId = productCode.agency?.id!;
+      if (!acc[agencyId]) {
+        acc[agencyId] = {
+          agency: productCode.agency!,
+          count: 0,
+        };
+      }
+      acc[agencyId].count += 1;
+      return acc;
+    },
+    {} as Record<number, AggregatedDataEntry>,
+  );
 };
 
 export default function ProductStockTableBody({ data, refetch }: TableBodyProps) {
@@ -51,7 +54,9 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
   };
 
   const handleProductCodeAgenceDetails = (productCodeAgenceId: number) => {
-    setProductCodeAgenceId(prevProductCodeAgenceId => (prevProductCodeAgenceId === productCodeAgenceId ? null : productCodeAgenceId));
+    setProductCodeAgenceId(prevProductCodeAgenceId =>
+      prevProductCodeAgenceId === productCodeAgenceId ? null : productCodeAgenceId,
+    );
   };
 
   const handleDeleteProductCode = async (id: number) => {
@@ -67,13 +72,13 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {productStockTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 {menu.name}
@@ -86,7 +91,7 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
             agencies.map((aggregatedData: AggregatedDataEntry, index: number) => (
               <React.Fragment key={aggregatedData.agency.id}>
                 <tr
-                  className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}
+                  className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300`}
                 >
                   <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{aggregatedData.agency?.name}</td>
                   <td className="whitespace-nowrap p-3 w-48 min-w-max">
@@ -106,8 +111,11 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
                         onClick={() => handleProductCodeAgenceDetails(aggregatedData.agency?.id!)}
                       >
                         <ChevronDownIcon
-                          className={`h-5 w-5 text-white ${openProductCodeAgenceId === aggregatedData.agency.id ?
-                            "transform duration-150 rotate-180" : "transform duration-150 rotate-0"}`}
+                          className={`h-5 w-5 text-white ${
+                            openProductCodeAgenceId === aggregatedData.agency.id
+                              ? "transform duration-150 rotate-180"
+                              : "transform duration-150 rotate-0"
+                          }`}
                         />
                       </button>
                       <button

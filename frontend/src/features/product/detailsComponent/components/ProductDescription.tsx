@@ -1,17 +1,18 @@
-import {useProductContext} from "@/context/ProductPageContext";
-import {Flex, Select, Text} from "@chakra-ui/react";
-import {useTranslation} from "react-i18next";
+import { useState } from "react";
+import { useProductContext } from "@/context/ProductPageContext";
+import { Button, Flex, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function ProductDescription() {
-  const {t} = useTranslation("productDetails");
+  const { t } = useTranslation("productDetails");
   const {
-    state: {
-      selectedProduct,
-      agencies
-    },
+    state: { selectedProduct, agencies },
     setSelectedAgency,
-    setSelectedSize
+    setSelectedSize,
   } = useProductContext();
+
+  const [selectedAgencyName, setSelectedAgencyName] = useState<string | null>(null);
 
   if (!selectedProduct) return null;
 
@@ -21,24 +22,56 @@ export default function ProductDescription() {
         {selectedProduct.name}
       </Text>
       <Text fontWeight="600">{selectedProduct.description}</Text>
-      <Select
-        placeholder="Sélectionner une agence"
-        width="fit-content"
-        mt={5}
-        onChange={e => {
-          const selectedId = parseInt(e.target.value);
-          if (!isNaN(selectedId)) {
-            setSelectedAgency(selectedId);
-            setSelectedSize(null);
-          }
-        }}
-      >
-        {agencies.map((agency, index) => (
-          <option key={index} value={agency.id.toString()}>
-            {agency.name}
-          </option>
-        ))}
-      </Select>
+      <Menu flip={true} matchWidth={true}>
+        <MenuButton as={Button} mt={5} width={"fit-content"} data-testid={"agency"}>
+          {selectedAgencyName ? (
+            <>
+              <strong>Agence :</strong> {selectedAgencyName}
+            </>
+          ) : (
+            "Sélectionner une agence"
+          )}
+        </MenuButton>
+        <MenuList>
+          {agencies.map((agency, index) => {
+            const isAvailable = agency.productCodes.some(
+              productCode => productCode.product?.id === selectedProduct.id && productCode.status === "AVAILABLE",
+            );
+
+            return (
+              <MenuItem
+                data-testid={`agency-${agency.id}`}
+                key={index}
+                onClick={() => {
+                  if (isAvailable) {
+                    setSelectedAgency(agency.id);
+                    setSelectedSize(null);
+                    setSelectedAgencyName(agency.name);
+                  }
+                }}
+                isDisabled={!isAvailable}
+              >
+                {isAvailable ? (
+                  <CheckIcon
+                    style={{
+                      width: "1rem",
+                      marginRight: "8px",
+                    }}
+                  />
+                ) : (
+                  <XMarkIcon
+                    style={{
+                      width: "1rem",
+                      marginRight: "8px",
+                    }}
+                  />
+                )}
+                {agency.name}
+              </MenuItem>
+            );
+          })}
+        </MenuList>
+      </Menu>
     </Flex>
   );
 }

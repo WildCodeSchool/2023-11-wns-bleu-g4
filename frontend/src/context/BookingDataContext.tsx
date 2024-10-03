@@ -71,11 +71,12 @@ export const BookingDataContextProvider = ({ children }: BookingDataContextProvi
   }, [bookingData]);
 
   const updateBookingData = (data: BookingData) => {
-    const existingIndex = bookingData.findIndex(item =>
-      item.profileData?.email === data.profileData?.email &&
-      item.product?.id === data.product?.id &&
-      item.startDate === data.startDate &&
-      item.endDate === data.endDate
+    const existingIndex = bookingData.findIndex(
+      item =>
+        item.profileData?.email === data.profileData?.email &&
+        item.product?.id === data.product?.id &&
+        item.startDate === data.startDate &&
+        item.endDate === data.endDate,
     );
 
     if (existingIndex !== -1) {
@@ -93,7 +94,7 @@ export const BookingDataContextProvider = ({ children }: BookingDataContextProvi
           ...data,
           startDate: data.startDate ? new Date(data.startDate) : null,
           endDate: data.endDate ? new Date(data.endDate) : null,
-        }
+        },
       ]);
     }
   };

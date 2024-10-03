@@ -66,20 +66,20 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
       await updateCategory({ variables: { data: categoryData, categoryId } });
 
       const existingData = client.readQuery<GetAllCategoriesQuery>({
-        query: GetAllCategoriesDocument
+        query: GetAllCategoriesDocument,
       })!;
 
-      const updatedData = existingData.getAllCategories.map((category) =>
+      const updatedData = existingData.getAllCategories.map(category =>
         category.id === categoryId
           ? {
-            ...category,
-            ...categoryData,
-            parentCategory: {
-              ...category.parentCategory,
-              id: formData.parentCategory,
-            },
-          }
-          : category
+              ...category,
+              ...categoryData,
+              parentCategory: {
+                ...category.parentCategory,
+                id: formData.parentCategory,
+              },
+            }
+          : category,
       );
 
       client.writeQuery({
@@ -91,8 +91,7 @@ export default function CategoryUpdateModal({ isOpen, onClose, category }: Categ
 
       onClose();
       toast.success(t("Category updated successfully"));
-    }
-    catch (e) {
+    } catch (e) {
       toast.error(error?.message);
       console.error(e);
     }

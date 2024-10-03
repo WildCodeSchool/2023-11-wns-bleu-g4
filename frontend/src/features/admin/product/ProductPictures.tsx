@@ -17,7 +17,6 @@ export default function ProductPictures({ product }: { product: Product }) {
   const productId = product?.id;
 
   const handleDeletePicture = async (pictureId: number) => {
-
     try {
       await deletePicture({
         variables: { deleteProductPictureId: pictureId },
@@ -31,7 +30,7 @@ export default function ProductPictures({ product }: { product: Product }) {
   };
 
   return (
-    <div className="bg-[#F5F5F5] rounded w-full flex flex-col gap-3 p-4 h-fit">
+    <div className="bg-[#F5F5F5] dark:bg-cactus-600 rounded w-full flex flex-col gap-3 p-4 h-fit">
       <div className="flex gap-4 items-center justify-between">
         <b>Pictures</b>
         <button

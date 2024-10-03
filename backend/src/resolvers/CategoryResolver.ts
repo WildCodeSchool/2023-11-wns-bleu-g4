@@ -23,7 +23,6 @@ class CategoryResolver {
 		})
 	}
 
-
 	@Query(() => Category)
 	async getCategoryById(@Arg("categoryId", () => Int) id: number) {
 		const category = await Category.findOne({

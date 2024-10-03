@@ -21,18 +21,18 @@ export class ProductResolver {
 			category: {
 				id: categoryId,
 			},
-		};
-
-		if (name) {
-			whereOptions.name = ILike(`%${name}%`);
 		}
 
-		let orderOptions: any = {};
+		if (name) {
+			whereOptions.name = ILike(`%${name}%`)
+		}
+
+		let orderOptions: any = {}
 
 		if (sortProduct === SortProduct.ASC || sortProduct === SortProduct.DESC) {
-			orderOptions.price = sortProduct;
+			orderOptions.price = sortProduct
 		} else {
-			orderOptions.id = "ASC";
+			orderOptions.id = "ASC"
 		}
 
 		const [products, total] = await Product.findAndCount({
@@ -49,9 +49,9 @@ export class ProductResolver {
 			order: orderOptions,
 			take: limit,
 			skip: offset,
-		});
+		})
 
-		return { products, total };
+		return { products, total }
 	}
 
 	@Query(() => Product)

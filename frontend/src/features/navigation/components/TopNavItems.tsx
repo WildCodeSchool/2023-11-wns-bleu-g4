@@ -26,7 +26,7 @@ export default function TopNavItems() {
 
   return (
     <Accordion allowToggle>
-      {categoriesData?.getAllParentCategories.map((category) => (
+      {categoriesData?.getAllParentCategories.map(category => (
         <AccordionItem key={category.id}>
           <h2>
             <AccordionButton borderBottom="1px solid" pt="2" borderTop="none">
@@ -37,7 +37,7 @@ export default function TopNavItems() {
             </AccordionButton>
           </h2>
           <AccordionPanel pb={0} display="flex" flexDirection="column">
-            {category.categories.map((subCat) => (
+            {category.categories.map(subCat => (
               <React.Fragment key={subCat.id}>
                 <Flex py={4}>
                   <Link href="#" onClick={() => handleCategoryClick(subCat.id)}>

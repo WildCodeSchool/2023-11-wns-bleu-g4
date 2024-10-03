@@ -34,33 +34,30 @@ export default function TableFooter({
           of <span className="font-bold">{data ?? 0}</span>
         </span>
       </div>
-      {
-        totalPages > 1 ?
-          <div className="flex items-center gap-4">
-            <Button
-              as={Button}
-              size="xs"
-              leftIcon={<ChevronLeftIcon width={16} />}
-              variant="primaryButton"
-              alignItems={"center"}
-              onClick={handlePreviousClick}
-            >
-              {t("Previous")}
-            </Button>
-            <Button
-              as={Button}
-              size="xs"
-              rightIcon={<ChevronRightIcon width={16} />}
-              variant="primaryButton"
-              alignItems={"center"}
-              onClick={handleNextClick}
-            >
-              {t("Next")}
-            </Button>
-          </div>
-          :
-          null
-      }
+      {totalPages > 1 ? (
+        <div className="flex items-center gap-4">
+          <Button
+            as={Button}
+            size="xs"
+            leftIcon={<ChevronLeftIcon width={16} />}
+            variant="primaryButton"
+            alignItems={"center"}
+            onClick={handlePreviousClick}
+          >
+            {t("Previous")}
+          </Button>
+          <Button
+            as={Button}
+            size="xs"
+            rightIcon={<ChevronRightIcon width={16} />}
+            variant="primaryButton"
+            alignItems={"center"}
+            onClick={handleNextClick}
+          >
+            {t("Next")}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }

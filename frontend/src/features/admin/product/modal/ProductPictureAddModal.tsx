@@ -24,7 +24,8 @@ export default function ProductPictureAddModal({ isOpen, onClose, product }: Pro
   const productId = product?.id!;
   const [addProductPicture, { error }] = useCreateProduct_PictureMutation();
   const [newPicture, setNewPicture] = useState<Product_Picture>({
-    thumbnail: "", alt: ""
+    thumbnail: "",
+    alt: "",
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

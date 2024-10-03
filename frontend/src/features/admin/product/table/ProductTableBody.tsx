@@ -45,13 +45,13 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {productTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 {menu.name}
@@ -67,52 +67,56 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
               </td>
             </tr>
           )}
-          {!loading && data.length === 0 ?
-            (
-              <tr>
-                <td className="p-4 text-center" colSpan={6}>
-                  {t("No products found")}
+          {!loading && data.length === 0 ? (
+            <tr>
+              <td className="p-4 text-center" colSpan={6}>
+                {t("No products found")}
+              </td>
+            </tr>
+          ) : (
+            data.map((product: Product, index: number) => (
+              <tr
+                key={product.id}
+                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300`}
+              >
+                <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{product.id}</td>
+                <td className="whitespace-nowrap p-3 w-96 min-w-max truncate max-w-96" title={product.name}>
+                  {product.name}
+                </td>
+                <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.brand.name}</td>
+                <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.category.name}</td>
+                <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.price.toFixed(2)}</td>
+                <td className="whitespace-nowrap p-3 pr-8 w-48 min-w-max text-left align-middle">
+                  <div className="inline-block">
+                    <button
+                      type="button"
+                      className="inline-block bg-cactus-400 rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
+                      onClick={() => router.push(`/admin/products/${product.id}`)}
+                      aria-label="Product details button"
+                    >
+                      <MagnifyingGlassIcon className="h-5 w-5 text-white" />
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-block bg-[#4F636F] rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
+                      aria-label="Edit button"
+                      onClick={() => toggleUpdateProductModal(product)}
+                    >
+                      <PencilSquareIcon className="h-5 w-5 text-white" />
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle"
+                      aria-label="Delete button"
+                      onClick={() => toggleDeleteProductModal(product)}
+                    >
+                      <TrashIcon className="h-5 w-5 text-white" />
+                    </button>
+                  </div>
                 </td>
               </tr>
-            ) : (
-              data.map((product: Product, index: number) => (
-                <tr key={product.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
-                  <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{product.id}</td>
-                  <td className="whitespace-nowrap p-3 w-96 min-w-max truncate max-w-96" title={product.name}>{product.name}</td>
-                  <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.brand.name}</td>
-                  <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.category.name}</td>
-                  <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.price.toFixed(2)}</td>
-                  <td className="whitespace-nowrap p-3 pr-8 w-48 min-w-max text-left align-middle">
-                    <div className="inline-block">
-                      <button
-                        type="button"
-                        className="inline-block bg-cactus-400 rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
-                        onClick={() => router.push(`/admin/products/${product.id}`)}
-                        aria-label="Product details button"
-                      >
-                        <MagnifyingGlassIcon className="h-5 w-5 text-white" />
-                      </button>
-                      <button
-                        type="button"
-                        className="inline-block bg-[#4F636F] rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
-                        aria-label="Edit button"
-                        onClick={() => toggleUpdateProductModal(product)}
-                      >
-                        <PencilSquareIcon className="h-5 w-5 text-white" />
-                      </button>
-                      <button
-                        type="button"
-                        className="inline-block bg-[#D23732] rounded-md px-1.5 py-0.5 align-middle"
-                        aria-label="Delete button"
-                        onClick={() => toggleDeleteProductModal(product)}
-                      >
-                        <TrashIcon className="h-5 w-5 text-white" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
+            ))
+          )}
         </tbody>
       </table>
       {isUpdateModalOpen && (

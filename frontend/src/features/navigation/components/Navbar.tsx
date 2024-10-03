@@ -55,13 +55,12 @@ function DesktopNavbar() {
   };
 
   const goToAccount = () => {
-
     try {
-      router.push(`/account`)
+      router.push(`/account`);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <Flex display={{ base: "none", md: "none", xl: "flex" }}>
@@ -89,9 +88,9 @@ function DesktopNavbar() {
                 </MenuButton>
                 <MenuList>
                   <MenuItem onClick={goToAccount}>{t("My Account")}</MenuItem>
-                  {profileData?.profile.role === "admin" &&
-                    <MenuItem onClick={() => router.push('/admin')}>{t("Admin Panel")}</MenuItem>
-                  }
+                  {profileData?.profile.role === "admin" && (
+                    <MenuItem onClick={() => router.push("/admin")}>{t("Admin Panel")}</MenuItem>
+                  )}
                   <MenuItem>{t("Payments")} </MenuItem>
                   <MenuDivider />
                   <MenuItem icon={<ArrowLeftStartOnRectangleIcon width={24} />} onClick={handleLogout}>
@@ -134,7 +133,7 @@ function MobileNavbar() {
   }, [profileData]);
 
   const handleLogout = async () => {
-    await router.push("/login")
+    await router.push("/login");
     await logout();
     await client.resetStore();
     await refetch();

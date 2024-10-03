@@ -1,9 +1,11 @@
+import Dashboard from "@/features/admin/dashboard/Dashboard";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 
 export default function Admin() {
   return (
-    <LayoutAdmin>
-      <h1>This is Admin</h1>
+    <LayoutAdmin pageTitle="Dashboard">
+      <h1>Dashboard</h1>
+      <Dashboard />
     </LayoutAdmin>
   );
 }

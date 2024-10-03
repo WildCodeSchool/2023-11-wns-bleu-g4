@@ -3,7 +3,7 @@
   "rules": {
     "@next/next/no-img-element": "off",
     "react-hooks/exhaustive-deps": "off",
-    "max-len": ["error", { "code": 120 }],
+    "max-len": ["error", { "code": 140 }],
     "import/no-unused-modules": [1, { "unusedExports": true }]
   }
 }

@@ -17,7 +17,10 @@ import { useCreateParentCategoryMutation } from "@/graphql/ParentCategory/genera
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import client from "@/graphql/client";
-import { GetAllParentCategoriesDocument, GetAllParentCategoriesQuery } from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
+import {
+  GetAllParentCategoriesDocument,
+  GetAllParentCategoriesQuery,
+} from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
 
 export default function ParentCategoryCreateModal({ isOpen, onClose }: CategoryModalProps) {
   const { t } = useTranslation("ParentCategoryCreateModal");
@@ -38,9 +41,7 @@ export default function ParentCategoryCreateModal({ isOpen, onClose }: CategoryM
     try {
       await createParentCategory({ variables: { data: formData } });
 
-      const existingData = client.readQuery<GetAllParentCategoriesQuery>(
-        { query: GetAllParentCategoriesDocument }
-      )!;
+      const existingData = client.readQuery<GetAllParentCategoriesQuery>({ query: GetAllParentCategoriesDocument })!;
 
       const updatedData = [...existingData.getAllParentCategories, formData];
 

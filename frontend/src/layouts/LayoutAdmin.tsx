@@ -30,8 +30,6 @@ function LayoutContent({ children }: { children: ReactNode }) {
   const { isExpanded } = useSidebar();
 
   return (
-    <main className={`space-y-4 ${isExpanded ? "ml-60" : "ml-[4.5rem]"} p-6 w-full duration-300`}>
-      {children}
-    </main>
+    <main className={`space-y-4 ${isExpanded ? "ml-60" : "ml-[4.5rem]"} p-6 w-full duration-300`}>{children}</main>
   );
 }

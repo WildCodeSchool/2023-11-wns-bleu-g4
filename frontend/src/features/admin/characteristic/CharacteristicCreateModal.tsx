@@ -13,14 +13,15 @@ import {
 } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { CharacteristicModalProps } from "./types";
-import {
-  useCreateProductCharacteristicMutation
-} from "@/graphql/ProductCharacteristic/generated/createProductCharacteristic.generated";
+import { useCreateProductCharacteristicMutation } from "@/graphql/ProductCharacteristic/generated/createProductCharacteristic.generated";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { getQueryVariables } from "../helpers/query";
 import client from "@/graphql/client";
-import { GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import {
+  GetAllProductCharacteristicsDocument,
+  GetAllProductCharacteristicsQuery,
+} from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 
 export default function CharacteristicCreateModal({ isOpen, onClose }: CharacteristicModalProps) {
   const { t } = useTranslation("CharacteristicCreateModal");
@@ -54,14 +55,14 @@ export default function CharacteristicCreateModal({ isOpen, onClose }: Character
         ...existingData.getAllProductCharacteristics,
         productCharacteristics: [
           ...existingData.getAllProductCharacteristics.productCharacteristics,
-          newCharacteristic
+          newCharacteristic,
         ],
       };
 
       client.writeQuery({
         query: GetAllProductCharacteristicsDocument,
         variables: variables,
-        data: { getAllProductCharacteristics: updatedData }
+        data: { getAllProductCharacteristics: updatedData },
       });
 
       onClose();

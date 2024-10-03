@@ -1,24 +1,24 @@
-import {useEffect, useState} from "react";
-import {Swiper, SwiperSlide} from "swiper/react";
+import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-import {Flex} from "@chakra-ui/react";
-import {FreeMode, Navigation, Thumbs} from "swiper/modules";
-import {Swiper as SwiperClass} from "swiper/types";
+import { Flex } from "@chakra-ui/react";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { Swiper as SwiperClass } from "swiper/types";
 
 interface GaleryComponentProps {
   images: string[];
 }
 
-export default function GaleryComponent({images}: GaleryComponentProps) {
+export default function GaleryComponent({ images }: GaleryComponentProps) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
 
   return (
-    <Flex w={{base: "100%", xl: "55%"}} flexDirection="column" gap="10px" className="galeryComponent">
+    <Flex w={{ base: "100%", xl: "55%" }} flexDirection="column" gap="10px" className="galeryComponent">
       <Swiper
         style={
           {
@@ -28,14 +28,13 @@ export default function GaleryComponent({images}: GaleryComponentProps) {
         }
         spaceBetween={10}
         navigation={true}
-        thumbs={{swiper: thumbsSwiper}}
+        thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img src={image}
-                 style={{width: "100%", height: "100%", objectFit: "contain"}}/>
+            <img src={image} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -50,9 +49,7 @@ export default function GaleryComponent({images}: GaleryComponentProps) {
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img
-              style={{width: "100%", height: "100%", objectFit: "contain"}}
-              src={image} alt={`Image ${index}`}/>
+            <img style={{ width: "100%", height: "100%", objectFit: "contain" }} src={image} alt={`Image ${index}`} />
           </SwiperSlide>
         ))}
       </Swiper>

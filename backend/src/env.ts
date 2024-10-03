@@ -1,6 +1,8 @@
 import { load } from "ts-dotenv"
+import { config } from "dotenv"
 
 // https://github.com/LeoBakerHytch/ts-dotenv
+config({ path: ".env" })
 
 export default load({
 	DB_HOST: String,

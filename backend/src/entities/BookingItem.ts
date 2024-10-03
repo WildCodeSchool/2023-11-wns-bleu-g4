@@ -12,7 +12,7 @@ import ProductCode from "./ProductCode"
 export class BookingItem extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	@Field(() => Int)
-	id: number;
+	id: number
 
 	@Column({
 		type: "enum",
@@ -20,75 +20,74 @@ export class BookingItem extends BaseEntity {
 	})
 	@Field(() => BookingItemStatus, { defaultValue: BookingItemStatus.RENTED })
 	@IsEnum(BookingItemStatus)
-	status: BookingItemStatus;
+	status: BookingItemStatus
 
 	@Column({ type: "timestamp" })
 	@Field()
-	startDate: Date;
+	startDate: Date
 
 	@Column({ type: "timestamp" })
 	@Field()
-	endDate: Date;
+	endDate: Date
 
 	@ManyToOne(() => Booking, (booking) => booking.bookingItem)
 	@Field(() => Booking)
-	booking: Booking;
+	booking: Booking
 
 	@ManyToOne(() => Product, (product) => product.bookingItem)
 	@Field(() => Product)
-	product: Product;
+	product: Product
 
 	@ManyToOne(() => ProductCode, (product) => product.bookingItems)
 	@Field(() => ProductCode)
-	productCode: ProductCode;
+	productCode: ProductCode
 }
 
 @InputType()
 export class NewBookingItemInput {
 	@Field(() => BookingItemStatus)
 	@IsEnum(BookingItemStatus)
-	status: BookingItemStatus;
+	status: BookingItemStatus
 
 	@Field(() => BookingId)
-	booking: BookingId;
+	booking: BookingId
 
 	@Field(() => ProductId)
-	product: ProductId;
+	product: ProductId
 
 	@Field(() => ProductCodeId)
-	productCode: ProductCodeId;
+	productCode: ProductCodeId
 
 	@Field()
-	startDate: Date;
+	startDate: Date
 
 	@Field()
-	endDate: Date;
+	endDate: Date
 }
 
 @InputType()
 export class UpdateBookingItemInput {
 	@Field(() => Int)
-	id: number;
+	id: number
 
 	@Field(() => BookingItemStatus, { nullable: true })
 	@IsEnum(BookingItemStatus)
-	status?: BookingItemStatus;
+	status?: BookingItemStatus
 
 	@Field(() => BookingId, { nullable: true })
-	booking?: BookingId;
+	booking?: BookingId
 
 	@Field(() => ProductId, { nullable: true })
-	product?: ProductId;
+	product?: ProductId
 
 	@Field(() => ProductCodeId, { nullable: true })
-	productCode?: ProductCodeId;
+	productCode?: ProductCodeId
 
 	@Field({ nullable: true })
-	startDate?: Date;
+	startDate?: Date
 
 	@Field({ nullable: true })
-	endDate?: Date;
+	endDate?: Date
 }
-
 
 export default BookingItem

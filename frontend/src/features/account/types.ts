@@ -6,9 +6,8 @@ export interface menuItems {
 export interface menuItemsth {
   id: number;
   name: string;
-  thClass: string
+  thClass: string;
 }
-
 
 export interface OrderTableBodyProps {
   data: any;
@@ -41,64 +40,64 @@ export interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   bookingId: number;
-  bookingItemIds : number[]
+  bookingItemIds: number[];
 }
 
 export interface User {
-  id: number,
-  name: string,
-  email?: string,
-  address?: string,
-  avatar?: string,
-  city?: string,
-  country?: string,
-  phone?: string,
-  firstname: string,
-  postcode?: string
-  role?: string
+  id: number;
+  name: string;
+  email?: string;
+  address?: string;
+  avatar?: string;
+  city?: string;
+  country?: string;
+  phone?: string;
+  firstname: string;
+  postcode?: string;
+  role?: string;
 }
 
 export interface userInfoProps {
-  icon?: any,
-  label?: string,
-  userInfo?: string
+  icon?: any;
+  label?: string;
+  userInfo?: string;
 }
 
 export interface Agency {
-  id?: number,
-  address?: string
-  city?: string
-  country?: string
-  email?: string
-  name?: string
-  phone?: string
-  postcode?: string
+  id?: number;
+  address?: string;
+  city?: string;
+  country?: string;
+  email?: string;
+  name?: string;
+  phone?: string;
+  postcode?: string;
 }
 
 export interface Booking {
-  id?: number,
-  status?: string,
-  invoice?: string,
-  bookingDate?: string,
-  startDate?: string,
-  endDate?: string,
-  userId?: number,
-  agency?: Agency[]
+  id?: number;
+  status?: string;
+  invoice?: string;
+  bookingDate?: string;
+  startDate?: string;
+  endDate?: string;
+  userId?: number;
+  agency?: Agency[];
 }
 
 export interface BookingItem {
-  id?: number
-  status?: string
-  startDate?: Date
-  endDate?: Date
+  id?: number;
+  status?: string;
+  startDate?: Date;
+  endDate?: Date;
   productCode?: {
-    id: number
-  }
+    id: number;
+  };
   product?: {
-    thumbnail?: string
-    name?: string
-    price?: number
-  }
+    thumbnail?: string;
+    name?: string;
+    price?: number;
+  };
 }
 
 export interface Product {
@@ -110,12 +109,12 @@ export interface Product {
 }
 
 export interface BookingPDF {
-  id: number
-  status: string
-  invoice: string
-  bookingDate: string
-  startDate: Date
-  endDate: Date
-  user: User
-  agency: Agency
+  id: number;
+  status: string;
+  invoice: string;
+  bookingDate: string;
+  startDate: Date;
+  endDate: Date;
+  user: User;
+  agency: Agency;
 }

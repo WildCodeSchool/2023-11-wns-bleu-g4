@@ -10,12 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ProductModalProps } from "../types";
 
-export default function ProductDeleteModal({
-  isOpen,
-  onClose,
-  product,
-  handleDeleteProduct,
-}: ProductModalProps) {
+export default function ProductDeleteModal({ isOpen, onClose, product, handleDeleteProduct }: ProductModalProps) {
   const { id, name } = product || {};
   return (
     <Modal isOpen={isOpen} onClose={onClose} variant="darkOverlayStyle" isCentered>
