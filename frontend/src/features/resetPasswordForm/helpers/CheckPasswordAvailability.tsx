@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { List, ListIcon, ListItem, Text } from "@chakra-ui/react";
+import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import { hasOneUpper, hasOneLower, hasOneNumber, hasOneSpecial } from "./verifyPasswordConstraints";
 import { useEffect, useState } from "react";
 import { PasswordCriteriaType } from "../types";
