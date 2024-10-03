@@ -17,27 +17,15 @@ export default function Footer() {
   const aboutUs: Footer[] = [
     {
       name: t("The company"),
-      link: "#",
+      link: "/content/company",
     },
     {
-      name: t("Recruitement"),
-      link: "#",
-    },
-    {
-      name: t("Accessibility : partially compliant"),
-      link: "#",
-    },
-    {
-      name: t("Sitemap"),
-      link: "#",
+      name: t("General sales conditions"),
+      link: "/content/sale-conditions",
     },
     {
       name: t("Legal notice"),
-      link: "#",
-    },
-    {
-      name: t("Personal data"),
-      link: "#",
+      link: "/content/Legal-notice",
     },
   ];
 
