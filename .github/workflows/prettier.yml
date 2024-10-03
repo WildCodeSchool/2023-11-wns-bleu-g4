@@ -1,8 +1,12 @@
+name: Apply Prettier fixes
+
 on:
   push:
     paths:
       - "backend/**"
       - "frontend/**"
+    branches:
+      - "**" # Trigger on all branches
 
 jobs:
   filter:
@@ -66,7 +70,13 @@ jobs:
           git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
 
       - name: Push changes
-        run: |
-          git push origin HEAD:${{ github.ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.ADMIN_TOKEN }}
+        run: |
+          CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+
+          if [[ "$CURRENT_BRANCH" == "main" || "$CURRENT_BRANCH" == "dev" ]]; then
+            git remote set-url origin https://x-access-token:${{ secrets.ADMIN_TOKEN }}@github.com/WildCodeSchool/2023-11-wns-bleu-g4.git
+          fi
+
+          git push origin HEAD:${CURRENT_BRANCH}
