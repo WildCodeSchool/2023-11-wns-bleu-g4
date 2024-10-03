@@ -51,3 +51,14 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
       image_name: chambrin80/gear-go-client
+
+  notify-vps:
+    needs:
+      - build-and-push-client
+      - build-and-push-server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call VPS webhook to update production
+        uses: wei/curl@master
+        with:
+          args: https://ops.1123-bleu-4.wns.wilders.dev/hooks/update-prod-geargo
