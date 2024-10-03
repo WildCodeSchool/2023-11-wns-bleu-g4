@@ -134,6 +134,8 @@ export type Mutation = {
   deleteReview: Scalars['String']['output'];
   login: Scalars['String']['output'];
   logout: Scalars['String']['output'];
+  requestPasswordReset: Scalars['String']['output'];
+  resetPassword: Scalars['String']['output'];
   updateAgency: Agency;
   updateBooking: Booking;
   updateBookingItem: BookingItem;
@@ -278,6 +280,17 @@ export type MutationDeleteReviewArgs = {
 
 export type MutationLoginArgs = {
   data: LoginInput;
+};
+
+
+export type MutationRequestPasswordResetArgs = {
+  email: Scalars['String']['input'];
+};
+
+
+export type MutationResetPasswordArgs = {
+  newPassword: Scalars['String']['input'];
+  token: Scalars['String']['input'];
 };
 
 
@@ -440,6 +453,7 @@ export type NewReviewInput = {
 };
 
 export type NewUserInput = {
+  acceptConditions: Scalars['Boolean']['input'];
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };

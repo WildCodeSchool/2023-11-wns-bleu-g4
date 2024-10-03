@@ -110,10 +110,9 @@ export default function LoginForm() {
                   </InputGroup>
                 </LightMode>
               </FormControl>
-
               {/* FORGOT PASSWORD */}
-              <Text className=" text-center text-sm py-2">
-                <Link href="#" className="hover:underline hover:text-orange-500">
+              <Text className=" text-center text-md pt-2">
+                <Link href="/sendmailform" className="underline text-orange-500 hover:text-orange-400">
                   {t("Forgot your password ?")}
                 </Link>
               </Text>
@@ -127,10 +126,10 @@ export default function LoginForm() {
               {t("Login")}
             </Button>
             {/* FORGOT PASSWORD */}
-            <Text className=" text-center text-sm py-2" color="black">
+            <Text className=" text-center text-md py-2" color="black">
               {t("Not yet registered ?")}&nbsp;
-              <Link href="/signup" className="underline text-orange-500">
-                {t("sign up")}
+              <Link href="/signup" className="underline text-orange-500 hover:text-orange-400">
+                {t("Sign up !")}
               </Link>
             </Text>
           </Flex>
