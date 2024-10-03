@@ -11,7 +11,7 @@ jobs:
 
   test:
     uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/e2e-tests.yml@main
-
+      
   build-and-push-server:
     needs:
       - i18n-parser

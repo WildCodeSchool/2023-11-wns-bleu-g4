@@ -7,59 +7,31 @@ on:
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./e2e-tests
-    steps:
-      - uses: actions/checkout@v4
 
-      # Docker layer caching
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install Dependencies
+
+      # Install dependencies for e2e-tests
+      - name: Install dependencies for e2e-tests
         run: npm ci
+        working-directory: ./e2e-tests
+
+      # Install backend dependencies
       - name: Install backend dependencies
-        run: cd ../backend && npm ci
+        run: npm ci
+        working-directory: ../backend
 
-      # Create .env file using secrets
-      - name: Create .env from Secrets
-        run: |
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> ../backend/.env
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> ../backend/.env
-          echo "DB_NAME=${{ secrets.DB_NAME }}" >> ../backend/.env
-          echo "DB_USER=${{ secrets.DB_USER }}" >> ../backend/.env
-          echo "DB_PASS=${{ secrets.DB_PASS }}" >> ../backend/.env
-          echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> ../backend/.env
-          echo "JWT_PRIVATE_KEY=${{ secrets.JWT_PRIVATE_KEY }}" >> ../backend/.env
-          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> ../backend/.env
-          echo "FRONTEND_URL=${{ secrets.FRONTEND_URL }}" >> ../backend/.env
-          echo "CORS_ALLOWED_ORIGINS=${{ secrets.CORS_ALLOWED_ORIGINS }}" >> ../backend/.env
-          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> ../backend/.env
-          echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> ../backend/.env
-          echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> ../backend/.env
-          echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> ../backend/.env
-          echo "EMAIL_FROM=${{ secrets.EMAIL_FROM }}" >> ../backend/.env
-
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> ../e2e-tests/.env
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> ../e2e-tests/.env
-          echo "DB_NAME=${{ secrets.DB_NAME }}" >> ../e2e-tests/.env
-          echo "DB_USER=${{ secrets.DB_USER }}" >> ../e2e-tests/.env
-          echo "DB_PASS=${{ secrets.DB_PASS }}" >> ../e2e-tests/.env
-          echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> ../e2e-tests/.env
-          echo "JWT_PRIVATE_KEY=${{ secrets.JWT_PRIVATE_KEY }}" >> ../e2e-tests/.env
-          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> ../e2e-tests/.env
-          echo "FRONTEND_URL=${{ secrets.FRONTEND_URL }}" >> ../e2e-tests/.env
-          echo "CORS_ALLOWED_ORIGINS=${{ secrets.CORS_ALLOWED_ORIGINS }}" >> ../e2e-tests/.env
-          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> ../e2e-tests/.env
-          echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> ../e2e-tests/.env
-          echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> ../e2e-tests/.env
-          echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> ../e2e-tests/.env
-          echo "EMAIL_FROM=${{ secrets.EMAIL_FROM }}" >> ../e2e-tests/.env
-
-          echo "JWT_PRIVATE_KEY=${{ secrets.JWT_PRIVATE_KEY }}" >> ../frontend/.env
-          echo "NEXT_PUBLIC_GRAPHQL_API_URL=${{ secrets.NEXT_PUBLIC_GRAPHQL_API_URL }}" >> ../frontend/.env
-          echo "NEXT_PUBLIC_UPLOAD_API_ENDPOINT=${{ secrets.NEXT_PUBLIC_UPLOAD_API_ENDPOINT }}" >> ../frontend/.env
+      # Install frontend dependencies
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: ../frontend
 
       # Store Playwright's Version
       - name: Store Playwright's Version
@@ -72,16 +44,50 @@ jobs:
       - name: Setup Playwright
         run: npx playwright install --with-deps
 
-      # Start your application using the .env file
-      - name: Start app
+      # Start backend app using environment variables from secrets
+      - name: Start backend app
         run: |
           npm run app:start & sleep 120
+        working-directory: ../backend
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
+          CORS_ALLOWED_ORIGINS: ${{ secrets.CORS_ALLOWED_ORIGINS }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
 
-      # Run Playwright tests
+      # Run Playwright tests with the same environment variables
       - name: Run Playwright tests
         run: npm run test
+        working-directory: ./e2e-tests
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
+          CORS_ALLOWED_ORIGINS: ${{ secrets.CORS_ALLOWED_ORIGINS }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
 
-      # Store Artifacts from Failed Tests
+      # Store artifacts from failed tests
       - name: Store Artifacts from Failed Tests
         if: failure()
         uses: actions/upload-artifact@v4
