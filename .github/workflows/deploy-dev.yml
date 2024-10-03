@@ -1,0 +1,53 @@
+name: Test, compile and push client and server to production
+
+on:
+  push:
+    branches: ["dev"]
+  workflow_dispatch:
+
+jobs:
+  i18n-parser:
+    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/i18n.yml@dev
+
+  test:
+    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/e2e-tests.yml@dev
+    secrets:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASS: ${{ secrets.DB_PASS }}
+      SERVER_PORT: ${{ secrets.SERVER_PORT }}
+      JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
+      NODE_ENV: ${{ secrets.NODE_ENV }}
+      FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+      CORS_ALLOWED_ORIGINS: ${{ secrets.CORS_ALLOWED_ORIGINS }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      NEXT_PUBLIC_GRAPHQL_API_URL: ${{ secrets.NEXT_PUBLIC_GRAPHQL_API_URL }}
+      NEXT_PUBLIC_UPLOAD_API_ENDPOINT: ${{ secrets.NEXT_PUBLIC_UPLOAD_API_ENDPOINT }}
+
+  build-and-push-server:
+    needs:
+      - i18n-parser
+      - test
+    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/build-backend.yml@dev
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    with:
+      image_name: chambrin80/gear-go-server-dev
+
+  build-and-push-client:
+    needs:
+      - i18n-parser
+      - test
+    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/build-frontend.yml@dev
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    with:
+      image_name: chambrin80/gear-go-client-dev
