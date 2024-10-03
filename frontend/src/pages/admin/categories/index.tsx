@@ -13,9 +13,9 @@ export default function Categories() {
   const [createCategoryModalOpen, setCreateCategoryModalOpen] = useState(false);
   const [createParentCategoryModalOpen, setCreateParentCategoryModalOpen] = useState(false);
 
-  const { data: categoriesData, refetch: refetchCategories, loading: categoriesLoading } = useGetAllCategoriesQuery();
+  const { data: categoriesData, loading: categoriesLoading } = useGetAllCategoriesQuery();
   const categories = categoriesData?.getAllCategories || [];
-  const { data: parentCategoriesData, refetch: refetchParentCategories, loading: parentCategoriesLoading } = useGetAllParentCategoriesQuery();
+  const { data: parentCategoriesData, loading: parentCategoriesLoading } = useGetAllParentCategoriesQuery();
   const parentCategories = parentCategoriesData?.getAllParentCategories || [];
 
   const toggleCreateCategoryModal = () => setCreateCategoryModalOpen(!createCategoryModalOpen);
@@ -30,7 +30,7 @@ export default function Categories() {
           <Tab>Categories</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel className="flex flex-col items-end gap-4">
+          <TabPanel paddingX={0} className="flex flex-col items-end gap-4">
             <button
               type="button"
               className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
@@ -43,12 +43,11 @@ export default function Categories() {
               <ParentCategoryCreateModal
                 isOpen={createParentCategoryModalOpen}
                 onClose={toggleCreateParentCategoryModal}
-                refetch={refetchParentCategories}
               />
             )}
-            <ParentCategoryTableBody data={parentCategories} refetch={refetchCategories} loading={parentCategoriesLoading} />
+            <ParentCategoryTableBody data={parentCategories} loading={parentCategoriesLoading} />
           </TabPanel>
-          <TabPanel className="flex flex-col items-end gap-4">
+          <TabPanel paddingX={0} className="flex flex-col items-end gap-4">
             <button
               type="button"
               className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
@@ -61,7 +60,6 @@ export default function Categories() {
               <CategoryCreateModal
                 isOpen={createCategoryModalOpen}
                 onClose={toggleCreateCategoryModal}
-                refetch={refetchCategories}
               />
             )}
             <CategoryTableBody data={categories} loading={categoriesLoading} />

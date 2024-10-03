@@ -8,6 +8,7 @@ import ProductStockModal from "../modal/ProductStockModal";
 import { Agency, Product, ProductCode } from "@/graphql/generated/schema";
 import ProductStockDetails from "./ProductStockDetails";
 import { useDeleteProductCodeMutation } from "@/graphql/ProductCode/generated/deleteProductCode.generated";
+import { toast } from "react-toastify";
 
 export interface AggregatedDataEntry {
   agency: Agency;
@@ -30,7 +31,8 @@ const groupByAgency = (productCodes: ProductCode[]): Record<number, AggregatedDa
 
 export default function ProductStockTableBody({ data, refetch }: TableBodyProps) {
   const { t } = useTranslation("ProductStockTableBody");
-  const [deleteProductCode] = useDeleteProductCodeMutation();
+
+  const [deleteProductCode, { error }] = useDeleteProductCodeMutation();
   const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
   const [selectedAgency, setSelectedAgency] = useState<Agency | null>(null);
   const [openProductCodeAgenceId, setProductCodeAgenceId] = useState<number | null>(null);
@@ -49,27 +51,30 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
   };
 
   const handleProductCodeAgenceDetails = (productCodeAgenceId: number) => {
-    setProductCodeAgenceId(prevProductCodeAgenceId => (prevProductCodeAgenceId === productCodeAgenceId ? null : productCodeAgenceId));
+    setProductCodeAgenceId(prevProductCodeAgenceId =>
+      (prevProductCodeAgenceId === productCodeAgenceId ? null : productCodeAgenceId));
   };
 
   const handleDeleteProductCode = async (id: number) => {
     try {
       await deleteProductCode({ variables: { productCodeId: id } });
       refetch && refetch();
+      toast.success(t("Product code deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {productStockTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 {menu.name}
@@ -82,7 +87,7 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
             agencies.map((aggregatedData: AggregatedDataEntry, index: number) => (
               <React.Fragment key={aggregatedData.agency.id}>
                 <tr
-                  className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}
+                  className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300`}
                 >
                   <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{aggregatedData.agency?.name}</td>
                   <td className="whitespace-nowrap p-3 w-48 min-w-max">
@@ -141,6 +146,7 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
           onClose={() => toggleAddProductStockModal(data, product)}
           agency={selectedAgency}
           product={product}
+          refetch={refetch}
         />
       )}
     </>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
-import { ParentCategory } from "@/graphql/generated/schema";
+import { ParentCategory, ProductCharacteristic } from "@/graphql/generated/schema";
 import { characteristicTableHeaders } from "../helpers/tableHeaders";
 import { TableBodyProps } from "../product/types";
 import {
@@ -11,11 +11,12 @@ import { Characteristic } from "./types";
 import CharacteristicUpdateModal from "./CharacteristicUpdateModal";
 import CharacteristicDeleteModal from "./CharacteristicDeleteModal";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
 
 export default function CharacteristicTableBody({ data, refetch, loading }: TableBodyProps) {
   const { t } = useTranslation("CharacteristicTableBody");
 
-  const [deleteCharacteristic] = useDeleteProductCharacteristicMutation();
+  const [deleteCharacteristic, { error }] = useDeleteProductCharacteristicMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCharacteristic, setSelectedCharacteristic] = useState<Characteristic | null>(null);
@@ -35,20 +36,22 @@ export default function CharacteristicTableBody({ data, refetch, loading }: Tabl
       await deleteCharacteristic({ variables: { productCharacteristicId: id } });
       refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
+      toast.success(t("Characteristic deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {characteristicTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 {menu.name}
@@ -72,7 +75,10 @@ export default function CharacteristicTableBody({ data, refetch, loading }: Tabl
             </tr>
           ) : (
             data.map((parentCategory: ParentCategory, index: number) => (
-              <tr key={parentCategory.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
+              <tr
+                key={parentCategory.id}
+                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}
+              >
                 <td className="whitespace-nowrap p-3 pl-8 w-4/5 min-w-max">{parentCategory.name}</td>
                 <td className="whitespace-nowrap p-3 pr-8 w-1/5 min-w-max text-left align-middle">
                   <div className="inline-block">

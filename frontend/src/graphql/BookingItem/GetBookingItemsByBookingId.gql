@@ -1,0 +1,16 @@
+query GetBookingItemsByBookingId($bookingId: Int!) {
+  getBookingItemsByBookingId(bookingId: $bookingId) {
+    id
+    status
+    startDate
+    endDate
+    productCode {
+      id
+    }
+    product {
+      name
+      price
+      thumbnail
+    }
+  }
+}

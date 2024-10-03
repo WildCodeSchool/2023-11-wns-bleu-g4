@@ -2,7 +2,9 @@ import CharacteristicCreateModal from "@/features/admin/characteristic/Character
 import CharacteristicTableBody from "@/features/admin/characteristic/CharacteristicTableBody";
 import SearchAdmin from "@/features/admin/shared/SearchAdmin";
 import TableFooter from "@/features/admin/shared/TableFooter";
-import { useGetAllProductCharacteristicsQuery } from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
+import {
+    useGetAllProductCharacteristicsQuery
+} from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 import LayoutAdmin from "@/layouts/LayoutAdmin";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
@@ -63,11 +65,10 @@ export default function Characteristics() {
                 <CharacteristicCreateModal
                     isOpen={createCharacteristicModalOpen}
                     onClose={toggleCreateCharacteristicModal}
-                    refetch={refetch}
                 />
             )}
             <div className="overflow-x-auto">
-                <CharacteristicTableBody data={characteristics} refetch={refetch} loading={loading} />
+                <CharacteristicTableBody data={characteristics} loading={loading} />
             </div>
             <TableFooter
                 data={totalCharacteristics}

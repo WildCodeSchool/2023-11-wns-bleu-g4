@@ -1,16 +1,14 @@
+import ProductGrid from "@/features/shop/product_grid/Productgrid";
 import Pagination from "@/features/shop/Pagination";
 import ProductFilter from "@/features/shop/filters/ProductFilter";
 import TopFilters from "@/features/shop/filters/TopFilters";
-import ProductGrid from "@/features/shop/product_grid/Productgrid";
+import Layout from "@/layouts/Layout";
 import { useGetAllProductsByCategoryIdQuery } from "@/graphql/Product/generated/getAllProductsByCategorieID.generated";
 import { SortProduct } from "@/graphql/generated/schema";
-import Layout from "@/layouts/Layout";
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllNamespaces } from "@root/i18nUtils";
+import Loading from "@/shared/components/Loading";
 
 export default function ProductByCategory() {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -19,11 +17,9 @@ export default function ProductByCategory() {
   const parsedCategoryId = parseInt(categoryId as string, 10);
 
   const sortOrderFromQuery = router.query.sortOrder as SortProduct | undefined;
+  const [sortOrder, setSortOrder] = useState<SortProduct | null>(sortOrderFromQuery ?? null);
+  const [page, setPage] = useState<number>(parseInt((router.query.page as string) || "1", 10) - 1);
 
-  const [sortOrder, setSortOrder] = useState<SortProduct | null>(
-    sortOrderFromQuery ?? null
-  );
-  const [page, setPage] = useState(0);
 
   const { data, error, loading, refetch } = useGetAllProductsByCategoryIdQuery({
     variables: {
@@ -35,16 +31,21 @@ export default function ProductByCategory() {
   });
 
   useEffect(() => {
-    if (sortOrder !== null) {
+    if (page >= 0) {
       refetch({ categoryId: parsedCategoryId, sortOrder });
     }
-  }, [sortOrder, parsedCategoryId, refetch]);
+  }, [sortOrder, page, parsedCategoryId, refetch]);
+
 
   useEffect(() => {
     setSortOrder(sortOrderFromQuery ?? null);
   }, [sortOrderFromQuery]);
 
-  if (loading) return <p>Loading...</p>;
+  useEffect(() => {
+    setPage(parseInt((router.query.page as string) || "1", 10) - 1);
+  }, [router.query.page]);
+
+  if (loading) return <Loading loading={loading} />;
   if (error) return <p>Error: {error.message}</p>;
 
   const products = data?.getAllProducts.products ?? [];
@@ -52,12 +53,14 @@ export default function ProductByCategory() {
   const maxPages = Math.ceil(totalProducts / 12);
 
   const handlePageChange = (newPage: number) => {
+    if (newPage < 0 || newPage >= maxPages) return;
     setPage(newPage);
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, page: newPage },
+      query: { ...router.query, page: newPage + 1 },
     });
   };
+
 
   const handleSortChange = (newSortOrder: SortProduct | null) => {
     if (newSortOrder !== null) {
@@ -76,9 +79,8 @@ export default function ProductByCategory() {
     }
   };
 
-
   return (
-    <Layout pageTitle="Products">
+    <Layout pageTitle="ProductByCategory">
       <Grid
         templateAreas={
           isMobile
@@ -98,7 +100,7 @@ export default function ProductByCategory() {
           <ProductFilter />
         </GridItem>
         <GridItem area={"ProductGrid"}>
-          <ProductGrid products={products} />
+          <ProductGrid products={products} loading={loading} />
         </GridItem>
         <GridItem area={"Pagination"}>
           <Pagination setPage={handlePageChange} page={page} maxPages={maxPages} />
@@ -108,8 +110,3 @@ export default function ProductByCategory() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
-  },
-});

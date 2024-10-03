@@ -14,10 +14,16 @@ import {
 import { CategoryModalProps } from "../types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useUpdateParentCategoryMutation } from "@/graphql/ParentCategory/generated/updateParentCategory.generated";
-import { GetParentCategoryByIdDocument } from "@/graphql/ParentCategory/generated/getParentCategoryById.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import {
+  GetAllParentCategoriesDocument, GetAllParentCategoriesQuery
+} from "@/graphql/ParentCategory/generated/getAllParentCategories.generated";
+import client from "@/graphql/client";
 
 export default function ParentCategoryUpdateModal({ isOpen, onClose, parentCategory }: CategoryModalProps) {
-  const [updateParentCategory] = useUpdateParentCategoryMutation();
+  const { t } = useTranslation("ParentCategoryUpdateModal");
+  const [updateParentCategory, { error }] = useUpdateParentCategoryMutation();
   const [formData, setFormData] = useState({ name: parentCategory?.name });
 
   const parentCategoryId = parentCategory?.id!;
@@ -33,12 +39,33 @@ export default function ParentCategoryUpdateModal({ isOpen, onClose, parentCateg
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    updateParentCategory({
-      variables: { data: formData, parentCategoryId },
-      refetchQueries: [{ query: GetParentCategoryByIdDocument, variables: { parentCategoryId } }],
-    })
-      .then(onClose)
-      .catch(console.error);
+    try {
+      await updateParentCategory({
+        variables: { data: formData, parentCategoryId },
+      })
+
+      const existingData = client.readQuery<GetAllParentCategoriesQuery>(
+        { query: GetAllParentCategoriesDocument }
+      )!;
+
+      const updatedData = existingData.getAllParentCategories.map(
+        parentCategory =>
+          parentCategory.id === parentCategoryId
+            ? { ...parentCategory, ...formData }
+            : parentCategory
+      );
+
+      client.writeQuery({
+        query: GetAllParentCategoriesDocument,
+        data: { getAllParentCategories: updatedData },
+      });
+
+      onClose();
+      toast.success(t("Parent category updated successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   return (

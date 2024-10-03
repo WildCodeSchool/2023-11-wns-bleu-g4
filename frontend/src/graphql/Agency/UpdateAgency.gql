@@ -1,4 +1,4 @@
-mutation UpdateAgency($data: UpdateAgencyInput!, $agencyId: Float!) {
+mutation UpdateAgency($data: UpdateAgencyInput!, $agencyId: Int!) {
   updateAgency(data: $data, agencyId: $agencyId) {
     id
     name

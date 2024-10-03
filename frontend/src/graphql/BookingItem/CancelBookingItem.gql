@@ -1,0 +1,3 @@
+mutation CancelBookingItems($bookingItemIds: [Int!]!) {
+  cancelBookingItems(bookingItemIds: $bookingItemIds)
+}

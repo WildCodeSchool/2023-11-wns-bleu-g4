@@ -90,4 +90,5 @@ export class UpdateBookingItemInput {
 	endDate?: Date;
 }
 
+
 export default BookingItem

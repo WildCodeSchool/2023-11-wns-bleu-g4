@@ -5,23 +5,33 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useDeleteProduct_PictureMutation } from "@/graphql/ProductPicture/generated/DeleteProduct_picture.generated";
 import { GetProductByIdDocument } from "@/graphql/Product/generated/getProductById.generated";
 import { Product, Product_Picture } from "./types";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function ProductPictures({ product }: { product: Product }) {
-  const [deletePicture] = useDeleteProduct_PictureMutation();
+  const { t } = useTranslation("ProductPictures");
+  const [deletePicture, { error }] = useDeleteProduct_PictureMutation();
   const [productPictureModal, setProductPictureModal] = useState(false);
   const toggleAddPictureModal = () => setProductPictureModal(!productPictureModal);
 
   const productId = product?.id;
 
   const handleDeletePicture = async (pictureId: number) => {
-    deletePicture({
-      variables: { deleteProductPictureId: pictureId },
-      refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
-    }).catch(console.error);
+
+    try {
+      await deletePicture({
+        variables: { deleteProductPictureId: pictureId },
+        refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
+      });
+      toast.success(t("Product picture deleted successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
+    }
   };
 
   return (
-    <div className="bg-[#F5F5F5] rounded w-full flex flex-col gap-3 p-4 h-fit">
+    <div className="bg-[#F5F5F5] dark:bg-cactus-600 rounded w-full flex flex-col gap-3 p-4 h-fit">
       <div className="flex gap-4 items-center justify-between">
         <b>Pictures</b>
         <button

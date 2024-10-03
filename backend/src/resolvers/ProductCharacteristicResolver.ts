@@ -71,7 +71,7 @@ class ProductCharacteristicResolver {
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => ProductCharacteristic)
 	async updateProductCharacteristic(
-		@Arg("productCharacteristicId") id: number,
+		@Arg("productCharacteristicId", () => Int) id: number,
 		@Arg("data", { validate: true }) data: UpdateProductCharacteristicInput,
 		@Ctx() ctx: Context
 	) {
@@ -91,7 +91,10 @@ class ProductCharacteristicResolver {
 
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => String)
-	async deleteProductCharacteristic(@Arg("productCharacteristicId") id: number, @Ctx() ctx: Context) {
+	async deleteProductCharacteristic(
+		@Arg("productCharacteristicId", () => Int) id: number,
+		@Ctx() ctx: Context) {
+			
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const productCharacteristicToDelete = await ProductCharacteristic.findOne({ where: { id } })
 		if (!productCharacteristicToDelete) throw new GraphQLError("Product characteristic not found")

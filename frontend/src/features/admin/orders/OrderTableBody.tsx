@@ -8,6 +8,7 @@ import OrderCancelModal from "./OrderCancelModal";
 import { useCancelBookingMutation } from "@/graphql/Booking/generated/CancelBooking.generated";
 import { StatusBooking } from "@/graphql/generated/schema";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
 
 export default function OrderTableBody({
   data,
@@ -18,7 +19,7 @@ export default function OrderTableBody({
   sortOrder
 }: OrderTableBodyProps) {
   const { t } = useTranslation("OrderTableBody");
-  const [cancelOrder] = useCancelBookingMutation();
+  const [cancelOrder, { error }] = useCancelBookingMutation();
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [openOrderId, setOpenOrderId] = useState<number | null>(null);
@@ -37,7 +38,9 @@ export default function OrderTableBody({
       await cancelOrder({ variables: { bookingId: id } });
       refetch && refetch();
       setCancelModalOpen(false);
+      toast.success(t("Order canceled successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     };
   };
@@ -54,7 +57,7 @@ export default function OrderTableBody({
     switch (status) {
       case StatusBooking.Late:
         return "bg-yellow-50 text-yellow-800 border-yellow-800/50";
-      case StatusBooking.Cancelled:
+      case StatusBooking.Canceled:
         return "bg-red-50 text-red-800 border-red-800/50";
       case StatusBooking.Booked:
         return "bg-blue-50 text-blue-800 border-blue-800/50";
@@ -67,13 +70,13 @@ export default function OrderTableBody({
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {orderTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 <span className="flex gap-2 items-center">
@@ -112,7 +115,7 @@ export default function OrderTableBody({
           ) : (
             data.map((order: Order, index: number) => (
               <React.Fragment key={order.id}>
-                <tr className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap hover:bg-cactus-300`}>
+                <tr className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap hover:bg-cactus-300 dark:hover:text-black`}>
                   <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{order.id}</td>
                   <td className="whitespace-nowrap p-3 w-96 min-w-max">
                     {order.user.firstname} {order.user.name}

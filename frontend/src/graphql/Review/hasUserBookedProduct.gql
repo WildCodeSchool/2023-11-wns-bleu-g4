@@ -1,0 +1,3 @@
+query hasUserBookedProduct($productId: Int!, $userId: Int!) {
+    hasUserBookedProduct(productId: $productId, userId: $userId)
+}

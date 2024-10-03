@@ -33,7 +33,7 @@ export class User extends BaseEntity {
 	@Field()
 	name: string
 
-	@Column({ default: "account" })
+	@Column({ default: "My account" })
 	@Field()
 	firstname: string
 
@@ -76,6 +76,9 @@ export class User extends BaseEntity {
 	@Column({ default: false })
 	emailVerified: boolean
 
+	@Column({ default: false })
+	acceptConditions: boolean
+
 	/** RELATIONS *********************/
 	/** ONE TO MANY */
 	@OneToMany(() => Booking, (bookings) => bookings.user)
@@ -96,6 +99,9 @@ export class NewUserInput {
 	@Field()
 	@IsStrongPassword()
 	password: string
+
+	@Field()
+	acceptConditions: boolean
 }
 
 @InputType()
@@ -131,6 +137,10 @@ export class UpdateUserInput {
 	@Length(2, 255)
 	@Field({ nullable: true })
 	avatar?: string
+
+	@Length(2, 255)
+	@Field({ nullable: true })
+	email?: string
 }
 
 @InputType()
@@ -143,5 +153,6 @@ export class LoginInput {
 	@IsStrongPassword()
 	password: string
 }
+
 
 export default User

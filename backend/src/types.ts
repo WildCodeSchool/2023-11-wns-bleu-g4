@@ -30,6 +30,7 @@ export class AgencyId {
 	@Field(() => Int)
 	id!: number
 }
+
 @InputType()
 export class ProductId {
 	@Field(() => Int)
@@ -125,3 +126,4 @@ export class ProductCodeList {
 	@Field(() => Int)
 	total: number
 }
+

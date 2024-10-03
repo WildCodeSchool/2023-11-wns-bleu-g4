@@ -16,9 +16,17 @@ import { CharacteristicModalProps } from "./types";
 import {
   useCreateProductCharacteristicMutation
 } from "@/graphql/ProductCharacteristic/generated/createProductCharacteristic.generated";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import { getQueryVariables } from "../helpers/query";
+import client from "@/graphql/client";
+import {
+  GetAllProductCharacteristicsDocument, GetAllProductCharacteristicsQuery
+} from "@/graphql/ProductCharacteristic/generated/getAllProductCharacteristics.generated";
 
-export default function CharacteristicCreateModal({ isOpen, onClose, refetch }: CharacteristicModalProps) {
-  const [createCharacteristic] = useCreateProductCharacteristicMutation();
+export default function CharacteristicCreateModal({ isOpen, onClose }: CharacteristicModalProps) {
+  const { t } = useTranslation("CharacteristicCreateModal");
+  const [createCharacteristic, { error }] = useCreateProductCharacteristicMutation();
   const [formData, setFormData] = useState({ name: "" });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,11 +41,36 @@ export default function CharacteristicCreateModal({ isOpen, onClose, refetch }: 
     e.preventDefault();
 
     try {
-      await createCharacteristic({ variables: { data: formData } });
-      refetch && refetch();
+      const { data } = await createCharacteristic({ variables: { data: formData } });
+
+      const newCharacteristic = data?.createProductCharacteristic;
+
+      const variables = getQueryVariables("getAllProductCharacteristics");
+
+      const existingData = client.readQuery<GetAllProductCharacteristicsQuery>({
+        query: GetAllProductCharacteristicsDocument,
+        variables: variables,
+      })!;
+
+      const updatedData = {
+        ...existingData.getAllProductCharacteristics,
+        productCharacteristics: [
+          ...existingData.getAllProductCharacteristics.productCharacteristics,
+          newCharacteristic
+        ],
+      };
+
+      client.writeQuery({
+        query: GetAllProductCharacteristicsDocument,
+        variables: variables,
+        data: { getAllProductCharacteristics: updatedData }
+      });
+
       onClose();
-    } catch (error) {
-      console.error(error);
+      toast.success(t("Product characteristic created successfully"));
+    } catch (e) {
+      toast.error(error?.message);
+      console.error(e);
     }
   };
 

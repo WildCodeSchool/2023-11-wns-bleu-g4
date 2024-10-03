@@ -53,7 +53,7 @@ class CategoryResolver {
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => Category)
 	async updateCategory(
-		@Arg("categoryId") id: number,
+		@Arg("categoryId", () => Int) id: number,
 		@Arg("data", { validate: true }) data: UpdateCategoryInput,
 		@Ctx() ctx: Context
 	) {
@@ -73,7 +73,7 @@ class CategoryResolver {
 
 	@Authorized([UserRole.ADMIN])
 	@Mutation(() => String)
-	async deleteCategory(@Arg("categoryId") id: number, @Ctx() ctx: Context) {
+	async deleteCategory(@Arg("categoryId", () => Int) id: number, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 		const categoryToDelete = await Category.findOne({ where: { id } })
 		if (!categoryToDelete) throw new GraphQLError("Category not found")

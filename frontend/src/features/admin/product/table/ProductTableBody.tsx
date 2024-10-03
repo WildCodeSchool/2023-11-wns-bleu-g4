@@ -10,12 +10,13 @@ import { useRouter } from "next/router";
 import { Product } from "@/graphql/generated/schema";
 import { useDeleteProductMutation } from "@/graphql/Product/generated/deleteProduct.generated";
 import Loading from "@/shared/components/Loading";
+import { toast } from "react-toastify";
 
 export default function ProductTableBody({ data, refetch, loading }: TableBodyProps) {
   const { t } = useTranslation("ProductTableBody");
   const router = useRouter();
 
-  const [deleteProduct] = useDeleteProductMutation();
+  const [deleteProduct, { error }] = useDeleteProductMutation();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -35,20 +36,22 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
       await deleteProduct({ variables: { productId: id } });
       refetch && refetch();
       setIsDeleteModalOpen(!isDeleteModalOpen);
+      toast.success(t("Product deleted successfully"));
     } catch (e) {
+      toast.error(error?.message);
       console.error(e);
     }
   };
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
         <thead>
           <tr>
             {productTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200"
+              border-b border-gray-200 dark:border-gray-600"
                 key={menu.id}
               >
                 {menu.name}
@@ -73,9 +76,14 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
               </tr>
             ) : (
               data.map((product: Product, index: number) => (
-                <tr key={product.id} className={`${index % 2 === 0 && "bg-cactus-50"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
+                <tr key={product.id} className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300`}>
                   <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{product.id}</td>
-                  <td className="whitespace-nowrap p-3 w-96 min-w-max truncate max-w-96" title={product.name}>{product.name}</td>
+                  <td
+                    className="whitespace-nowrap p-3 w-96 min-w-max truncate max-w-96"
+                    title={product.name}
+                  >
+                    {product.name}
+                  </td>
                   <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.brand.name}</td>
                   <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.category.name}</td>
                   <td className="whitespace-nowrap p-3 w-48 min-w-max">{product.price.toFixed(2)}</td>

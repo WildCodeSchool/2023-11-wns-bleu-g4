@@ -5,6 +5,7 @@ import { Button, Flex, FormControl, Select } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
 import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useUpdateProductCodeStatusMutation } from "@/graphql/ProductCode/generated/updateProductCode.generated";
+import { toast } from "react-toastify";
 
 const statusOptions = [
     { id: 1, value: Status.Available, name: "Available" },
@@ -19,7 +20,7 @@ interface ProductStockDetailsProps {
 
 export default function ProductStockDetails({ data, aggregatedData, handleDeleteProductCode }: ProductStockDetailsProps) {
     const { t } = useTranslation("ProductStockDetailsDropdown");
-    const [updateProductCodeStatus] = useUpdateProductCodeStatusMutation();
+    const [updateProductCodeStatus, { error }] = useUpdateProductCodeStatusMutation();
     const [formData, setFormData] = useState({ status: data[0].status });
 
     const productCodeId = data[0].id;
@@ -32,30 +33,34 @@ export default function ProductStockDetails({ data, aggregatedData, handleDelete
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        updateProductCodeStatus({
-            variables: { status: formData.status, productCodeId },
-        }).catch(console.error);
+        try {
+            await updateProductCodeStatus({ variables: { status: formData.status, productCodeId } });
+            toast.success(t("Product code status updated successfully"));
+        } catch (e) {
+            toast.error(error?.message);
+            console.error(e);
+        }
     };
 
     return (
         <tr className="min-w-full space-y-4">
-            <td colSpan={4} className="p-4 align-top border-top border-gray-200 w-full">
+            <td colSpan={4} className="p-4 align-top border-top border-gray-200 dark:border-gray-600 w-full">
                 <table className="min-w-full">
                     <thead>
                         <tr>
-                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200">
+                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200 dark:border-gray-600">
                                 {t("Product code")}
                             </th>
-                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200">
+                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200 dark:border-gray-600">
                                 {t("Size")}
                             </th>
-                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200">
+                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200 dark:border-gray-600">
                                 {t("Status")}
                             </th>
-                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200">
+                            <th className="p-3 text-left uppercase text-sm font-bold whitespace-nowrap border-b border-gray-200 dark:border-gray-600">
                                 {t("Remove")}
                             </th>
                         </tr>
