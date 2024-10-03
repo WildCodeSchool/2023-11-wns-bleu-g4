@@ -1,8 +1,12 @@
+name: Apply Prettier fixes
+
 on:
   push:
     paths:
       - "backend/**"
       - "frontend/**"
+    branches:
+      - "**" # Trigger on all branches
 
 jobs:
   filter:
