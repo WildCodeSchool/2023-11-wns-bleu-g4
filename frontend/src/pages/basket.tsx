@@ -4,8 +4,10 @@ import { useBookingMutation } from "@/features/product/detailsComponent/useBooki
 import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import Layout from "@/layouts/Layout";
 import { Box, Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export default function BasketPage() {
   const { t } = useTranslation("BasketPage");
@@ -16,15 +18,16 @@ export default function BasketPage() {
   const { performBookingMutation } = useBookingMutation();
   const { data: profileData } = useProfileQuery();
   const [bookingInProgress, setBookingInProgress] = useState(false);
+  const router = useRouter()
 
   const handleBooking = async () => {
     if (!bookingData || bookingData.length === 0) {
-      console.error("Le panier est vide.");
+      toast.error("Your basket is empty.");
       return;
     }
 
     if (!profileData || !profileData.profile) {
-      console.error("Utilisateur non connecté.");
+      router.push("/login")
       return;
     }
 
@@ -49,14 +52,14 @@ export default function BasketPage() {
 
       bookingData.forEach((_, index) => removeBookingData(index));
     } catch (error) {
-      console.error("Erreur lors de la réservation", error);
+      toast.error("An error occured while booking");
     } finally {
       setBookingInProgress(false);
     }
   };
 
   useEffect(() => {
-    console.log("bookingData:", bookingData);
+    // console.log("bookingData:", bookingData);
   }, [bookingData]);
 
   return (

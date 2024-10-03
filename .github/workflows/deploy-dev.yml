@@ -2,15 +2,15 @@ name: Test, compile and push client and server to production
 
 on:
   push:
-    branches: ["main"]
+    branches: ["dev"]
   workflow_dispatch:
 
 jobs:
   i18n-parser:
-    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/i18n.yml@main
+    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/i18n.yml@dev
 
   test:
-    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/e2e-tests.yml@main
+    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/e2e-tests.yml@dev
     secrets:
       DB_HOST: ${{ secrets.DB_HOST }}
       DB_PORT: ${{ secrets.DB_PORT }}
@@ -34,23 +34,23 @@ jobs:
     needs:
       - i18n-parser
       - test
-    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/build-backend.yml@main
+    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/build-backend.yml@dev
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
-      image_name: chambrin80/gear-go-server
+      image_name: chambrin80/gear-go-server-dev
 
   build-and-push-client:
     needs:
       - i18n-parser
       - test
-    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/build-frontend.yml@main
+    uses: WildCodeSchool/2023-11-wns-bleu-g4/.github/workflows/build-frontend.yml@dev
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
-      image_name: chambrin80/gear-go-client
+      image_name: chambrin80/gear-go-client-dev
 
   notify-vps:
     needs:
@@ -58,7 +58,7 @@ jobs:
       - build-and-push-server
     runs-on: ubuntu-latest
     steps:
-      - name: Call VPS webhook to update production
+      - name: Call VPS webhook to update staging
         uses: wei/curl@master
         with:
-          args: https://ops.1123-bleu-4.wns.wilders.dev/hooks/update-prod-geargo
+          args: https://ops.1123-bleu-4.wns.wilders.dev/hooks/update-staging-geargo
