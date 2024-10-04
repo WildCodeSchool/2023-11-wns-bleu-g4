@@ -5,5 +5,7 @@ COPY package*.json ./
 RUN npm i
 COPY src ./src
 COPY tsconfig.json ./tsconfig.json
+COPY jest.config.ts ./jest.config.ts
+COPY jest.setup.ts ./jest.setup.ts
 
 CMD npm run dev

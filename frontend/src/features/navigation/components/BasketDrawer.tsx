@@ -1,4 +1,4 @@
-import { useBookingData } from "@/context/BookingDataContext";
+import { BookingData, useBookingData } from "@/context/BookingDataContext";
 import { useGetProductsDetailsQuery } from "@/graphql/Product/generated/getProductsDetails.generated";
 import {
   Box,
@@ -43,94 +43,112 @@ export const BasketDrawer: React.FC<BasketDrawerProps> = ({ isOpen, onOpen, onCl
 
         <DrawerBody>
           {bookingData && bookingData.length > 0 ? (
-            bookingData.map((data, index) => {
-              const product = productData?.getAllProducts.products.find(p => p.id === data.product?.id);
-              return (
-                <Flex key={index} flexDirection="column" gap={10}>
-                  <Flex justifyContent="space-around" mt={10} gap={4} alignItems="center">
-                    {product && <Image w="20%" h="20%" src={product.thumbnail} alt={product.name} />}
-                    <Flex justifyContent="center" flexDirection="column" gap={2}>
-                      {product && (
-                        <Box display="flex" className="flex-wrap">
-                          <Text fontWeight="bold" mr={2}>
-                            {t("Product :")}
-                          </Text>
-                          <Text>{product.name}</Text>
-                        </Box>
-                      )}
-                      {data.quantity && (
-                        <Box display="flex">
-                          <Text fontWeight="bold" mr={2}>
-                            {t("Quantity :")}
-                          </Text>
-                          <Text>{data.quantity}</Text>
-                        </Box>
-                      )}
-                      {data.selectedSize && (
-                        <Box display="flex">
-                          <Text fontWeight="bold" mr={2}>
-                            {t("Size :")}
-                          </Text>
-                          <Text>{data.selectedSize}</Text>
-                        </Box>
-                      )}
-                      {data.startDate && (
-                        <Box display="flex">
-                          <Text fontWeight="bold" mr={2}>
-                            {t("Start date :")}
-                          </Text>
-                          <Text>{data.startDate.toLocaleDateString()}</Text>
-                        </Box>
-                      )}
-                      {data.endDate && (
-                        <Box display="flex">
-                          <Text fontWeight="bold" mr={2}>
-                            {t("End date :")}
-                          </Text>
-                          <Text>{data.endDate.toLocaleDateString()}</Text>
-                        </Box>
-                      )}
-                      {data.totalPrice && (
-                        <Box display="flex">
-                          <Text fontWeight="bold" mr={2}>
-                            {"Total price :"}
-                          </Text>
-                          <Text>{parseFloat(data.totalPrice.toFixed(2))} €</Text>
-                        </Box>
-                      )}
-                    </Flex>
-                  </Flex>
-                  <Flex justifyContent="space-between" gap={5}>
-                    <Button
-                      variant="primaryButton"
-                      // onClick={() => removeBookingData(index)}
-                      aria-label="Edit"
-                      leftIcon={<PencilSquareIcon width={24} />}
-                      w="100%"
-                    >
-                      {t("Edit")}
-                    </Button>
-                    <Button
-                      colorScheme="red"
-                      onClick={() => removeBookingData(index)}
-                      aria-label={t("Delete")}
-                      leftIcon={<TrashIcon width={24} />}
-                      w="100%"
-                    >
-                      {t("Delete")}
-                    </Button>
-                  </Flex>
-                  <Divider />
-                  <Button
-                    onClick={() => router.push("/basket")}
-                    isDisabled={!bookingData || bookingData.length === 0}
-                    variant="accentButton"
+            <>
+              {bookingData.map((data: BookingData, index: number) => {
+                const product = productData?.getAllProducts?.products?.find(p => p.id === data.product?.id);
+                return (
+                  <Flex
+                    key={data.product?.id ?? `${data.product?.name}-${data.quantity}`}
+                    flexDirection="column"
+                    gap={10}
                   >
-                    {t("Go to basket")}
-                  </Button>
-                </Flex>
-              );
-            })
+                    <Flex justifyContent="space-around" mt={10} gap={4} alignItems="center">
+                      {product && <Image w="20%" h="20%" src={product.thumbnail} alt={product.name} />}
+                      <Flex justifyContent="center" flexDirection="column" gap={2}>
+                        {product && (
+                          <Box display="flex" className="flex-wrap">
+                            <Text fontWeight="bold" mr={2}>
+                              {t("Product :")}
+                            </Text>
+                            <Text>{product.name}</Text>
+                          </Box>
+                        )}
+                        {data.quantity && (
+                          <Box display="flex">
+                            <Text fontWeight="bold" mr={2}>
+                              {t("Quantity :")}
+                            </Text>
+                            <Text>{data.quantity}</Text>
+                          </Box>
+                        )}
+                        {data.selectedSize && (
+                          <Box display="flex">
+                            <Text fontWeight="bold" mr={2}>
+                              {t("Size :")}
+                            </Text>
+                            <Text>{data.selectedSize}</Text>
+                          </Box>
+                        )}
+                        {data.startDate && (
+                          <Box display="flex">
+                            <Text fontWeight="bold" mr={2}>
+                              {t("Start date :")}
+                            </Text>
+                            <Text>{data.startDate.toLocaleDateString()}</Text>
+                          </Box>
+                        )}
+                        {data.endDate && (
+                          <Box display="flex">
+                            <Text fontWeight="bold" mr={2}>
+                              {t("End date :")}
+                            </Text>
+                            <Text>{data.endDate.toLocaleDateString()}</Text>
+                          </Box>
+                        )}
+                        {data.totalPrice && (
+                          <Box display="flex">
+                            <Text fontWeight="bold" mr={2}>
+                              {"Total price :"}
+                            </Text>
+                            <Text>{parseFloat(data.totalPrice.toFixed(2))} €</Text>
+                          </Box>
+                        )}
+                      </Flex>
+                    </Flex>
+                    <Flex justifyContent="space-between" gap={5}>
+                      <Button
+                        variant="primaryButton"
+                        aria-label="Edit"
+                        leftIcon={<PencilSquareIcon width={24} />}
+                        w="100%"
+                      >
+                        {t("Edit")}
+                      </Button>
+                      <Button
+                        colorScheme="red"
+                        onClick={() => removeBookingData(index)}
+                        aria-label={t("Delete")}
+                        leftIcon={<TrashIcon width={24} />}
+                        w="100%"
+                      >
+                        {t("Delete")}
+                      </Button>
+                    </Flex>
+                    <Divider />
+                  </Flex>
+                );
+              })}
+              <Flex
+                justifyContent={"center"}
+                alignItems={"center"}
+                className={"backdrop-blur-sm bg-white/30 rounded-md"}
+                position={"sticky"}
+                bottom={0}
+                left={0}
+                width={"100%"}
+                py={8}
+                zIndex={10}
+              >
+                <Button
+                  onClick={() => router.push("/basket")}
+                  isDisabled={!bookingData || bookingData.length === 0}
+                  variant="accentButton"
+                  width={"90%"}
+                >
+                  {t("Go to basket")}
+                </Button>
+              </Flex>
+            </>
           ) : (
             <Text>{t("Your basket is empty")}</Text>
           )}

@@ -2,13 +2,12 @@ import Layout from "@/layouts/Layout";
 import UserProfile from "@/features/account/profile/UserProfile";
 import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import UserOrdersTableBody from "@/features/account/table/UserOrdersTable";
-import LayoutAccount from "@/layouts/LayoutAccount";
 
 export default function UserDetails() {
   const textColor = useColorModeValue("black", "white");
 
   return (
-    <LayoutAccount>
+    <Layout>
       <Heading size="lg" className="w-full text-center py-5 " color={textColor}>
         User Account
       </Heading>
@@ -16,6 +15,6 @@ export default function UserDetails() {
         <UserProfile />
         <UserOrdersTableBody />
       </Flex>
-    </LayoutAccount>
+    </Layout>
   );
 }

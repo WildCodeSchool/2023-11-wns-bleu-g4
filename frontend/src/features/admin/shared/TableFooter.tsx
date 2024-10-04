@@ -24,7 +24,7 @@ export default function TableFooter({
   };
 
   return (
-    <div className="flex w-full items-center justify-between rounded border border-gray-200 dark:border-gray-600 p-4 mt-2">
+    <div className="flex w-full items-center justify-between rounded border border-gray-400 p-4 mt-2">
       <div className="flex items-center">
         <span className="text-sm">
           Showing{" "}

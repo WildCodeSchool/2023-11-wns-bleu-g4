@@ -1,4 +1,4 @@
-name: Test, compile and push client and server to production
+name: Test, compile and push client and server to staging
 
 on:
   push:

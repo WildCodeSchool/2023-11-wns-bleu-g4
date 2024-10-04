@@ -83,7 +83,8 @@ export default function SendMailForm() {
                   {t("Please enter your email address.")}
                   <br />
                   {t(
-                    "If the address you enter is registered in our database, we will send you an email with a link to create a new password.",
+                    "If the address you enter is registered in our database, " +
+                      "we will send you an email with a link to create a new password.",
                   )}
                 </Text>
                 {/* EMAIL */}
