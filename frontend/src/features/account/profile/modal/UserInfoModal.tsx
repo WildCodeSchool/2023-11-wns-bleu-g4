@@ -13,6 +13,7 @@ import {
   Flex,
   Box,
   Textarea,
+  Image,
 } from "@chakra-ui/react";
 import { UserModalProps } from "../../types";
 import { useUpdateProfileMutation } from "@/graphql/User/generated/UpdateProfile.generated";
@@ -141,6 +142,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                 </Box> */}
 
               <FormLabel mb={1}>Avatar</FormLabel>
+              <img src={imageURL} className="rounded-lg w-28 mb-2" />
               <input
                 type="file"
                 onChange={e => {
@@ -153,7 +155,10 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={()=> {
+              setImageURL("")
+              onClose()
+              }}>Cancel</Button>
             <Button colorScheme="blue" ml={3} type="submit">
               Update
             </Button>
