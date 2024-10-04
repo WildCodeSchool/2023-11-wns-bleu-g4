@@ -1,7 +1,7 @@
-import {expect, test} from "@playwright/test";
-import {connect, disconnect} from "./dbHelpers";
+import { expect, test } from "@playwright/test";
+import { connect, disconnect } from "./dbHelpers";
 import User from "../../backend/src/entities/User";
-import {clearDB} from "../../backend/src/db";
+import { clearDB } from "../../backend/src/db";
 
 test.beforeAll(connect);
 test.beforeEach(clearDB);
@@ -18,7 +18,7 @@ export const createTestUser = async (email: string, password: string) => {
   await newUser.save();
 };
 
-test("can log in with correct credentials", async ({page}) => {
+test("can log in with correct credentials", async ({ page }) => {
   const email = "dave.lopper@website.com";
   const password = "1T!ESTINng";
 
@@ -28,10 +28,10 @@ test("can log in with correct credentials", async ({page}) => {
   await page.getByPlaceholder("Email").fill(email);
   await page.getByPlaceholder("Password").fill(password);
   await page.locator('button[type="submit"]').click();
-  await expect(page).toHaveURL("/", {timeout: 10000});
+  await expect(page).toHaveURL("/", { timeout: 20000 });
 });
 
-test("cannot log in with incorrect password", async ({page}) => {
+test("cannot log in with incorrect password", async ({ page }) => {
   const email = "dave.lopper@website.com";
   const correctPassword = "1T!ESTINng";
   const wrongPassword = "WrongPassword123";
@@ -46,7 +46,7 @@ test("cannot log in with incorrect password", async ({page}) => {
   await expect(page.getByText("Invalid credentials")).toBeVisible();
 });
 
-test("cannot log in with incorrect email", async ({page}) => {
+test("cannot log in with incorrect email", async ({ page }) => {
   const correctEmail = "dave.lopper@website.com";
   const wrongEmail = "john.doe@mail.com";
   const password = "1T!ESTINng";

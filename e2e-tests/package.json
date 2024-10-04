@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "tsc --incremental -p tsconfig.json",
-    "test": "npx playwright test --workers=4 -c dist/e2e-tests --trace on",
+    "test": "npx playwright test --workers=2 -c dist/e2e-tests --trace on",
     "test:watch": "npm run test && chokidar 'src/**/*.spec.ts' -c 'npm run test'",
     "test:ui": "npm run pretest && npx playwright test -c dist/e2e-tests --trace on --ui",
     "test:headed": "npm run pretest && npx playwright test -c dist/e2e-tests --trace on --headed",
