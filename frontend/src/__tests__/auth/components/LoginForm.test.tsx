@@ -6,6 +6,10 @@ import { toast } from 'react-toastify';
 import { LoginDocument } from "@/graphql/User/generated/Login.generated";
 import { GraphQLError } from "graphql";
 
+jest.mock('next/router', () => ({
+    useRouter: jest.fn(),
+}));
+
 jest.mock('react-toastify', () => ({
     toast: {
         success: jest.fn(),

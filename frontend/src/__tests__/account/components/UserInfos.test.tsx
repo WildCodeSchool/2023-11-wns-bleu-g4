@@ -4,28 +4,32 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import { User } from "@/features/account/types";
 
+jest.mock('next/router', () => ({
+    useRouter: jest.fn(),
+}));
+
 export const userTest: User = {
-    id       : 1,
-    name     : "Loïc",
+    id: 1,
+    name: "Loïc",
     firstname: "Hernandez",
-    email    : "loic.hernandez@sfr.fr",
-    address  : "14 rue des érables",
-    avatar   : "***",
-    city     : "Merville",
-    country  : "France",
-    phone    : "0102030405",
-    postcode : "31330",
-    role     : "CUSTOMER"
+    email: "loic.hernandez@sfr.fr",
+    address: "14 rue des érables",
+    avatar: "***",
+    city: "Merville",
+    country: "France",
+    phone: "0102030405",
+    postcode: "31330",
+    role: "CUSTOMER"
 }
 
 
 describe("UserInfo", () => {
-      /** Headings */
+    /** Headings */
     describe("Heading address", () => {
         it("should display an address title", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByRole("heading", { level: 2, name: "ADDRESS" })).toBeInTheDocument()
@@ -34,20 +38,20 @@ describe("UserInfo", () => {
     describe("Heading contact", () => {
         it("should display a contact title", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByRole("heading", { level: 2, name: "CONTACT" })).toBeInTheDocument()
         })
     })
 
-      /** User infos */
+    /** User infos */
     describe("City", () => {
         it("should display a city", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByText("Merville")).toBeInTheDocument()
@@ -56,8 +60,8 @@ describe("UserInfo", () => {
     describe("email", () => {
         it("should display an email", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByText("loic.hernandez@sfr.fr")).toBeInTheDocument()
@@ -66,8 +70,8 @@ describe("UserInfo", () => {
     describe("address", () => {
         it("should display an address", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByText("14 rue des érables")).toBeInTheDocument()
@@ -76,8 +80,8 @@ describe("UserInfo", () => {
     describe("country", () => {
         it("should display a country", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByText("France")).toBeInTheDocument()
@@ -86,8 +90,8 @@ describe("UserInfo", () => {
     describe("phone", () => {
         it("should display a phone number", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByText("0102030405")).toBeInTheDocument()
@@ -96,21 +100,21 @@ describe("UserInfo", () => {
     describe("post code", () => {
         it("should display a post code", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByText("31330")).toBeInTheDocument()
         })
     })
-    
-    
-      /** Buttons */
+
+
+    /** Buttons */
     describe("Button Update", () => {
         it("should find update button", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.getByRole("button", { name: "Update" })).toBeInTheDocument()
@@ -119,19 +123,19 @@ describe("UserInfo", () => {
     describe("Wrong Button", () => {
         it("should not find delete account button", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             expect(screen.queryByRole("button", { name: "delete acount" })).not.toBeInTheDocument()
         })
     })
-    
+
     describe("Button Update Modal", () => {
         it("should click and display modal", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             const button: HTMLElement = screen.queryByRole("button", { name: "Update" }) as HTMLElement
@@ -143,8 +147,8 @@ describe("UserInfo", () => {
     describe("Button Delete Modal", () => {
         it("should click and display modal", () => {
             render(
-                <MockedProvider mocks = {[]} addTypename = {false}>
-                <UserInfos      user  = {userTest} />
+                <MockedProvider mocks={[]} addTypename={false}>
+                    <UserInfos user={userTest} />
                 </MockedProvider>
             );
             const button: HTMLElement = screen.queryByRole("button", { name: "Delete Account" }) as HTMLElement

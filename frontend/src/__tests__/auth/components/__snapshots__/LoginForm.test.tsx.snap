@@ -100,11 +100,11 @@ exports[`LoginForm should display a Login Form component 1`] = `
                   </div>
                 </div>
                 <p
-                  class="chakra-text  text-center text-sm py-2 css-0"
+                  class="chakra-text  text-center text-md pt-2 css-0"
                 >
                   <a
-                    class="hover:underline hover:text-orange-500"
-                    href="#"
+                    class="underline text-orange-500 hover:text-orange-400"
+                    href="/sendmailform"
                   >
                     Forgot your password ?
                   </a>
@@ -120,20 +120,21 @@ exports[`LoginForm should display a Login Form component 1`] = `
             >
               <button
                 class="chakra-button w-full css-2g5nhs"
+                name="Login"
                 type="submit"
               >
                 Login
               </button>
               <p
-                class="chakra-text  text-center text-sm py-2 css-1xu3tth"
+                class="chakra-text  text-center text-md py-2 css-1xu3tth"
               >
                 Not yet registered ?
                  
                 <a
-                  class="underline text-orange-500"
+                  class="underline text-orange-500 hover:text-orange-400"
                   href="/signup"
                 >
-                  sign up
+                  Sign up !
                 </a>
               </p>
             </div>
@@ -238,11 +239,11 @@ exports[`LoginForm should display a Login Form component 1`] = `
                 </div>
               </div>
               <p
-                class="chakra-text  text-center text-sm py-2 css-0"
+                class="chakra-text  text-center text-md pt-2 css-0"
               >
                 <a
-                  class="hover:underline hover:text-orange-500"
-                  href="#"
+                  class="underline text-orange-500 hover:text-orange-400"
+                  href="/sendmailform"
                 >
                   Forgot your password ?
                 </a>
@@ -258,20 +259,21 @@ exports[`LoginForm should display a Login Form component 1`] = `
           >
             <button
               class="chakra-button w-full css-2g5nhs"
+              name="Login"
               type="submit"
             >
               Login
             </button>
             <p
-              class="chakra-text  text-center text-sm py-2 css-1xu3tth"
+              class="chakra-text  text-center text-md py-2 css-1xu3tth"
             >
               Not yet registered ?
                
               <a
-                class="underline text-orange-500"
+                class="underline text-orange-500 hover:text-orange-400"
                 href="/signup"
               >
-                sign up
+                Sign up !
               </a>
             </p>
           </div>

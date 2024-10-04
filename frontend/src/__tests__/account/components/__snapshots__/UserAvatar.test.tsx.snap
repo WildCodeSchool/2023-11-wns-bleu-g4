@@ -6,41 +6,7 @@ exports[`UserAvatar should display an avatar component 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="   text-xs    py-3 px-5   h-fit w-full    flex flex-col   lg:flex-row    css-1herxaz"
-      >
-        <div
-          class="css-1ak9hpo"
-        >
-          <span
-            class="chakra-avatar css-1ruhx4w"
-          >
-            <div
-              aria-label="Hernandez Loïc"
-              class="chakra-avatar__initials css-0"
-              role="img"
-            >
-              HL
-            </div>
-          </span>
-          <div
-            class="css-0"
-          >
-            <h2
-              class="chakra-heading css-0"
-            >
-              Hernandez Loïc
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>,
-  "container": <div>
-    <div
-      class="   text-xs    py-3 px-5   h-fit w-full    flex flex-col   lg:flex-row    css-1herxaz"
-    >
-      <div
-        class="css-1ak9hpo"
+        class="   text-md    py-3 px-5   h-fit w-full    flex   rounded overflow-hidden   lg:flex-col lg:h-28   xl:flex-row    css-15pk56x"
       >
         <span
           class="chakra-avatar css-1ruhx4w"
@@ -62,6 +28,32 @@ exports[`UserAvatar should display an avatar component 1`] = `
             Hernandez Loïc
           </h2>
         </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="   text-md    py-3 px-5   h-fit w-full    flex   rounded overflow-hidden   lg:flex-col lg:h-28   xl:flex-row    css-15pk56x"
+    >
+      <span
+        class="chakra-avatar css-1ruhx4w"
+      >
+        <div
+          aria-label="Hernandez Loïc"
+          class="chakra-avatar__initials css-0"
+          role="img"
+        >
+          HL
+        </div>
+      </span>
+      <div
+        class="css-0"
+      >
+        <h2
+          class="chakra-heading css-0"
+        >
+          Hernandez Loïc
+        </h2>
       </div>
     </div>
   </div>,
