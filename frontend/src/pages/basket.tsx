@@ -18,7 +18,7 @@ export default function BasketPage() {
   const { performBookingMutation } = useBookingMutation();
   const { data: profileData } = useProfileQuery();
   const [bookingInProgress, setBookingInProgress] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleBooking = async () => {
     if (!bookingData || bookingData.length === 0) {
@@ -27,7 +27,7 @@ export default function BasketPage() {
     }
 
     if (!profileData || !profileData.profile) {
-      router.push("/login")
+      router.push("/login");
       return;
     }
 
