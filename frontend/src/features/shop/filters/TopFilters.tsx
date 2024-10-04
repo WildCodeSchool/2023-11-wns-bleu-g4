@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { SortProduct } from "@/graphql/generated/schema";
 import { Button, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Flex, Input } from "@chakra-ui/react";
 
@@ -10,11 +10,11 @@ interface TopFiltersProps {
 }
 
 export default function TopFilters({
-                                     selectedSort,
-                                     onSortChange,
-                                     onSearchChange,
-                                     initialSearchQuery = ''
-                                   }: TopFiltersProps) {
+  selectedSort,
+  onSortChange,
+  onSearchChange,
+  initialSearchQuery = "",
+}: TopFiltersProps) {
   const [localSort, setLocalSort] = useState<SortProduct | null>(selectedSort);
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
 
@@ -38,33 +38,33 @@ export default function TopFilters({
   };
 
   const selectedSortText =
-      localSort === SortProduct.Asc ? "Ascending price" : localSort === SortProduct.Desc ? "Descending price" : "";
+    localSort === SortProduct.Asc ? "Ascending price" : localSort === SortProduct.Desc ? "Descending price" : "";
 
   return (
-      <Flex alignItems="center" justifyContent="flex-end" width="100%">
-        <Menu closeOnSelect={true}>
-          <MenuButton as={Button} variant="primaryButton">
-            Sort by {selectedSortText && `: ${selectedSortText}`}
-          </MenuButton>
-          <MenuList minWidth="240px">
-            <MenuOptionGroup defaultValue={localSort ?? "asc"} title="Sort by" type="radio">
-              <MenuItemOption
-                  value={SortProduct.Asc}
-                  onClick={() => handleSortChange(SortProduct.Asc)}
-                  isChecked={localSort === SortProduct.Asc}
-              >
-                Ascending price
-              </MenuItemOption>
-              <MenuItemOption
-                  value={SortProduct.Desc}
-                  onClick={() => handleSortChange(SortProduct.Desc)}
-                  isChecked={localSort === SortProduct.Desc}
-              >
-                Descending price
-              </MenuItemOption>
-            </MenuOptionGroup>
-          </MenuList>
-        </Menu>
-      </Flex>
+    <Flex alignItems="center" justifyContent="flex-end" width="100%">
+      <Menu closeOnSelect={true}>
+        <MenuButton as={Button} variant="primaryButton">
+          Sort by {selectedSortText && `: ${selectedSortText}`}
+        </MenuButton>
+        <MenuList minWidth="240px">
+          <MenuOptionGroup defaultValue={localSort ?? "asc"} title="Sort by" type="radio">
+            <MenuItemOption
+              value={SortProduct.Asc}
+              onClick={() => handleSortChange(SortProduct.Asc)}
+              isChecked={localSort === SortProduct.Asc}
+            >
+              Ascending price
+            </MenuItemOption>
+            <MenuItemOption
+              value={SortProduct.Desc}
+              onClick={() => handleSortChange(SortProduct.Desc)}
+              isChecked={localSort === SortProduct.Desc}
+            >
+              Descending price
+            </MenuItemOption>
+          </MenuOptionGroup>
+        </MenuList>
+      </Menu>
+    </Flex>
   );
 }

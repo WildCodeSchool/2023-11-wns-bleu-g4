@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/router';
+import React, { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/router";
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import Layout from "@/layouts/Layout";
 import ProductGrid from "@/features/shop/product_grid/Productgrid";
@@ -30,11 +30,14 @@ export default function ShopPage() {
     notifyOnNetworkStatusChange: true,
   });
 
-  const updateUrlQuietly = useCallback((newQuery: Record<string, string | number | null>) => {
-    const query = { ...router.query, ...newQuery };
-    Object.keys(query).forEach(key => query[key] === null && delete query[key]);
-    router.push({ pathname: router.pathname, query }, undefined, { shallow: true });
-  }, [router]);
+  const updateUrlQuietly = useCallback(
+    (newQuery: Record<string, string | number | null>) => {
+      const query = { ...router.query, ...newQuery };
+      Object.keys(query).forEach(key => query[key] === null && delete query[key]);
+      router.push({ pathname: router.pathname, query }, undefined, { shallow: true });
+    },
+    [router],
+  );
 
   useEffect(() => {
     const { sortOrder: querySort, page: queryPage, categoryId: queryCategoryId, search: querySearch } = router.query;
@@ -55,31 +58,43 @@ export default function ShopPage() {
     });
   }, [sortOrder, page, selectedCategoryId, searchQuery, refetch]);
 
-  const handleFilterChange = useCallback((categoryId: number | null) => {
-    console.log("Filter changed to:", categoryId);
-    setSelectedCategoryId(categoryId);
-    setPage(0);
-    updateUrlQuietly({ categoryId, page: 1 });
-  }, [updateUrlQuietly]);
+  const handleFilterChange = useCallback(
+    (categoryId: number | null) => {
+      console.log("Filter changed to:", categoryId);
+      setSelectedCategoryId(categoryId);
+      setPage(0);
+      updateUrlQuietly({ categoryId, page: 1 });
+    },
+    [updateUrlQuietly],
+  );
 
-  const handlePageChange = useCallback((newPage: number) => {
-    console.log("Page changed to:", newPage);
-    setPage(newPage);
-    updateUrlQuietly({ page: newPage + 1 });
-  }, [updateUrlQuietly]);
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      console.log("Page changed to:", newPage);
+      setPage(newPage);
+      updateUrlQuietly({ page: newPage + 1 });
+    },
+    [updateUrlQuietly],
+  );
 
-  const handleSortChange = useCallback((newSortOrder: SortProduct | null) => {
-    console.log("Sort changed to:", newSortOrder);
-    setSortOrder(newSortOrder);
-    updateUrlQuietly({ sortOrder: newSortOrder });
-  }, [updateUrlQuietly]);
+  const handleSortChange = useCallback(
+    (newSortOrder: SortProduct | null) => {
+      console.log("Sort changed to:", newSortOrder);
+      setSortOrder(newSortOrder);
+      updateUrlQuietly({ sortOrder: newSortOrder });
+    },
+    [updateUrlQuietly],
+  );
 
-  const handleSearchChange = useCallback((newSearchQuery: string) => {
-    console.log("Search changed to:", newSearchQuery);
-    setSearchQuery(newSearchQuery);
-    setPage(0);
-    updateUrlQuietly({ search: newSearchQuery, page: 1 });
-  }, [updateUrlQuietly]);
+  const handleSearchChange = useCallback(
+    (newSearchQuery: string) => {
+      console.log("Search changed to:", newSearchQuery);
+      setSearchQuery(newSearchQuery);
+      setPage(0);
+      updateUrlQuietly({ search: newSearchQuery, page: 1 });
+    },
+    [updateUrlQuietly],
+  );
 
   if (loading && !data) return <Loading loading={loading} />;
   if (error) return <p>Error: {error.message}</p>;
@@ -89,40 +104,37 @@ export default function ShopPage() {
   const maxPages = Math.ceil(totalProducts / 12);
 
   return (
-      <Layout pageTitle="Shop">
-        <Grid
-            templateAreas={
-              isMobile
-                  ? `"topFilter" "Filter" "ProductGrid" "Pagination"`
-                  : `"topFilter topFilter" "Filter ProductGrid" "Filter Pagination"`
-            }
-            gridTemplateRows={isMobile ? "auto auto 1fr auto" : "50px 1fr 30px"}
-            gridTemplateColumns={isMobile ? "1fr" : "1fr 4fr"}
-            gap="10"
-            fontWeight="bold"
-            className="px-5 lg:px-24"
-        >
-          <GridItem area={"topFilter"} display="flex" justifyContent="flex-end">
-            <TopFilters
-                selectedSort={sortOrder}
-                onSortChange={handleSortChange}
-                onSearchChange={handleSearchChange}
-                initialSearchQuery={searchQuery}
-            />
-          </GridItem>
-          <GridItem area={"Filter"} top={0}>
-            <ProductFilter
-                onFilterChange={handleFilterChange}
-                selectedCategoryId={selectedCategoryId}
-            />
-          </GridItem>
-          <GridItem area={"ProductGrid"}>
-            <ProductGrid products={products} loading={loading} />
-          </GridItem>
-          <GridItem area={"Pagination"}>
-            <Pagination setPage={handlePageChange} page={page} maxPages={maxPages} />
-          </GridItem>
-        </Grid>
-      </Layout>
+    <Layout pageTitle="Shop">
+      <Grid
+        templateAreas={
+          isMobile
+            ? `"topFilter" "Filter" "ProductGrid" "Pagination"`
+            : `"topFilter topFilter" "Filter ProductGrid" "Filter Pagination"`
+        }
+        gridTemplateRows={isMobile ? "auto auto 1fr auto" : "50px 1fr 30px"}
+        gridTemplateColumns={isMobile ? "1fr" : "1fr 4fr"}
+        gap="10"
+        fontWeight="bold"
+        className="px-5 lg:px-24"
+      >
+        <GridItem area={"topFilter"} display="flex" justifyContent="flex-end">
+          <TopFilters
+            selectedSort={sortOrder}
+            onSortChange={handleSortChange}
+            onSearchChange={handleSearchChange}
+            initialSearchQuery={searchQuery}
+          />
+        </GridItem>
+        <GridItem area={"Filter"} top={0}>
+          <ProductFilter onFilterChange={handleFilterChange} selectedCategoryId={selectedCategoryId} />
+        </GridItem>
+        <GridItem area={"ProductGrid"}>
+          <ProductGrid products={products} loading={loading} />
+        </GridItem>
+        <GridItem area={"Pagination"}>
+          <Pagination setPage={handlePageChange} page={page} maxPages={maxPages} />
+        </GridItem>
+      </Grid>
+    </Layout>
   );
 }
