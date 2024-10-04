@@ -3,18 +3,21 @@ import { Checkbox, Flex, Stack, Text } from "@chakra-ui/react";
 import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
 
 interface ProductFilterProps {
-    onFilterChange: (categoryId: number | null) => void;
+    onFilterChange?: (categoryId: number | null) => void;
+    selectedCategoryId?: number | null;
 }
 
-const ProductFilter: React.FC<ProductFilterProps> = ({ onFilterChange }) => {
-    const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+const ProductFilter: React.FC<ProductFilterProps> = ({ onFilterChange, selectedCategoryId: initialSelectedCategoryId }) => {
+    const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(initialSelectedCategoryId || null);
 
     const { loading, error, data } = useGetAllCategoriesQuery();
 
     const handleCategoryChange = (categoryId: number) => {
         const newCategoryId = selectedCategoryId === categoryId ? null : categoryId;
         setSelectedCategoryId(newCategoryId);
-        onFilterChange(newCategoryId);
+        if (onFilterChange) {
+            onFilterChange(newCategoryId);
+        }
     };
 
     if (loading) return <p>Loading categories...</p>;

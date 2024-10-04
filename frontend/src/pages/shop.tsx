@@ -19,15 +19,6 @@ export default function ShopPage() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
-  useEffect(() => {
-    const { sortOrder: querySort, page: queryPage, categoryId: queryCategoryId, search: querySearch } = router.query;
-
-    setSortOrder(querySort as SortProduct | null);
-    setPage(queryPage ? parseInt(queryPage as string, 10) - 1 : 0);
-    setSelectedCategoryId(queryCategoryId ? parseInt(queryCategoryId as string, 10) : null);
-    setSearchQuery(querySearch as string | undefined);
-  }, []);
-
   const { data, error, loading, refetch } = useGetAllProductsQuery({
     variables: {
       sortOrder,
@@ -36,6 +27,7 @@ export default function ShopPage() {
       name: searchQuery,
       categoryId: selectedCategoryId,
     },
+    notifyOnNetworkStatusChange: true,
   });
 
   const updateUrlQuietly = useCallback((newQuery: Record<string, string | number | null>) => {
@@ -44,21 +36,14 @@ export default function ShopPage() {
     router.push({ pathname: router.pathname, query }, undefined, { shallow: true });
   }, [router]);
 
-  const handleFilterChange = useCallback((categoryId: number | null) => {
-    setSelectedCategoryId(categoryId);
-    setPage(0);
-    updateUrlQuietly({ categoryId, page: 1 });
-  }, [updateUrlQuietly]);
+  useEffect(() => {
+    const { sortOrder: querySort, page: queryPage, categoryId: queryCategoryId, search: querySearch } = router.query;
 
-  const handlePageChange = useCallback((newPage: number) => {
-    setPage(newPage);
-    updateUrlQuietly({ page: newPage + 1 });
-  }, [updateUrlQuietly]);
-
-  const handleSortChange = useCallback((newSortOrder: SortProduct | null) => {
-    setSortOrder(newSortOrder);
-    updateUrlQuietly({ sortOrder: newSortOrder });
-  }, [updateUrlQuietly]);
+    setSortOrder(querySort as SortProduct | null);
+    setPage(queryPage ? parseInt(queryPage as string, 10) - 1 : 0);
+    setSelectedCategoryId(queryCategoryId ? parseInt(queryCategoryId as string, 10) : null);
+    setSearchQuery(querySearch as string | undefined);
+  }, [router.query]);
 
   useEffect(() => {
     refetch({
@@ -70,7 +55,33 @@ export default function ShopPage() {
     });
   }, [sortOrder, page, selectedCategoryId, searchQuery, refetch]);
 
-  if (loading) return <Loading loading={loading} />;
+  const handleFilterChange = useCallback((categoryId: number | null) => {
+    console.log("Filter changed to:", categoryId);
+    setSelectedCategoryId(categoryId);
+    setPage(0);
+    updateUrlQuietly({ categoryId, page: 1 });
+  }, [updateUrlQuietly]);
+
+  const handlePageChange = useCallback((newPage: number) => {
+    console.log("Page changed to:", newPage);
+    setPage(newPage);
+    updateUrlQuietly({ page: newPage + 1 });
+  }, [updateUrlQuietly]);
+
+  const handleSortChange = useCallback((newSortOrder: SortProduct | null) => {
+    console.log("Sort changed to:", newSortOrder);
+    setSortOrder(newSortOrder);
+    updateUrlQuietly({ sortOrder: newSortOrder });
+  }, [updateUrlQuietly]);
+
+  const handleSearchChange = useCallback((newSearchQuery: string) => {
+    console.log("Search changed to:", newSearchQuery);
+    setSearchQuery(newSearchQuery);
+    setPage(0);
+    updateUrlQuietly({ search: newSearchQuery, page: 1 });
+  }, [updateUrlQuietly]);
+
+  if (loading && !data) return <Loading loading={loading} />;
   if (error) return <p>Error: {error.message}</p>;
 
   const products = data?.getAllProducts.products || [];
@@ -78,7 +89,7 @@ export default function ShopPage() {
   const maxPages = Math.ceil(totalProducts / 12);
 
   return (
-      <Layout pageTitle="ProductByCategory">
+      <Layout pageTitle="Shop">
         <Grid
             templateAreas={
               isMobile
@@ -92,10 +103,18 @@ export default function ShopPage() {
             className="px-5 lg:px-24"
         >
           <GridItem area={"topFilter"} display="flex" justifyContent="flex-end">
-            <TopFilters selectedSort={sortOrder} onSortChange={handleSortChange} />
+            <TopFilters
+                selectedSort={sortOrder}
+                onSortChange={handleSortChange}
+                onSearchChange={handleSearchChange}
+                initialSearchQuery={searchQuery}
+            />
           </GridItem>
           <GridItem area={"Filter"} top={0}>
-            <ProductFilter onFilterChange={handleFilterChange} />
+            <ProductFilter
+                onFilterChange={handleFilterChange}
+                selectedCategoryId={selectedCategoryId}
+            />
           </GridItem>
           <GridItem area={"ProductGrid"}>
             <ProductGrid products={products} loading={loading} />
