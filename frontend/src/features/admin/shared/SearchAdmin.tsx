@@ -57,7 +57,7 @@ export default function SearchAdmin({ placeholder = "Search...", paramName = "se
         placeholder={placeholder}
         value={searchTerm}
         onChange={handleChange}
-        className="p-2 border border-gray-200 dark:border-gray-600 rounded relative pl-10 w-72"
+        className="p-2 border border-gray-400 rounded relative pl-10 w-72"
       />
       <MagnifyingGlassIcon className="h-6 w-6 text-gray-400 ml-2 absolute" />
     </form>
