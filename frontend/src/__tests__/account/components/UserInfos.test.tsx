@@ -8,7 +8,7 @@ jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
 
-export const userTest: User = {
+const userTest: User = {
   id: 1,
   name: "Loïc",
   firstname: "Hernandez",

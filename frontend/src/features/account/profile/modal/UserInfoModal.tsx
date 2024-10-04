@@ -142,7 +142,7 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
                 </Box> */}
 
               <FormLabel mb={1}>Avatar</FormLabel>
-              <img src={imageURL} className="rounded-lg w-28 mb-2" />
+              <img src={imageURL} className="rounded-lg w-28 mb-2" alt="" />
               <input
                 type="file"
                 onChange={e => {

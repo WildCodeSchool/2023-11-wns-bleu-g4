@@ -3,7 +3,7 @@ import UserAvatar from "../../../features/account/profile/components/UserAvatar"
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
-export const userTest: User = {
+const userTest: User = {
   id: 1,
   name: "Loïc",
   firstname: "Hernandez",
