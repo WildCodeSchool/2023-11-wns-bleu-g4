@@ -255,7 +255,7 @@ async function main() {
 			category: category,
 			brand: await getOrCreateBrand(productData.brand),
 			characteristics: characteristicObjects,
-			ref : generateRef()
+			ref: generateRef(),
 		})
 
 		await product.save()
