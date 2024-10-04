@@ -14,7 +14,7 @@ export default function LayoutAdmin({ children, pageTitle }: LayoutProps) {
       <Head>
         <title>GearGo - {pageTitle}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/geargo.ico" />
       </Head>
       <div className="flex min-h-[100vh]">
         <SidebarProvider>

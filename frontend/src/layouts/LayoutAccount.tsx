@@ -19,7 +19,7 @@ export default function LayoutAccount({ children, pageTitle }: LayoutProps) {
           content="Explore the great outdoors with our wide range of equipments of our rental platform. Find hiking material, bikes, surf boards, and more. Get active and enjoy nature!"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/geargo.ico" />
       </Head>
       <header>
         <Navbar />

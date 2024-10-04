@@ -20,7 +20,7 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
           Find hiking material, bikes, surf boards, and more. Get active and enjoy nature!"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/geargo.ico" />
       </Head>
       <header>
         <Navbar />
