@@ -110,7 +110,7 @@ jobs:
       # Start your application using the .env file
       - name: Start app
         run: |
-          npm run app:start & sleep 120
+          npm run app:start & sleep 90
 
       # Run Playwright tests
       - name: Run Playwright tests
