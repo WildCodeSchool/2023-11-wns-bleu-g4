@@ -112,10 +112,11 @@ export default function ProductStockTableBody({ data, refetch }: TableBodyProps)
                         onClick={() => handleProductCodeAgenceDetails(aggregatedData.agency?.id!)}
                       >
                         <ChevronDownIcon
-                          className={`h-5 w-5 text-white ${openProductCodeAgenceId === aggregatedData.agency.id
-                            ? "transform duration-150 rotate-180"
-                            : "transform duration-150 rotate-0"
-                            }`}
+                          className={`h-5 w-5 text-white ${
+                            openProductCodeAgenceId === aggregatedData.agency.id
+                              ? "transform duration-150 rotate-180"
+                              : "transform duration-150 rotate-0"
+                          }`}
                         />
                       </button>
                       <button

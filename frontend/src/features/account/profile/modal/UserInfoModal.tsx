@@ -155,10 +155,14 @@ export default function UserInfoModal({ isOpen, onClose, user }: UserModalProps)
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={()=> {
-              setImageURL("")
-              onClose()
-              }}>Cancel</Button>
+            <Button
+              onClick={() => {
+                setImageURL("");
+                onClose();
+              }}
+            >
+              Cancel
+            </Button>
             <Button colorScheme="blue" ml={3} type="submit">
               Update
             </Button>

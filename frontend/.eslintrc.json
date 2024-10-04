@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "next"
-  ],
+  "extends": ["next"],
   "rules": {
     "@next/next/no-img-element": "off",
     "react-hooks/exhaustive-deps": "off",
@@ -20,10 +18,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "src/pages/**/*.js",
-        "src/pages/**/*.tsx"
-      ],
+      "files": ["src/pages/**/*.js", "src/pages/**/*.tsx"],
       "rules": {
         "import/no-unused-modules": "off"
       }

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unused-modules */
-import type {NextRequest} from "next/server";
-import {NextResponse} from "next/server";
-import {jwtVerify} from "jose";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { jwtVerify } from "jose";
 
 const JWT_PRIVATE_KEY = new TextEncoder().encode(process.env.JWT_PRIVATE_KEY || "");
 
