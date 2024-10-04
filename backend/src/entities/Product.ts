@@ -45,7 +45,7 @@ export class Product extends BaseEntity {
 	@Field()
 	thumbnail: string
 
-	@Column()
+	@Column({ nullable: true })
 	@Field()
 	ref: string
 
@@ -54,8 +54,6 @@ export class Product extends BaseEntity {
 		const shortUuid = uuidv5(uuidv4(), NAMESPACE).replace(/-/g, "").substring(0, 8).toUpperCase()
 		this.ref = `REF-${shortUuid}`
 	}
-
-	// Relations
 
 	@ManyToOne(() => Category, (category) => category.products, { cascade: true, onDelete: "CASCADE", nullable: true })
 	@Field(() => Category)
