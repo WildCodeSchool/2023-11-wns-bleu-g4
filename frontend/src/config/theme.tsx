@@ -1,13 +1,13 @@
 /* theme.ts */
-import { modalTheme } from "@/features/admin/ui/Modal";
-import { accordionTheme } from "@/shared/components/ui/Accordion";
-import { buttonTheme } from "@/shared/components/ui/Button";
-import { cardTheme } from "@/shared/components/ui/Card";
-import { drawerTheme } from "@/shared/components/ui/Drawer";
+import {modalTheme} from "@/features/admin/ui/Modal";
+import {accordionTheme} from "@/shared/components/ui/Accordion";
+import {buttonTheme} from "@/shared/components/ui/Button";
+import {cardTheme} from "@/shared/components/ui/Card";
+import {drawerTheme} from "@/shared/components/ui/Drawer";
 
-import { switchTheme } from "@/shared/components/ui/Switch";
-import { extendTheme } from "@chakra-ui/react";
-import { darken, lighten } from "polished";
+import {switchTheme} from "@/shared/components/ui/Switch";
+import {extendTheme} from "@chakra-ui/react";
+import {darken, lighten} from "polished";
 
 export const theme = extendTheme({
   components: {
@@ -81,13 +81,21 @@ export const theme = extendTheme({
     secondaryDarkThemeDark: darken(0.1, "#91B195"),
 
     // Table User
-    tableHeaderLight:"#d0d2d6",
+    tableHeaderLight: "#d0d2d6",
   },
   styles: {
     global: (props: any) => ({
       "html, body": {
+        height: { base: "auto", xl: "100vh" },
+        margin: 0,
+        overflow: { base: "auto", xl: "hidden" },
         color: props.colorMode === "dark" ? "light" : "dark",
-        bg: props.colorMode === "dark" ? "bgDark" : "BgLight",
+        bg: props.colorMode === "dark" ? "bgDark" : "bgLight",
+      },
+      main: {
+        height: { base: "auto", xl: "calc(100vh - 64px - 32px)" },
+        minHeight: { base: "auto", xl: "calc(100vh - 64px - 32px)" },
+        overflowY: "auto",
       },
     }),
   },

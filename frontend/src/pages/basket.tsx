@@ -1,28 +1,33 @@
-import {useBookingData} from "@/context/BookingDataContext";
-import {useProductContext} from "@/context/ProductPageContext";
-import {useBookingMutation} from "@/features/product/detailsComponent/useBookingMutation";
-import {useProfileQuery} from "@/graphql/User/generated/Profile.generated";
+import { useBookingData } from "@/context/BookingDataContext";
+import { useProductContext } from "@/context/ProductPageContext";
+import { useBookingMutation } from "@/features/product/detailsComponent/useBookingMutation";
+import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import Layout from "@/layouts/Layout";
-import {Box, Button, Divider, Flex, Image, Text} from "@chakra-ui/react";
-import {useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
+import { Box, Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export default function BasketPage() {
-  const {t} = useTranslation("BasketPage");
-  const {bookingData, removeBookingData} = useBookingData();
-  const {state: {agencies}} = useProductContext();
-  const {performBookingMutation} = useBookingMutation();
-  const {data: profileData} = useProfileQuery();
+  const { t } = useTranslation("BasketPage");
+  const { bookingData, removeBookingData } = useBookingData();
+  const {
+    state: { agencies },
+  } = useProductContext();
+  const { performBookingMutation } = useBookingMutation();
+  const { data: profileData } = useProfileQuery();
   const [bookingInProgress, setBookingInProgress] = useState(false);
+  const router = useRouter()
 
   const handleBooking = async () => {
     if (!bookingData || bookingData.length === 0) {
-      console.error("Le panier est vide.");
+      toast.error("Your basket is empty.");
       return;
     }
 
     if (!profileData || !profileData.profile) {
-      console.error("Utilisateur non connecté.");
+      router.push("/login")
       return;
     }
 
@@ -47,14 +52,14 @@ export default function BasketPage() {
 
       bookingData.forEach((_, index) => removeBookingData(index));
     } catch (error) {
-      console.error("Erreur lors de la réservation", error);
+      toast.error("An error occured while booking");
     } finally {
       setBookingInProgress(false);
     }
   };
 
   useEffect(() => {
-    console.log("bookingData:", bookingData);
+    // console.log("bookingData:", bookingData);
   }, [bookingData]);
 
   return (
@@ -62,15 +67,14 @@ export default function BasketPage() {
       {bookingData && bookingData.length > 0 ? (
         <>
           {bookingData.map((data, index) => {
-            const {product, selectedAgency, selectedSize, quantity, startDate, endDate, totalPrice} = data;
+            const { product, selectedAgency, selectedSize, quantity, startDate, endDate, totalPrice } = data;
             const agency = agencies.find(a => a.id === selectedAgency);
 
             return (
               <Box className="px-5 lg:px-24" key={index} mb={4}>
                 <Flex align="center" justifyContent="space-between">
-                  {product && <Image w={100} src={product.thumbnail} alt={product.name}/>}
-                  <Flex align="center" justifyContent="space-around" w="100%" fontSize={18}
-                        fontWeight={500}>
+                  {product && <Image w={100} src={product.thumbnail} alt={product.name} />}
+                  <Flex align="center" justifyContent="space-around" w="100%" fontSize={18} fontWeight={500}>
                     <Flex flexDirection="column">
                       {product && (
                         <Text>
@@ -118,7 +122,7 @@ export default function BasketPage() {
                     </Flex>
                   </Flex>
                 </Flex>
-                <Divider mt={4}/>
+                <Divider mt={4} />
               </Box>
             );
           })}
@@ -134,5 +138,3 @@ export default function BasketPage() {
     </Layout>
   );
 }
-
-

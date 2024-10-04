@@ -17,14 +17,14 @@ export default function Products() {
   const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const searchTerm = query.search ? query.search as string : '';
+  const searchTerm = query.search ? (query.search as string) : "";
 
   const { data, refetch, loading } = useGetAllProductsQuery({
     variables: {
       limit: 14,
       offset: currentPage * 14,
       name: searchTerm,
-    }
+    },
   });
   const products = data?.getAllProducts.products ?? [];
   const totalProducts = data?.getAllProducts.total ?? 0;
@@ -38,7 +38,7 @@ export default function Products() {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     const nextPage = pageNumber + 1;
-    const searchParam = searchTerm ? `&search=${searchTerm}` : '';
+    const searchParam = searchTerm ? `&search=${searchTerm}` : "";
     router.push(`/admin/products?page=${nextPage}${searchParam}`);
   };
 
@@ -62,13 +62,13 @@ export default function Products() {
           <SearchAdmin />
         </div>
       </div>
-      {isCreateModalOpen &&
+      {isCreateModalOpen && (
         <ProductCreateModal
           isOpen={isCreateModalOpen}
           onClose={() => setIsCreateModalOpen(!isCreateModalOpen)}
           refetch={refetch}
         />
-      }
+      )}
       <div className="overflow-x-auto">
         <ProductTableBody data={products} refetch={refetch} loading={loading} />
       </div>

@@ -86,7 +86,7 @@ Of course, no one template will serve all projects since your needs may be diffe
 
 ### Built With
 
-<img src="https://skillicons.dev/icons?i=html,css,next,ts,tailwind,docker,nodejs,graphql,express&theme=dark" />
+<img src="https://skillicons.dev/icons?i=html,css,next,ts,tailwind,postgres,nodejs,express,graphql,apollo,docker&theme=dark" />
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -100,20 +100,34 @@ To get a local copy up and running follow these simple example steps.
 
 Make sure to have NodeJS on your machine and it's up to date, you can do so with the following.
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+1. NPM
+
+   ```sh
+   npm install npm@latest -g
+   ```
+
+2. Clone the repo
+
+   ```sh
+   git clone https://github.com/WildCodeSchool/2023-11-wns-bleu-g4
+   ```
 
 ### Installation
 
 _Below is a step by step series of tasks that will help you on installing and setting up your app_
 
-1. Clone the repo
+1. Start the project in 1 command
+
    ```sh
-   git clone https://github.com/Arkantik/next-template.git
+   ## At the root
+   npm run dev
    ```
-2. Install NPM packages
+
+_This will install and run the backend, database, upload and the frontend modules all at once with docker._
+
+OR
+
+1. Install NPM packages
 
    ```sh
    ## For the frontend
@@ -123,9 +137,17 @@ _Below is a step by step series of tasks that will help you on installing and se
    ## For the backend
    cd backend
    npm install
+
+   ## For the upload
+   cd upload
+   npm install
+
+   ## For the tests
+   cd e2e-tests
+   npm install
    ```
 
-3. Start your project
+2. Or start the back & front only
 
    ```sh
    ## For the frontend

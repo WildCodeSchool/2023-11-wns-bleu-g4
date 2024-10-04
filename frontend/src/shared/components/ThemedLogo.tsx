@@ -1,4 +1,4 @@
-import {useColorModeValue, useMediaQuery} from "@chakra-ui/react";
+import { useColorModeValue, useMediaQuery } from "@chakra-ui/react";
 import Image from "next/image";
 import DarkLogo from "/public/svg/darkLogo.svg";
 import darkMobileLogo from "/public/svg/darkMobileLogo.svg";
@@ -14,7 +14,7 @@ interface ThemedLogoProps {
   alt?: string;
 }
 
-export default function ThemedLogo({type = "default"}: ThemedLogoProps) {
+export default function ThemedLogo({ type = "default" }: ThemedLogoProps) {
   const [isMobile] = useMediaQuery("(max-width: 767px)");
   const alt = "";
 
@@ -33,5 +33,5 @@ export default function ThemedLogo({type = "default"}: ThemedLogoProps) {
     selectedLogo = instagram;
   }
 
-  return <Image src={selectedLogo} alt={alt} priority/>;
+  return <Image src={selectedLogo} alt={alt} priority />;
 }

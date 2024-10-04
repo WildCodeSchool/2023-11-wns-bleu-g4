@@ -74,10 +74,7 @@ class BookingItemResolver {
 
 	@Authorized()
 	@Mutation(() => String)
-	async cancelBookingItems(
-		@Arg("bookingItemIds", () => [Int]) bookingItemIds: number[],
-		@Ctx() ctx: Context) {
-
+	async cancelBookingItems(@Arg("bookingItemIds", () => [Int]) bookingItemIds: number[], @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
 		for (let index = 0; index < bookingItemIds.length; index++) {
@@ -93,4 +90,4 @@ class BookingItemResolver {
 	}
 }
 
-export default BookingItemResolver;
+export default BookingItemResolver

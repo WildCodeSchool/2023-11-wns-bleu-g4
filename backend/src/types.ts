@@ -126,4 +126,3 @@ export class ProductCodeList {
 	@Field(() => Int)
 	total: number
 }
-

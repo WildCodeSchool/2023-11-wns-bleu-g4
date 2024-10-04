@@ -88,7 +88,7 @@ export default function ProductUpdateModal({ isOpen, onClose, product }: Product
       await updateProduct({
         variables: { data: productData, productId },
         refetchQueries: [{ query: GetProductByIdDocument, variables: { productId } }],
-      }).then(onClose)
+      }).then(onClose);
       toast.success(t("Product updated successfully"));
     } catch (e) {
       toast.error(error?.message);

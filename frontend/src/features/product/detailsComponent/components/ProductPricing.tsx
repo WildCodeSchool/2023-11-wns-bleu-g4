@@ -1,14 +1,14 @@
-import {useProductContext} from "@/context/ProductPageContext";
-import {Box, Button, Flex, HStack, Text, useNumberInput} from "@chakra-ui/react";
-import {useTranslation} from "react-i18next";
-import {useEffect} from "react";
+import { useProductContext } from "@/context/ProductPageContext";
+import { Box, Button, Flex, HStack, Text, useNumberInput } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 export default function ProductPricing() {
-  const {t} = useTranslation("productDetails");
-  const {state, setState} = useProductContext();
-  const {selectedProduct, startDate, endDate, quantity, totalPrice} = state;
+  const { t } = useTranslation("productDetails");
+  const { state, setState } = useProductContext();
+  const { selectedProduct, startDate, endDate, quantity, totalPrice } = state;
 
-  const {getIncrementButtonProps, getDecrementButtonProps} = useNumberInput({
+  const { getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
     value: quantity,
     min: 0,
     max: 10,

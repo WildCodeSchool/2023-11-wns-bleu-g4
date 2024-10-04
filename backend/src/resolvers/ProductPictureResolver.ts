@@ -21,7 +21,6 @@ class ProductPictureResolver {
 	@Mutation(() => Product_picture)
 	async createProduct_picture(@Arg("data", { validate: true }) data: NewProduct_pictureInput, @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
-
 		if (ctx.currentUser.role !== UserRole.ADMIN) throw new GraphQLError("Not authorized")
 
 		const product = await Product.findOne({ where: { id: data.productId.id } })
@@ -30,7 +29,7 @@ class ProductPictureResolver {
 		}
 		const newProduct_picture = new Product_picture()
 		newProduct_picture.thumbnail = data.thumbnail
-		newProduct_picture.alt = data.alt ?? ''
+		newProduct_picture.alt = data.alt ?? ""
 		newProduct_picture.product = product
 
 		return newProduct_picture.save()

@@ -26,13 +26,7 @@ import { Status } from "@/graphql/generated/schema";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
-export default function ProductStockModal({
-  isOpen,
-  onClose,
-  agency,
-  product,
-  refetch
-}: ProductCodeModalProps) {
+export default function ProductStockModal({ isOpen, onClose, agency, product, refetch }: ProductCodeModalProps) {
   const { t } = useTranslation("ProductStockModal");
   const agencyId = agency?.id!;
   const productId = product?.id!;
@@ -67,8 +61,8 @@ export default function ProductStockModal({
 
     try {
       await createProductCode({
-        variables: { quantity: quantity, data: newProductCode }
-      }).then(onClose)
+        variables: { quantity: quantity, data: newProductCode },
+      }).then(onClose);
       refetch && refetch();
       toast.success(t("Product code added successfully"));
     } catch (e) {
@@ -90,9 +84,13 @@ export default function ProductStockModal({
                 <FormLabel mb={1} id="stock">
                   Quantity
                 </FormLabel>
-                <NumberInput allowMouseWheel min={0} step={1}
+                <NumberInput
+                  allowMouseWheel
+                  min={0}
+                  step={1}
                   value={quantity}
-                  onChange={(valueString) => setQuantity(parseInt(valueString, 10))}>
+                  onChange={valueString => setQuantity(parseInt(valueString, 10))}
+                >
                   <NumberInputField placeholder="5" />
                   <NumberInputStepper>
                     <NumberIncrementStepper />

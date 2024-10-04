@@ -1,13 +1,14 @@
-import {Box, Card, Flex, IconButton, Image, Text} from "@chakra-ui/react";
-import {ChatBubbleLeftEllipsisIcon, StarIcon as OutlineStarIcon, ShoppingCartIcon} from "@heroicons/react/24/outline";
-import {StarIcon as SolidStarIcon} from "@heroicons/react/24/solid";
-import {useRouter} from "next/router";
+import React from "react";
+import { Box, Card, Flex, IconButton, Image, Text } from "@chakra-ui/react";
+import { ChatBubbleLeftEllipsisIcon, StarIcon as OutlineStarIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { StarIcon as SolidStarIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 
 interface ProductCardProps {
   product: any;
 }
 
-export default function ProductCard({product}: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
 
   const handleCardClick = () => {
@@ -23,35 +24,28 @@ export default function ProductCard({product}: ProductCardProps) {
   return (
     <Card
       variant="productCard"
-      p="4"
+      p={[4, 6]}
       bg="white"
       borderRadius="lg"
-      boxShadow='lg'
+      boxShadow="lg"
       overflow="hidden"
       onClick={handleCardClick}
       cursor="pointer"
-      w="250px"
-      h="380px"
-      padding="40px"
+      w={["full", "250px"]}
+      h={["auto", "380px"]}
       justifyContent="space-around"
       _hover={{
-        boxShadow: 'dark-lg',
-        border: 'none',
-        transition: '0.6s'
+        boxShadow: "dark-lg",
+        border: "none",
+        transition: "0.6s",
       }}
     >
       <Flex justifyContent="center" alignItems="center">
-        <Image src={product.thumbnail} alt={product.name} width="100%"/>
+        <Image src={product.thumbnail} alt={product.name} width="100%" objectFit="cover" />
       </Flex>
       <Box>
         <Box alignItems="baseline">
-          <Text
-            mt="1"
-            fontWeight="semibold"
-            as="h4"
-            lineHeight="tight"
-            isTruncated
-          >
+          <Text mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
             {product.name}
           </Text>
         </Box>
@@ -63,14 +57,14 @@ export default function ProductCard({product}: ProductCardProps) {
             .map((_, i) => (
               <div key={i}>
                 {i < averageRating ? (
-                  <SolidStarIcon className="h-5 w-5 text-yellow-500"/>
+                  <SolidStarIcon className="h-5 w-5 text-yellow-500" />
                 ) : (
-                  <OutlineStarIcon className="h-5 w-5 text-gray-300"/>
+                  <OutlineStarIcon className="h-5 w-5 text-gray-300" />
                 )}
               </div>
             ))}
           <Flex as="span" ml="2" fontSize="sm" alignItems="center">
-            <ChatBubbleLeftEllipsisIcon className="h-5 w-5 mr-2"/>
+            <ChatBubbleLeftEllipsisIcon className="h-5 w-5 mr-2" />
             {totalReviews}
           </Flex>
         </Flex>
@@ -82,7 +76,7 @@ export default function ProductCard({product}: ProductCardProps) {
               / Day
             </Box>
           </Box>
-          <IconButton variant="accentButton" aria-label="shopping cart" icon={<ShoppingCartIcon width="24"/>}/>
+          <IconButton variant="accentButton" aria-label="shopping cart" icon={<ShoppingCartIcon width="24" />} />
         </Flex>
       </Box>
     </Card>

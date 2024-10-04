@@ -30,7 +30,7 @@ export default function Categories() {
           <Tab>Categories</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel className="flex flex-col items-end gap-4">
+          <TabPanel paddingX={0} className="flex flex-col items-end gap-4">
             <button
               type="button"
               className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
@@ -47,7 +47,7 @@ export default function Categories() {
             )}
             <ParentCategoryTableBody data={parentCategories} loading={parentCategoriesLoading} />
           </TabPanel>
-          <TabPanel className="flex flex-col items-end gap-4">
+          <TabPanel paddingX={0} className="flex flex-col items-end gap-4">
             <button
               type="button"
               className="flex gap-2 items-center bg-accent font-semibold rounded-md text-white px-3 py-1"
@@ -57,10 +57,7 @@ export default function Categories() {
               Add Category
             </button>
             {createCategoryModalOpen && (
-              <CategoryCreateModal
-                isOpen={createCategoryModalOpen}
-                onClose={toggleCreateCategoryModal}
-              />
+              <CategoryCreateModal isOpen={createCategoryModalOpen} onClose={toggleCreateCategoryModal} />
             )}
             <CategoryTableBody data={categories} loading={categoriesLoading} />
           </TabPanel>

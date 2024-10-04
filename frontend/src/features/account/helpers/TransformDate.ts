@@ -5,7 +5,7 @@ export default function transformToDate(dateToTransform: string | Date, locale?:
     day  : 'numeric',
   };
 
-  const newDate = new Date(dateToTransform)
-  
-  return newDate.toLocaleDateString(locale, options)
+  const newDate = new Date(dateToTransform);
+
+  return newDate.toLocaleDateString(locale, options);
 }

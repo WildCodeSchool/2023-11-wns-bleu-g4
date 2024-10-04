@@ -19,10 +19,6 @@
     width: 10px;
 }
 
-*::-webkit-scrollbar-track {
-    background: theme("colors.cactus.950");
-}
-
 *::-webkit-scrollbar-thumb {
     background-color: theme("colors.accent");
     border-radius: 1rem;
@@ -85,7 +81,10 @@
 }
 
 /* Header Styles */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: theme("fontFamily.header"), serif;
 }
 
@@ -113,7 +112,6 @@ h4 {
     -webkit-margin-start: 0 !important;
     margin-inline-start: 0 !important;
 }
-
 
 [data-theme="dark"] .rdp,
 .dark .rdp {

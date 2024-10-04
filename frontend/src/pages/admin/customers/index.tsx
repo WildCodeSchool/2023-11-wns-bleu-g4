@@ -14,7 +14,7 @@ export default function Customers() {
   const { query } = router;
   const initialPage = query.page ? parseInt(query.page as string, 10) - 1 : 0;
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const searchTerm = query.search ? query.search as string : '';
+  const searchTerm = query.search ? (query.search as string) : "";
 
   const { data, loading } = useGetAllUsersQuery({
     variables: {
@@ -23,7 +23,7 @@ export default function Customers() {
       email: searchTerm,
       firstname: searchTerm,
       name: searchTerm,
-    }
+    },
   });
   const users = data?.getAllUsers.users ?? [];
   const totalUsers = data?.getAllUsers.total ?? 0;
@@ -35,7 +35,7 @@ export default function Customers() {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     const nextPage = pageNumber + 1;
-    const searchParam = searchTerm ? `&search=${searchTerm}` : '';
+    const searchParam = searchTerm ? `&search=${searchTerm}` : "";
     router.push(`/admin/customers?page=${nextPage}${searchParam}`);
   };
 

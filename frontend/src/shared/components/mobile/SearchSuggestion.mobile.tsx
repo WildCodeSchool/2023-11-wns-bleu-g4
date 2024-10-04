@@ -10,32 +10,31 @@ export default function SearchSuggestionsMobile({ suggestions, onSuggestionClick
   return (
     <Box width="auto" mt={4}>
       {suggestions.length > 0 && (
-          <List>
-            {suggestions.map((product) => (
-                <ListItem
-                    key={product.id}
-                    px={4}
-                    py={2}
-                    _hover={{backgroundColor: "gray.100"}}
-                    cursor="pointer"
-                    onClick={() => onSuggestionClick(product.id)}
-                >
-                  <Flex align="center">
-                    <Image
-                        src={product.thumbnail}
-                        alt={product.name}
-                        boxSize="50px"
-                        objectFit="cover"
-                        borderRadius="md"
-                        mr={4}
-                    />
-                    <Text>{product.name.toLowerCase()}</Text>
-                  </Flex>
-                  <Divider m={6} orientation='horizontal'/>
-                </ListItem>
-
-            ))}
-          </List>
+        <List>
+          {suggestions.map(product => (
+            <ListItem
+              key={product.id}
+              px={4}
+              py={2}
+              _hover={{ backgroundColor: "gray.100" }}
+              cursor="pointer"
+              onClick={() => onSuggestionClick(product.id)}
+            >
+              <Flex align="center">
+                <Image
+                  src={product.thumbnail}
+                  alt={product.name}
+                  boxSize="50px"
+                  objectFit="cover"
+                  borderRadius="md"
+                  mr={4}
+                />
+                <Text>{product.name.toLowerCase()}</Text>
+              </Flex>
+              <Divider m={6} orientation="horizontal" />
+            </ListItem>
+          ))}
+        </List>
       )}
     </Box>
   );

@@ -1,0 +1,82 @@
+name: Apply Prettier fixes
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - "backend/**"
+      - "frontend/**"
+
+jobs:
+  filter:
+    runs-on: ubuntu-latest
+    outputs:
+      backend_changed: ${{ steps.filter.outputs.backend }}
+      frontend_changed: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Filter changed files
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+            frontend:
+              - 'frontend/**'
+
+  prettier:
+    needs: filter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies for backend
+        if: ${{ needs.filter.outputs.backend_changed == 'true' }}
+        run: npm ci
+        working-directory: ./backend
+
+      - name: Run Prettier fix on backend
+        if: ${{ needs.filter.outputs.backend_changed == 'true' }}
+        run: npm run prettier:fix
+        working-directory: ./backend
+
+      - name: Install dependencies for frontend
+        if: ${{ needs.filter.outputs.frontend_changed == 'true' }}
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: Run Prettier fix on frontend
+        if: ${{ needs.filter.outputs.frontend_changed == 'true' }}
+        run: npm run prettier:fix
+        working-directory: ./frontend
+
+      - name: Commit changes if necessary
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "chore: apply prettier fixes [skip ci]"
+
+      - name: Push changes
+        env:
+          TOKEN: ${{ secrets.ADMIN_TOKEN }}
+        run: |
+          CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+
+          if [[ "$CURRENT_BRANCH" == "dev" ]]; then
+            git remote set-url origin https://x-access-token:${{ secrets.ADMIN_TOKEN }}@github.com/WildCodeSchool/2023-11-wns-bleu-g4.git
+          fi
+
+          git push origin HEAD:${CURRENT_BRANCH}

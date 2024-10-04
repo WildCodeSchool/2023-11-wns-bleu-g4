@@ -13,15 +13,13 @@ import Review from "./entities/Review"
 import { User } from "./entities/User"
 import env from "./env"
 
-const { DB_USER, DB_PASS, DB_NAME, DB_PORT, DB_HOST, NODE_ENV } = env
-
 const db = new DataSource({
 	type: "postgres",
-	host: NODE_ENV !== "test" ? DB_HOST : "localhost", // localhost c'est pour les tests
-	port: DB_PORT,
-	username: DB_USER,
-	password: DB_PASS,
-	database: DB_NAME,
+	host: env.DB_HOST,
+	port: env.DB_PORT,
+	username: env.DB_USER,
+	password: env.DB_PASS,
+	database: env.DB_NAME,
 	entities: [
 		Category,
 		Product,
