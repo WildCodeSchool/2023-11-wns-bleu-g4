@@ -105,7 +105,8 @@ export default function UserOrdersTable() {
                   <Text className="text-center">{transformToDate(booking.bookingDate)}</Text>
                 </Td>
                 <Td
-                  className="text-center hidden whitespace-normal p-3 min-w-48 max-w-96  xl:max-w-48 overflow-hidden text-ellipsis sm:table-cell"
+                  className="text-center hidden whitespace-normal p-3 min-w-48 max-w-96  xl:max-w-48 overflow-hidden
+                  text-ellipsis sm:table-cell"
                   title={t("agency name")}
                 >
                   <Text className="text-center">{booking.agency.name}</Text>

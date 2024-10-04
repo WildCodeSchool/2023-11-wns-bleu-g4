@@ -1,21 +1,21 @@
 import {
+  Box,
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardHeader,
+  Checkbox,
+  Divider,
   Flex,
-  Input,
   FormControl,
   FormLabel,
-  Button,
-  Box,
-  Text,
-  InputRightElement,
-  InputGroup,
-  LightMode,
-  Divider,
   Heading,
-  Checkbox,
+  Input,
+  InputGroup,
+  InputRightElement,
+  LightMode,
+  Text,
 } from "@chakra-ui/react";
 import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
 import Link from "next/link";
@@ -193,7 +193,9 @@ export default function SignupForm() {
               type="submit"
               disabled={disableButton}
               hidden={false}
-              className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"}`}
+              className={`bg-orange-500  h-10 w-full rounded-lg ${
+                disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
+              }`}
             >
               {t("Signup")}
             </button>

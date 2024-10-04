@@ -1,9 +1,7 @@
-import { t } from "i18next";
-import { useTranslation } from "react-i18next";
 import { jsPDF } from "jspdf";
 import { imgBase64 } from "./imgData";
 import { signature } from "./Signature";
-import { BookingPDF, BookingItem } from "../types";
+import { BookingItem, BookingPDF } from "../types";
 import TimeStampToDayDuration from "./TimeStampToDayDuration";
 
 const transformToDate = (dateToTransform: string) => {
@@ -120,7 +118,7 @@ export default function generatePdf(booking: BookingPDF, bookingItems: BookingIt
   yInitial += 5;
   doc.text("TOTAL", 180, yInitial, { align: "right" });
   doc.text(totalTTC.toFixed(2) + "€", 200, yInitial, { align: "right" });
-  yInitial += 2;
+  /*yInitial += 2;*/
 
   /** SIGNATURE */
   doc.addImage(signature, "JPEG", 155, 255, 35, 20);

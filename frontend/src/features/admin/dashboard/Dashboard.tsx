@@ -49,7 +49,7 @@ export default function Dashboard() {
 
 const DashboardCard = ({ title, total }: { title: string; total: number }) => {
   return (
-    <div className="dark:bg-cactus-400 bg-cactus-300 p-4 rounded-md shadow-md text-light">
+    <div className="bg-cactus-400 p-4 rounded-md shadow-md text-light">
       <p className="text-lg">{title}</p>
       <h2 className="text-4xl font-semibold">{total}</h2>
     </div>

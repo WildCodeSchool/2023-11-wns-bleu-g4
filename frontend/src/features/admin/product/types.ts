@@ -3,7 +3,7 @@ import { Characteristic } from "../characteristic/types";
 
 export enum Status {
   AVAILABLE = "available",
-  BROKEN = "broken",
+  /*BROKEN = "broken",*/
 }
 
 export interface menuItems {
@@ -20,6 +20,7 @@ export interface Category {
   id?: number;
   name: string;
 }
+
 export interface Product_Picture {
   id?: number;
   thumbnail: string;

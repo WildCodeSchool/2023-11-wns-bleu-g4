@@ -5,9 +5,10 @@ import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import Layout from "@/layouts/Layout";
 import { Box, Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 export default function BasketPage() {
   const { t } = useTranslation("BasketPage");
@@ -19,6 +20,8 @@ export default function BasketPage() {
   const { data: profileData } = useProfileQuery();
   const [bookingInProgress, setBookingInProgress] = useState(false);
   const router = useRouter();
+
+  const totalPrice = bookingData?.reduce((acc, curr) => acc + (curr.totalPrice || 0), 0) || 0;
 
   const handleBooking = async () => {
     if (!bookingData || bookingData.length === 0) {
@@ -58,10 +61,6 @@ export default function BasketPage() {
     }
   };
 
-  useEffect(() => {
-    // console.log("bookingData:", bookingData);
-  }, [bookingData]);
-
   return (
     <Layout>
       {bookingData && bookingData.length > 0 ? (
@@ -72,68 +71,107 @@ export default function BasketPage() {
 
             return (
               <Box className="px-5 lg:px-24" key={index} mb={4}>
-                <Flex align="center" justifyContent="space-between">
+                <Flex align="center" justifyContent="space-between" className="flex-col xl:flex-row" gap={8}>
                   {product && <Image w={100} src={product.thumbnail} alt={product.name} />}
-                  <Flex align="center" justifyContent="space-around" w="100%" fontSize={18} fontWeight={500}>
-                    <Flex flexDirection="column">
+                  <Flex
+                    align="flex-start"
+                    justifyContent="space-around"
+                    className="flex-col xl:flex-row"
+                    w="100%"
+                    fontSize={18}
+                    fontWeight={500}
+                    gap={2}
+                  >
+                    <Flex flexDirection="column" gap={2} w={"100%"}>
                       {product && (
                         <Text>
-                          {t("Product :")} {product.name}
+                          <strong>{t("Product :")}</strong> {product.name}
                         </Text>
                       )}
+                      <Divider />
                       {selectedSize && (
                         <Text>
-                          {"Size :"} {selectedSize}
+                          <strong>{"Size :"}</strong> {selectedSize}
                         </Text>
                       )}
+                      <Divider />
                       {agency && (
                         <Text>
-                          {t("Agency :")} {agency.name}
+                          <strong>{t("Agency :")}</strong> {agency.name}
                         </Text>
                       )}
+                      <Divider />
                     </Flex>
-                    <Flex>
-                      {quantity && (
-                        <Text textAlign="center">
-                          {t("Quantity :")} {quantity}
-                        </Text>
-                      )}
-                    </Flex>
-                    <Flex>
-                      <Flex flexDirection="column">
-                        {startDate && (
-                          <Text>
-                            {t("Start :")} {new Date(startDate).toLocaleDateString()}
+                    <Flex direction="column" className="flex-col xl:flex-row" gap="2" w={"100%"}>
+                      <Flex>
+                        {quantity && (
+                          <Text textAlign="center">
+                            <strong>{t("Quantity :")}</strong> {quantity}
                           </Text>
                         )}
-                        {endDate && (
-                          <Text>
-                            {t("End :")} {new Date(endDate).toLocaleDateString()}
+                      </Flex>
+                      <Divider />
+                      <Flex>
+                        <Flex flexDirection="column" gap={2} w="100%">
+                          {startDate && (
+                            <Text>
+                              <strong>{t("Start :")}</strong> {new Date(startDate).toLocaleDateString()}
+                            </Text>
+                          )}
+                          <Divider />
+                          {endDate && (
+                            <Text>
+                              <strong>{t("End :")}</strong> {new Date(endDate).toLocaleDateString()}
+                            </Text>
+                          )}
+                        </Flex>
+                      </Flex>
+                      <Divider />
+                      <Flex className="bg-accent rounded-md p-2" w="fit-content">
+                        {totalPrice && (
+                          <Text textAlign="center" fontSize={24} color="white">
+                            <strong>{t("Total Price")}</strong> : {parseFloat(totalPrice.toFixed(2))} €
                           </Text>
                         )}
                       </Flex>
                     </Flex>
-                    <Flex>
-                      {totalPrice && (
-                        <Text textAlign="center">
-                          {t("Total Price")} : {parseFloat(totalPrice.toFixed(2))} €
-                        </Text>
-                      )}
-                    </Flex>
                   </Flex>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => removeBookingData(index)}
+                    aria-label={t("Delete")}
+                    height={{ base: "3rem", xl: "5rem" }}
+                    width={{ base: "auto", xl: "4rem" }}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    transition="width 0.2s ease-in-out"
+                    _hover={{
+                      width: { base: "auto", xl: "11rem" },
+                      ".text": { display: { xl: "inline" } },
+                    }}
+                  >
+                    <TrashIcon width={24} />
+                    <Text ml={2} className="text" display={{ base: "inline", xl: "none" }}>
+                      <strong>{t("DELETE")}</strong>
+                    </Text>
+                  </Button>
                 </Flex>
-                <Divider mt={4} />
+                <Divider mt={4} borderWidth={"4px"} />
               </Box>
             );
           })}
-          <Flex justify="center" mt={4}>
+          <Flex justify="center" mt={4} alignItems="center" gap={4}>
+            <Text fontSize={24} fontWeight="bold">
+              {t("Total:")} {parseFloat(totalPrice.toFixed(2))} €
+            </Text>
             <Button variant="primaryButton" onClick={handleBooking} isLoading={bookingInProgress}>
-              {"Book"}
+              {t("Book")}
             </Button>
           </Flex>
         </>
       ) : (
-        <Text>{"Your basket is empty"}</Text>
+        <Text>{t("Your basket is empty")}</Text>
       )}
     </Layout>
   );

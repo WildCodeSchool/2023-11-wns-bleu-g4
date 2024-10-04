@@ -1,7 +1,7 @@
 import { Bounce, ToastOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const ToastConfigDark: ToastOptions = {
+/*export const ToastConfigDark: ToastOptions = {
   position: "bottom-right",
   autoClose: 5000,
   hideProgressBar: false,
@@ -12,9 +12,9 @@ export const ToastConfigDark: ToastOptions = {
   pauseOnHover: true,
   theme: "dark",
   transition: Bounce,
-};
+};*/
 
-export const ToastConfigLight: ToastOptions = {
+/*export const ToastConfigLight: ToastOptions = {
   position: "bottom-right",
   autoClose: 5000,
   hideProgressBar: false,
@@ -25,7 +25,7 @@ export const ToastConfigLight: ToastOptions = {
   pauseOnHover: true,
   theme: "light",
   transition: Bounce,
-};
+};*/
 
 export const ToastConfigLogin: ToastOptions = {
   position: "bottom-right",
