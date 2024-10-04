@@ -1,6 +1,6 @@
-import getAdminJWT from './getAdminJWT'
+import getAdminJWT from "./getAdminJWT"
 
 export default async function getAdminContext() {
-    const { JWT } = await getAdminJWT()
-    return { req: { headers: { authorization: `Bearer ${JWT}` } } }
+	const { JWT } = await getAdminJWT()
+	return { req: { headers: { authorization: `Bearer ${JWT}` } } }
 }

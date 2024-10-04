@@ -1,13 +1,13 @@
 /* theme.ts */
-import {modalTheme} from "@/features/admin/ui/Modal";
-import {accordionTheme} from "@/shared/components/ui/Accordion";
-import {buttonTheme} from "@/shared/components/ui/Button";
-import {cardTheme} from "@/shared/components/ui/Card";
-import {drawerTheme} from "@/shared/components/ui/Drawer";
+import { modalTheme } from "@/features/admin/ui/Modal";
+import { accordionTheme } from "@/shared/components/ui/Accordion";
+import { buttonTheme } from "@/shared/components/ui/Button";
+import { cardTheme } from "@/shared/components/ui/Card";
+import { drawerTheme } from "@/shared/components/ui/Drawer";
 
-import {switchTheme} from "@/shared/components/ui/Switch";
-import {extendTheme} from "@chakra-ui/react";
-import {darken, lighten} from "polished";
+import { switchTheme } from "@/shared/components/ui/Switch";
+import { extendTheme } from "@chakra-ui/react";
+import { darken, lighten } from "polished";
 
 export const theme = extendTheme({
   components: {
