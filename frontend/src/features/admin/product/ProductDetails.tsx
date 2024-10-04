@@ -34,7 +34,7 @@ export default function ProductDetails({ product }: { product: Product }) {
   };
 
   return (
-    <div className="bg-[#F5F5F5] dark:bg-cactus-600 rounded flex flex-col gap-12 p-4 justify-between w-full max-w-96 2xl:max-w-md h-fit">
+    <div className="bg-cactus-300/50 rounded flex flex-col gap-12 p-4 justify-between w-full max-w-96 2xl:max-w-md h-fit">
       <div className="flex flex-col gap-8">
         <div className="flex gap-4">
           {product?.thumbnail && (
@@ -46,35 +46,34 @@ export default function ProductDetails({ product }: { product: Product }) {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-y-3">
-          <span className="font-bold col-span-2">Details</span>
-          <span className="flex font-semibold text-slate-500 dark:text-slate-100">
+          <span className="flex font-bold text-slate-500">
             <Squares2X2Icon className="h-6 w-6 mr-2" />
             Category :
           </span>
           {product?.category.name}
-          <span className=" flex font-semibold text-slate-500 dark:text-slate-100">
+          <span className=" flex font-bold text-slate-500">
             <TagIcon className="h-6 w-6 mr-2" />
             Brand :
           </span>
           {product?.brand.name}
-          <span className="flex font-semibold text-slate-500 dark:text-slate-100">
+          <span className="flex font-bold text-slate-500">
             <BanknotesIcon className="h-6 w-6 mr-2" />
             Price :
           </span>
           {product?.price} €
-          <span className="flex font-semibold text-slate-500 dark:text-slate-100 col-span-2">
+          <span className="flex font-bold text-slate-500 col-span-2">
             <DocumentTextIcon className="h-6 w-6 mr-2" />
             Description :
           </span>
           <p className="col-span-2">{product?.description}</p>
           <div className="flex justify-between items-center col-span-2">
-            <span className="flex font-semibold text-slate-500 dark:text-slate-100 col-span-2">
+            <span className="flex font-bold text-slate-500 col-span-2">
               <CubeIcon className="h-6 w-6 mr-2" />
               Characteristics :
             </span>
             <button
               type="button"
-              className="bg-cactus-400 rounded px-3 py-1 text-white text-sm"
+              className="bg-cactus-500 rounded px-3 py-1 text-white text-sm"
               onClick={toggleCharacteristicsModal}
             >
               Edit
@@ -96,7 +95,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         </div>
       </div>
       <div className="flex gap-2 justify-end h-12">
-        <button type="button" className="bg-cactus-400 rounded px-3 py-1 text-white" onClick={toggleUpdateProductModal}>
+        <button type="button" className="bg-cactus-500 rounded px-3 py-1 text-white" onClick={toggleUpdateProductModal}>
           Edit Product
         </button>
         {isUpdateModalOpen && (

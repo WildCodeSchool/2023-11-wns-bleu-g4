@@ -26,8 +26,8 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         <Navbar />
         <SubNavbar />
       </header>
-      <main className="xl:pb-5 xl:pt-5 flex flex-col lg:gap-8 flex-grow overflow-y-auto">
-        {children}
+      <main className="xl:pb-5 xl:pt-5 flex flex-col lg:gap-8 flex-grow overflow-y-auto xl:h-[calc(100vh-64px-32px)]">
+        <div className="flex-grow">{children}</div>
         <Footer />
       </main>
     </>
