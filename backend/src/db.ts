@@ -35,7 +35,6 @@ const db = new DataSource({
 		ProductCharacteristic,
 	],
 	synchronize: true,
-	logging: env.NODE_ENV !== "test",
 })
 
 export async function clearDB() {

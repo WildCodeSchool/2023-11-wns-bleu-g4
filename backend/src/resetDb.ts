@@ -17,6 +17,7 @@ import { Status } from "./enum/StatusProductCode"
 import allProducts from "./data/ekosport/allProducts.json"
 import * as fs from "node:fs"
 import * as path from "node:path"
+import { v4 as uuidv4, v5 as uuidv5 } from "uuid"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -236,6 +237,12 @@ async function main() {
 		return agencies[Math.floor(Math.random() * agencies.length)]
 	}
 
+	function generateRef() {
+		const NAMESPACE = "1b671a64-40d5-491e-99b0-da01ff1f3341"
+		const shortUuid = uuidv5(uuidv4(), NAMESPACE).replace(/-/g, "").substring(0, 8).toUpperCase()
+		return `REF-${shortUuid}`
+	}
+
 	for (const productData of allProducts) {
 		const product = new Product()
 		const mappedCategoryName = categoryMapping[productData.category] || productData.category
@@ -248,6 +255,7 @@ async function main() {
 			category: category,
 			brand: await getOrCreateBrand(productData.brand),
 			characteristics: characteristicObjects,
+			ref : generateRef()
 		})
 
 		await product.save()
