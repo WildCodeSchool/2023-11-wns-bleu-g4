@@ -91,7 +91,7 @@ export const theme = extendTheme({
         overflow: { base: "auto", xl: "hidden" },
         color: props.colorMode === "dark" ? "light" : "dark",
         bg: props.colorMode === "dark" ? "bgDark" : "bgLight",
-      }
+      },
     }),
   },
 });

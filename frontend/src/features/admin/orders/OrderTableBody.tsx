@@ -140,10 +140,11 @@ export default function OrderTableBody({
                         onClick={() => handleOrderDetails(order?.id!)}
                       >
                         <ChevronDownIcon
-                          className={`h-5 w-5 text-white ${openOrderId === order.id
-                            ? "transform duration-150 rotate-180"
-                            : "transform duration-150 rotate-0"
-                            }`}
+                          className={`h-5 w-5 text-white ${
+                            openOrderId === order.id
+                              ? "transform duration-150 rotate-180"
+                              : "transform duration-150 rotate-0"
+                          }`}
                         />
                       </button>
                       {order.status.toLocaleLowerCase() !== "canceled" && (
