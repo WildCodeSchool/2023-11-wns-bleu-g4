@@ -28,7 +28,7 @@ test("can log in with correct credentials", async ({ page }) => {
   await page.getByPlaceholder("Email").fill(email);
   await page.getByPlaceholder("Password").fill(password);
   await page.locator('button[type="submit"]').click();
-  await expect(page).toHaveURL("/", { timeout: 20000 });
+  await expect(page).toHaveURL("/");
 });
 
 test("cannot log in with incorrect password", async ({ page }) => {
