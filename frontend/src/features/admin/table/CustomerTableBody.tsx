@@ -40,7 +40,8 @@ export default function CustomerTableBody({ data, loading }: TableBodyProps) {
           data.map((customer: User, index: number) => (
             <tr
               key={customer.id}
-              className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}
+              className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap 
+              h-12 hover:bg-cactus-300 dark:hover:text-black`}
             >
               <td className="flex gap-3 whitespace-nowrap px-3 py-2 pl-8 w-60 min-w-max items-center">
                 <img src={customer.avatar} alt={customer.name} className="h-8 w-8 rounded-full" />

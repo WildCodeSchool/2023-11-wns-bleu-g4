@@ -5,7 +5,7 @@ import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import Layout from "@/layouts/Layout";
 import { Box, Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { TrashIcon } from "@heroicons/react/24/solid";
@@ -20,6 +20,8 @@ export default function BasketPage() {
   const { data: profileData } = useProfileQuery();
   const [bookingInProgress, setBookingInProgress] = useState(false);
   const router = useRouter();
+
+  const totalPrice = bookingData?.reduce((acc, curr) => acc + (curr.totalPrice || 0), 0) || 0;
 
   const handleBooking = async () => {
     if (!bookingData || bookingData.length === 0) {
@@ -59,10 +61,6 @@ export default function BasketPage() {
     }
   };
 
-  useEffect(() => {
-    // console.log("bookingData:", bookingData);
-  }, [bookingData]);
-
   return (
     <Layout>
       {bookingData && bookingData.length > 0 ? (
@@ -84,7 +82,7 @@ export default function BasketPage() {
                     fontWeight={500}
                     gap={2}
                   >
-                    <Flex flexDirection="column" gap={2}>
+                    <Flex flexDirection="column" gap={2} w={"100%"}>
                       {product && (
                         <Text>
                           <strong>{t("Product :")}</strong> {product.name}
@@ -104,7 +102,7 @@ export default function BasketPage() {
                       )}
                       <Divider />
                     </Flex>
-                    <Flex direction="column" className="flex-col xl:flex-row" gap="2">
+                    <Flex direction="column" className="flex-col xl:flex-row" gap="2" w={"100%"}>
                       <Flex>
                         {quantity && (
                           <Text textAlign="center">
@@ -159,11 +157,14 @@ export default function BasketPage() {
                     </Text>
                   </Button>
                 </Flex>
-                <Divider mt={4} />
+                <Divider mt={4} borderWidth={"4px"} />
               </Box>
             );
           })}
-          <Flex justify="center" mt={4}>
+          <Flex justify="center" mt={4} alignItems="center" gap={4}>
+            <Text fontSize={24} fontWeight="bold">
+              {t("Total:")} {parseFloat(totalPrice.toFixed(2))} €
+            </Text>
             <Button variant="primaryButton" onClick={handleBooking} isLoading={bookingInProgress}>
               {t("Book")}
             </Button>

@@ -116,7 +116,8 @@ export default function OrderTableBody({
             data.map((order: Order, index: number) => (
               <React.Fragment key={order.id}>
                 <tr
-                  className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap hover:bg-cactus-300 dark:hover:text-black`}
+                  className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap 
+                  hover:bg-cactus-300 dark:hover:text-black`}
                 >
                   <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{order.id}</td>
                   <td className="whitespace-nowrap p-3 w-96 min-w-max">

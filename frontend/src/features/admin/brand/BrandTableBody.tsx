@@ -81,7 +81,8 @@ export default function BrandTableBody({ data, refetch, loading }: TableBodyProp
             data.map((brand: Brand, index: number) => (
               <tr
                 key={brand.id}
-                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}
+                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 
+                hover:bg-cactus-300 dark:hover:text-black`}
               >
                 <td className="whitespace-nowrap p-3 pl-8 w-1/2 min-w-max">{brand.name}</td>
                 <td className="whitespace-nowrap p-3 w-1/2 min-w-max">

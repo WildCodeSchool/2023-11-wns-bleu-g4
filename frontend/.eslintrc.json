@@ -1,9 +1,32 @@
 {
-  "extends": ["next"],
+  "extends": [
+    "next"
+  ],
   "rules": {
     "@next/next/no-img-element": "off",
     "react-hooks/exhaustive-deps": "off",
-    "max-len": ["error", { "code": 140 }],
-    "import/no-unused-modules": [1, { "unusedExports": true }]
-  }
+    "max-len": [
+      "error",
+      {
+        "code": 140
+      }
+    ],
+    "import/no-unused-modules": [
+      1,
+      {
+        "unusedExports": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/pages/**/*.js",
+        "src/pages/**/*.tsx"
+      ],
+      "rules": {
+        "import/no-unused-modules": "off"
+      }
+    }
+  ]
 }

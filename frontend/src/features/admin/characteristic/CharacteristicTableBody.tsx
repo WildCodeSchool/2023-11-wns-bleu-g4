@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useTranslation } from "react-i18next";
-import { ParentCategory, ProductCharacteristic } from "@/graphql/generated/schema";
+import { ParentCategory } from "@/graphql/generated/schema";
 import { characteristicTableHeaders } from "../helpers/tableHeaders";
 import { TableBodyProps } from "../product/types";
 import { useDeleteProductCharacteristicMutation } from "@/graphql/ProductCharacteristic/generated/deleteProductCharacteristic.generated";
@@ -43,7 +43,10 @@ export default function CharacteristicTableBody({ data, refetch, loading }: Tabl
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
+      <table
+        className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate
+      border-spacing-0"
+      >
         <thead>
           <tr>
             {characteristicTableHeaders.map(menu => (
@@ -75,7 +78,8 @@ export default function CharacteristicTableBody({ data, refetch, loading }: Tabl
             data.map((parentCategory: ParentCategory, index: number) => (
               <tr
                 key={parentCategory.id}
-                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300 dark:hover:text-black`}
+                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap 
+                h-12 hover:bg-cactus-300 dark:hover:text-black`}
               >
                 <td className="whitespace-nowrap p-3 pl-8 w-4/5 min-w-max">{parentCategory.name}</td>
                 <td className="whitespace-nowrap p-3 pr-8 w-1/5 min-w-max text-left align-middle">
