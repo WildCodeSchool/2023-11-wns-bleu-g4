@@ -45,13 +45,13 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
 
   return (
     <>
-      <table className="min-w-full rounded border border-gray-200 dark:border-gray-600 border-separate border-spacing-0">
+      <table className="min-w-full rounded border border-gray-400 border-separate border-spacing-0">
         <thead>
           <tr>
             {productTableHeaders.map(menu => (
               <th
                 className="h-14 p-3 first:pl-8 last:pr-8 text-left uppercase text-sm font-bold whitespace-nowrap 
-              border-b border-gray-200 dark:border-gray-600"
+              border-b border-gray-400"
                 key={menu.id}
               >
                 {menu.name}
@@ -77,7 +77,8 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
             data.map((product: Product, index: number) => (
               <tr
                 key={product.id}
-                className={`${index % 2 === 0 && "bg-cactus-50 dark:bg-cactus-600"} whitespace-nowrap h-12 hover:bg-cactus-300`}
+                className={`${index % 2 === 0 && "bg-cactus-300/50"} 
+                whitespace-nowrap h-12 hover:bg-cactus-300 hover:text-dark`}
               >
                 <td className="whitespace-nowrap p-3 pl-8 w-48 min-w-max">{product.id}</td>
                 <td className="whitespace-nowrap p-3 w-96 min-w-max truncate max-w-96" title={product.name}>
@@ -90,7 +91,7 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
                   <div className="inline-block">
                     <button
                       type="button"
-                      className="inline-block bg-cactus-400 rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
+                      className="inline-block bg-cactus-600 rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
                       onClick={() => router.push(`/admin/products/${product.id}`)}
                       aria-label="Product details button"
                     >
@@ -98,7 +99,7 @@ export default function ProductTableBody({ data, refetch, loading }: TableBodyPr
                     </button>
                     <button
                       type="button"
-                      className="inline-block bg-[#4F636F] rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
+                      className="inline-block bg-[#38464f] rounded-md px-1.5 py-0.5 mr-2.5 align-middle"
                       aria-label="Edit button"
                       onClick={() => toggleUpdateProductModal(product)}
                     >
