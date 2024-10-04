@@ -38,7 +38,7 @@ const db = new DataSource({
 	logging: env.NODE_ENV !== "test",
 })
 
-export async function clearDB () {
+export async function clearDB() {
 	const entities = db.entityMetadatas
 	const tableNames = entities.map((entity) => `"${entity.tableName}"`).join(", ")
 	await db.query(`TRUNCATE ${tableNames} RESTART IDENTITY CASCADE;`)
