@@ -133,7 +133,7 @@ export default function SignupForm() {
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleClickPass}>
-                        {showRepPass ? t("Hide") : t("Show")}
+                        {showPass ? t("Hide") : t("Show")}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
