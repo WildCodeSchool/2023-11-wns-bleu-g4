@@ -79,6 +79,9 @@ class BookingResolver {
 			where: { user: { id: ctx?.currentUser?.id } },
 			take: limit,
 			skip: offset,
+			order : {
+				bookingDate : "DESC"
+			}
 		})
 
 		if (!bookings) throw new GraphQLError("Booking Not found")
