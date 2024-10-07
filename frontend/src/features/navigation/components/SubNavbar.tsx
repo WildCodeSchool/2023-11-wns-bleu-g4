@@ -86,8 +86,9 @@ export default function SubNavbar() {
               onMouseLeave={handleMouseLeave}
               rightIcon={
                 <div
-                  className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-custom" : ""
-                    }`}
+                  className={`transform transition-transform duration-300 ${
+                    activeIndex === index ? "rotate-custom" : ""
+                  }`}
                   style={{
                     transform: activeIndex === index ? "rotate(-180deg)" : "rotate(0)",
                   }}
