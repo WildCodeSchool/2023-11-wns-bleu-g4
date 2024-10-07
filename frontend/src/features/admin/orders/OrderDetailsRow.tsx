@@ -16,7 +16,7 @@ export default function OrderDetailsDropdown({ order }: { order: Order }) {
 
   return (
     <tr className="min-w-full space-y-4">
-      <td colSpan={2} className="p-4 border-y border-gray-200 dark:border-gray-600">
+      <td colSpan={2} className="p-4 border-y border-gray-400">
         <div className="flex flex-col gap-2 align-top">
           <span className="font-bold">{t("Customer address")}:</span> {order.user.address}, {order.user.postcode}{" "}
           {order.user.city}

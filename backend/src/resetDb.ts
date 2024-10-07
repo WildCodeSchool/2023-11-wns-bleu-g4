@@ -17,6 +17,7 @@ import { Status } from "./enum/StatusProductCode"
 import allProducts from "./data/ekosport/allProducts.json"
 import * as fs from "node:fs"
 import * as path from "node:path"
+import { v4 as uuidv4, v5 as uuidv5 } from "uuid"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()

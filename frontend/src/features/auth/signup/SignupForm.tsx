@@ -1,43 +1,42 @@
 import {
+  Box,
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardHeader,
+  Checkbox,
+  Divider,
   Flex,
-  Input,
   FormControl,
   FormLabel,
-  Button,
-  Box,
-  Text,
-  InputRightElement,
-  InputGroup,
-  LightMode,
-  Divider,
   Heading,
-  Checkbox,
+  Input,
+  InputGroup,
+  InputRightElement,
+  LightMode,
+  Text,
 } from "@chakra-ui/react";
-import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
+import { useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
 import Link from "next/link";
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { toast } from "react-toastify";
-import { FetchResult } from "@apollo/client";
 import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
 import { SignupType } from "../types/authTypes";
 import { validatePassword } from "../helpers/validatePassword";
 import CheckPasswordAvailability from "@/features/resetPasswordForm/helpers/CheckPasswordAvailability";
 import { CheckIcon } from "@heroicons/react/16/solid";
+import ConfirmationMailSendCard from "@/features/auth/signup/ConfirmationMailSendCard/ConfirmationMailSendCard";
 
 export default function SignupForm() {
   /** Hooks */
   const [disableButton, setDisableButton] = useState(true);
   const { t } = useTranslation("SignupForm");
   const [signup] = useCreateUserMutation();
-  const router = useRouter();
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [firstPassword, setFirstPassword] = useState("");
+  const [formSubmit, setFormSubmit] = useState(false);
 
   /** Show/Hide Password */
   const [showPass, setShowPass] = useState(false);
@@ -64,13 +63,11 @@ export default function SignupForm() {
     if (validatePassword(formJSON.password, formJSON.repeatPassword as string)) {
       try {
         delete formJSON.repeatPassword;
-
-        const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
+        await signup({ variables: { data: formJSON } });
         const toastInfo: string = `Account created. Please check your email to verify your account.`;
-        const duration: number = 5000;
+        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 3000 });
+        setFormSubmit(true);
         form.reset();
-        router.push("/");
-        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: duration });
       } catch (e: any) {
         const errArr = e.message.replaceAll("_", " ");
         toast.error(errArr, ToastConfigLogin);
@@ -85,7 +82,9 @@ export default function SignupForm() {
     return <>{isChecked ? <CheckIcon className="text-orange-500" /> : null}</>;
   }
 
-  return (
+  return formSubmit ? (
+    <ConfirmationMailSendCard />
+  ) : (
     <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
       {/* TITLE */}
       <CardHeader textAlign="center">
@@ -133,7 +132,7 @@ export default function SignupForm() {
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleClickPass}>
-                        {showRepPass ? t("Hide") : t("Show")}
+                        {showPass ? t("Hide") : t("Show")}
                       </Button>
                     </InputRightElement>
                   </InputGroup>
@@ -193,7 +192,9 @@ export default function SignupForm() {
               type="submit"
               disabled={disableButton}
               hidden={false}
-              className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"}`}
+              className={`bg-orange-500  h-10 w-full rounded-lg ${
+                disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
+              }`}
             >
               {t("Signup")}
             </button>

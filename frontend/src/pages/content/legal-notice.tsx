@@ -59,7 +59,14 @@ export default function Legal_notice() {
         </p>
         <p className="mb-4">
           {t(
-            "All content on the GearGo site, including but not limited to graphics, images, texts, videos, animations, sounds, logos, gifs, and icons as well as their layout, are the exclusive property of GearGo except for trademarks, logos, or content belonging to other partner companies or authors. Any reproduction, distribution, modification, adaptation, retransmission, or publication, even partial, of these various elements is strictly prohibited without the express written consent of GearGo. This representation or reproduction, by any means whatsoever, constitutes an infringement punishable by articles L.335-2 and following of the Intellectual Property Code.",
+            "All content on the GearGo site, including but not limited to graphics, images, texts, " +
+              "videos, animations, sounds, logos, gifs, and icons as well as their layout, are the " +
+              "exclusive property of GearGo except for trademarks, logos, or content belonging " +
+              "to other partner companies or authors. Any reproduction, distribution, modification, " +
+              "adaptation, retransmission, or publication, even partial, of these various elements " +
+              "is strictly prohibited without the express written consent of GearGo. " +
+              "This representation or reproduction, by any means whatsoever, constitutes an infringement " +
+              "punishable by articles L.335-2 and following of the Intellectual Property Code.",
           )}
         </p>
 
@@ -68,7 +75,12 @@ export default function Legal_notice() {
         </p>
         <p className="mb-4">
           {t(
-            "The information provided on the GearGo site is presented for indicative and general purposes. GearGo strives to keep it accurate and up-to-date, but cannot guarantee the accuracy, completeness, or timeliness of the information. The user fully assumes the risks associated with consulting the information on the site. GearGo cannot be held responsible for direct or indirect damages resulting from the use of the site or the inability to access it.",
+            "The information provided on the GearGo site is presented for indicative and " +
+              "general purposes. GearGo strives to keep it accurate and up-to-date, but cannot " +
+              "guarantee the accuracy, completeness, or timeliness of the information. " +
+              "The user fully assumes the risks associated with consulting the information on the site. " +
+              "GearGo cannot be held responsible for direct or indirect damages resulting from the use " +
+              "of the site or the inability to access it.",
           )}
         </p>
 

@@ -92,11 +92,6 @@ export const theme = extendTheme({
         color: props.colorMode === "dark" ? "light" : "dark",
         bg: props.colorMode === "dark" ? "bgDark" : "bgLight",
       },
-      main: {
-        height: { base: "auto", xl: "calc(100vh - 64px - 32px)" },
-        minHeight: { base: "auto", xl: "calc(100vh - 64px - 32px)" },
-        overflowY: "auto",
-      },
     }),
   },
 });

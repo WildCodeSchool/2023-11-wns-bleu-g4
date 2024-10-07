@@ -7,7 +7,8 @@ import { getAllNamespaces } from "../../i18nUtils";
 
 export default function Login() {
   const urlBg: string =
-    "https://images.unsplash.com/photo-1565945985123-4c67ab31eb8d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA";
+    "https://images.unsplash.com/photo-1565945985123-4c67ab31eb8d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4." +
+    "0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA";
 
   return (
     <Layout pageTitle="Login">
@@ -18,7 +19,7 @@ export default function Login() {
         bgRepeat="no-repeat"
         bgPosition="center"
         bgSize="cover"
-        className="p-5 lg:px-24 lg:pb-24"
+        className="p-5 lg:px-24 lg:pb-24 xl:rounded-xl xl:mx-24 h-full"
       >
         <LoginForm />
       </Flex>

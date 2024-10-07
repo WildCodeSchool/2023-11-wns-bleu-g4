@@ -9,16 +9,16 @@ export interface menuItemsth {
   thClass: string;
 }
 
-export interface OrderTableBodyProps {
+/*export interface OrderTableBodyProps {
   data: any;
   sortColumnName: string | null;
   sortOrder: "asc" | "desc" | null;
   handleDateSort: (columnName: string) => void;
-}
+}*/
 
-export interface TableBodyProps {
+/*export interface TableBodyProps {
   data: any;
-}
+}*/
 
 export interface TableFooterProps {
   data: any;
@@ -57,11 +57,11 @@ export interface User {
   role?: string;
 }
 
-export interface userInfoProps {
+/*export interface userInfoProps {
   icon?: any;
   label?: string;
   userInfo?: string;
-}
+}*/
 
 export interface Agency {
   id?: number;
