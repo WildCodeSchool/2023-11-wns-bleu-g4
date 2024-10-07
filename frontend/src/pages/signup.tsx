@@ -17,8 +17,9 @@ export default function Login() {
         bgPosition="center"
         bgSize="cover"
         borderRadius="10px"
+        className="h-full"
       >
-        <SignupForm />
+        <SignupForm/>
       </Flex>
     </Layout>
   );
