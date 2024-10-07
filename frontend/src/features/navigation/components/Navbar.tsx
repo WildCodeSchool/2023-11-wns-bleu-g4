@@ -40,6 +40,7 @@ function DesktopNavbar() {
   const [t] = useTranslation("Navbar");
   const { data: profileData, refetch, client } = useProfileQuery({ errorPolicy: "ignore" });
   const [logout] = useLogoutMutation();
+  const { clearBookingData } = useBookingData();
   const router = useRouter();
   const isLight = useColorModeValue("bgLight", "bgDark");
 
@@ -51,6 +52,7 @@ function DesktopNavbar() {
 
   const handleLogout = async () => {
     await router.push("/login");
+    clearBookingData();
     await logout();
     await client.resetStore();
     await refetch();
@@ -130,7 +132,7 @@ function MobileNavbar() {
   const { data: profileData, refetch, client } = useProfileQuery({ errorPolicy: "ignore" });
   const [logout] = useLogoutMutation();
   const router = useRouter();
-  const { bookingData } = useBookingData();
+  const { bookingData, clearBookingData } = useBookingData();
   const itemCount = bookingData ? bookingData.length : 0;
 
   const [isLogged, setIsLogged] = useState(Boolean(profileData?.profile));
@@ -141,6 +143,7 @@ function MobileNavbar() {
 
   const handleLogout = async () => {
     await router.push("/login");
+    clearBookingData();
     await logout();
     await client.resetStore();
     await refetch();

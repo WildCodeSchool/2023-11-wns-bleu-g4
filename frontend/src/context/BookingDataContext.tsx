@@ -27,6 +27,7 @@ interface BookingDataContextType {
   bookingData: BookingData[];
   updateBookingData: (data: BookingData) => void;
   removeBookingData: (index: number) => void;
+  clearBookingData: () => void;
   startDate: Date | null;
   setStartDate: (date: Date | null) => void;
   endDate: Date | null;
@@ -71,6 +72,11 @@ export const BookingDataContextProvider = ({ children }: BookingDataContextProvi
   }, [bookingData]);
 
   const updateBookingData = (data: BookingData) => {
+    if (!data) {
+      setBookingData([]);
+      return;
+    }
+
     const existingIndex = bookingData.findIndex(
       item =>
         item.profileData?.email === data.profileData?.email &&
@@ -103,10 +109,16 @@ export const BookingDataContextProvider = ({ children }: BookingDataContextProvi
     setBookingData(prevBookingData => prevBookingData.filter((_, i) => i !== index));
   };
 
+  const clearBookingData = () => {
+    setBookingData([]);
+    localStorage.setItem("bookingData", "[]");
+  };
+
   const contextValue: BookingDataContextType = {
     bookingData,
     updateBookingData,
     removeBookingData,
+    clearBookingData,
     startDate,
     setStartDate,
     endDate,
