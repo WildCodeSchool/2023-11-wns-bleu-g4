@@ -7,7 +7,7 @@ export default function UserDetails() {
   const textColor = useColorModeValue("black", "white");
 
   return (
-    <Layout>
+    <Layout pageTitle="Account">
       <Heading size="lg" className="w-full text-center py-5 " color={textColor}>
         User Account
       </Heading>

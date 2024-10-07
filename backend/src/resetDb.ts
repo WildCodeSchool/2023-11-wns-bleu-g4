@@ -237,12 +237,6 @@ async function main() {
 		return agencies[Math.floor(Math.random() * agencies.length)]
 	}
 
-	function generateRef() {
-		const NAMESPACE = "1b671a64-40d5-491e-99b0-da01ff1f3341"
-		const shortUuid = uuidv5(uuidv4(), NAMESPACE).replace(/-/g, "").substring(0, 8).toUpperCase()
-		return `REF-${shortUuid}`
-	}
-
 	for (const productData of allProducts) {
 		const product = new Product()
 		const mappedCategoryName = categoryMapping[productData.category] || productData.category
@@ -255,7 +249,6 @@ async function main() {
 			category: category,
 			brand: await getOrCreateBrand(productData.brand),
 			characteristics: characteristicObjects,
-			ref: generateRef(),
 		})
 
 		await product.save()

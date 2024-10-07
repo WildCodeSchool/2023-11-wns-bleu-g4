@@ -1,22 +1,22 @@
 import React from "react";
 import { Box, Divider, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import { useProductContext } from "@/context/ProductPageContext";
-import { useUserContext } from "@/context/UserDataContext";
 import { useGetAllReviewsQuery } from "@/graphql/Review/generated/getAllReviews.generated";
 import { useRatingLogic } from "./useRatingLogic";
 import ReviewCard from "@/features/product/rating/components/ReviewCard";
 import RatingForm from "@/features/product/rating/components/form/RatingForm";
 import { useHasUserBookedProductQuery } from "@/graphql/Review/generated/hasUserBookedProduct.generated";
 import Loading from "@/shared/components/Loading";
+import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 
 export default function Rating() {
   const colorScheme = useColorModeValue("#000", "#fff");
   const {
     state: { selectedProduct },
   } = useProductContext();
-  const { user } = useUserContext();
+  const { data: user } = useProfileQuery();
   const productId = selectedProduct?.id;
-  const userId = user?.id;
+  const userId = user?.profile.id;
 
   const { data, loading, error } = useGetAllReviewsQuery({
     variables: { productId: productId || 0 },

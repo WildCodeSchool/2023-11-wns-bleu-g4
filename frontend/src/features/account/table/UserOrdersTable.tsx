@@ -49,7 +49,7 @@ export default function UserOrdersTable() {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     const nextPage = pageNumber + 1;
-    router.push(`/account/user/${query.id}?page=${nextPage}`);
+    router.push(`/account?page=${nextPage}`);
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import OrderInfos from "@/features/account/profile/OrderInfos";
 
 export default function Order() {
   return (
-    <Layout>
+    <Layout pageTitle="Order info">
       <Flex justifyContent={"center"} alignItems={"center"} className="w-full py-5 px-5 xl:px-36 2xl:px-96">
         <Heading size="lg">Order Details</Heading>
       </Flex>
