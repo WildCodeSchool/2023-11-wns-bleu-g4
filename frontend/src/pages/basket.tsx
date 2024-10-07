@@ -21,9 +21,7 @@ export default function BasketPage() {
   const [bookingInProgress, setBookingInProgress] = useState(false);
   const router = useRouter();
 
-
   const totalPrice = bookingData?.reduce((acc, curr) => acc + (curr.totalPrice || 0), 0) || 0;
-
 
   const handleBooking = async () => {
     if (!bookingData || bookingData.length === 0) {
