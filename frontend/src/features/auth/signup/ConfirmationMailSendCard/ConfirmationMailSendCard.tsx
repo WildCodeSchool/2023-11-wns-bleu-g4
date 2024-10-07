@@ -17,7 +17,7 @@ export default function ConfirmationMailSendCard() {
           <Text className="text-justify">
             {t("Please confirm your email address.")}
             <br />
-            {t("We send you an email with a link to confirm your email address.")}
+            {t("We sent you an email with a link to confirm your email address.")}
           </Text>
         </Flex>
       </CardBody>
