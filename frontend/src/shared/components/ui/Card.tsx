@@ -8,7 +8,6 @@ const footerCard = definePartsStyle({
   container: {
     height: "fit-content",
     backgroundColor: "footerBgLight",
-    borderRadius: "10px",
     px: { base: "0", md: "7" },
     py: "2",
     _dark: {
