@@ -19,7 +19,7 @@ export default function Login() {
         borderRadius="10px"
         className="h-full"
       >
-        <SignupForm/>
+        <SignupForm />
       </Flex>
     </Layout>
   );

@@ -36,7 +36,7 @@ export default function SignupForm() {
   const [signup] = useCreateUserMutation();
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [firstPassword, setFirstPassword] = useState("");
-  const [formSubmit, setFormSubmit] = useState(false)
+  const [formSubmit, setFormSubmit] = useState(false);
 
   /** Show/Hide Password */
   const [showPass, setShowPass] = useState(false);
@@ -82,133 +82,133 @@ export default function SignupForm() {
     return <>{isChecked ? <CheckIcon className="text-orange-500" /> : null}</>;
   }
 
-  return (
-    formSubmit ?
-      <ConfirmationMailSendCard />
-      :
-      <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
-        {/* TITLE */}
-        <CardHeader textAlign="center">
-          <Heading as="h1" color="black" fontWeight="500">
-            {t("REGISTER")}
-          </Heading>
-        </CardHeader>
-        <Divider color="black" />
-        <form onSubmit={handleSubmit}>
-          <CardBody>
-            <Flex direction="column" gap="15px">
-              {/* EMAIL */}
+  return formSubmit ? (
+    <ConfirmationMailSendCard />
+  ) : (
+    <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
+      {/* TITLE */}
+      <CardHeader textAlign="center">
+        <Heading as="h1" color="black" fontWeight="500">
+          {t("REGISTER")}
+        </Heading>
+      </CardHeader>
+      <Divider color="black" />
+      <form onSubmit={handleSubmit}>
+        <CardBody>
+          <Flex direction="column" gap="15px">
+            {/* EMAIL */}
+            <FormControl size="md">
+              <FormLabel>Email</FormLabel>
+              <LightMode>
+                <Input
+                  type="email"
+                  color="black"
+                  placeholder="email@address.com"
+                  name="email"
+                  size="md"
+                  bg="bgLight"
+                  borderRadius="lg"
+                  required
+                />
+              </LightMode>
+            </FormControl>
+
+            {/* PASSWORD */}
+            <Box>
               <FormControl size="md">
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t("Password")}</FormLabel>
                 <LightMode>
-                  <Input
-                    type="email"
-                    color="black"
-                    placeholder="email@address.com"
-                    name="email"
-                    size="md"
-                    bg="bgLight"
-                    borderRadius="lg"
-                    required
-                  />
+                  <InputGroup>
+                    <Input
+                      type={showPass ? "text" : "password"}
+                      color="black"
+                      placeholder="*****"
+                      name="password"
+                      size="md"
+                      bg="bgLight"
+                      borderRadius="lg"
+                      required
+                      onChange={e => setFirstPassword(e.target.value)}
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleClickPass}>
+                        {showPass ? t("Hide") : t("Show")}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
                 </LightMode>
               </FormControl>
+            </Box>
 
-              {/* PASSWORD */}
-              <Box>
-                <FormControl size="md">
-                  <FormLabel>{t("Password")}</FormLabel>
-                  <LightMode>
-                    <InputGroup>
-                      <Input
-                        type={showPass ? "text" : "password"}
-                        color="black"
-                        placeholder="*****"
-                        name="password"
-                        size="md"
-                        bg="bgLight"
-                        borderRadius="lg"
-                        required
-                        onChange={e => setFirstPassword(e.target.value)}
-                      />
-                      <InputRightElement width="4.5rem">
-                        <Button h="1.75rem" size="sm" onClick={handleClickPass}>
-                          {showPass ? t("Hide") : t("Show")}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </LightMode>
-                </FormControl>
-              </Box>
+            {/* REPEAT PASSWORD */}
+            <Box>
+              <FormControl size="md">
+                <FormLabel>{t("Repeat your password")}</FormLabel>
+                <LightMode>
+                  <InputGroup>
+                    <Input
+                      type={showRepPass ? "text" : "password"}
+                      color="black"
+                      placeholder={t("Repeat your password")}
+                      name="repeatPassword"
+                      size="md"
+                      bg="bgLight"
+                      borderRadius="lg"
+                      required
+                      onChange={e => setRepeatedPassword(e.target.value)}
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleClickRepeatPass}>
+                        {showRepPass ? t("Hide") : t("Show")}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </LightMode>
+              </FormControl>
+            </Box>
+            <CheckPasswordAvailability password={firstPassword} secondPassword={repeatedPassword} />
+          </Flex>
+        </CardBody>
+        <CardFooter>
+          <Flex direction="column" alignItems="center" className="w-full">
+            {/* CHECKBOX */}
+            <Checkbox
+              className="pb-2  border-orange-500"
+              size="lg"
+              colorScheme="transparent"
+              onChange={() => {
+                setDisableButton(!disableButton);
+              }}
+              icon={<CustomIcon />}
+              name="acceptConditions"
+            >
+              <Link href="#" className="underline text-orange-500">
+                I accept terms and conditions
+              </Link>
+            </Checkbox>
 
-              {/* REPEAT PASSWORD */}
-              <Box>
-                <FormControl size="md">
-                  <FormLabel>{t("Repeat your password")}</FormLabel>
-                  <LightMode>
-                    <InputGroup>
-                      <Input
-                        type={showRepPass ? "text" : "password"}
-                        color="black"
-                        placeholder={t("Repeat your password")}
-                        name="repeatPassword"
-                        size="md"
-                        bg="bgLight"
-                        borderRadius="lg"
-                        required
-                        onChange={e => setRepeatedPassword(e.target.value)}
-                      />
-                      <InputRightElement width="4.5rem">
-                        <Button h="1.75rem" size="sm" onClick={handleClickRepeatPass}>
-                          {showRepPass ? t("Hide") : t("Show")}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </LightMode>
-                </FormControl>
-              </Box>
-              <CheckPasswordAvailability password={firstPassword} secondPassword={repeatedPassword} />
-            </Flex>
-          </CardBody>
-          <CardFooter>
-            <Flex direction="column" alignItems="center" className="w-full">
-              {/* CHECKBOX */}
-              <Checkbox
-                className="pb-2  border-orange-500"
-                size="lg"
-                colorScheme="transparent"
-                onChange={() => {
-                  setDisableButton(!disableButton);
-                }}
-                icon={<CustomIcon />}
-                name="acceptConditions"
-              >
-                <Link href="#" className="underline text-orange-500">
-                  I accept terms and conditions
-                </Link>
-              </Checkbox>
+            {/* BUTTON */}
+            <button
+              type="submit"
+              disabled={disableButton}
+              hidden={false}
+              className={`bg-orange-500  h-10 w-full rounded-lg ${
+                disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
+              }`}
+            >
+              {t("Signup")}
+            </button>
 
-              {/* BUTTON */}
-              <button
-                type="submit"
-                disabled={disableButton}
-                hidden={false}
-                className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
-                  }`}
-              >
-                {t("Signup")}
-              </button>
-
-              {/* GO TO LOGIN */}
-              <Text className=" text-center text-md py-2" color="black">
-                {t("Already registered ?")}&nbsp;
-                <Link href="/login" className="underline text-orange-500">
-                  {t("login")}
-                </Link>
-              </Text>
-            </Flex>
-          </CardFooter>
-        </form>
-      </Card> 
-    )
+            {/* GO TO LOGIN */}
+            <Text className=" text-center text-md py-2" color="black">
+              {t("Already registered ?")}&nbsp;
+              <Link href="/login" className="underline text-orange-500">
+                {t("login")}
+              </Link>
+            </Text>
+          </Flex>
+        </CardFooter>
+      </form>
+    </Card>
+  );
 }
