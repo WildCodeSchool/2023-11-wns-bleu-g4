@@ -31,7 +31,7 @@ export default function Footer() {
 
   return (
     <footer className="px-0 xl:mx-24 xl:pb-5">
-      <Card variant="footerCard" direction={{ base: "column", xl: "row" }} borderRadius={{xl: "10px"}}>
+      <Card variant="footerCard" direction={{ base: "column", xl: "row" }} borderRadius={{ xl: "10px" }}>
         {/**About Us */}
         <ul className="w-full space-y-2 p-3 xl:w-1/3">
           <li className="font-normal text-slate-500">{t("About us")}</li>
