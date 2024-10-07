@@ -24,6 +24,13 @@ export default function RatingForm({ comment, rate, setComment, setRate, handleS
                 onClick={() => setRate(index)}
                 cursor="pointer"
                 color={index <= rate ? "yellow.400" : "gray.300"}
+                tabIndex={0}
+                onKeyDown={e => {
+                  if (e.key === "Enter") {
+                    setRate(index);
+                  }
+                }}
+                _focus={{ outline: "none", boxShadow: "0 0 0 2px rgba(255, 215, 0, 0.6)" }}
               >
                 <StarIcon className="h-8 w-8" />
               </Box>
