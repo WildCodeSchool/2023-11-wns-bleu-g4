@@ -127,7 +127,7 @@ export default function LoginForm() {
             <Text className=" text-center text-md py-2" color="black">
               {t("Not yet registered ?")}&nbsp;
               <Link href="/signup" className="underline text-orange-500 hover:text-orange-400">
-                {t("Sign up !")}
+                {t("sign up")}
               </Link>
             </Text>
           </Flex>

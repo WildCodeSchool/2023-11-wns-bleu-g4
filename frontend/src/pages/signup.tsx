@@ -16,8 +16,7 @@ export default function Login() {
         bgRepeat="no-repeat"
         bgPosition="center"
         bgSize="cover"
-        borderRadius="10px"
-        className="h-full"
+        className="h-full xl:mx-24 xl:rounded-xl"
       >
         <SignupForm />
       </Flex>

@@ -14,5 +14,5 @@ export default function TimeStampToDayDuration(startDate: Date, endDate: Date) {
   // if negative value
   if (result < 0) return result * -1;
 
-  return result;
+  return result + 1;
 }
