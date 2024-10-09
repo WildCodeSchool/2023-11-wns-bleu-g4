@@ -17,7 +17,6 @@ import { Status } from "./enum/StatusProductCode"
 import allProducts from "./data/ekosport/allProducts.json"
 import * as fs from "node:fs"
 import * as path from "node:path"
-import { v4 as uuidv4, v5 as uuidv5 } from "uuid"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -207,16 +206,16 @@ async function main() {
 
 	const characteristicObjects = []
 	const characteristics = [
-		"Suspension hydraulique",
-		"Moteur 10W",
-		"Guidon renforcé",
-		"Freins à disque",
-		"Pneus anti-crevaison",
+		"Hydraulic suspension",
+		"10W motor",
+		"Disc brakes",
+		"Puncture-proof tires",
+		"Comfortable saddle",
 		"Selle confortable",
-		"Éclairage LED",
-		"Antivol intégré",
-		"Porte-bagages",
-		"Garde-boue",
+		"LED lighting",
+		"Integrated lock",
+		"Luggage rack",
+		"Mudguard",
 	]
 
 	for (const characteristic of characteristics) {
@@ -244,7 +243,7 @@ async function main() {
 		Object.assign(product, {
 			name: productData.name,
 			price: productData.price / 10,
-			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
+			description: productData.description || "Superior quality product to meet all your needs.",
 			thumbnail: productData.imageUrls[0],
 			category: category,
 			brand: await getOrCreateBrand(productData.brand),
@@ -384,4 +383,5 @@ async function getOrCreateBrand(brandName: string): Promise<Brand> {
 	}
 	return brand
 }
+
 main()
