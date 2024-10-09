@@ -90,7 +90,7 @@ class BookingResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => [Booking]) // Retourne un tableau de Booking
+	@Mutation(() => [Booking])
 	async createBooking(@Arg("data", () => [NewBookingInput]) data: NewBookingInput[], @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
@@ -103,7 +103,6 @@ class BookingResolver {
 			const product = await Product.findOne({ where: { id: bookingData.productId } })
 			if (!product) throw new GraphQLError("Product not found")
 
-			// Vérification de la disponibilité pour la quantité et la taille demandées
 			const availableProductCodes = await ProductCode.checkAvailability(
 				bookingData.productId,
 				startDate,

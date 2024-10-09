@@ -29,7 +29,7 @@ export default function ProductDescription() {
               <strong>Agency:</strong> {selectedAgencyName}
             </>
           ) : (
-            "Select an angency"
+            "Select an agency"
           )}
         </MenuButton>
         <MenuList>
