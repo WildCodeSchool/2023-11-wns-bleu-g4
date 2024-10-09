@@ -1,9 +1,9 @@
-mutation CreateBooking($data: NewBookingInput!) {
-  createBooking(data: $data) {
-    id
-    status
-    bookingDate
-    startDate
-    endDate
-  }
+mutation CreateBooking($data: [NewBookingInput!]!) {
+    createBooking(data: $data) {
+        id
+        status
+        bookingDate
+        startDate
+        endDate
+    }
 }
