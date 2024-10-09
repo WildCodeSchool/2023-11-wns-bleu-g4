@@ -60,7 +60,6 @@ export default function ShopPage() {
 
   const handleFilterChange = useCallback(
     (categoryId: number | null) => {
-      console.log("Filter changed to:", categoryId);
       setSelectedCategoryId(categoryId);
       setPage(0);
       updateUrlQuietly({ categoryId, page: 1 });
@@ -70,7 +69,6 @@ export default function ShopPage() {
 
   const handlePageChange = useCallback(
     (newPage: number) => {
-      console.log("Page changed to:", newPage);
       setPage(newPage);
       updateUrlQuietly({ page: newPage + 1 });
     },
@@ -79,7 +77,6 @@ export default function ShopPage() {
 
   const handleSortChange = useCallback(
     (newSortOrder: SortProduct | null) => {
-      console.log("Sort changed to:", newSortOrder);
       setSortOrder(newSortOrder);
       updateUrlQuietly({ sortOrder: newSortOrder });
     },
@@ -88,7 +85,6 @@ export default function ShopPage() {
 
   const handleSearchChange = useCallback(
     (newSearchQuery: string) => {
-      console.log("Search changed to:", newSearchQuery);
       setSearchQuery(newSearchQuery);
       setPage(0);
       updateUrlQuietly({ search: newSearchQuery, page: 1 });
