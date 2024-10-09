@@ -4,15 +4,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CreateBookingMutationVariables = Types.Exact<{
-  data: Types.NewBookingInput;
+  data: Array<Types.NewBookingInput> | Types.NewBookingInput;
 }>;
 
 
-export type CreateBookingMutation = { __typename?: 'Mutation', createBooking: { __typename?: 'Booking', id: number, status: Types.StatusBooking, bookingDate: any, startDate: any, endDate: any } };
+export type CreateBookingMutation = { __typename?: 'Mutation', createBooking: Array<{ __typename?: 'Booking', id: number, status: Types.StatusBooking, bookingDate: any, startDate: any, endDate: any }> };
 
 
 export const CreateBookingDocument = gql`
-    mutation CreateBooking($data: NewBookingInput!) {
+    mutation CreateBooking($data: [NewBookingInput!]!) {
   createBooking(data: $data) {
     id
     status

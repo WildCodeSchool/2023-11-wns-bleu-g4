@@ -110,7 +110,7 @@ export type Mutation = {
   cancelBookingItems: Scalars['String']['output'];
   confirmEmail: Scalars['String']['output'];
   createAgency: Agency;
-  createBooking: Booking;
+  createBooking: Array<Booking>;
   createBookingItem: BookingItem;
   createBrand: Brand;
   createCategory: Category;
@@ -173,7 +173,7 @@ export type MutationCreateAgencyArgs = {
 
 
 export type MutationCreateBookingArgs = {
-  data: NewBookingInput;
+  data: Array<NewBookingInput>;
 };
 
 
