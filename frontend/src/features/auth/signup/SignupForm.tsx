@@ -85,7 +85,7 @@ export default function SignupForm() {
   return formSubmit ? (
     <ConfirmationMailSendCard />
   ) : (
-    <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
+    <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content" className="my-4 lg:my-0">
       {/* TITLE */}
       <CardHeader textAlign="center">
         <Heading as="h1" color="black" fontWeight="500">
@@ -169,11 +169,10 @@ export default function SignupForm() {
             <CheckPasswordAvailability password={firstPassword} secondPassword={repeatedPassword} />
           </Flex>
         </CardBody>
-        <CardFooter>
-          <Flex direction="column" alignItems="center" className="w-full">
-            {/* CHECKBOX */}
+        <CardFooter className="flex flex-col justify-center items-center gap-3">
+          <div className="flex gap-2 items-center justify-center">
             <Checkbox
-              className="pb-2  border-orange-500"
+              className="border-orange-500"
               size="lg"
               colorScheme="transparent"
               onChange={() => {
@@ -181,32 +180,30 @@ export default function SignupForm() {
               }}
               icon={<CustomIcon />}
               name="acceptConditions"
-            >
-              <Link href="/sale-conditions" className="underline text-orange-500">
-                {t("I accept terms and conditions")}
-              </Link>
-            </Checkbox>
+            />
+            <Link href="/sale-conditions" className="text-sm underline text-orange-500">
+              {t("I accept terms and conditions")}
+            </Link>
+          </div>
 
-            {/* BUTTON */}
-            <button
-              type="submit"
-              disabled={disableButton}
-              hidden={false}
-              className={`bg-orange-500  h-10 w-full rounded-lg ${
-                disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
+          {/* BUTTON */}
+          <button
+            type="submit"
+            disabled={disableButton}
+            hidden={false}
+            className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
               }`}
-            >
-              {t("Signup")}
-            </button>
+          >
+            {t("Signup")}
+          </button>
 
-            {/* GO TO LOGIN */}
-            <Text className=" text-center text-md py-2" color="black">
-              {t("Already registered ?")}&nbsp;
-              <Link href="/login" className="underline text-orange-500">
-                {t("login")}
-              </Link>
-            </Text>
-          </Flex>
+          {/* GO TO LOGIN */}
+          <Text className=" text-center text-md" color="black">
+            {t("Already registered ?")}&nbsp;
+            <Link href="/login" className="underline text-orange-500">
+              {t("login")}
+            </Link>
+          </Text>
         </CardFooter>
       </form>
     </Card>
