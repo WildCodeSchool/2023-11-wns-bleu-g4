@@ -15,26 +15,25 @@ describe("AgencyResolver", () => {
 		const numberOfAgencies = 5
 		await createAgencies(numberOfAgencies)
 		const res = await execute(GetAllAgenciesQuery)
-		const agenciesArr : Agency[] = await res.data?.getAllAgencies as Agency[]
+		const agenciesArr: Agency[] = (await res.data?.getAllAgencies) as Agency[]
 		expect(agenciesArr.length).toBe(numberOfAgencies)
 	})
 
 	it("should get an agency by id", async () => {
 		await createAgencies(2)
 		const res = await execute(getAgencyById, { agencyId: 1 })
-		const agency: Agency = await res.data?.getAgencyById as Agency
-		expect(agency).toEqual(
-			{
-				address: "address1",
-				city: "city1",
-				country: "country1",
-				email: "email1",
-				id: 1,
-				name: "agency1",
-				phone: "phone1",
-				postcode: "postcode1",
-				productCodes: [],
-			})
+		const agency: Agency = (await res.data?.getAgencyById) as Agency
+		expect(agency).toEqual({
+			address: "address1",
+			city: "city1",
+			country: "country1",
+			email: "email1",
+			id: 1,
+			name: "agency1",
+			phone: "phone1",
+			postcode: "postcode1",
+			productCodes: [],
+		})
 	})
 
 	it("should not get an agency with wrong id", async () => {
@@ -88,7 +87,7 @@ describe("AgencyResolver", () => {
 					country: "country1",
 					phone: "phone1",
 					email: "email1",
-				}
+				},
 			},
 			await getCustomerContext()
 		)
@@ -100,22 +99,14 @@ describe("AgencyResolver", () => {
 	it("should delete an agency as an admin", async () => {
 		await createAgencies(1)
 
-		const res = await execute(
-			deleteAgency,
-			{ agencyId: 1 },
-			await getAdminContext()
-		)
+		const res = await execute(deleteAgency, { agencyId: 1 }, await getAdminContext())
 		expect(res.data?.deleteAgency).toBe("Agency deleted")
 	})
 
 	it("should not delete an agency if not admin", async () => {
 		await createAgencies(1)
 
-		const res = await execute(
-			deleteAgency,
-			{ agencyId: 1 },
-			await getCustomerContext()
-		)
+		const res = await execute(deleteAgency, { agencyId: 1 }, await getCustomerContext())
 
 		const graphQLError = res.errors as GraphQLError[]
 		expect(graphQLError[0].message).toBe("Access denied! You don't have permission for this action!")
@@ -128,12 +119,12 @@ describe("AgencyResolver", () => {
 			updateAgency,
 			{
 				agencyId: 1,
-				data: {name: "new agency name"}
+				data: { name: "new agency name" },
 			},
 			await getAdminContext()
 		)
 
-		let agencyUpdated: Agency = await res.data?.updateAgency as Agency
+		let agencyUpdated: Agency = (await res.data?.updateAgency) as Agency
 		expect(agencyUpdated.name).toBe("new agency name")
 	})
 
@@ -143,7 +134,7 @@ describe("AgencyResolver", () => {
 			updateAgency,
 			{
 				agencyId: 1,
-				data: {name: "new agency name"}
+				data: { name: "new agency name" },
 			},
 			await getCustomerContext()
 		)

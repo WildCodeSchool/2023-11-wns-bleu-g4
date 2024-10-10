@@ -4,5 +4,5 @@ module.exports = {
 	testEnvironment: "node",
 	setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 	testMatch: ["**/test/*.test.ts"],
-	maxWorkers: 1
+	maxWorkers: 1,
 }

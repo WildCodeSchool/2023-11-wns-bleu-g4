@@ -18,8 +18,8 @@ export default function LEntreprise() {
           <p className="text-sm md:text-base mb-4">
             {t(
               "At GearGo, we are passionate about connecting sports enthusiasts with the equipment " +
-              "they need for their adventures. Our mission is to make high-quality sports equipment accessible " +
-              "to everyone through an easy-to-use and efficient online rental platform.",
+                "they need for their adventures. Our mission is to make high-quality sports equipment accessible " +
+                "to everyone through an easy-to-use and efficient online rental platform.",
             )}
           </p>
         </section>
@@ -29,9 +29,9 @@ export default function LEntreprise() {
           <p className="text-sm md:text-base mb-4">
             {t(
               "GearGo was born from the collaboration between an established sports equipment rental " +
-              "company and a team of innovative developers. Recognizing the need for a modern digital solution " +
-              "in the sports rental industry, we set out to create a platform that would revolutionize the way " +
-              "people access and enjoy sports equipment.",
+                "company and a team of innovative developers. Recognizing the need for a modern digital solution " +
+                "in the sports rental industry, we set out to create a platform that would revolutionize the way " +
+                "people access and enjoy sports equipment.",
             )}
           </p>
         </section>
@@ -52,8 +52,8 @@ export default function LEntreprise() {
           <p className="text-sm md:text-base mb-4">
             {t(
               "Behind GearGo is a dedicated team of sports enthusiasts and technology experts. " +
-              "We combine our passion for outdoor activities with cutting-edge technology to provide you " +
-              "with the best rental experience possible.",
+                "We combine our passion for outdoor activities with cutting-edge technology to provide you " +
+                "with the best rental experience possible.",
             )}
           </p>
         </section>
