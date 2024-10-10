@@ -341,14 +341,12 @@ async function getOrCreateBrand(brandName: string): Promise<Brand> {
 		brand.name = brandName
 
 		const manufacturePath = path.join(__dirname, "data", "manufacture")
-		// console.log(`Searching in directory: ${manufacturePath}`);
 		try {
 			const files = fs.readdirSync(manufacturePath)
 			const brandFile = files.find((file) => file.toLowerCase() === `${brandName.toLowerCase()}.webp`)
 
 			if (brandFile) {
 				const imagePath = path.join(manufacturePath, brandFile)
-				//	console.log(`Found image at: ${imagePath}`);
 				const fileBuffer = fs.readFileSync(imagePath)
 				const form = new FormData()
 				form.append("file", new Blob([fileBuffer]), brandFile)
@@ -365,16 +363,10 @@ async function getOrCreateBrand(brandName: string): Promise<Brand> {
 				const result = (await response.json()) as { url: string }
 				brand.logo = result.url
 			} else {
-				//	console.warn(`Image not found for brand ${brandName}. Using default logo.`);
 				brand.logo =
 					"https://res.cloudinary.com/ekoweb/image/upload/s--avKnuAjv--/f_auto,h_80,q_auto:eco,w_80/v1/brand/19640937"
 			}
 		} catch (error: unknown) {
-			if (error instanceof Error) {
-				//	console.error(`Error processing image for ${brandName}:`, error.message);
-			} else {
-				//	console.error(`Unknown error processing image for ${brandName}`);
-			}
 			brand.logo =
 				"https://res.cloudinary.com/ekoweb/image/upload/s--avKnuAjv--/f_auto,h_80,q_auto:eco,w_80/v1/brand/19640937"
 		}
