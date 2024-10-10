@@ -191,7 +191,9 @@ export default function SignupForm() {
             type="submit"
             disabled={disableButton}
             hidden={false}
-            className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
+            className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton 
+              ? "hover:cursor-not-allowed" 
+              : "hover:cursor-pointer hover:bg-orange-400"
               }`}
           >
             {t("Signup")}

@@ -10,7 +10,7 @@ export default function ConditionsGeneralesVente() {
 
   return (
     <Layout>
-      <div className="px-2 md:px-60 xl:mx-24 xl:pb-5 mt-4 md:mt-0">
+      <div className="px-2 md:px-10 lg:px-32 xl:px-60 xl:pb-5 mt-4">
         <h1 className="text-3xl font-bold mb-6">{t("General Terms and Conditions of Sale")}</h1>
 
         <p className="mb-4">
