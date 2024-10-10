@@ -1,6 +1,9 @@
 export default function TimeStampToDayDuration(startDate: Date, endDate: Date) {
-  let dateFrom: number = startDate.getTime();
-  let dateTo: number = endDate.getTime();
+  let dayFrom: Date = new Date(startDate);
+  let dayTo: Date = new Date(endDate);
+
+  let dateFrom: number = dayFrom.getTime();
+  let dateTo: number = dayTo.getTime();
 
   // milliseconds to days
   let result = Math.floor((dateTo - dateFrom) / 86400000);
@@ -11,5 +14,5 @@ export default function TimeStampToDayDuration(startDate: Date, endDate: Date) {
   // if negative value
   if (result < 0) return result * -1;
 
-  return result;
+  return result + 1;
 }

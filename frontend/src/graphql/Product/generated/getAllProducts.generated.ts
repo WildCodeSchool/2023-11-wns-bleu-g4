@@ -8,6 +8,7 @@ export type GetAllProductsQueryVariables = Types.Exact<{
   limit?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   offset?: Types.InputMaybe<Types.Scalars['Int']['input']>;
   name?: Types.InputMaybe<Types.Scalars['String']['input']>;
+  categoryId?: Types.InputMaybe<Types.Scalars['Int']['input']>;
 }>;
 
 
@@ -15,12 +16,13 @@ export type GetAllProductsQuery = { __typename?: 'Query', getAllProducts: { __ty
 
 
 export const GetAllProductsDocument = gql`
-    query getAllProducts($sortOrder: SortProduct, $limit: Int, $offset: Int, $name: String) {
+    query getAllProducts($sortOrder: SortProduct, $limit: Int, $offset: Int, $name: String, $categoryId: Int) {
   getAllProducts(
     sortOrder: $sortOrder
     limit: $limit
     offset: $offset
     name: $name
+    categoryId: $categoryId
   ) {
     products {
       id
@@ -58,6 +60,7 @@ export const GetAllProductsDocument = gql`
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
  *      name: // value for 'name'
+ *      categoryId: // value for 'categoryId'
  *   },
  * });
  */

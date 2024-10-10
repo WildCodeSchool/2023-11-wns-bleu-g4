@@ -3,29 +3,33 @@ import { useProductContext } from "@/context/ProductPageContext";
 import { useBookingMutation } from "@/features/product/detailsComponent/useBookingMutation";
 import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
 import Layout from "@/layouts/Layout";
-import { Box, Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Image as ChakraImage, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { TrashIcon } from "@heroicons/react/24/solid";
+import Validate from "@public/images/validate.gif";
+import Image from "next/image";
 
 export default function BasketPage() {
   const { t } = useTranslation("BasketPage");
   const { bookingData, removeBookingData } = useBookingData();
+  const { clearBookingData } = useBookingData();
   const {
     state: { agencies },
   } = useProductContext();
   const { performBookingMutation } = useBookingMutation();
   const { data: profileData } = useProfileQuery();
   const [bookingInProgress, setBookingInProgress] = useState(false);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
   const router = useRouter();
 
   const totalPrice = bookingData?.reduce((acc, curr) => acc + (curr.totalPrice || 0), 0) || 0;
 
   const handleBooking = async () => {
     if (!bookingData || bookingData.length === 0) {
-      toast.error("Your basket is empty.");
+      toast.error(t("Your basket is empty."));
       return;
     }
 
@@ -53,13 +57,42 @@ export default function BasketPage() {
         reservations: reservations,
       });
 
-      bookingData.forEach((_, index) => removeBookingData(index));
+      setBookingSuccess(true);
+      toast.success(t("Your booking has been successfully completed!"));
+
+      clearBookingData();
     } catch (error) {
-      toast.error("An error occured while booking");
+      toast.error(t("An error occurred while booking"));
     } finally {
       setBookingInProgress(false);
     }
   };
+
+  if (bookingSuccess) {
+    return (
+      <Layout>
+        <Flex justify="center" align="center" direction="column" mb={4}>
+          <Image src={Validate} alt="" width={200} height={200} style={{ marginBottom: "24px" }} />
+          <Text fontSize={32} fontWeight="bold" mb={4}>
+            {t("Order confirmed!")}
+          </Text>
+          <Text fontSize={20} mb={6} textAlign={"center"}>
+            {t("Thank you for your purchase. Your booking has been successfully completed.")}
+          </Text>
+          <Text fontSize={18} mb={6} textAlign={"center"}>
+            {t("You can view the details of your order in your")}
+            <Button onClick={() => router.push("/account")} variant="link" color="accent" ml={1} fontSize={18}>
+              <strong>{t("account")}</strong>
+            </Button>{" "}
+            {t("section.")}{" "}
+          </Text>
+          <Button onClick={() => router.push("/")} variant="primaryButton">
+            {t("Back to homepage")}
+          </Button>
+        </Flex>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -70,9 +103,9 @@ export default function BasketPage() {
             const agency = agencies.find(a => a.id === selectedAgency);
 
             return (
-              <Box className="px-5 lg:px-24" key={index} mb={4}>
+              <Box className="px-5 lg:px-24" key={index}>
                 <Flex align="center" justifyContent="space-between" className="flex-col xl:flex-row" gap={8}>
-                  {product && <Image w={100} src={product.thumbnail} alt={product.name} />}
+                  {product && <ChakraImage w={100} src={product.thumbnail} alt={product.name} />}
                   <Flex
                     align="flex-start"
                     justifyContent="space-around"
@@ -127,13 +160,11 @@ export default function BasketPage() {
                         </Flex>
                       </Flex>
                       <Divider />
-                      <Flex className="bg-accent rounded-md p-2" w="fit-content">
-                        {totalPrice && (
-                          <Text textAlign="center" fontSize={24} color="white">
-                            <strong>{t("Total Price")}</strong> : {parseFloat(totalPrice.toFixed(2))} €
-                          </Text>
-                        )}
-                      </Flex>
+                      {totalPrice && (
+                        <Text fontSize={18}>
+                          <strong>{t("Price")}</strong> : {parseFloat(totalPrice.toFixed(2))} €
+                        </Text>
+                      )}
                     </Flex>
                   </Flex>
                   <Button
@@ -161,17 +192,28 @@ export default function BasketPage() {
               </Box>
             );
           })}
-          <Flex justify="center" mt={4} alignItems="center" gap={4}>
-            <Text fontSize={24} fontWeight="bold">
-              {t("Total:")} {parseFloat(totalPrice.toFixed(2))} €
-            </Text>
-            <Button variant="primaryButton" onClick={handleBooking} isLoading={bookingInProgress}>
-              {t("Book")}
-            </Button>
+          <Flex justify="center" mt={4} alignItems="center" flexDirection="column" mb={4} className="px-5 lg:px-24">
+            <Flex justify="flex-end" width="100%">
+              <Text fontSize={24} fontWeight="bold" color="accent">
+                {t("Total price:")} {parseFloat(totalPrice.toFixed(2))} €
+              </Text>
+            </Flex>
+            <Flex>
+              <Button variant="primaryButton" onClick={handleBooking} isLoading={bookingInProgress} fontWeight="bold">
+                {t("Book items")}
+              </Button>
+            </Flex>
           </Flex>
         </>
       ) : (
-        <Text>{t("Your basket is empty")}</Text>
+        <Flex justify="center" align="center" direction="column" mb={4}>
+          <Text fontSize={24} fontWeight="bold" mb={4}>
+            {t("Your basket is empty")}
+          </Text>
+          <Button onClick={() => router.push("/")} variant="primaryButton">
+            {t("Back to homepage")}
+          </Button>
+        </Flex>
       )}
     </Layout>
   );

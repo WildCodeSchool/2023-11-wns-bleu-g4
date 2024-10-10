@@ -1,8 +1,25 @@
 {
+  "account": "",
   "Agency :": "Agency :",
+  "An error occurred while booking": "",
+  "Back to homepage": "",
+  "Book": "",
+  "Book items": "",
+  "Delete": "",
+  "DELETE": "",
   "End :": "End :",
+  "Order confirmed!": "",
+  "Price": "",
   "Product :": "Product :",
   "Quantity :": "Quantity :",
+  "section.": "",
   "Start :": "Start :",
-  "Total Price": "Total price :"
+  "Thank you for your purchase. Your booking has been successfully completed.": "",
+  "Total Price": "Total price :",
+  "Total price:": "",
+  "Total:": "",
+  "You can view the details of your order in your": "",
+  "Your basket is empty": "",
+  "Your basket is empty.": "",
+  "Your booking has been successfully completed!": ""
 }

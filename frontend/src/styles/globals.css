@@ -46,6 +46,7 @@
   font-family: "Poppins";
   src: url("/../fonts/poppins-500.ttf") format("truetype");
   font-weight: 500;
+
   font-family: "Poppins";
   src: url("/../fonts/poppins-500.ttf") format("truetype");
   font-weight: 500;
@@ -55,6 +56,7 @@
   font-family: "Poppins";
   src: url("/../fonts/poppins-600.ttf") format("truetype");
   font-weight: 600;
+
   font-family: "Poppins";
   src: url("/../fonts/poppins-600.ttf") format("truetype");
   font-weight: 600;
@@ -234,6 +236,7 @@ h4 {
 .swiper {
   width: 100%;
   height: 100%;
+
   width: 100%;
   height: 100%;
 }

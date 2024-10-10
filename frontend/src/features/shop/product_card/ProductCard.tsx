@@ -3,6 +3,7 @@ import { Box, Card, Flex, IconButton, Image, Text } from "@chakra-ui/react";
 import { ChatBubbleLeftEllipsisIcon, StarIcon as OutlineStarIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { StarIcon as SolidStarIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 interface ProductCardProps {
   product: any;
@@ -10,6 +11,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
+  const { t } = useTranslation("ProductCard");
 
   const handleCardClick = () => {
     router.push(`/products/${product.id}`);
@@ -73,7 +75,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <Box fontSize="xl">
             {product.price.toFixed(2)}€
             <Box as="span" fontSize="xl">
-              / Day
+              {t("/ Day")}
             </Box>
           </Box>
           <IconButton variant="accentButton" aria-label="shopping cart" icon={<ShoppingCartIcon width="24" />} />

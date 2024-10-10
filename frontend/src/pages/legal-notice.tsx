@@ -1,6 +1,9 @@
 import React from "react";
 import Layout from "@/layouts/Layout";
 import { useTranslation } from "react-i18next";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "@root/i18nUtils";
 
 export default function Legal_notice() {
   const { t } = useTranslation("LegalNotice");
@@ -92,3 +95,9 @@ export default function Legal_notice() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
+  },
+});

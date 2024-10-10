@@ -25,6 +25,8 @@ export default function SubNavbar() {
   const { isOpen, onOpen: originalOnOpen, onClose } = useDisclosure();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const isLight = useColorModeValue("bgLight", "bgDark");
+  const { bookingData } = useBookingData();
+  const [itemCount, setItemCount] = useState(0);
 
   const onOpen = () => {
     if (router.pathname === "/basket") {
@@ -50,6 +52,7 @@ export default function SubNavbar() {
   const { data: categoriesData } = useGetAllParentCategoryQuery();
 
   const [search, setSearch] = useState("");
+  const searchParams = qs.parse(window.location.search);
 
   useEffect(() => {
     if (typeof router.query.name === "string") {
@@ -57,10 +60,9 @@ export default function SubNavbar() {
     }
   }, [router.query.name]);
 
-  const searchParams = qs.parse(window.location.search);
-
-  const { bookingData } = useBookingData();
-  const itemCount = bookingData ? bookingData.length : 0;
+  useEffect(() => {
+    setItemCount(bookingData.length);
+  }, [bookingData]);
 
   return (
     <Flex

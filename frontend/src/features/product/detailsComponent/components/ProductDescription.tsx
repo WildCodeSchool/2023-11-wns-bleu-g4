@@ -26,10 +26,10 @@ export default function ProductDescription() {
         <MenuButton as={Button} mt={5} width={"fit-content"} data-testid={"agency"}>
           {selectedAgencyName ? (
             <>
-              <strong>Agence :</strong> {selectedAgencyName}
+              <strong>Agency:</strong> {selectedAgencyName}
             </>
           ) : (
-            "Sélectionner une agence"
+            "Select an agency"
           )}
         </MenuButton>
         <MenuList>
