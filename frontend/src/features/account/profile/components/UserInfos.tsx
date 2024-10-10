@@ -78,10 +78,7 @@ export default function UserInfos({ user }: { user?: User }) {
   return (
     <Flex className="w-full flex flex-col">
       {/*************************** USER INFOS ***************************/}
-      <Flex
-        className="w-full flex justify-between items-start flex-col"
-        color={textColor}
-      >
+      <Flex className="w-full flex justify-between items-start flex-col" color={textColor}>
         {userInfos &&
           userInfos.map((info, i) => {
             return (
