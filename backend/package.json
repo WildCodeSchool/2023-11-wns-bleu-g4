@@ -15,7 +15,8 @@
 		"test": "jest",
 		"testDB:wait": "docker compose -f docker-compose.integration-tests.yml up testDB --wait",
 		"checkLateBookings": "ts-node ./src/checkLateBookings.ts",
-		"checkLateBookings:prod": "node build/checkLateBookings.js"
+		"checkLateBookings:prod": "node build/checkLateBookings.js",
+		"migration:run": "typeorm migration:run"
 	},
 	"keywords": [],
 	"author": "Jeremy Dohin",
