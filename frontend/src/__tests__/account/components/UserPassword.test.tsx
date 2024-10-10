@@ -3,7 +3,6 @@ import UserPassword from "../../../features/account/profile/components/UserPassw
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-
 describe("UserPassword", () => {
   describe("Heading", () => {
     it("should display Password title", () => {
@@ -16,7 +15,7 @@ describe("UserPassword", () => {
     });
   });
   describe("button", () => {
-    it("should be in the document", () => {
+    it("should display a button", () => {
       render(
         <MockedProvider mocks={[]} addTypename={false}>
           <UserPassword />
