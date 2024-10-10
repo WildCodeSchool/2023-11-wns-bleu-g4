@@ -1,6 +1,9 @@
 import React from "react";
 import Layout from "@/layouts/Layout";
 import { useTranslation } from "react-i18next";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "@root/i18nUtils";
 
 export default function LEntreprise() {
   const { t } = useTranslation("Company");
@@ -15,8 +18,8 @@ export default function LEntreprise() {
           <p className="mb-4">
             {t(
               "At GearGo, we are passionate about connecting sports enthusiasts with the equipment " +
-                "they need for their adventures. Our mission is to make high-quality sports equipment accessible " +
-                "to everyone through an easy-to-use and efficient online rental platform.",
+              "they need for their adventures. Our mission is to make high-quality sports equipment accessible " +
+              "to everyone through an easy-to-use and efficient online rental platform.",
             )}
           </p>
         </section>
@@ -26,9 +29,9 @@ export default function LEntreprise() {
           <p className="mb-4">
             {t(
               "GearGo was born from the collaboration between an established sports equipment rental " +
-                "company and a team of innovative developers. Recognizing the need for a modern digital solution " +
-                "in the sports rental industry, we set out to create a platform that would revolutionize the way " +
-                "people access and enjoy sports equipment.",
+              "company and a team of innovative developers. Recognizing the need for a modern digital solution " +
+              "in the sports rental industry, we set out to create a platform that would revolutionize the way " +
+              "people access and enjoy sports equipment.",
             )}
           </p>
         </section>
@@ -49,8 +52,8 @@ export default function LEntreprise() {
           <p className="mb-4">
             {t(
               "Behind GearGo is a dedicated team of sports enthusiasts and technology experts. " +
-                "We combine our passion for outdoor activities with cutting-edge technology to provide you " +
-                "with the best rental experience possible.",
+              "We combine our passion for outdoor activities with cutting-edge technology to provide you " +
+              "with the best rental experience possible.",
             )}
           </p>
         </section>
@@ -74,3 +77,9 @@ export default function LEntreprise() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
+  },
+});

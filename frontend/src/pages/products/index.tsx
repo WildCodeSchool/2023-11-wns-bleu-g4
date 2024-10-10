@@ -9,6 +9,9 @@ import Pagination from "@/features/shop/Pagination";
 import ProductFilter from "@/features/shop/filters/ProductFilter";
 import TopFilters from "@/features/shop/filters/TopFilters";
 import Loading from "@/shared/components/Loading";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "@root/i18nUtils";
 
 export default function ProductByCategory() {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -141,3 +144,9 @@ export default function ProductByCategory() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
+  },
+});

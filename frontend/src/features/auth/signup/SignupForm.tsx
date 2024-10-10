@@ -182,8 +182,8 @@ export default function SignupForm() {
               icon={<CustomIcon />}
               name="acceptConditions"
             >
-              <Link href="#" className="underline text-orange-500">
-                I accept terms and conditions
+              <Link href="/sale-conditions" className="underline text-orange-500">
+                {t("I accept terms and conditions")}
               </Link>
             </Checkbox>
 
@@ -192,9 +192,8 @@ export default function SignupForm() {
               type="submit"
               disabled={disableButton}
               hidden={false}
-              className={`bg-orange-500  h-10 w-full rounded-lg ${
-                disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
-              }`}
+              className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
+                }`}
             >
               {t("Signup")}
             </button>
