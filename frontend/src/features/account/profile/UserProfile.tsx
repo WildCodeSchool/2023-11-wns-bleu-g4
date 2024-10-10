@@ -9,10 +9,12 @@ export default function UserProfile() {
   const { data: currentUser } = useProfileQuery();
 
   return (
-    <Flex className="min-w-96 w-full gap-2 flex flex-col items-center justify-center
+    <Flex
+      className="min-w-96 w-full gap-2 flex flex-col items-center justify-center
     lg:gap-5 xl:pb-5 xl:items-start xl:gap-2 xl:max-w-2xl"
     >
-      <Flex className="w-full flex flex-col h-full gap-2 sm:justify-between 
+      <Flex
+        className="w-full flex flex-col h-full gap-2 sm:justify-between 
       lg:flex-row lg:justify-start lg:h-fit xl:flex-col"
       >
         <UserAvatar user={currentUser?.profile as User} />
