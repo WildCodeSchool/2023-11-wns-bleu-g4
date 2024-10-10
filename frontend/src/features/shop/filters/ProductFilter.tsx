@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Checkbox, Flex, Stack, Text } from "@chakra-ui/react";
 import { useGetAllCategoriesQuery } from "@/graphql/Category/generated/getAllCats.generated";
+import { useTranslation } from "react-i18next";
+import Loading from "@/shared/components/Loading";
 
 interface ProductFilterProps {
   onFilterChange?: (categoryId: number | null) => void;
@@ -12,7 +14,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
   selectedCategoryId: initialSelectedCategoryId,
 }) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(initialSelectedCategoryId || null);
-
+  const { t } = useTranslation("ProductFilter");
   const { loading, error, data } = useGetAllCategoriesQuery();
 
   const handleCategoryChange = (categoryId: number) => {
@@ -23,7 +25,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
     }
   };
 
-  if (loading) return <p>Loading categories...</p>;
+  if (loading) return <Loading loading={loading} />;
   if (error) return <p>Error loading categories: {error.message}</p>;
 
   const categories = data?.getAllCategories || [];
@@ -31,7 +33,7 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
   return (
     <Flex direction="column" justifyContent="space-between" alignItems="start" padding="1rem">
       <Text fontSize={{ base: "1xl", md: "lg" }} fontWeight="bold">
-        Filter by Category
+        {t("Filter by Category")}
       </Text>
       <Stack spacing={3} mt="2" width="100%">
         {categories.map(category => (

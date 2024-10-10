@@ -9,6 +9,9 @@ import TopFilters from "@/features/shop/filters/TopFilters";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 import { SortProduct } from "@/graphql/generated/schema";
 import Loading from "@/shared/components/Loading";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "@root/i18nUtils";
 
 export default function ShopPage() {
   const router = useRouter();
@@ -134,3 +137,9 @@ export default function ShopPage() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
+  },
+});

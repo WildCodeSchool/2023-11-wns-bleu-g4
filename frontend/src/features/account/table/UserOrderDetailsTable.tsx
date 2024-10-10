@@ -34,7 +34,7 @@ export default function UserOrdersDetailsTable() {
 
   return (
     <Flex className="w-full flex flex-col xl:w-fit" gap={2} color={textColor}>
-      <Table className="w-full rounded text-xs overflow-hidden">
+      <Table className="w-full rounded text-sm overflow-hidden">
         <Thead>
           <Tr bg={bgTableHeadColor}>
             {orderDetailsHeaders.map(menu => (
@@ -53,19 +53,19 @@ export default function UserOrdersDetailsTable() {
           {bookingItems ? (
             bookingItems.map((item: BookingItem, index: number) => (
               <Tr bg={index % 2 === 0 ? bgColor : bgTableContent} key={item.id} className="whitespace-nowrap">
-                <Td className={"w-28 text-center min-w-25 max-w-40 xl:max-w-60 hidden  xl:table-cell"}>
+                <Td className={"w-28 text-center min-w-fit max-w-40 xl:max-w-60 hidden xl:table-cell"}>
                   <img src={item.product?.thumbnail as string} alt={item.product?.name as string} className="rounded" />
                 </Td>
-                <Td className={genericBookingItemClass + " sm:max-w-2/3"}>
+                <Td className={genericBookingItemClass + "sm:max-w-2/3"}>
                   <Text className="text-center whitespace-normal">{item.product?.name}</Text>
                 </Td>
-                <Td className={genericBookingItemClass + " hidden  2xl:table-cell"}>
+                <Td className={genericBookingItemClass + " hidden 2xl:table-cell"}>
                   <Text className="text-center">{transformToDate(item.startDate as Date)}</Text>
                 </Td>
-                <Td className={genericBookingItemClass + " hidden  2xl:table-cell"}>
+                <Td className={genericBookingItemClass + " hidden 2xl:table-cell"}>
                   <Text className="text-center">{transformToDate(item.endDate as Date)}</Text>
                 </Td>
-                <Td className={genericBookingItemClass + " hidden  xl:table-cell"}>
+                <Td className={genericBookingItemClass + " hidden xl:table-cell"}>
                   <Text className="text-center">{item.product?.price?.toFixed(2)} €</Text>
                 </Td>
                 <Td className={genericBookingItemClass}>

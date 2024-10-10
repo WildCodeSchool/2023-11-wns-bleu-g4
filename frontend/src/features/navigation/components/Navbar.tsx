@@ -96,7 +96,6 @@ function DesktopNavbar() {
                   {profileData?.profile.role === "admin" && (
                     <MenuItem onClick={() => router.push("/admin")}>{t("Admin Panel")}</MenuItem>
                   )}
-                  <MenuItem>{t("Payments")} </MenuItem>
                   <MenuDivider />
                   <MenuItem icon={<ArrowLeftStartOnRectangleIcon width={24} />} onClick={handleLogout}>
                     {t("Logout")}
@@ -193,9 +192,6 @@ function MobileNavbar() {
                         {t("Admin Panel")}
                       </Button>
                     )}
-                    <Button w="full" mb={2}>
-                      {t("Payments")}
-                    </Button>
                     <Button leftIcon={<ArrowLeftStartOnRectangleIcon width={24} />} onClick={handleLogout} w="full">
                       {t("Logout")}
                     </Button>
@@ -214,7 +210,7 @@ function MobileNavbar() {
             <IconButton
               bg={"transparent"}
               aria-label="Cart button"
-              icon={<ShoppingCartIcon width={24} style={{ fill: itemCount > 0 ? "#E66300" : "black" }} />}
+              icon={<ShoppingCartIcon width={24} style={{ fill: itemCount > 0 ? "#E66300" : "" }} />}
               size={"sm"}
               onClick={onOpenBasket}
             />

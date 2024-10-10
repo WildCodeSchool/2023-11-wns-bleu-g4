@@ -10,7 +10,7 @@ export default function Order() {
         <Heading size="lg">Order Details</Heading>
       </Flex>
 
-      <Flex className="w-full flex flex-col justify-center items-start px-5 gap-5 sm:flex-row ">
+      <Flex className="w-full flex flex-col justify-center items-start px-5 gap-5 sm:flex-row mb-8 lg:mb-0">
         <OrderInfos />
         <UserOrderDetailsTable />
       </Flex>

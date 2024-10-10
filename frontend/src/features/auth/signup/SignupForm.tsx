@@ -182,8 +182,8 @@ export default function SignupForm() {
               icon={<CustomIcon />}
               name="acceptConditions"
             >
-              <Link href="#" className="underline text-orange-500">
-                I accept terms and conditions
+              <Link href="/sale-conditions" className="underline text-orange-500">
+                {t("I accept terms and conditions")}
               </Link>
             </Checkbox>
 
