@@ -3,8 +3,27 @@ import UserPassword from "../../../features/account/profile/components/UserPassw
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 
+
 describe("UserPassword", () => {
+  describe("Heading", () => {
+    it("should display Password title", () => {
+      render(
+        <MockedProvider mocks={[]} addTypename={false}>
+          <UserPassword />
+        </MockedProvider>,
+      );
+      expect(screen.getByRole("heading", { level: 2, name: "PASSWORD" })).toBeInTheDocument();
+    });
+  });
   describe("button", () => {
+    it("should be in the document", () => {
+      render(
+        <MockedProvider mocks={[]} addTypename={false}>
+          <UserPassword />
+        </MockedProvider>,
+      );
+      expect(screen.getByRole("button")).toBeInTheDocument();
+    });
     it("should display a modal", () => {
       render(
         <MockedProvider mocks={[]} addTypename={false}>
@@ -15,16 +34,6 @@ describe("UserPassword", () => {
       const button: HTMLElement = screen.queryByRole("button", { name: "Modify" }) as HTMLElement;
       fireEvent.click(button);
       expect(screen.getByRole("dialog")).toBeInTheDocument();
-    });
-  });
-  describe("Heading", () => {
-    it("should display Password title", () => {
-      render(
-        <MockedProvider mocks={[]} addTypename={false}>
-          <UserPassword />
-        </MockedProvider>,
-      );
-      expect(screen.getByRole("heading", { level: 2, name: "PASSWORD" })).toBeInTheDocument();
     });
   });
 });
