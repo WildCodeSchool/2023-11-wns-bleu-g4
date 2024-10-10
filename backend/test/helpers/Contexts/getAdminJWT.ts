@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
-import User, { UserRole } from "../../src/entities/User"
-import env from "../../src/env"
+import User, { UserRole } from "../../../src/entities/User"
+import env from "../../../src/env"
 
 export default async function () {
 	const admin = new User()

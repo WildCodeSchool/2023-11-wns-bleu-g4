@@ -1,0 +1,27 @@
+import gql from "graphql-tag"
+
+export default gql`
+query GetAgencyById($agencyId: Int!) {
+  getAgencyById(agencyId: $agencyId) {
+    address
+    city
+    country
+    email
+    id
+    name
+    phone
+    postcode
+    productCodes {
+      id
+      bookingItems {
+        endDate
+        startDate
+      }
+      size
+      product {
+        id
+      }
+    }
+  }
+}
+`

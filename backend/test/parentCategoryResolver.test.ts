@@ -2,7 +2,7 @@ import { execute } from "../jest.setup"
 import ParentCategory from "../src/entities/ParentCategory"
 import addParentCategory from "./operations/addParentCategory"
 import getParentCategories from "./operations/getParentCategories"
-import getAdminContext from "./helpers/getAdminContext"
+import getAdminContext from "./helpers/Contexts/getAdminContext"
 
 describe("ParentCategoryResolver", () => {
 	it("should read parentCategories", async () => {

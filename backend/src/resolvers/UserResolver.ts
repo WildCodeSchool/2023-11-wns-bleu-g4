@@ -15,7 +15,11 @@ class UserResolver {
 	@Mutation(() => User)
 	async createUser(@Arg("data", { validate: true }) data: NewUserInput) {
 		const existingUser = await User.findOneBy({ email: data.email })
-		if (existingUser !== null) throw new GraphQLError("EMAIL_ALREADY_TAKEN")
+		if (existingUser !== null) 
+			throw new GraphQLError("EMAIL_ALREADY_TAKEN")
+
+		if (data.acceptConditions === false) 
+			throw new GraphQLError("You have to accept terms and conditions")
 
 		const newUser = new User()
 		Object.assign(newUser, data)
