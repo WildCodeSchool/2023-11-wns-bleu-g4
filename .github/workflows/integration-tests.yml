@@ -44,7 +44,7 @@ jobs:
         run: npm run testDB:wait
 
       - name: Run DB migrations
-        run: npm run migration:up
+        run: npm run migration:run
 
       - name: Run tests
         run: npm test
