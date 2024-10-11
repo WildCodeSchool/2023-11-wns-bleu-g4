@@ -27,7 +27,7 @@ export function validatePassword(password: string, repeatPassword: string): bool
     return false;
   }
 
-  if (password.length < 8) {
+  if (password.length < 12) {
     toast.error("Password must be at least 12 chars long", ToastConfigLogin);
     return false;
   }
