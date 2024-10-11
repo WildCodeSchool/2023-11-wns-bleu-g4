@@ -21,7 +21,7 @@ export default function CheckPasswordAvailability({ password, secondPassword }: 
     { text: t("At least 1 number"), isAvailable: oneNumber },
     { text: t("At least 1 special character"), isAvailable: oneSpecial },
     {
-      text: t("At least 12 characters" + (password.length > 0 ? " (" + password.length + ")" : "")),
+      text: t("At least 12 characters") + (password.length > 0 ? " (" + password.length + ")" : ""),
       isAvailable: twelveChars,
     },
     { text: t("Same passwords"), isAvailable: samePasswords },

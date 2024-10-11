@@ -5,7 +5,8 @@ import env from "../../src/env"
 export default async function () {
 	const admin = new User()
 	Object.assign(admin, {
-		nickname: "admin",
+		name: "Geargo",
+		firstname: "Admin",
 		email: "geargo.wild@gmail.com",
 		password: "4dminAdmin@!",
 		role: UserRole.ADMIN,

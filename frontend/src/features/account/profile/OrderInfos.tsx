@@ -141,7 +141,7 @@ export default function OrderInfos() {
             ) : null}
             <Button
               className={cancelable ? "w-1/2" : "w-full"}
-              size="xs"
+              size="sm"
               padding="4"
               variant={"accentButton"}
               onClick={() => generatePdf(booking as BookingPDF, bookingItemsArr)}

@@ -24,21 +24,21 @@ export default function TableFooter({
   };
 
   return (
-    <div className="flex flex-col gap-2 sm:flex-row w-full items-center justify-between rounded border border-gray-200 py-2 px-4 text-xs">
+    <div className="flex flex-col gap-2 sm:flex-row w-full items-center justify-between rounded border border-gray-200 py-2 px-4 text-sm">
       <div className="flex items-center">
         <span>
-          Showing{" "}
+          {t("Showing")}{" "}
           <span className="font-bold">
             {startIndex + 1}-{Math.min(data ?? 0, endIndex)}
           </span>{" "}
-          of <span className="font-bold">{data ?? 0}</span>
+          {t("of")} <span className="font-bold">{data ?? 0}</span>
         </span>
       </div>
       {totalPages > 1 ? (
         <div className="flex items-center gap-4">
           <Button
             as={Button}
-            size="xs"
+            size="sm"
             leftIcon={<ChevronLeftIcon width={16} />}
             variant="primaryButton"
             alignItems={"center"}
@@ -48,7 +48,7 @@ export default function TableFooter({
           </Button>
           <Button
             as={Button}
-            size="xs"
+            size="sm"
             rightIcon={<ChevronRightIcon width={16} />}
             variant="primaryButton"
             alignItems={"center"}

@@ -17,7 +17,6 @@ import { Status } from "./enum/StatusProductCode"
 import allProducts from "./data/ekosport/allProducts.json"
 import * as fs from "node:fs"
 import * as path from "node:path"
-import { v4 as uuidv4, v5 as uuidv5 } from "uuid"
 
 export async function clearDB() {
 	const runner = db.createQueryRunner()
@@ -207,16 +206,16 @@ async function main() {
 
 	const characteristicObjects = []
 	const characteristics = [
-		"Suspension hydraulique",
-		"Moteur 10W",
-		"Guidon renforcé",
-		"Freins à disque",
-		"Pneus anti-crevaison",
+		"Hydraulic suspension",
+		"10W motor",
+		"Disc brakes",
+		"Puncture-proof tires",
+		"Comfortable saddle",
 		"Selle confortable",
-		"Éclairage LED",
-		"Antivol intégré",
-		"Porte-bagages",
-		"Garde-boue",
+		"LED lighting",
+		"Integrated lock",
+		"Luggage rack",
+		"Mudguard",
 	]
 
 	for (const characteristic of characteristics) {
@@ -244,7 +243,7 @@ async function main() {
 		Object.assign(product, {
 			name: productData.name,
 			price: productData.price / 10,
-			description: productData.description || "Produit de qualité supérieure pour répondre à tous vos besoins.",
+			description: productData.description || "Superior quality product to meet all your needs.",
 			thumbnail: productData.imageUrls[0],
 			category: category,
 			brand: await getOrCreateBrand(productData.brand),
@@ -342,14 +341,12 @@ async function getOrCreateBrand(brandName: string): Promise<Brand> {
 		brand.name = brandName
 
 		const manufacturePath = path.join(__dirname, "data", "manufacture")
-		// console.log(`Searching in directory: ${manufacturePath}`);
 		try {
 			const files = fs.readdirSync(manufacturePath)
 			const brandFile = files.find((file) => file.toLowerCase() === `${brandName.toLowerCase()}.webp`)
 
 			if (brandFile) {
 				const imagePath = path.join(manufacturePath, brandFile)
-				//	console.log(`Found image at: ${imagePath}`);
 				const fileBuffer = fs.readFileSync(imagePath)
 				const form = new FormData()
 				form.append("file", new Blob([fileBuffer]), brandFile)
@@ -366,16 +363,10 @@ async function getOrCreateBrand(brandName: string): Promise<Brand> {
 				const result = (await response.json()) as { url: string }
 				brand.logo = result.url
 			} else {
-				//	console.warn(`Image not found for brand ${brandName}. Using default logo.`);
 				brand.logo =
 					"https://res.cloudinary.com/ekoweb/image/upload/s--avKnuAjv--/f_auto,h_80,q_auto:eco,w_80/v1/brand/19640937"
 			}
 		} catch (error: unknown) {
-			if (error instanceof Error) {
-				//	console.error(`Error processing image for ${brandName}:`, error.message);
-			} else {
-				//	console.error(`Unknown error processing image for ${brandName}`);
-			}
 			brand.logo =
 				"https://res.cloudinary.com/ekoweb/image/upload/s--avKnuAjv--/f_auto,h_80,q_auto:eco,w_80/v1/brand/19640937"
 		}
@@ -384,4 +375,5 @@ async function getOrCreateBrand(brandName: string): Promise<Brand> {
 	}
 	return brand
 }
+
 main()

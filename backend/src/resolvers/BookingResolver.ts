@@ -79,6 +79,9 @@ class BookingResolver {
 			where: { user: { id: ctx?.currentUser?.id } },
 			take: limit,
 			skip: offset,
+			order: {
+				bookingDate: "DESC",
+			},
 		})
 
 		if (!bookings) throw new GraphQLError("Booking Not found")
@@ -87,54 +90,61 @@ class BookingResolver {
 	}
 
 	@Authorized()
-	@Mutation(() => Booking)
-	async createBooking(@Arg("data") data: NewBookingInput, @Ctx() ctx: Context) {
+	@Mutation(() => [Booking])
+	async createBooking(@Arg("data", () => [NewBookingInput]) data: NewBookingInput[], @Ctx() ctx: Context) {
 		if (!ctx.currentUser) throw new GraphQLError("Not authenticated")
 
-		const startDate = new Date(data.startDate)
-		const endDate = new Date(data.endDate)
+		const bookings = []
 
-		const product = await Product.findOne({ where: { id: data.productId } })
-		if (!product) throw new GraphQLError("Product not found")
+		for (const bookingData of data) {
+			const startDate = new Date(bookingData.startDate)
+			const endDate = new Date(bookingData.endDate)
 
-		// Vérification de la disponibilité pour la quantité et la taille demandées
-		const availableProductCodes = await ProductCode.checkAvailability(
-			data.productId,
-			startDate,
-			endDate,
-			data.quantity,
-			data.size
-		)
+			const product = await Product.findOne({ where: { id: bookingData.productId } })
+			if (!product) throw new GraphQLError("Product not found")
 
-		if (!availableProductCodes || availableProductCodes.length < data.quantity) {
-			throw new GraphQLError("Not enough available Product Codes found for the specified dates and size")
+			const availableProductCodes = await ProductCode.checkAvailability(
+				bookingData.productId,
+				startDate,
+				endDate,
+				bookingData.quantity,
+				bookingData.size
+			)
+
+			if (!availableProductCodes || availableProductCodes.length < bookingData.quantity) {
+				throw new GraphQLError("Not enough available Product Codes found for the specified dates and size")
+			}
+
+			const newBooking = new Booking()
+			Object.assign(newBooking, bookingData)
+			newBooking.status = StatusBooking.BOOKED
+			await newBooking.save()
+
+			const bookingItems = []
+			for (const productCode of availableProductCodes) {
+				const bookingItem = new BookingItem()
+				bookingItem.status = BookingItemStatus.RENTED
+				bookingItem.booking = newBooking
+				bookingItem.product = product
+				bookingItem.productCode = productCode
+				bookingItem.startDate = startDate
+				bookingItem.endDate = endDate
+				await bookingItem.save()
+				bookingItems.push(bookingItem)
+			}
+
+			newBooking.bookingItem = bookingItems
+			await newBooking.save()
+
+			const savedBooking = await Booking.findOne({
+				where: { id: newBooking.id },
+				relations: { user: true, agency: true, bookingItem: true },
+			})
+
+			bookings.push(savedBooking)
 		}
 
-		const newBooking = new Booking()
-		Object.assign(newBooking, data)
-		newBooking.status = StatusBooking.BOOKED
-		await newBooking.save()
-
-		const bookingItems = []
-		for (const productCode of availableProductCodes) {
-			const bookingItem = new BookingItem()
-			bookingItem.status = BookingItemStatus.RENTED
-			bookingItem.booking = newBooking
-			bookingItem.product = product
-			bookingItem.productCode = productCode
-			bookingItem.startDate = startDate
-			bookingItem.endDate = endDate
-			await bookingItem.save()
-			bookingItems.push(bookingItem)
-		}
-
-		newBooking.bookingItem = bookingItems
-		await newBooking.save()
-
-		return Booking.findOne({
-			where: { id: newBooking.id },
-			relations: { user: true, agency: true, bookingItem: true },
-		})
+		return bookings
 	}
 
 	@Authorized()

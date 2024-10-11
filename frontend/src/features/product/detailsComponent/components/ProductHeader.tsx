@@ -13,7 +13,7 @@ export default function ProductHeader() {
     <Flex justifyContent="space-between" align="center">
       <Flex flexDirection="column">
         <Text fontSize={18} fontWeight={600} fontFamily="Poppins">
-          Ref: TODO
+          {selectedProduct.ref}
         </Text>
         <Text fontWeight="600">
           {t("Brand")}: {selectedProduct.brand.name}

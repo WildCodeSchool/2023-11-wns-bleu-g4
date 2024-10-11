@@ -1,22 +1,26 @@
+import React, { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/router";
+import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
+import Layout from "@/layouts/Layout";
 import ProductGrid from "@/features/shop/product_grid/Productgrid";
 import Pagination from "@/features/shop/Pagination";
 import ProductFilter from "@/features/shop/filters/ProductFilter";
 import TopFilters from "@/features/shop/filters/TopFilters";
-import Layout from "@/layouts/Layout";
 import { useGetAllProductsQuery } from "@/graphql/Product/generated/getAllProducts.generated";
 import { SortProduct } from "@/graphql/generated/schema";
-import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import Loading from "@/shared/components/Loading";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getAllNamespaces } from "@root/i18nUtils";
 
 export default function ShopPage() {
-  const isMobile = useBreakpointValue({ base: true, md: false });
   const router = useRouter();
-  const sortOrderFromQuery = router.query.sortOrder as SortProduct | undefined;
-  const searchQuery = router.query.search as string | undefined;
-  const [sortOrder, setSortOrder] = useState<SortProduct | null>(sortOrderFromQuery ?? null);
-  const [page, setPage] = useState<number>(parseInt((router.query.page as string) || "1", 10) - 1);
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
+  const [sortOrder, setSortOrder] = useState<SortProduct | null>(null);
+  const [page, setPage] = useState<number>(0);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
   const { data, error, loading, refetch } = useGetAllProductsQuery({
     variables: {
@@ -24,58 +28,82 @@ export default function ShopPage() {
       limit: 12,
       offset: page * 12,
       name: searchQuery,
+      categoryId: selectedCategoryId,
     },
+    notifyOnNetworkStatusChange: true,
   });
 
-  useEffect(() => {
-    if (page >= 0) {
-      refetch({ sortOrder, name: searchQuery });
-    }
-  }, [sortOrder, searchQuery, page, refetch]);
+  const updateUrlQuietly = useCallback(
+    (newQuery: Record<string, string | number | null>) => {
+      const query = { ...router.query, ...newQuery };
+      Object.keys(query).forEach(key => query[key] === null && delete query[key]);
+      router.push({ pathname: router.pathname, query }, undefined, { shallow: true });
+    },
+    [router],
+  );
 
   useEffect(() => {
-    setSortOrder(sortOrderFromQuery ?? null);
-  }, [sortOrderFromQuery]);
+    const { sortOrder: querySort, page: queryPage, categoryId: queryCategoryId, search: querySearch } = router.query;
+
+    setSortOrder(querySort as SortProduct | null);
+    setPage(queryPage ? parseInt(queryPage as string, 10) - 1 : 0);
+    setSelectedCategoryId(queryCategoryId ? parseInt(queryCategoryId as string, 10) : null);
+    setSearchQuery(querySearch as string | undefined);
+  }, [router.query]);
 
   useEffect(() => {
-    setPage(parseInt((router.query.page as string) || "1", 10) - 1);
-  }, [router.query.page]);
+    refetch({
+      sortOrder,
+      limit: 12,
+      offset: page * 12,
+      name: searchQuery,
+      categoryId: selectedCategoryId,
+    });
+  }, [sortOrder, page, selectedCategoryId, searchQuery, refetch]);
 
-  if (loading) return <Loading loading={loading} />;
+  const handleFilterChange = useCallback(
+    (categoryId: number | null) => {
+      setSelectedCategoryId(categoryId);
+      setPage(0);
+      updateUrlQuietly({ categoryId, page: 1 });
+    },
+    [updateUrlQuietly],
+  );
+
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      setPage(newPage);
+      updateUrlQuietly({ page: newPage + 1 });
+    },
+    [updateUrlQuietly],
+  );
+
+  const handleSortChange = useCallback(
+    (newSortOrder: SortProduct | null) => {
+      setSortOrder(newSortOrder);
+      updateUrlQuietly({ sortOrder: newSortOrder });
+    },
+    [updateUrlQuietly],
+  );
+
+  const handleSearchChange = useCallback(
+    (newSearchQuery: string) => {
+      setSearchQuery(newSearchQuery);
+      setPage(0);
+      updateUrlQuietly({ search: newSearchQuery, page: 1 });
+    },
+    [updateUrlQuietly],
+  );
+
+  if (loading && !data) return <Loading loading={loading} />;
   if (error) return <p>Error: {error.message}</p>;
 
-  const products = data?.getAllProducts.products.filter(product => product.category) ?? [];
-  const totalProducts = data?.getAllProducts.total ?? 0;
+  const products = data?.getAllProducts.products || [];
+  const totalProducts = data?.getAllProducts.total || 0;
   const maxPages = Math.ceil(totalProducts / 12);
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage < 0 || newPage >= maxPages) return;
-    setPage(newPage);
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: newPage + 1 },
-    });
-  };
-
-  const handleSortChange = (newSortOrder: SortProduct | null) => {
-    if (newSortOrder !== null) {
-      setSortOrder(newSortOrder);
-      router.push({
-        pathname: router.pathname,
-        query: { ...router.query, sortOrder: newSortOrder },
-      });
-    } else {
-      const { sortOrder, ...queryWithoutSortOrder } = router.query;
-      setSortOrder(null);
-      router.push({
-        pathname: router.pathname,
-        query: queryWithoutSortOrder,
-      });
-    }
-  };
-
   return (
-    <Layout pageTitle="ProductByCategory">
+    <Layout pageTitle="Shop">
       <Grid
         templateAreas={
           isMobile
@@ -89,10 +117,15 @@ export default function ShopPage() {
         className="px-5 lg:px-24"
       >
         <GridItem area={"topFilter"} display="flex" justifyContent="flex-end">
-          <TopFilters selectedSort={sortOrder} onSortChange={handleSortChange} />
+          <TopFilters
+            selectedSort={sortOrder}
+            onSortChange={handleSortChange}
+            onSearchChange={handleSearchChange}
+            initialSearchQuery={searchQuery}
+          />
         </GridItem>
         <GridItem area={"Filter"} top={0}>
-          <ProductFilter />
+          <ProductFilter onFilterChange={handleFilterChange} selectedCategoryId={selectedCategoryId} />
         </GridItem>
         <GridItem area={"ProductGrid"}>
           <ProductGrid products={products} loading={loading} />
@@ -104,3 +137,9 @@ export default function ShopPage() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? "en", getAllNamespaces())),
+  },
+});
