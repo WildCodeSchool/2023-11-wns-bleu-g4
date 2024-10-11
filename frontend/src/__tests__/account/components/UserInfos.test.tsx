@@ -34,6 +34,7 @@ describe("UserInfo", () => {
       expect(screen.getByRole("heading", { level: 2, name: "ADDRESS" })).toBeInTheDocument();
     });
   });
+
   describe("Heading contact", () => {
     it("should display a contact title", () => {
       render(
