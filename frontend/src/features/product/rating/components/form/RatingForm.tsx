@@ -7,7 +7,7 @@ interface RatingFormProps {
   rate: number;
   setComment: React.Dispatch<React.SetStateAction<string>>;
   setRate: React.Dispatch<React.SetStateAction<number>>;
-  handleSubmit: (e: React.FormEvent) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isLoading: boolean;
 }
 
@@ -20,10 +20,18 @@ export default function RatingForm({ comment, rate, setComment, setRate, handleS
           <Flex>
             {[1, 2, 3, 4, 5].map(index => (
               <Box
+                as="button"
                 key={index}
                 onClick={() => setRate(index)}
                 cursor="pointer"
                 color={index <= rate ? "yellow.400" : "gray.300"}
+                tabIndex={0}
+                onKeyDown={e => {
+                  if (e.key === "Enter") {
+                    setRate(index);
+                  }
+                }}
+                _focus={{ outline: "none", boxShadow: "0 0 0 2px rgba(255, 215, 0, 0.6)" }}
               >
                 <StarIcon className="h-8 w-8" />
               </Box>
@@ -40,7 +48,7 @@ export default function RatingForm({ comment, rate, setComment, setRate, handleS
           />
         </FormControl>
 
-        <Button variant="accentButton" type="submit" isLoading={isLoading}>
+        <Button variant="accentButton" type="submit" title="submit" isLoading={isLoading}>
           Submit
         </Button>
       </Stack>
