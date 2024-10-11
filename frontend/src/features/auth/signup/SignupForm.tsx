@@ -17,27 +17,26 @@ import {
   LightMode,
   Text,
 } from "@chakra-ui/react";
-import { CreateUserMutation, useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
+import { useCreateUserMutation } from "../../../graphql/User/generated/CreateUser.generated";
 import Link from "next/link";
 import { ToastConfigLogin } from "@/config/ToastConfig";
 import { toast } from "react-toastify";
-import { FetchResult } from "@apollo/client";
 import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
 import { SignupType } from "../types/authTypes";
 import { validatePassword } from "../helpers/validatePassword";
 import CheckPasswordAvailability from "@/features/resetPasswordForm/helpers/CheckPasswordAvailability";
 import { CheckIcon } from "@heroicons/react/16/solid";
+import ConfirmationMailSendCard from "@/features/auth/signup/ConfirmationMailSendCard/ConfirmationMailSendCard";
 
 export default function SignupForm() {
   /** Hooks */
   const [disableButton, setDisableButton] = useState(true);
   const { t } = useTranslation("SignupForm");
   const [signup] = useCreateUserMutation();
-  const router = useRouter();
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [firstPassword, setFirstPassword] = useState("");
+  const [formSubmit, setFormSubmit] = useState(false);
 
   /** Show/Hide Password */
   const [showPass, setShowPass] = useState(false);
@@ -64,13 +63,11 @@ export default function SignupForm() {
     if (validatePassword(formJSON.password, formJSON.repeatPassword as string)) {
       try {
         delete formJSON.repeatPassword;
-
-        const res: FetchResult<CreateUserMutation> = await signup({ variables: { data: formJSON } });
+        await signup({ variables: { data: formJSON } });
         const toastInfo: string = `Account created. Please check your email to verify your account.`;
-        const duration: number = 5000;
+        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: 3000 });
+        setFormSubmit(true);
         form.reset();
-        router.push("/");
-        toast.success(toastInfo, { ...ToastConfigLogin, autoClose: duration });
       } catch (e: any) {
         const errArr = e.message.replaceAll("_", " ");
         toast.error(errArr, ToastConfigLogin);
@@ -85,8 +82,10 @@ export default function SignupForm() {
     return <>{isChecked ? <CheckIcon className="text-orange-500" /> : null}</>;
   }
 
-  return (
-    <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content">
+  return formSubmit ? (
+    <ConfirmationMailSendCard />
+  ) : (
+    <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content" className="my-4 lg:my-0">
       {/* TITLE */}
       <CardHeader textAlign="center">
         <Heading as="h1" color="black" fontWeight="500">
@@ -170,11 +169,10 @@ export default function SignupForm() {
             <CheckPasswordAvailability password={firstPassword} secondPassword={repeatedPassword} />
           </Flex>
         </CardBody>
-        <CardFooter>
-          <Flex direction="column" alignItems="center" className="w-full">
-            {/* CHECKBOX */}
+        <CardFooter className="flex flex-col justify-center items-center gap-3">
+          <div className="flex gap-2 items-center justify-center">
             <Checkbox
-              className="pb-2  border-orange-500"
+              className="border-orange-500"
               size="lg"
               colorScheme="transparent"
               onChange={() => {
@@ -182,32 +180,32 @@ export default function SignupForm() {
               }}
               icon={<CustomIcon />}
               name="acceptConditions"
-            >
-              <Link href="#" className="underline text-orange-500">
-                I accept terms and conditions
-              </Link>
-            </Checkbox>
+            />
+            <Link href="/sale-conditions" className="text-sm underline text-orange-500">
+              {t("I accept terms and conditions")}
+            </Link>
+          </div>
 
-            {/* BUTTON */}
-            <button
-              type="submit"
-              disabled={disableButton}
-              hidden={false}
-              className={`bg-orange-500  h-10 w-full rounded-lg ${
-                disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
+          {/* BUTTON */}
+          <button
+            type="submit"
+            disabled={disableButton}
+            hidden={false}
+            className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton 
+              ? "hover:cursor-not-allowed" 
+              : "hover:cursor-pointer hover:bg-orange-400"
               }`}
-            >
-              {t("Signup")}
-            </button>
+          >
+            {t("Signup")}
+          </button>
 
-            {/* GO TO LOGIN */}
-            <Text className=" text-center text-md py-2" color="black">
-              {t("Already registered ?")}&nbsp;
-              <Link href="/login" className="underline text-orange-500">
-                {t("login")}
-              </Link>
-            </Text>
-          </Flex>
+          {/* GO TO LOGIN */}
+          <Text className=" text-center text-md" color="black">
+            {t("Already registered ?")}&nbsp;
+            <Link href="/login" className="underline text-orange-500">
+              {t("login")}
+            </Link>
+          </Text>
         </CardFooter>
       </form>
     </Card>

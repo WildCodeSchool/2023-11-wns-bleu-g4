@@ -17,21 +17,21 @@ export default function Footer() {
   const aboutUs: Footer[] = [
     {
       name: t("The company"),
-      link: "/content/company",
+      link: "/company",
     },
     {
       name: t("General sales conditions"),
-      link: "/content/sale-conditions",
+      link: "/sale-conditions",
     },
     {
       name: t("Legal notice"),
-      link: "/content/Legal-notice",
+      link: "/legal-notice",
     },
   ];
 
   return (
     <footer className="px-0 xl:mx-24 xl:pb-5">
-      <Card variant="footerCard" direction={{ base: "column", xl: "row" }}>
+      <Card variant="footerCard" direction={{ base: "column", xl: "row" }} borderRadius={{ xl: "10px" }}>
         {/**About Us */}
         <ul className="w-full space-y-2 p-3 xl:w-1/3">
           <li className="font-normal text-slate-500">{t("About us")}</li>

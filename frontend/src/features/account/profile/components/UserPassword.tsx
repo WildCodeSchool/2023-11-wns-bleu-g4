@@ -1,8 +1,10 @@
 import { Button, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 import { useState } from "react";
 import UserPasswordModal from "../modal/UserPasswordModal";
+import { useTranslation } from "react-i18next";
 
 export default function UserPassword() {
+  const { t } = useTranslation("UserPassword");
   /** DARK / LIGHT MODE */
   const textColor = useColorModeValue("dark", "light");
   const bgTableHeadColor = useColorModeValue("#d0d2d6", "cactus.900");
@@ -14,12 +16,12 @@ export default function UserPassword() {
   return (
     <Flex
       direction={"column"}
-      className="bg-cactus-600 text-white text-xs min-w-56 h-28 rounded overflow-hidden"
+      className="bg-cactus-600 text-white text-sm min-w-56 h-28 rounded overflow-hidden w-full lg:max-w-screen-md"
       bg={bgColor}
       color={textColor}
     >
       <Heading size={"md"} className="p-3 bg-cactus-900" bg={bgTableHeadColor}>
-        PASSWORD
+        {t("PASSWORD")}
       </Heading>
 
       <Flex gap={4} justify={"space-between"} alignItems={"center"} className="px-5 py-3">
@@ -27,7 +29,7 @@ export default function UserPassword() {
           *******
         </Text>
         <Button className="w-1/2" size="md" padding="4" variant={"accentButton"} onClick={toggleUpdateUserModal}>
-          Modify
+          {t("Modify")}
         </Button>
         <UserPasswordModal onClose={toggleUpdateUserModal} isOpen={isPasswordModalOpen} />
       </Flex>

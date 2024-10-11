@@ -14,20 +14,10 @@ export default function UserAvatar({ user }: { user: User }) {
       gap="4"
       alignItems="center"
       flexWrap="wrap"
-      className="
-            text-md 
-            py-3 px-5
-            h-fit w-full 
-            flex
-            rounded overflow-hidden
-            lg:flex-col lg:h-28
-            xl:flex-row
-            "
+      className="text-md py-3 px-5 h-28 w-full flex rounded min-w-fit lg:flex-col xl:flex-row"
     >
       <Avatar name={user?.firstname + " " + user?.name} src={user?.avatar} size="sm" />
-      <Box>
-        <Heading size="md">{user?.firstname + " " + user?.name}</Heading>
-      </Box>
+      <Heading size="md">{user?.firstname + " " + user?.name}</Heading>
     </Flex>
   );
 }

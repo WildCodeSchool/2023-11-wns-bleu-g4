@@ -19,7 +19,7 @@ export default function Login() {
         bgRepeat="no-repeat"
         bgPosition="center"
         bgSize="cover"
-        className="p-5 lg:px-24 lg:pb-24"
+        className="p-5 lg:px-24 lg:pb-24 xl:rounded-xl xl:mx-24 h-full"
       >
         <LoginForm />
       </Flex>

@@ -1,0 +1,10 @@
+{
+  "CHECK YOUR MAILBOX": "Regardez votre boîte mail",
+  "Enter your email": "Entrer votre email",
+  "If the address you enter is registered in our database, we will send you an email with a link to create a new password.": "Si l'adresse que vous entrez est enregistrée dans notre base de données, nous vous enverrons un email avec un lien pour créer un nouveau mot de passe.",
+  "If the email address you provided is saved in our data, you will receive a password reset email shortly (1 min) !": "Si l'adresse email que vous avez fournie est enregistrée dans nos données, vous recevrez un email de réinitialisation du mot de passe sous peu (1 min) !",
+  "Please enter your email address.": "Merci d'entrer votre adresse email.",
+  "Return to login page": "Retour à la page de connexion",
+  "Send": "Envoyer",
+  "The email address is not recognized": "L'adresse email n'est pas reconnue"
+}

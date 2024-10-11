@@ -1,7 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState, useEffect } from "react";
 import { User } from "@/graphql/generated/schema";
-import { useProfileQuery } from "@/graphql/User/generated/Profile.generated";
-import Loading from "@/shared/components/Loading";
 
 interface UserContextType {
   user: User | null;
@@ -24,24 +22,5 @@ export const useUserContext = () => {
 
 export const UserProvider = ({ children }: PropsUserProvider) => {
   const [user, setUser] = useState<User | null>(null);
-  // const {data, loading, error} = useProfileQuery();
-
-  // useEffect(() => {
-  //   if (data && data.profile) {
-  //     const userProfile: User = {
-  //       ...data.profile,
-  //       bookings: [],
-  //       reviews: [],
-  //     };
-  //     setUser(userProfile);
-  //   } else if (error) {
-  //     console.error('Error fetching user profile:', error);
-  //   }
-  // }, [data, error]);
-
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
-
   return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };

@@ -63,8 +63,8 @@ export default function UserOrdersTable() {
 
   const thClass = "h-14 p-3 text-center uppercase font-bold whitespace-nowrap";
   return (
-    <Flex className="flex flex-col w-full max-w-96 sm:max-w-2xl lg:mx-5 xl:max-w-4xl 2xl:max-w-7xl" gap={2}>
-      <Table className="text-md max-w-full rounded overflow-hidden ">
+    <Flex className="flex flex-col w-full" gap={2}>
+      <Table className="text-md max-w-full rounded overflow-hidden">
         <Thead color={textColor}>
           <Tr bg={bgTableHeadColor}>
             {orderTableHeaders.map(menu => (
@@ -84,47 +84,42 @@ export default function UserOrdersTable() {
                 textColor={booking.status === StatusBooking.Canceled ? "white" : textColor}
                 key={booking.id}
                 _hover={{ bg: booking.status === StatusBooking.Canceled ? hoverTableCancelColor : hoverTableColor }}
-                className={`
-                                        hover:text-white 
-                                        whitespace-nowrap 
-                                        max-h-14 
-                                        cursor-pointer 
-                                        `}
+                className={`hover:text-white whitespace-nowrap max-h-14 cursor-pointer`}
                 onClick={() => goToDetails(booking.id)}
               >
                 <Td
-                  className="text-center whitespace-normal p-3 min-w-48 max-w-96 xl:max-w-48 2xl:max-w-60"
+                  className="text-center whitespace-normal p-3 min-w-fit max-w-96 xl:max-w-48 2xl:max-w-60"
                   title={t("invoice number")}
                 >
                   <Text className="text-center">{booking.invoice}</Text>
                 </Td>
                 <Td
-                  className="text-center hidden whitespace-normal p-3 min-w-48 max-w-96  xl:max-w-48 md:table-cell"
+                  className="text-center hidden whitespace-nowrap p-3 min-w-fit max-w-96 xl:max-w-48 md:table-cell"
                   title={t("booking date")}
                 >
                   <Text className="text-center">{transformToDate(booking.bookingDate)}</Text>
                 </Td>
                 <Td
-                  className="text-center hidden whitespace-normal p-3 min-w-48 max-w-96  xl:max-w-48 overflow-hidden
+                  className="text-center hidden whitespace-nowrap p-3 min-w-fit max-w-96  xl:max-w-48 overflow-hidden
                   text-ellipsis sm:table-cell"
                   title={t("agency name")}
                 >
                   <Text className="text-center">{booking.agency.name}</Text>
                 </Td>
                 <Td
-                  className="text-center hidden whitespace-normal p-3 min-w-48 max-w-28  xl:max-w-48 2xl:table-cell"
+                  className="text-center hidden whitespace-nowrap p-3 min-w-fit max-w-28 xl:max-w-48 2xl:table-cell"
                   title={t("start booking date")}
                 >
                   <Text className="text-center">{transformToDate(booking.startDate)}</Text>
                 </Td>
                 <Td
-                  className="text-center hidden whitespace-normal p-3 min-w-48 max-w-28  xl:max-w-48 2xl:table-cell"
+                  className="text-center hidden whitespace-nowrap p-3 min-w-fit max-w-28 xl:max-w-48 2xl:table-cell"
                   title={t("end booking date")}
                 >
                   <Text className="text-center">{transformToDate(booking.endDate)}</Text>
                 </Td>
                 <Td
-                  className="text-center hidden whitespace-normal p-3 min-w-48 max-w-28  xl:max-w-48 xl:table-cell"
+                  className="text-center hidden whitespace-nowrap p-3 min-w-fit max-w-28 xl:max-w-48 xl:table-cell"
                   title={t("booking status")}
                 >
                   <Text className="text-center">{booking.status}</Text>

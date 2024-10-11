@@ -1,4 +1,5 @@
 import { Button, HStack, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 type PaginationProps = {
   page: number;
@@ -7,6 +8,7 @@ type PaginationProps = {
 };
 
 const Pagination: React.FC<PaginationProps> = ({ page, setPage, maxPages }) => {
+  const { t } = useTranslation("Pagination");
   const getVisiblePages = () => {
     const pages = [];
     const maxVisiblePages = 5;
@@ -35,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage, maxPages }) => {
   return (
     <HStack spacing={2} justifyContent="center">
       <Button onClick={() => setPage(page - 1)} isDisabled={page <= 0}>
-        Prev
+        {t("Prev")}
       </Button>
       {pages[0] > 0 && (
         <>
@@ -55,7 +57,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage, maxPages }) => {
         </>
       )}
       <Button onClick={() => setPage(page + 1)} isDisabled={page >= maxPages - 1}>
-        Next
+        {t("Next")}
       </Button>
     </HStack>
   );
