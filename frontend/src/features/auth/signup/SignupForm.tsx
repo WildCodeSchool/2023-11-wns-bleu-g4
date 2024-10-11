@@ -85,7 +85,13 @@ export default function SignupForm() {
   return formSubmit ? (
     <ConfirmationMailSendCard />
   ) : (
-    <Card variant="loginCard" boxShadow="md" w={{ base: "300px", sm: "396px" }} h="fit-content" className="my-4 lg:my-0">
+    <Card
+      variant="loginCard"
+      boxShadow="md"
+      w={{ base: "300px", sm: "396px" }}
+      h="fit-content"
+      className="my-4 lg:my-0"
+    >
       {/* TITLE */}
       <CardHeader textAlign="center">
         <Heading as="h1" color="black" fontWeight="500">
@@ -191,10 +197,9 @@ export default function SignupForm() {
             type="submit"
             disabled={disableButton}
             hidden={false}
-            className={`bg-orange-500  h-10 w-full rounded-lg ${disableButton 
-              ? "hover:cursor-not-allowed" 
-              : "hover:cursor-pointer hover:bg-orange-400"
-              }`}
+            className={`bg-orange-500  h-10 w-full rounded-lg ${
+              disableButton ? "hover:cursor-not-allowed" : "hover:cursor-pointer hover:bg-orange-400"
+            }`}
           >
             {t("Signup")}
           </button>
